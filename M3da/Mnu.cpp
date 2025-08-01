@@ -3,6 +3,9 @@
 #include "math.h"
 #include "Parser.h"
 #include "GLOBAL_VARS.h"
+// momo
+#include "afxwin.h"
+// momo
 
 // constructor sets where to out text
 const double Pi = 3.1415926535;
@@ -44,7 +47,9 @@ void zMnu::DoNext(CString* CInMsg, CPoint Pt) {
 			pNext = NULL;
 			iCKill = 0;
 			iStat = iCancelPos; // poistion to Cancel
+			// momo
 			*CInMsg = "NULL";
+			// momo
 			cDBase->S_Res();
 			// cDBase->DB_ActiveBuffSet(1);
 		}
@@ -67,9 +72,15 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 	BOOL bNextBlock2;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
+		// momo change command box color
+		int inputInOneCommand = 0;
+		// momo change command box color
 		if (iStat == 0) {
 			bNextBlock = FALSE;
 			bNextBlock2 = FALSE;
+			// momo change command box color
+			inputInOneCommand = 1;
+			// momo change command box color
 			if (CInMsg == "NDCR") {
 				iResumePos = 0;
 				iCancelPos = 100;
@@ -1893,29 +1904,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMMESHAF_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				}
-				// MoMo_Start
-				else if (CInMsg.CompareNoCase("EXP04") == 0) {
-					iResumePos = 0;
-					iCancelPos = 100;
-					cDBase->DB_ActiveBuffSet(2);
-					cDBase->DB_ClearBuff();
-					cDBase->S_Des();
-					pNext = new zEXP04_Mnu();
-					pNext->Init(cDBase, -1);
-					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase("EXP05") == 0) {
-					iResumePos = 0;
-					iCancelPos = 100;
-					cDBase->DB_ActiveBuffSet(2);
-					cDBase->DB_ClearBuff();
-					cDBase->S_Des();
-					pNext = new zEXP05_Mnu();
-					pNext->Init(cDBase, -1);
-					this->DoMenu(CInMsg, Pt);
-				}
-				// MoMo_End
-				else if (CInMsg == "EXTRACT") {
+				} else if (CInMsg == "EXTRACT") {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2498,17 +2487,71 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPBYINC_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
+					// MoMo_Start
+				} else if (CInMsg.CompareNoCase("EXP04") == 0) {
+					iResumePos = 0;
+					iCancelPos = 100;
+					cDBase->DB_ActiveBuffSet(2);
+					cDBase->DB_ClearBuff();
+					cDBase->S_Des();
+					pNext = new zEXP04_Mnu();
+					pNext->Init(cDBase, -1);
+					this->DoMenu(CInMsg, Pt);
+				} else if (CInMsg.CompareNoCase("EXP05") == 0) {
+					iResumePos = 0;
+					iCancelPos = 100;
+					cDBase->DB_ActiveBuffSet(2);
+					cDBase->DB_ClearBuff();
+					cDBase->S_Des();
+					pNext = new zEXP05_Mnu();
+					pNext->Init(cDBase, -1);
+					this->DoMenu(CInMsg, Pt);
+				}
+				// MoMo_End
+				// momo
+				else if (CInMsg.CompareNoCase("NEW") == 0) {
+					((CM3daApp*) AfxGetApp())->OnFileNewMain();
+					// pNext = new zEXP04_Mnu();
+					// pNext->Init(cDBase, -1);
+					// this->DoMenu(CInMsg, Pt);
+					this->DoMenu("", Pt);
+				} else if (CInMsg.CompareNoCase("OPEN") == 0) {
+					((CM3daApp*) AfxGetApp())->OnFileOpenMain();
+					// pNext = new zEXP04_Mnu();
+					// pNext->Init(cDBase, -1);
+					// this->DoMenu(CInMsg, Pt);
+					this->DoMenu("", Pt);
+					// momo
 				} else if (CInMsg == "NULL") {
 					outtext2("// COMMAND:");
+					// momo change command box color
+					inputInOneCommand = -1;
+					// momo change command box color
 				} else if (CInMsg == "MouseInp") {
+					// momo change command box color
+					inputInOneCommand = 0;
+					// momo change command box color
 				} else {
 					outtext2("// COMMAND:");
+					// momo change command box color
+					inputInOneCommand = -1;
+					// momo change command box color
 				}
 			}
 		} else {
 			outtext2("// COMMAND:");
 			iStat = 0;
+			// momo change command box color
+			inputInOneCommand = -1;
+			// momo change command box color
 		}
+		// momo change command box color
+		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase("NEW") != 0 && CInMsg.CompareNoCase("OPEN") != 0 && CInMsg.CompareNoCase("DSPALL") != 0 && CInMsg.CompareNoCase("DSPSEL") != 0 && CInMsg.CompareNoCase("SHOWALL") != 0 && CInMsg.CompareNoCase("DSPGP") != 0) {
+			CommandIsActiveNewState = true;
+		} else if (inputInOneCommand == -1) {
+			CommandIsActiveNewState = false;
+		}
+		// momo change command box color
 	}
 	CInMsg = "NULL";
 	return RetVal;
@@ -2864,6 +2907,9 @@ int zPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			if (cDBase->S_Count == S_initCnt + 1) {
 				cDBase->DB_AddPtBuff(cDBase->S_Buff[cDBase->S_Count - 1]->Get_Centroid());
 				iStat = 2;
+				// momo
+				cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
+				// momo
 				cDBase->S_Count--;
 			} else if (CInMsg == "BET") {
 				iResumePos = 2;
@@ -3139,6 +3185,9 @@ int zBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3204,6 +3253,9 @@ int zTVEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3249,6 +3301,9 @@ int zTRAN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3299,6 +3354,9 @@ int zPTRAN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3335,6 +3393,9 @@ int zONSCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3372,9 +3433,18 @@ int zPTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				// char S1[80];
 				// sprintf_s(S1,"%d,%d,%d",vP.x,vP.y,vP.z);
 				// outtext2(S1);
+				// momo
 				cDBase->AddPt(vP, -1, TRUE);
+				// CvPt_Object* newPt = cDBase->AddPt(vP, -1, TRUE);
+				// CDC* pDC = cDBase->pTheView->GetDC();
+				// newPt->HighLight(pDC);
+				//  momo
 				cDBase->DB_ClearBuff();
 				outtext1("1 Point Created.");
+				// momo gdi to og
+				Sleep(200);
+				cDBase->ReDraw();
+				// momo gdi to og
 			}
 			iStat = 1;
 			this->DoMenu(CInMsg, Pt);
@@ -3474,6 +3544,9 @@ int zLNANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3524,6 +3597,9 @@ int zLNX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3585,6 +3661,9 @@ int zLN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3650,6 +3729,9 @@ int zDIMA_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3723,6 +3805,9 @@ int zDIMANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3788,6 +3873,9 @@ int zDIMH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3853,6 +3941,9 @@ int zDIMV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3917,6 +4008,9 @@ int zDIML_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -3950,10 +4044,16 @@ int zDIMR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				    (cDBase->S_Buff[cDBase->S_Count - 1]->iType == 3)) {
 					pC = (NCircle*) cDBase->S_Buff[cDBase->S_Count - 1];
 					p2 = pC->Get_Centroid();
+					// momo
+					cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count = S_initCnt;
 					iStat = 3;
 				} else {
 					outtext1("Error: Must pick circle or arc.");
+					// momo
+					cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count--;
 					iStat = 1;
 					this->DoMenu(CInMsg, Pt);
@@ -3985,6 +4085,9 @@ int zDIMR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4017,10 +4120,16 @@ int zDIMCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				if ((cDBase->S_Buff[cDBase->S_Count - 1]->iObjType == 7) &&
 				    (cDBase->S_Buff[cDBase->S_Count - 1]->iType == 3)) {
 					pC = (NCircle*) cDBase->S_Buff[cDBase->S_Count - 1];
+					// momo
+					cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count = S_initCnt;
 					iStat = 3;
 				} else {
 					outtext1("Error: Must pick circle or arc.");
+					// momo
+					cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count--;
 					iStat = 1;
 					this->DoMenu(CInMsg, Pt);
@@ -4039,6 +4148,9 @@ int zDIMCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4070,10 +4182,16 @@ int zDIMDRAG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			if (cDBase->S_Count == S_initCnt + 1) {
 				if (cDBase->S_Buff[cDBase->S_Count - 1]->iObjType == 10) {
 					pD = (DIM*) cDBase->S_Buff[cDBase->S_Count - 1];
+					// momo
+					cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count = S_initCnt;
 					iStat = 3;
 				} else {
 					outtext1("Error: Must pick dimension to drag.");
+					// momo
+					cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count--;
 					iStat = 1;
 					this->DoMenu(CInMsg, Pt);
@@ -4110,6 +4228,9 @@ int zDIMDRAG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4143,10 +4264,16 @@ int zDIMD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				    (cDBase->S_Buff[cDBase->S_Count - 1]->iType == 3)) {
 					pC = (NCircle*) cDBase->S_Buff[cDBase->S_Count - 1];
 					p2 = pC->Get_Centroid();
+					// momo
+					cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count = S_initCnt;
 					iStat = 3;
 				} else {
 					outtext1("Error: Must pick circle or arc.");
+					// momo
+					cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
+					// momo
 					cDBase->S_Count--;
 					iStat = 1;
 					this->DoMenu(CInMsg, Pt);
@@ -4178,6 +4305,9 @@ int zDIMD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4246,6 +4376,9 @@ int zLNC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4305,6 +4438,9 @@ int zCIRCPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4372,6 +4508,9 @@ int zCIRCR2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4438,6 +4577,9 @@ int zLNTANCIR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4480,6 +4622,9 @@ int zLNTAN2CIR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4540,6 +4685,9 @@ int zTEXTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->bIsDrag = FALSE;
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4575,6 +4723,9 @@ int zDIMSCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->bIsDrag = FALSE;
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4636,6 +4787,9 @@ int zCIR3PT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4697,6 +4851,9 @@ int zARC3PT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4753,6 +4910,9 @@ int zRECT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4804,6 +4964,9 @@ int zLNY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -4855,6 +5018,9 @@ int zLNZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -5044,6 +5210,9 @@ int zWPALIGN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -5112,6 +5281,9 @@ int zWPONCV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -5179,6 +5351,9 @@ int zWPONSURF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -5217,6 +5392,9 @@ int zWPCENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -5250,6 +5428,9 @@ int zALIGN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK CENTRE POINT ON MOVEABLE OBJECT");
 			iResumePos = 3;
@@ -5313,7 +5494,11 @@ int zALIGN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5345,6 +5530,9 @@ int zREFLECT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			outtext2("// PICK CENTRE POINT ON REFLECTION PLANE");
@@ -5382,7 +5570,11 @@ int zREFLECT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5414,6 +5606,9 @@ int zREFLECT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// START POINT OF REFLECTION LINE in XY");
 			iResumePos = 3;
@@ -5446,7 +5641,11 @@ int zREFLECT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5478,6 +5677,9 @@ int zROTANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK CENTRE POINT FOR ROTATION");
 			iResumePos = 3;
@@ -5509,7 +5711,11 @@ int zROTANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5541,6 +5747,9 @@ int zROTABOUT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK FIRST POINT ON VECTOR TO ROTATE ABOUT");
 			iResumePos = 3;
@@ -5579,7 +5788,11 @@ int zROTABOUT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5611,6 +5824,9 @@ int zCOPYROT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK FIRST POINT ON VECTOR TO ROTATE ABOUT");
 			iResumePos = 3;
@@ -5660,7 +5876,11 @@ int zCOPYROT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5692,6 +5912,9 @@ int zCOPYROT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// POINT in XY TO ROTATE ABOUT");
 			iResumePos = 3;
@@ -5735,7 +5958,11 @@ int zCOPYROT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5768,7 +5995,11 @@ int zINSCAT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5800,6 +6031,9 @@ int zSCALE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK POINT TO SCALE ABOUT");
 			iResumePos = 3;
@@ -5830,7 +6064,11 @@ int zSCALE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -5908,6 +6146,9 @@ int zCOORDCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -5996,6 +6237,9 @@ int zCIRCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -6044,6 +6288,9 @@ int zNDSONCV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6093,6 +6340,9 @@ int zPTSONCIR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6209,6 +6459,9 @@ int zCVMOW_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6250,6 +6503,9 @@ int zCVPTON_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6323,6 +6579,9 @@ int zELTYPE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	}
 	// Escape clause
 	if (iStat == 100) {
+		// momo
+		cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+		// momo
 		cDBase->DB_BuffCount = initCnt;
 		cDBase->S_Count = S_initCnt;
 		RetVal = 1;
@@ -6340,8 +6599,11 @@ int zELCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if ((CInMsg == "C")) // Common Options
 		{
 			RetVal = 2;
-			cDBase->FILTER.SetAll();
-			goto MenuEnd;
+			// momo
+			// cDBase->FILTER.SetAll();
+			// goto MenuEnd;
+			iStat = 100;
+			// momo
 		}
 
 		if (iStat == 0) {
@@ -6357,6 +6619,11 @@ int zELCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			if ((cDBase->iCurElemType == 122) && (CInMsg == "D") && (cDBase->S_Count > S_initCnt + 1)) {
 				iStat = 2;
 			}
+			// momo
+			if (CInMsg == "D" && (cDBase->S_Count == 0 || cDBase->S_Count % 2 == 1)) {
+				iStat = 100;
+			}
+			// momo
 			if (CInMsg == "ELTYPE") // Common Options
 			{
 				iResumePos = 0;
@@ -6376,6 +6643,9 @@ int zELCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 2) {
 			pE = cDBase->AddEl(S_initCnt, TRUE);
 			outtext1("1 Element Created.");
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->S_Count = S_initCnt;
 			cDBase->ReDraw();
 			if ((cDBase->iCurElemType == 122) && (pE != NULL)) {
@@ -6397,13 +6667,21 @@ int zELCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			this->DoMenu("", Pt);
 		}
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_Des();
+			// momo
 			RetVal = 1;
 		}
 	}
-MenuEnd:
+	// momo
+	// momo// MenuEnd:
+	// momo
 	return RetVal;
 }
 
@@ -6433,12 +6711,18 @@ int zELINSSPG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			pE = cDBase->InsSpringEl(S_initCnt, TRUE);
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->S_Count = S_initCnt;
 			cDBase->ReDraw();
 			iStat = 0;
 			this->DoMenu("", Pt);
 		}
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6483,6 +6767,9 @@ int zLMEAS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -6536,6 +6823,9 @@ int zAMEAS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -6588,6 +6878,9 @@ int zFILET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -6650,6 +6943,9 @@ int zCVCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// ESCAPE CLAUSE
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6713,6 +7009,9 @@ int zCVFIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// ESCAPE CLAUSE
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6769,6 +7068,9 @@ int zSUREX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6858,6 +7160,9 @@ int zSURRV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 100) {
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -6881,6 +7186,9 @@ int zCVONSUR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 0) {
 			cDBase->FILTER.Clear();
 			cDBase->FILTER.SetFilter(15);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			iCnt = cDBase->OTemp->iNo;
 			outtext2("// PICK SURFACE");
@@ -6889,6 +7197,9 @@ int zCVONSUR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if (cDBase->S_Count > 0) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -6903,6 +7214,9 @@ int zCVONSUR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 3) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 4;
 			}
@@ -6911,6 +7225,9 @@ int zCVONSUR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->CurvesToSurface(cDBase->OTemp, cDBase->OTemp2);
 			// cDBase->S_Res();
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -6918,6 +7235,9 @@ int zCVONSUR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -6940,6 +7260,9 @@ int zSURTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 0) {
 			cDBase->FILTER.Clear();
 			cDBase->FILTER.SetFilter(15);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			iCnt = cDBase->OTemp->iNo;
 			outtext2("// PICK SURFACE");
@@ -6948,6 +7271,9 @@ int zSURTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if (cDBase->S_Count > 0) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -6962,6 +7288,9 @@ int zSURTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 3) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 4;
 			}
@@ -6969,6 +7298,9 @@ int zSURTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 4) {
 			cDBase->SurfaceTrim(cDBase->OTemp, cDBase->OTemp2);
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -6976,6 +7308,9 @@ int zSURTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -7413,6 +7748,9 @@ int zSURTRIMLOOP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 0) {
 			cDBase->FILTER.Clear();
 			cDBase->FILTER.SetFilter(15);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			iCnt = cDBase->OTemp->iNo;
 			outtext2("// PICK SURFACE");
@@ -7421,6 +7759,9 @@ int zSURTRIMLOOP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if (cDBase->S_Count > 0) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -7436,6 +7777,9 @@ int zSURTRIMLOOP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 3) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 4;
 			}
@@ -7443,6 +7787,9 @@ int zSURTRIMLOOP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 4) {
 			cDBase->SurfaceTrimLoop(cDBase->OTemp, cDBase->OTemp2);
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -7451,6 +7798,9 @@ int zSURTRIMLOOP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
 			cDBase->FILTER.SetAll();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -7488,6 +7838,9 @@ int zSURCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				RetVal = 1;
 				cDBase->AddSurf();
 				cDBase->FILTER.SetAll();
+				// momo
+				cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+				// momo
 				cDBase->DB_BuffCount = initCnt;
 				cDBase->S_Count = S_initCnt;
 				cDBase->ReDraw();
@@ -7496,6 +7849,9 @@ int zSURCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7525,6 +7881,9 @@ int zSURSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -7537,6 +7896,9 @@ int zSURSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 3) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 4;
 			}
@@ -7545,6 +7907,9 @@ int zSURSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->AddSurfSweep(cDBase->OTemp, cDBase->OTemp2);
 			outtext1("Surfaces Created.");
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 			cDBase->FILTER.SetAll();
@@ -7553,6 +7918,9 @@ int zSURSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -7587,6 +7955,9 @@ int zSDSEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7626,11 +7997,17 @@ int zSURBOUND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				RetVal = 1;
 				cDBase->AddSurfBound();
 				cDBase->FILTER.SetAll();
+				// momo
+				cDBase->S_Des();
+				// momo
 			}
 		}
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7669,6 +8046,9 @@ int zCVMOLWT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7707,6 +8087,9 @@ int zCVMOLWM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7745,6 +8128,9 @@ int zCVMOLWL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7782,6 +8168,9 @@ int zCVMOSOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7819,6 +8208,9 @@ int zCVMODOT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7856,6 +8248,9 @@ int zCVMOCTR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7893,6 +8288,9 @@ int zCVMODASH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -7962,12 +8360,18 @@ int zFIL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				gDIM_FILSZ = dRad;
 			cDBase->Fillet2(dRad, PNear1, PNear2);
 			iStat = 4;
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->S_Count = S_initCnt;
 			outtext2("// PICK TWO CURVES");
 		}
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8015,6 +8419,9 @@ int zCORNER_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8060,6 +8467,9 @@ int zTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8114,6 +8524,9 @@ int zPROJ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -8166,6 +8579,9 @@ int zKNOTINS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -8197,6 +8613,9 @@ int zCVSPLIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				iStat = 2;
 				pC = NULL;
 				if (cDBase->S_Buff[cDBase->S_Count - 1] != NULL) {
+					// momo
+					cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
+					// momo
 					if (cDBase->S_Buff[cDBase->S_Count - 1]->iObjType == 7) {
 						pC = (NCurve*) cDBase->S_Buff[cDBase->S_Count - 1];
 						cDBase->S_Count--;
@@ -8227,6 +8646,9 @@ int zCVSPLIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -8280,6 +8702,9 @@ int zKNOTMOD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -8324,6 +8749,9 @@ int zINT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->FILTER.Restore();
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -8379,6 +8807,9 @@ int zNODEX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8435,6 +8866,9 @@ int zNODEY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8491,6 +8925,9 @@ int zNODEZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8548,6 +8985,9 @@ int zFCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8605,6 +9045,9 @@ int zACR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8656,6 +9099,9 @@ int zGRAV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8732,6 +9178,9 @@ int zRACR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8791,6 +9240,9 @@ int zTBCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8848,6 +9300,9 @@ int zFLUXCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8905,6 +9360,9 @@ int zTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8940,6 +9398,9 @@ int zTEMPD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -8997,6 +9458,9 @@ int zMCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9054,6 +9518,9 @@ int zPCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9102,8 +9569,12 @@ int zRESLISTEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
-			cDBase->DB_BuffCount = initCnt;
 			// cDBase->S_Count=S_initCnt;
+			// momo
+			cDBase->S_BuffChanged(initCnt, cDBase->S_Count - 1, false);
+			cDBase->S_Count = initCnt;
+			// momo
+			cDBase->DB_BuffCount = initCnt;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
 		}
@@ -9151,8 +9622,12 @@ int zRESLISTND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
-			cDBase->DB_BuffCount = initCnt;
 			// cDBase->S_Count=S_initCnt;
+			// momo
+			cDBase->S_BuffChanged(initCnt, cDBase->S_Count - 1, false);
+			cDBase->S_Count = initCnt;
+			// momo
+			cDBase->DB_BuffCount = initCnt;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
 		}
@@ -9201,14 +9676,25 @@ int zCNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->CoincidentNodes(cDBase->OTemp, CNodes, ptVec.x);
 			cDBase->FILTER.SetAll();
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			for (i = 0; i < CNodes->iNo; i++) {
 				cDBase->S_BuffAdd(CNodes->Objs[i]);
 			}
+			// momo gdi to og
+			if (CNodes->iNo > 0) {
+				cDBase->ReDraw();
+			}
+			// momo gdi to og
 			RetVal = 1;
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9275,6 +9761,9 @@ int zRCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9325,6 +9814,9 @@ int zCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -9363,6 +9855,9 @@ int zCHKCOUNT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -9396,6 +9891,9 @@ int zLABENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -9450,6 +9948,9 @@ int zELMOPID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9488,6 +9989,9 @@ int zSELRBENODE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			cDBase->SelRBENode(cDBase->OTemp);
@@ -9498,7 +10002,11 @@ int zSELRBENODE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
+
 			RetVal = 1;
 		}
 	}
@@ -9542,6 +10050,9 @@ int zELREV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9586,6 +10097,9 @@ int zCHKCIRCUMSPH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9679,6 +10193,9 @@ int zPRBROD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9787,6 +10304,9 @@ int zPRROD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -9925,6 +10445,9 @@ int zPRBAR2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10034,6 +10557,9 @@ int zPRBBAR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10073,6 +10599,9 @@ int zQWNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10171,6 +10700,9 @@ int zMERNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10233,6 +10765,9 @@ int zNDEQLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10314,6 +10849,9 @@ int zCHKSHELLASP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10394,6 +10932,9 @@ int zCHKTETCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10468,6 +11009,9 @@ int zPRCMAT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10547,6 +11091,9 @@ int zPRSOLID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10656,6 +11203,9 @@ int zPRSHELL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10750,6 +11300,9 @@ int zPRPCOMP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -10874,6 +11427,9 @@ int zPRSPGT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11030,6 +11586,9 @@ int zPRBUSH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11107,6 +11666,9 @@ int zPRMASS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11231,6 +11793,9 @@ int zPRSPGR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11371,6 +11936,9 @@ int zPRBBOX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11511,6 +12079,9 @@ int zPRBL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11651,6 +12222,9 @@ int zPRBT2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11791,6 +12365,9 @@ int zPRBCHAN2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -11961,6 +12538,9 @@ int zPRBI2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12155,6 +12735,9 @@ int zMMAT8_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12294,6 +12877,9 @@ int zMMAT1_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12403,6 +12989,9 @@ int zPRBTUBE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12458,6 +13047,9 @@ int zNDMOLAB2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12514,6 +13106,9 @@ int zELMOLAB2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12570,6 +13165,9 @@ int zNDMOLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12626,6 +13224,9 @@ int zELMOLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12682,6 +13283,9 @@ int zNDMOOSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12746,6 +13350,9 @@ int zELMOSHELLMCYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12810,6 +13417,9 @@ int zSPGMOSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12865,6 +13475,9 @@ int zNDMORSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -12900,6 +13513,9 @@ int zWPSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -12934,6 +13550,9 @@ int zRESCOLSETBAR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -12995,6 +13614,9 @@ int zBUPVEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13056,6 +13678,9 @@ int zBOFF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13111,6 +13736,9 @@ int zBDOFA_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13166,6 +13794,9 @@ int zBDOFB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13227,6 +13858,9 @@ int zSOFF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13288,6 +13922,9 @@ int zBOFFY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13349,6 +13986,9 @@ int zBOFFZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13420,6 +14060,9 @@ int zNDCO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -13459,6 +14102,9 @@ int zELSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			outtext2("// ENTER TRANSLATION:");
@@ -13491,6 +14137,9 @@ int zELSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 100) {
 			cDBase->FILTER.SetAll();
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -13527,6 +14176,9 @@ int zELSWEEPNDS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			outtext2("// ENTER TRANSLATION:");
@@ -13557,6 +14209,9 @@ int zELSWEEPNDS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -13593,6 +14248,9 @@ int zELSWEEPNDB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			outtext2("// ENTER TRANSLATION:");
@@ -13623,6 +14281,9 @@ int zELSWEEPNDB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -13660,6 +14321,9 @@ int zELSWEEPB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			outtext2("// ENTER DIR DISTANCE");
@@ -13691,6 +14355,9 @@ int zELSWEEPB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -13724,6 +14391,9 @@ int zCOPY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// TRANSLATION:");
 			iResumePos = 3;
@@ -13753,6 +14423,9 @@ int zCOPY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -13786,6 +14459,9 @@ int zCOPYTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK POINT TO COPY FROM:");
 			iResumePos = 3;
@@ -13819,6 +14495,9 @@ int zCOPYTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->S_Res();
 			RetVal = 1;
@@ -13859,6 +14538,9 @@ int zOFFSET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 3) {
 			if (cDBase->S_Count == S_initCnt + 1) {
 				pO = cDBase->S_Buff[cDBase->S_Count - 1];
+				// momo
+				cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
+				// momo
 				cDBase->S_Count--;
 				iStat = 4;
 			}
@@ -13889,6 +14571,9 @@ int zOFFSET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
 		}
@@ -13922,6 +14607,9 @@ int zMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// TRANSLATION:");
 			iResumePos = 3;
@@ -13940,6 +14628,9 @@ int zMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -13973,6 +14664,9 @@ int zMOVETO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK POINT TO MOVE FROM:");
 			iResumePos = 3;
@@ -14007,6 +14701,9 @@ int zMOVETO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -14045,6 +14742,9 @@ int zNDMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 2) {
 			cDBase->S_Save(cDBase->OTemp);
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			outtext2("// PICK FIRST LOCATION");
 			iResumePos = 3;
@@ -14076,6 +14776,9 @@ int zNDMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			cDBase->FILTER.SetAll();
 			RetVal = 1;
@@ -14100,6 +14803,9 @@ int zWPMODE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -14124,6 +14830,9 @@ int zORTHO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -14154,6 +14863,9 @@ int zNDBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -14166,6 +14878,9 @@ int zNDBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 3) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 4;
 			}
@@ -14184,12 +14899,18 @@ int zNDBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			ptNo = cDBase->DB_PopBuff();
 			cDBase->BetNodes(cDBase->OTemp, cDBase->OTemp2, (int) ptNo.x);
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -14219,6 +14940,9 @@ int zMESHQND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -14231,6 +14955,9 @@ int zMESHQND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 3) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 4;
 			}
@@ -14249,12 +14976,18 @@ int zMESHQND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			ptNo = cDBase->DB_PopBuff();
 			cDBase->ElsBetNodes(cDBase->OTemp, cDBase->OTemp2, (int) ptNo.x - 1);
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -14282,6 +15015,9 @@ int zMESHINT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -14290,12 +15026,18 @@ int zMESHINT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 2) {
 			cDBase->IntersectEls(cDBase->OTemp);
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -14323,6 +15065,9 @@ int zMESHINTWP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 1) {
 			if ((CInMsg == "D") || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
+				// momo
+				cDBase->S_BuffChanged(-1000, -1000, false);
+				// momo
 				cDBase->S_Count = 0;
 				iStat = 2;
 				CInMsg = "NULL";
@@ -14331,12 +15076,18 @@ int zMESHINTWP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 2) {
 			cDBase->IntersectElsWP(cDBase->OTemp);
 			cDBase->S_Res();
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
 		// Escape clause
 		if (iStat == 100) {
 			cDBase->DB_BuffCount = 0;
+			// momo
+			cDBase->S_BuffChanged(-1000, -1000, false);
+			// momo
 			cDBase->S_Count = 0;
 			RetVal = 1;
 		}
@@ -14466,7 +15217,10 @@ int zDSPGP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 }
 
 int zDSPALL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
-	cDBase->Dsp_All();
+	// momo on off button and menu
+	// momo// cDBase->Dsp_All();
+	cDBase->Dsp_All(true);
+	// momo on off button and menu
 	cDBase->ReDraw();
 	RetVal = 1;
 	return RetVal;
@@ -14506,6 +15260,9 @@ int zHIDE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -14516,7 +15273,10 @@ MenuEnd:
 }
 
 int zDSPSEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
-	cDBase->Dsp_All();
+	// momo on off button and menu
+	// momo// cDBase->Dsp_All();
+	cDBase->Dsp_All(false);
+	// momo on off button and menu
 	cDBase->Dsp_Selected();
 	RetVal = 1;
 	return RetVal;
@@ -14839,6 +15599,9 @@ int zMMESHTET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -14897,6 +15660,9 @@ int zMSHELL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -14944,6 +15710,9 @@ int zFFACE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -14990,6 +15759,9 @@ int zMQUADTOTRI_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15036,6 +15808,9 @@ int zCHK2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15082,6 +15857,9 @@ int zFEDGE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15128,6 +15906,9 @@ int zQMORPH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15174,6 +15955,9 @@ int zELMASS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15220,6 +16004,9 @@ int zCELM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15266,6 +16053,9 @@ int zSNORM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15347,6 +16137,9 @@ int zSOLCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -15459,6 +16252,9 @@ int zSTEPCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			cDBase->FILTER.SetAll();
@@ -18077,6 +18873,9 @@ int zMODINCNO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;
@@ -18126,6 +18925,9 @@ int zMODLAYNO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			// momo
 			cDBase->DB_BuffCount = initCnt;
 			cDBase->S_Count = S_initCnt;
 			RetVal = 1;

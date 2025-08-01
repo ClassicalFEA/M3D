@@ -32,6 +32,9 @@ class CInputPane: public CDockablePane {
 		CEditBasic Edit1;
 		CEditBasic Edit2;
 		CMyEdit Edit3;
+		//// momo ModernOpenGL_Start
+		////CMyEdit EditViewScales;
+		//// momo ModernOpenGL_End
 
 	protected:
 		DECLARE_MESSAGE_MAP()

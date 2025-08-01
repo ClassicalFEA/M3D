@@ -1,4 +1,10 @@
-﻿#include "DBase.h"
+﻿//// momo ModernOpenGL_Start
+////#define _WIN32_WINNT 0x0A00
+////#include <afx.h>
+////#include <GL/glew.h>
+////#include "ShaderUtils.h"
+//// momo ModernOpenGL_End
+#include "DBase.h"
 #include <cmath>
 #include "gl\gl.h"
 #include "gl\glu.h"
@@ -10,7 +16,23 @@
 #include <atlstr.h>
 // MoMo_Start
 #include "AppSettings.h"
+#include "MainFrm.h"
 // MoMo_End
+//// momo ModernOpenGL_Start
+////#define WGL_CONTEXT_MAJOR_VERSION_ARB 0x2091
+////#define WGL_CONTEXT_MINOR_VERSION_ARB 0x2092
+////#define WGL_CONTEXT_PROFILE_MASK_ARB 0x9126
+////#define WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB 0x00000002
+////typedef HGLRC(WINAPI* PFNWGLCREATECONTEXTATTRIBSARBPROC)(HDC hDC, HGLRC hShareContext, const int* attribList);
+//// momo ModernOpenGL_End
+// momo axis
+static bool fontsInitializedCorner = false;
+float fontWidthGLCorner;
+float fontHeightGLCorner;
+static bool fontsInitializedOrigin = false;
+float fontWidthGLOrigin;
+float fontHeightGLOrigin;
+// momo axis
 
 #pragma warning(disable : 4477)
 BOOL gORTHO;
@@ -291,6 +313,9 @@ DBase::DBase() {
 
 DBase::~DBase() {
 	int i;
+	// momo
+	// S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	for (i = 0; i < DB_ObjectCount; i++) {
 		delete (DB_Obj[i]);
@@ -313,6 +338,9 @@ void DBase::LabGaps(int iGap) {
 
 void DBase::DeleteAll() {
 	int i;
+	// momo
+	// S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	DelAll_Group();
 	for (i = 1; i < DB_ObjectCount; i++) {
@@ -401,6 +429,9 @@ DBase::DBase(double WPS) {
 	DB_ActiveBuff = 1;
 	DB_BuffCount = 0;
 	iDspLstCount = 0;
+	// momo
+	// S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	Pen = NULL;
 	CreateWP(WPS);
@@ -412,7 +443,10 @@ DBase::DBase(double WPS) {
 	// MoMo_End
 	DB_ObjectCount++;
 	pCurrentPart = NULL;
-	Dsp_All();
+	// momo on off button and menu
+	// momo// Dsp_All();
+	Dsp_All(true);
+	// momo on off button and menu
 	WPSize = WPS;
 	DB_DrawState = 0;
 	iFastView = 1;
@@ -1522,7 +1556,10 @@ void DBase::Dsp_Add(G_Object* pDspObject) {
 	}
 }
 
-void DBase::Dsp_All() {
+// momo on off button and menu
+// momo// void DBase::Dsp_All() {
+void DBase::Dsp_All(bool changeButtonIcon) {
+	// momo on off button and menu
 	iDspLstCount = 0;
 	bDispAll = TRUE;
 	int iCO;
@@ -1530,6 +1567,12 @@ void DBase::Dsp_All() {
 		if (DB_Obj[iCO]->Visable == 1)
 			Dsp_Add(DB_Obj[iCO]);
 	}
+	// momo on off button and menu
+	if (changeButtonIcon) {
+		ButtonPush.DisplayAll = true;
+		ButtonPush.DisplaySelected = false;
+	}
+	// momo on off button and menu
 	InvalidateOGL();
 }
 
@@ -1538,7 +1581,10 @@ void DBase::Dsp_ShowAll() {
 	for (iCO = 0; iCO < DB_ObjectCount; iCO++) {
 		DB_Obj[iCO]->Visable = 1;
 	}
-	Dsp_All();
+	// momo on off button and menu
+	// momo// Dsp_All();
+	Dsp_All(true);
+	// momo on off button and menu
 	ReDraw();
 }
 
@@ -1550,7 +1596,10 @@ void DBase::Dsp_Hide() {
 		}
 	}
 	S_Des();
-	Dsp_All();
+	// momo on off button and menu
+	// momo// Dsp_All();
+	Dsp_All(true);
+	// momo on off button and menu
 	ReDraw();
 }
 
@@ -1594,6 +1643,10 @@ void DBase::Dsp_Selected() {
 			Dsp_Add(S_Buff[iCO]);
 		}
 	}
+	// momo on off button and menu
+	ButtonPush.DisplaySelected = true;
+	ButtonPush.DisplayAll = false;
+	// momo on off button and menu
 	InvalidateOGL();
 	ReDraw();
 }
@@ -1603,7 +1656,12 @@ void DBase::Dsp_Rem(G_Object* gIn) {
 	for (i = 0; i < iDspLstCount; i++) {
 		G_Object* pG = Dsp_List[i];
 		if (Dsp_List[i] == gIn) {
-			Dsp_List[i] = Dsp_List[iDspLstCount - 1];
+			// momo
+			// momo// Dsp_List[i] = Dsp_List[iDspLstCount - 1];
+			for (int j = i + 1; j < iDspLstCount; j++) {
+				Dsp_List[j - 1] = Dsp_List[j];
+			}
+			// momo
 			iDspLstCount--;
 			break;
 		}
@@ -1661,68 +1719,35 @@ void DBase::Ortho() {
 }
 
 // MoMo_Start
-// void DBase::ToggleDoubleBuffering() {
-//// Destroy current context
-// wglMakeCurrent(NULL, NULL);
-// wglDeleteContext(hrc);
-// if (m_pDC != nullptr)
-//	pTheView->ReleaseDC(m_pDC);
-// CDC* pDC = pTheView->GetDC();
-// if (pDC != nullptr) {
-//	if (gDOUBLEBUFF) {
-//		gDOUBLEBUFF = false;
-//		InitOGL(pDC);
-//		outtext1("Double Buffering OFF.");
-//	} else {
-//		gDOUBLEBUFF = true;
-//		InitOGL(pDC);
-//		outtext1("Double Buffering ON.");
-//	}
-//	InvalidateOGL();
-// }
 void DBase::ToggleDoubleBuffering(int newMode) {
 	CAppSettings settings;
-	CString newModeString, currentModeString;
+	CString onRestartModeString, currentModeString;
 	char S1[200];
-	if (newMode == 0) {
-		newModeString = "Single";
-	} else if (newMode == 1) {
-		newModeString = "Double";
-	} else {
-		newModeString = "Auto";
-	}
+	onRestartModeString = settings.ModeName(newMode);
 	int currentMode = settings.ToggleDoubleBuffer(newMode);
-	if (currentMode == 0) {
-		currentModeString = "Single";
-	} else if (currentMode == 1) {
-		currentModeString = "Double";
-	} else {
-		currentModeString = "Auto";
-	}
-	sprintf_s(S1, "Double Buffering: Current = %s, Restart = %s\r\nPlease restart the application to apply changes.", currentModeString, newModeString);
+	currentModeString = settings.ModeName(currentMode);
+	sprintf_s(S1, "\r\nBuffering: Current = %s, Restart = %s\r\nPlease restart the application to apply changes.", currentModeString, onRestartModeString);
 	outtext1(_T(S1));
-	// MoMo_End
 }
 
-// MoMo_Start
 void DBase::ListDoubleBuffering() {
 	CAppSettings settings;
-	CString resultModeString;
-	int currentValue = 0;
-	int resultValue = 0;
+	CString resultModeString, onRestartModeString;
+	int currentValue = 0, resultValue = 0;
 	char S1[200];
+	onRestartModeString = settings.OnRestartName();
 	settings.CurrentBuffer(currentValue, resultValue);
 	if (currentValue == 0) {
-		strcpy(S1, "Buffering: Current = Single");
+		sprintf_s(S1, "\r\nBuffering: Current = Single, Restart = %s", onRestartModeString);
 	} else if (currentValue == 1) {
-		strcpy(S1, "Buffering: Current = Double");
+		sprintf_s(S1, "\r\nBuffering: Current = Double, Restart = %s", onRestartModeString);
 	} else {
 		if (resultValue == 0) {
 			resultModeString = "Single";
 		} else if (resultValue == 1) {
 			resultModeString = "Double";
 		}
-		sprintf_s(S1, "Buffering: Current = Auto, Result = %s", resultModeString);
+		sprintf_s(S1, "\r\nBuffering: Current = Auto, Result = %s, Restart = %s", resultModeString, onRestartModeString);
 	}
 	outtext1(_T(S1));
 }
@@ -2577,7 +2602,10 @@ void DBase::MeshTET(ObjList* Els, double G) {
 	}
 	if (bGo) {
 		Els->Clear();
-		this->Dsp_All();
+		// momo on off button and menu
+		// momo// this->Dsp_All();
+		this->Dsp_All(true);
+		// momo on off button and menu
 		this->ReDraw();
 		AdvancingTet(Els2, pNodes, G);
 	}
@@ -4453,6 +4481,9 @@ void DBase::FindNode(C3dVector vP) {
 			sprintf_s(s1, "NID: %i DISTANCE: %g", cNode->iLabel, dMinDist);
 			outtext1(s1);
 			S_Buff[S_Count] = cNode;
+			// momo
+			S_BuffChanged(S_Count, S_Count, true);
+			// momo
 			S_Count++;
 		} else {
 			outtext1("ERROR: No Node Found.");
@@ -5708,6 +5739,9 @@ NLine* DBase::AddLNfromDrag(C3dVector v2) {
 		LnIn->Create(vn1, vn2, iCVLabCnt, NULL);
 		iCVLabCnt++;
 		AddObj(LnIn);
+		// momo gdi to og
+		Sleep(200);
+		// momo gdi to og
 		ReDraw();
 	}
 	return (LnIn);
@@ -5915,8 +5949,10 @@ void DBase::TestSYS() {
 }
 
 Line_Object* DBase::AddLN2(double x1, double y1, double z1, double x2, double y2, double z2, int ilab) {
-	CDC* pDC = pTheView->GetDC();
-	SetPen(pDC, 3);
+	// momo gdi to og
+	// CDC* pDC = pTheView->GetDC();
+	// SetPen(pDC, 3);
+	// momo gdi to og
 	// C3dMatrix cTransformMat = DB_pGrpWnd->Get3DMat();
 	C3dVector v1(x1, y1, z1);
 	C3dVector v2(x2, y2, z2);
@@ -5924,14 +5960,19 @@ Line_Object* DBase::AddLN2(double x1, double y1, double z1, double x2, double y2
 	LnIn->Create(&v1, &v2, 0, NULL);
 	DB_Obj[DB_ObjectCount] = LnIn;
 	DB_Obj[DB_ObjectCount]->SetToScr(&pModelMat, &pScrMat);
-	DB_Obj[DB_ObjectCount]->Draw(pDC, 4);
+	// momo gdi to og
+	// momo// DB_Obj[DB_ObjectCount]->Draw(pDC, 4);
+	DB_Obj[DB_ObjectCount]->Draw(4);
+	// momo gdi to og
 	Dsp_Add(LnIn);
 	Dsp_Add(LnIn->pVertex1);
 	Dsp_Add(LnIn->pVertex2);
 
 	DB_ObjectCount++;
-	RestorePen(pDC);
-	pTheView->ReleaseDC(pDC);
+	// momo gdi to og
+	// RestorePen(pDC);
+	// pTheView->ReleaseDC(pDC);
+	// momo gdi to og
 	return (LnIn);
 }
 
@@ -5976,6 +6017,9 @@ G_Object* DBase::LabSel(int iType, int iLab1, int iLab2) {
 				if (pRet != NULL) {
 					if (iNo < MAX_SIZE) {
 						S_Buff[S_Count] = pRet;
+						// momo
+						S_BuffChanged(S_Count, S_Count, true);
+						// momo
 						S_Count++;
 					}
 				}
@@ -5990,6 +6034,9 @@ G_Object* DBase::LabSel(int iType, int iLab1, int iLab2) {
 			if (pRet != NULL) {
 				if (iNo < MAX_SIZE) {
 					S_Buff[S_Count] = pRet;
+					// momo
+					S_BuffChanged(S_Count, S_Count, true);
+					// momo
 					S_Count++;
 				}
 			}
@@ -6000,6 +6047,9 @@ G_Object* DBase::LabSel(int iType, int iLab1, int iLab2) {
 			if (pRet != NULL) {
 				if (iNo < MAX_SIZE) {
 					S_Buff[S_Count] = pRet;
+					// momo
+					S_BuffChanged(S_Count, S_Count, true);
+					// momo
 					S_Count++;
 				}
 			}
@@ -6009,94 +6059,96 @@ G_Object* DBase::LabSel(int iType, int iLab1, int iLab2) {
 	return (pRet);
 }
 
-void DBase::TrimLn() {
-	CvPt_Object* mPt;
-	double MinDist = 10000000;
-	double dDist = 0;
-	double dU, dTU;
-	C3dVector vP;
-	CDC* pDC = pTheView->GetDC();
-	int iCnt1;
-
-	// Check if the last two objects in S_Buff are both of type 2 (Line_Object)
-	if ((S_Buff[S_Count - 1]->iObjType == 2) && (S_Buff[S_Count - 2]->iObjType == 2)) {
-		Line_Object* L2 = (Line_Object*) S_Buff[S_Count - 1];
-		Line_Object* L1 = (Line_Object*) S_Buff[S_Count - 2];
-
-		// Iterate through a range of values for parameter dU
-		for (iCnt1 = 1; iCnt1 < 1000; iCnt1++) {
-			dU = iCnt1 * 0.001;
-			vP = L2->GetPt(dU);
-			dDist = L1->MinDist(vP);
-
-			// Update MinDist and dTU if a smaller distance is found
-			if (dDist < MinDist) {
-				MinDist = dDist;
-				dTU = dU;
-			}
-		}
-
-		// If the minimum distance is less than 0.1
-		if (MinDist < 0.1) {
-			// Set a thicker pen for drawing
-			SetPen(pDC, 5);
-			L2->SetToScr(&pModelMat, &pScrMat);
-			L2->Draw(pDC, 4);
-			RestorePen(pDC);
-
-			// Move an endpoint of L2 to the calculated position
-			mPt = L2->GetTEnd();
-			vP = L2->GetPt(dTU);
-			mPt->SetTo(vP);
-
-			// Set a thinner pen for drawing
-			SetPen(pDC, 3);
-			L2->SetToScr(&pModelMat, &pScrMat);
-			L2->Draw(pDC, 4);
-			RestorePen(pDC);
-		}
-
-		MinDist = 10000000;
-		L2 = (Line_Object*) S_Buff[S_Count - 2];
-		L1 = (Line_Object*) S_Buff[S_Count - 1];
-
-		// Iterate through a range of values for parameter dU again
-		for (iCnt1 = 1; iCnt1 < 1000; iCnt1++) {
-			dU = iCnt1 * 0.001;
-			vP = L2->GetPt(dU);
-			dDist = L1->MinDist(vP);
-
-			// Update MinDist and dTU if a smaller distance is found
-			if (dDist < MinDist) {
-				MinDist = dDist;
-				dTU = dU;
-			}
-		}
-
-		// If the minimum distance is less than 0.1
-		if (MinDist < 0.1) {
-			// Set a thicker pen for drawing
-			SetPen(pDC, 5);
-			L2->SetToScr(&pModelMat, &pScrMat);
-			L2->Draw(pDC, 4);
-			RestorePen(pDC);
-
-			// Move an endpoint of L2 to the calculated position
-			mPt = L2->GetTEnd();
-			vP = L2->GetPt(dTU);
-			mPt->SetTo(vP);
-
-			// Set a thinner pen for drawing
-			SetPen(pDC, 3);
-			L2->SetToScr(&pModelMat, &pScrMat);
-			L2->Draw(pDC, 4);
-			RestorePen(pDC);
-		}
-	}
-
-	// Release the device context
-	pTheView->ReleaseDC(pDC);
-}
+// momo gdi to og
+// void DBase::TrimLn() {
+//	CvPt_Object* mPt;
+//	double MinDist = 10000000;
+//	double dDist = 0;
+//	double dU, dTU;
+//	C3dVector vP;
+//	CDC* pDC = pTheView->GetDC();
+//	int iCnt1;
+//
+//	// Check if the last two objects in S_Buff are both of type 2 (Line_Object)
+//	if ((S_Buff[S_Count - 1]->iObjType == 2) && (S_Buff[S_Count - 2]->iObjType == 2)) {
+//		Line_Object* L2 = (Line_Object*) S_Buff[S_Count - 1];
+//		Line_Object* L1 = (Line_Object*) S_Buff[S_Count - 2];
+//
+//		// Iterate through a range of values for parameter dU
+//		for (iCnt1 = 1; iCnt1 < 1000; iCnt1++) {
+//			dU = iCnt1 * 0.001;
+//			vP = L2->GetPt(dU);
+//			dDist = L1->MinDist(vP);
+//
+//			// Update MinDist and dTU if a smaller distance is found
+//			if (dDist < MinDist) {
+//				MinDist = dDist;
+//				dTU = dU;
+//			}
+//		}
+//
+//		// If the minimum distance is less than 0.1
+//		if (MinDist < 0.1) {
+//			// Set a thicker pen for drawing
+//			SetPen(pDC, 5);
+//			L2->SetToScr(&pModelMat, &pScrMat);
+//			L2->Draw(pDC, 4);
+//			RestorePen(pDC);
+//
+//			// Move an endpoint of L2 to the calculated position
+//			mPt = L2->GetTEnd();
+//			vP = L2->GetPt(dTU);
+//			mPt->SetTo(vP);
+//
+//			// Set a thinner pen for drawing
+//			SetPen(pDC, 3);
+//			L2->SetToScr(&pModelMat, &pScrMat);
+//			L2->Draw(pDC, 4);
+//			RestorePen(pDC);
+//		}
+//
+//		MinDist = 10000000;
+//		L2 = (Line_Object*) S_Buff[S_Count - 2];
+//		L1 = (Line_Object*) S_Buff[S_Count - 1];
+//
+//		// Iterate through a range of values for parameter dU again
+//		for (iCnt1 = 1; iCnt1 < 1000; iCnt1++) {
+//			dU = iCnt1 * 0.001;
+//			vP = L2->GetPt(dU);
+//			dDist = L1->MinDist(vP);
+//
+//			// Update MinDist and dTU if a smaller distance is found
+//			if (dDist < MinDist) {
+//				MinDist = dDist;
+//				dTU = dU;
+//			}
+//		}
+//
+//		// If the minimum distance is less than 0.1
+//		if (MinDist < 0.1) {
+//			// Set a thicker pen for drawing
+//			SetPen(pDC, 5);
+//			L2->SetToScr(&pModelMat, &pScrMat);
+//			L2->Draw(pDC, 4);
+//			RestorePen(pDC);
+//
+//			// Move an endpoint of L2 to the calculated position
+//			mPt = L2->GetTEnd();
+//			vP = L2->GetPt(dTU);
+//			mPt->SetTo(vP);
+//
+//			// Set a thinner pen for drawing
+//			SetPen(pDC, 3);
+//			L2->SetToScr(&pModelMat, &pScrMat);
+//			L2->Draw(pDC, 4);
+//			RestorePen(pDC);
+//		}
+//	}
+//
+//	// Release the device context
+//	pTheView->ReleaseDC(pDC);
+//}
+// momo gdi to og
 
 // Caluclate the aparent intersection of two lines in 3d
 // lines defined as points
@@ -7680,6 +7732,9 @@ void DBase::AddSurfBound() {
 			p2 = C1->GetPt(C1->we);
 			NLine* oL = new NLine();
 			oL->Create(p1, p2, -1, NULL);
+			// momo
+			oL->iColour = 167;
+			// momo
 			Curves->Add(oL);
 			// Curves->Add(S_Buff[i]->Copy(NULL));
 		} else if (S_Buff[i]->iObjType == 13) {
@@ -9859,6 +9914,9 @@ void DBase::SetPen(CDC* pDC, int iCol) {
 	int iR = 255;
 	int iG = 0;
 	int iB = 0;
+	// momo
+	int wPen = 1;
+	// momo
 
 	switch (iCol) {
 		case 1:
@@ -9907,6 +9965,12 @@ void DBase::SetPen(CDC* pDC, int iCol) {
 			iG = 255;
 			iB = 76;
 			break;
+		case 103: // Deselect Cadr Color
+			iR = 255;
+			iG = 119;
+			iB = 164;
+			wPen = 2;
+			break;
 			// MoMo_End
 	}
 
@@ -9915,7 +9979,7 @@ void DBase::SetPen(CDC* pDC, int iCol) {
 		if (iCol > 100) {
 			pDC->SelectStockObject(HOLLOW_BRUSH);
 			pDC->SetDCBrushColor(RGB(iR, iG, iB));
-			Pen = new CPen(PS_SOLID, 1, RGB(iR, iG, iB));
+			Pen = new CPen(PS_SOLID, wPen, RGB(iR, iG, iB));
 		} else {
 			pDC->SelectStockObject(NULL_BRUSH);
 			Pen = new CPen(PS_SOLID, 2, RGB(iR, iG, iB));
@@ -9935,40 +9999,52 @@ void DBase::RestorePen(CDC* pDC) {
 	}
 }
 
-void DBase::DrawDrag(CDC* pDC, CPoint p1, CPoint p2) {
-	if (isBlackDisp())
-		SetPen(pDC, 6);
-	else
-		SetPen(pDC, 7);
-	pDC->Rectangle(p1.x, p1.y, p2.x, p2.y);
-	RestorePen(pDC);
-}
+// momo gdi to og
+// void DBase::DrawDrag(CDC* pDC, CPoint p1, CPoint p2) {
+//	if (isBlackDisp())
+//		// momo deselect cadr
+//		if (p2.x >= p1.x) {
+//			// momo
+//			SetPen(pDC, 6);
+//			// momo
+//		} else {
+//			SetPen(pDC, 103);
+//		}
+//	// momo
+//	else
+//		SetPen(pDC, 7);
+//	pDC->Rectangle(p1.x, p1.y, p2.x, p2.y);
+//	RestorePen(pDC);
+//}
+// momo gdi to og
 
-void DBase::LineDrag(CDC* pDC, CPoint p1, CPoint p2) {
-	C3dVector vS, vE;
-	C3dVector V;
-	V.x = pModelMat.m_00 * vLS.x + pModelMat.m_01 * vLS.y + pModelMat.m_02 * vLS.z + pModelMat.m_30;
-	V.y = pModelMat.m_10 * vLS.x + pModelMat.m_11 * vLS.y + pModelMat.m_12 * vLS.z + pModelMat.m_31;
-	V.z = pModelMat.m_20 * vLS.x + pModelMat.m_21 * vLS.y + pModelMat.m_22 * vLS.z + pModelMat.m_32;
-	vS.x = pScrMat.m_00 * V.x + pScrMat.m_01 * V.y + pScrMat.m_02 * V.z + pScrMat.m_30;
-	vS.y = pScrMat.m_10 * V.x + pScrMat.m_11 * V.y + pScrMat.m_12 * V.z + pScrMat.m_31;
-	vS.z = pScrMat.m_20 * V.x + pScrMat.m_21 * V.y + pScrMat.m_22 * V.z + pScrMat.m_32;
-
-	V.x = pModelMat.m_00 * vLE.x + pModelMat.m_01 * vLE.y + pModelMat.m_02 * vLE.z + pModelMat.m_30;
-	V.y = pModelMat.m_10 * vLE.x + pModelMat.m_11 * vLE.y + pModelMat.m_12 * vLE.z + pModelMat.m_31;
-	V.z = pModelMat.m_20 * vLE.x + pModelMat.m_21 * vLE.y + pModelMat.m_22 * vLE.z + pModelMat.m_32;
-	vE.x = pScrMat.m_00 * V.x + pScrMat.m_01 * V.y + pScrMat.m_02 * V.z + pScrMat.m_30;
-	vE.y = pScrMat.m_10 * V.x + pScrMat.m_11 * V.y + pScrMat.m_12 * V.z + pScrMat.m_31;
-	vE.z = pScrMat.m_20 * V.x + pScrMat.m_21 * V.y + pScrMat.m_22 * V.z + pScrMat.m_32;
-
-	if (isBlackDisp())
-		SetPen(pDC, 6);
-	else
-		SetPen(pDC, 7);
-	pDC->MoveTo(static_cast<int>(vS.x), static_cast<int>(vS.y));
-	pDC->LineTo(static_cast<int>(vE.x), static_cast<int>(vE.y));
-	RestorePen(pDC);
-}
+// momo gdi to og
+// void DBase::LineDrag(CDC* pDC, CPoint p1, CPoint p2) {
+//	C3dVector vS, vE;
+//	C3dVector V;
+//	V.x = pModelMat.m_00 * vLS.x + pModelMat.m_01 * vLS.y + pModelMat.m_02 * vLS.z + pModelMat.m_30;
+//	V.y = pModelMat.m_10 * vLS.x + pModelMat.m_11 * vLS.y + pModelMat.m_12 * vLS.z + pModelMat.m_31;
+//	V.z = pModelMat.m_20 * vLS.x + pModelMat.m_21 * vLS.y + pModelMat.m_22 * vLS.z + pModelMat.m_32;
+//	vS.x = pScrMat.m_00 * V.x + pScrMat.m_01 * V.y + pScrMat.m_02 * V.z + pScrMat.m_30;
+//	vS.y = pScrMat.m_10 * V.x + pScrMat.m_11 * V.y + pScrMat.m_12 * V.z + pScrMat.m_31;
+//	vS.z = pScrMat.m_20 * V.x + pScrMat.m_21 * V.y + pScrMat.m_22 * V.z + pScrMat.m_32;
+//
+//	V.x = pModelMat.m_00 * vLE.x + pModelMat.m_01 * vLE.y + pModelMat.m_02 * vLE.z + pModelMat.m_30;
+//	V.y = pModelMat.m_10 * vLE.x + pModelMat.m_11 * vLE.y + pModelMat.m_12 * vLE.z + pModelMat.m_31;
+//	V.z = pModelMat.m_20 * vLE.x + pModelMat.m_21 * vLE.y + pModelMat.m_22 * vLE.z + pModelMat.m_32;
+//	vE.x = pScrMat.m_00 * V.x + pScrMat.m_01 * V.y + pScrMat.m_02 * V.z + pScrMat.m_30;
+//	vE.y = pScrMat.m_10 * V.x + pScrMat.m_11 * V.y + pScrMat.m_12 * V.z + pScrMat.m_31;
+//	vE.z = pScrMat.m_20 * V.x + pScrMat.m_21 * V.y + pScrMat.m_22 * V.z + pScrMat.m_32;
+//
+//	if (isBlackDisp())
+//		SetPen(pDC, 6);
+//	else
+//		SetPen(pDC, 7);
+//	pDC->MoveTo(static_cast<int>(vS.x), static_cast<int>(vS.y));
+//	pDC->LineTo(static_cast<int>(vE.x), static_cast<int>(vE.y));
+//	RestorePen(pDC);
+//}
+// momo gdi to og
 
 void DBase::SetToScr2(C3dMatrix pM) {
 	if (pCurrentMesh != NULL)
@@ -9983,8 +10059,19 @@ BOOL DBase::isBlackDisp() {
 	return (brc);
 }
 
-void DBase::Draw(C3dMatrix pM, CDC* pDC, int iDrawmode) {
+// momo gdi to og
+// momo// void DBase::Draw(C3dMatrix pM, CDC* pDC, int iDrawmode) {
+void DBase::Draw(C3dMatrix pM, int iDrawmode) {
+	// momo gdi to og
 	int iDB_I;
+
+	// momo gdi to og
+	if ((iDrawmode == 4) || (iDrawmode == 5)) {
+		pDCDrawFlags[0] = true;
+	} else {
+		pDCDrawFlags[0] = false;
+	}
+	// momo gdi to og
 
 	pModelMat = pM;
 	mOGLmat = pModelMat.GetOglMat();
@@ -10003,93 +10090,106 @@ void DBase::Draw(C3dMatrix pM, CDC* pDC, int iDrawmode) {
 	}
 	// Do the highlighting if its a full redraw
 	// or a user forced redraw
-	if ((iDrawmode == 4) || (iDrawmode == 5)) {
-		// MoMo_Start
-		int iPen = 6;
+	// MoMo_Start
+	if ((iDrawmode == 4) || (iDrawmode == 5)) { // MoMo//
+		//// MoMo_End
+		//// MoMo_Start
+		// int iPen = 6;
+		//// MoMo_End
+		// SetPen(pDC, 6);
+		// if (DspFlags & DSP_BLACK) {
+		//	SetPen(pDC, 6);
+		//	// MoMo_Start
+		//	iPen = 6;
+		//	// MoMo_End
+		// } else {
+		//	SetPen(pDC, 7);
+		//	// MoMo_Start
+		//	iPen = 7;
+		//	// MoMo_End
+		// }
+		// int iHC = 0;
+		//  momo gdi to og
+		//  if (S_Count > 0) {
+		//	iHC = S_Count;
+		//	if ((iHLimit > -1) && (iHLimit < iHC))
+		//		iHC = iHLimit;
+		//	for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
+		//		if (S_Buff[iDB_I]->Drawn == 0) {
+		//			S_Buff[iDB_I]->SetToScr(&pModelMat, &pScrMat);
+		//		}
+		//		S_Buff[iDB_I]->HighLight(pDC);
+		//	}
+		// }
+		//  momo gdi to og
+		//   Highlight Points in the point Buffer
+		//  C3dVector vPt;
+		//// MoMo_Start
+		// if (SeedVals.IsSeedMode && DB_BuffCount > 0) {
+		//	int iLastPen = 0;
+		//	for (iDB_I = 0; iDB_I < DB_BuffCount; iDB_I++) {
+		//		if (DB_PtBuff[iDB_I].tempSeedId > 0) {
+		//			if (iLastPen != 101) {
+		//				iLastPen = 101;
+		//				SetPen(pDC, 101);
+		//			}
+		//		} else {
+		//			if (iLastPen != 102) {
+		//				iLastPen = 102;
+		//				SetPen(pDC, 102);
+		//			}
+		//		}
+		//		vPt = DB_PtBuff[iDB_I];
+		//		vPt.SetToScr(&pModelMat, &pScrMat);
+		//		pDC->Ellipse(int(vPt.x - 3), int(vPt.y - 3), int(vPt.x + 3), int(vPt.y + 3));
+		//		pDC->Ellipse(int(vPt.x - 4), int(vPt.y - 4), int(vPt.x + 4), int(vPt.y + 4));
+		//		// pDC->MoveTo(int(vPt.x + 3), int(vPt.y + 3));
+		//		// pDC->LineTo(int(vPt.x - 3), int(vPt.y + 3));
+		//		// pDC->LineTo(int(vPt.x - 3), int(vPt.y - 3));
+		//		// pDC->LineTo(int(vPt.x + 3), int(vPt.y - 3));
+		//		// pDC->LineTo(int(vPt.x + 3), int(vPt.y + 3));
+		//	}
+		//	SetPen(pDC, iPen);
+		// } else {
+		//	// MoMo_End
+
+		//	// momo
+		//	for (iDB_I = 0; iDB_I < DB_BuffCount; iDB_I++) {
+		//		vPt = DB_PtBuff[iDB_I];
+		//		vPt.SetToScr(&pModelMat, &pScrMat);
+		//		pDC->Ellipse(int(vPt.x + 8), int(vPt.y + 8), int(vPt.x - 8), int(vPt.y - 8));
+		//	}
+		//	// momo
+
+		//	// MoMo_Start
+		//}
 		// MoMo_End
-		SetPen(pDC, 6);
-		if (DspFlags & DSP_BLACK) {
-			SetPen(pDC, 6);
-			// MoMo_Start
-			iPen = 6;
-			// MoMo_End
-		} else {
-			SetPen(pDC, 7);
-			// MoMo_Start
-			iPen = 7;
-			// MoMo_End
-		}
-		int iHC = 0;
-		if (S_Count > 0) {
-			iHC = S_Count;
-			if ((iHLimit > -1) && (iHLimit < iHC))
-				iHC = iHLimit;
-			for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
-				if (S_Buff[iDB_I]->Drawn == 0) {
-					S_Buff[iDB_I]->SetToScr(&pModelMat, &pScrMat);
-				}
-				S_Buff[iDB_I]->HighLight(pDC);
-			}
-		}
-		// Highlight Points in the point Buffer
-		C3dVector vPt;
-		// MoMo_Start
-		if (SeedVals.IsSeedMode && DB_BuffCount > 0) {
-			int iLastPen = 0;
-			for (iDB_I = 0; iDB_I < DB_BuffCount; iDB_I++) {
-				if (DB_PtBuff[iDB_I].tempSeedId > 0) {
-					if (iLastPen != 101) {
-						iLastPen = 101;
-						SetPen(pDC, 101);
-					}
-				} else {
-					if (iLastPen != 102) {
-						iLastPen = 102;
-						SetPen(pDC, 102);
-					}
-				}
-				vPt = DB_PtBuff[iDB_I];
-				vPt.SetToScr(&pModelMat, &pScrMat);
-				pDC->Ellipse(int(vPt.x - 3), int(vPt.y - 3), int(vPt.x + 3), int(vPt.y + 3));
-				pDC->Ellipse(int(vPt.x - 4), int(vPt.y - 4), int(vPt.x + 4), int(vPt.y + 4));
-				// pDC->MoveTo(int(vPt.x + 3), int(vPt.y + 3));
-				// pDC->LineTo(int(vPt.x - 3), int(vPt.y + 3));
-				// pDC->LineTo(int(vPt.x - 3), int(vPt.y - 3));
-				// pDC->LineTo(int(vPt.x + 3), int(vPt.y - 3));
-				// pDC->LineTo(int(vPt.x + 3), int(vPt.y + 3));
-			}
-			SetPen(pDC, iPen);
-		} else {
-			// MoMo_End
-			for (iDB_I = 0; iDB_I < DB_BuffCount; iDB_I++) {
-				vPt = DB_PtBuff[iDB_I];
-				vPt.SetToScr(&pModelMat, &pScrMat);
-				pDC->Ellipse(int(vPt.x + 8), int(vPt.y + 8), int(vPt.x - 8), int(vPt.y - 8));
-			}
 
-			// MoMo_Start
-		}
-		// MoMo_End
+		// if (OTemp->iNo > 0) {
+		//	iHC = OTemp->iNo;
+		//	if ((iHLimit > -1) && (iHLimit < iHC))
+		//		iHC = iHLimit;
+		//	for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
+		//		OTemp->Objs[iDB_I]->HighLight(pDC);
+		//	}
+		// }
+		// if (OTemp2->iNo > 0) {
+		//	iHC = OTemp2->iNo;
+		//	if ((iHLimit > -1) && (iHLimit < iHC))
+		//		iHC = iHLimit;
+		//	for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
+		//		OTemp2->Objs[iDB_I]->HighLight(pDC);
+		//	}
+		// }
 
-		if (OTemp->iNo > 0) {
-			iHC = OTemp->iNo;
-			if ((iHLimit > -1) && (iHLimit < iHC))
-				iHC = iHLimit;
-			for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
-				OTemp->Objs[iDB_I]->HighLight(pDC);
-			}
-		}
-		if (OTemp2->iNo > 0) {
-			iHC = OTemp2->iNo;
-			if ((iHLimit > -1) && (iHLimit < iHC))
-				iHC = iHLimit;
-			for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
-				OTemp2->Objs[iDB_I]->HighLight(pDC);
-			}
-		}
-
-		RestorePen(pDC);
-	}
+		//// MoMo_Start
+		// if (!m_leftIsDragging) {
+		//	// MoMo_End
+		//	RestorePen(pDC);
+		//	// MoMo_Start
+		// }
+	} // MoMo//
+	// MoMo_End
 
 	if (iDspLstCount > 0) {
 		if (iDrawmode == 4) {
@@ -10211,9 +10311,19 @@ void DBase::GenAnimationFrameW(int iDspFlgs, int iFrameNo, double dF) {
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
 	if (iDspLstCount > 0) {
-		for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
-			Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+		// momo
+		// for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
+		//	Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+		// }
+		for (int IsSurf = 0; IsSurf <= 1; IsSurf++) {
+			for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
+				if ((IsSurf && Dsp_List[iDB_I]->iObjType == 15) ||
+				    (!IsSurf && Dsp_List[iDB_I]->iObjType != 15)) {
+					Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+				}
+			}
 		}
+		// momo
 		TmpOGLCnt = 0;
 	}
 	glEndList();
@@ -10257,12 +10367,26 @@ void DBase::GenAnimationFrameS(int iDspFlgs, int iFrameNo, double dF) {
 
 	glNewList(iFrameNo, GL_COMPILE);
 	if (iDspLstCount > 0) {
-		for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
-			Dsp_List[iDB_I]->OglDraw(iDspFlgs, dMFullScl, 0);
-			if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
-				Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+		// momo
+		// for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
+		//	Dsp_List[iDB_I]->OglDraw(iDspFlgs, dMFullScl, 0);
+		//	if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
+		//		Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+		//	}
+		//}
+		for (int IsSurf = 0; IsSurf <= 1; IsSurf++) {
+			for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
+				if ((IsSurf && Dsp_List[iDB_I]->iObjType == 15) ||
+				    (!IsSurf && Dsp_List[iDB_I]->iObjType != 15)) {
+					Dsp_List[iDB_I]->OglDraw(iDspFlgs, dMFullScl, 0);
+					if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
+						Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+					}
+				}
 			}
 		}
+		// momo
+
 		TmpOGLCnt = 0;
 	}
 	glEndList();
@@ -10313,6 +10437,12 @@ void DBase::OglDrawW(int iDspFlgs) {
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMultMatrixf(mOGLmat.fMat);
+	//// momo ModernOpenGL_Start
+	////SyncLegacyViewToModern(dW, dH, WPSize, mOGLmat.fMat);
+	////DrawFilledTriangle();
+	////DrawWireTriangle();
+	////RestoreLegacyGraphics();
+	//// momo ModernOpenGL_End
 	glEnable(GL_AUTO_NORMAL);
 	//
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -10331,6 +10461,7 @@ void DBase::OglDrawW(int iDspFlgs) {
 	}
 
 	glCallList(iOGLList);
+
 	for (i = 0; i < TmpOGLCnt; i++) {
 		TmpOGL[i]->OglDrawW(iDspFlgs, dMFullScl, 0);
 	}
@@ -10361,10 +10492,394 @@ void DBase::OglDrawW(int iDspFlgs) {
 		glVertex3f((float) dW, (float) dH, -100);
 		glEnd();
 	}
+
+	// momo gdi to og =================================================
+	StartpDCToOpenGL();
+	DrawSelectCircles();
+	DrawSelectionRectangle();
+	EndpDCToOpenGL();
+	// momo gdi to og =================================================
+	// momo axis ======================================================
+	if (AxisOrigin) {
+		MakeAxisOrigin(true);
+	}
+	if (AxisCorner) {
+		MakeAxisCorner(-0.3f, -0.2f);
+	}
+	// momo axis ======================================================
+
 	glFlush();
 	glFinish();
 	SwapBuffers(wglGetCurrentDC());
 }
+
+// momo axis ======================================================
+
+void DBase::MakeAxisCorner(float dx, float dy) {
+    // Small viewport (bottom-left corner)
+	int smallViewportWidth = 150;
+	int smallViewportHeight = 150;
+	// Perspective projection settings
+	double perspectiveFovY = 40.0;
+	double perspectiveZNear = 1.0;
+	double perspectiveZFar = 10.0;
+	// Camera Z distance
+	float cameraEyeZ = 5.0f;
+	// Axis label positioning and scaling
+	float labelOffset = 0.35f;
+	float labelSize = 0.35f;
+	float rasterScale = 0.004f;
+	// Font rendering settings
+	int fontSize = 24;
+	float fontScale = 0.0125f;
+	// Axis colors: [axis][0 = shaft, 1 = text][RGB]
+	float colorAxis[3][2][3] = {
+	    {{1.0f, 0.0f, 0.0f}, {0.8f, 0.4f, 0.4f}}, // X axis: shaft and text
+	    {{0.125f, 0.674f, 0.251f}, {0.459f, 0.815f, 0.459f}}, // Y axis
+	    {{0.0f, 0.341f, 0.682f}, {0.3f, 0.5f, 0.8f}} // Z axis
+	};
+	// Arrow values
+	float cylRad = 0.08f;
+	float cylHeight = 1.0f;
+	float coneRad = cylRad * 1.6f;
+	float coneHeight = cylRad * 2.9f;
+	float sphereRad = cylRad * 1.3f;
+	float colorCore[3] = {1.0f, 1.0f, 0.0f}; // Yellow
+	// Step 1: Setup small viewport and camera aligned with main view
+	MakeAxis_CornerSettings1(smallViewportWidth, smallViewportHeight, perspectiveFovY, perspectiveZNear, perspectiveZFar, cameraEyeZ, dx, dy);
+	// Reset OpenGL settings before rendering axis to prevent conflicts
+	glPushAttrib(GL_ENABLE_BIT);   // Save current OpenGL state
+	glDisable(GL_LIGHTING);        // Disable lighting to avoid color change issues in wireframe mode
+	// Step 2: Draw X/Y/Z axes with arrowheads
+	MakeAxis_MakeAxisShapes(cylRad, cylHeight, coneRad, coneHeight, sphereRad, colorAxis, colorCore);
+	// Step 3: Load font if needed and compute GL size
+	MakeAxis_InitializeFont(fontSize, fontScale, 1000, fontsInitializedCorner, fontWidthGLCorner, fontHeightGLCorner);
+	// Step 4: Draw axis labels (X, Y, Z)
+	MakeAxis_ShowLetters(cylHeight, labelOffset, labelSize, rasterScale, colorAxis, fontWidthGLCorner, fontHeightGLCorner, 1000, 0.0f);
+	// Step 5: Restore full viewport and projection
+	MakeAxis_CornerSettings2();
+	// Restore OpenGL settings
+	glPopAttrib();   // Restore OpenGL state (enable lighting if needed)
+}
+
+void DBase::MakeAxis_CornerSettings1(int w, int h, double fovy, double zNear, double zFar, float camZ, float dx, float dy) {
+	glViewport(0, 0, w, h); // Set small viewport in bottom-left
+	// Setup perspective projection matrix
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluPerspective(fovy, 1.0, zNear, zFar); // Setup perspective projection
+	// Setup modelview matrix
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	gluLookAt(0, 0, camZ, 0, 0, 0, 0, 1, 0); // Look at origin from front
+	glTranslatef(dx, dy, 0.0f); // Apply fixed screen-space shift
+	// Apply rotation from main camera
+	float rotOnly[16];
+	MakeAxis_ExtractPureRotationMatrix(mOGLmat.fMat, rotOnly); // Extract pure rotation from the matrix
+	glMultMatrixf(rotOnly); // Apply the pure rotation matrix
+	// Disable lighting to avoid influence on text colors
+	glDisable(GL_LIGHTING);
+}
+
+void DBase::MakeAxis_CornerSettings2() {
+	// Restore modelview matrix
+	glPopMatrix();
+	// Restore projection matrix
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	// Restore full viewport
+	glViewport(0, 0, dWidth, dHeight);
+	// Re-enable lighting if needed (if you want to keep lighting for the objects)
+	glEnable(GL_LIGHTING);
+}
+
+void DBase::MakeAxisOrigin(bool bWireframeMode) { // base 2
+	// Axis dimensions
+	float cylRad = 0.05f;
+	float cylHeight = 0.6f;
+	float coneRad = cylRad * 1.6f;
+	float coneHeight = cylRad * 2.9f;
+	float sphereRad = cylRad * 1.3f;
+	// Label layout
+	float labelOffset = 0.25f;
+	float labelSize = 0.30f;
+	float rasterScale = 0.0035f;
+	// Font settings
+	int fontSize = 18;
+	float fontScale = 0.010f;
+	// Colors
+	float colorAxis[3][2][3] = {
+	    {{1.0f, 0.0f, 0.0f}, {0.8f, 0.4f, 0.4f}}, // X axis: shaft and text
+	    {{0.125f, 0.674f, 0.251f}, {0.459f, 0.815f, 0.459f}}, // Y axis
+	    {{0.0f, 0.341f, 0.682f}, {0.3f, 0.5f, 0.8f}}}; // Z axis
+	float colorCore[3] = {1.0f, 1.0f, 0.0f}; // Yellow
+	// Load font if needed
+	MakeAxis_InitializeFont(fontSize, fontScale, 2000, fontsInitializedOrigin, fontWidthGLOrigin, fontHeightGLOrigin);
+	// Compute zoom-neutral scale
+	double zoomScale = MakeAxis_GetZoomScale3D(&pModelMat);
+	float baseSize = (float) min(dWidth, dHeight);
+	float scaleFix;
+	scaleFix = (800.0f / baseSize) * (1.0f / (float) zoomScale) * 0.8f;
+	glPushAttrib(GL_ENABLE_BIT);
+	glDisable(GL_LIGHTING);
+	glPushMatrix();
+	if (!bWireframeMode) {
+		// Apply the camera transformations
+		glMultMatrixf(mOGLmat.fMat);
+	}
+	glScalef(scaleFix, scaleFix, scaleFix);
+	MakeAxis_MakeAxisShapes(cylRad, cylHeight, coneRad, coneHeight, sphereRad, colorAxis, colorCore);
+	MakeAxis_ShowLetters(cylHeight, labelOffset, labelSize, rasterScale, colorAxis, fontWidthGLOrigin, fontHeightGLOrigin, 2000, 0);
+	glPopMatrix();
+	glPopAttrib();
+}
+
+double DBase::MakeAxis_GetZoomScale3D(C3dMatrix* m) {
+	// Compute length of transformed X and Y basis vectors
+	double lenX = sqrt(m->m_00 * m->m_00 + m->m_01 * m->m_01 + m->m_02 * m->m_02);
+	double lenY = sqrt(m->m_10 * m->m_10 + m->m_11 * m->m_11 + m->m_12 * m->m_12);
+	return (lenX + lenY) * 0.5; // Average zoom scale
+}
+
+void DBase::MakeAxis_ExtractPureRotationMatrix(const float* m, float* rotOnly) {
+	// Extract and normalize rotation part (remove scaling)
+	float scaleX = sqrt(m[0] * m[0] + m[1] * m[1] + m[2] * m[2]);
+	float scaleY = sqrt(m[4] * m[4] + m[5] * m[5] + m[6] * m[6]);
+	float scaleZ = sqrt(m[8] * m[8] + m[9] * m[9] + m[10] * m[10]);
+	rotOnly[0] = m[0] / scaleX;
+	rotOnly[1] = m[1] / scaleX;
+	rotOnly[2] = m[2] / scaleX;
+	rotOnly[3] = 0.0f;
+	rotOnly[4] = m[4] / scaleY;
+	rotOnly[5] = m[5] / scaleY;
+	rotOnly[6] = m[6] / scaleY;
+	rotOnly[7] = 0.0f;
+	rotOnly[8] = m[8] / scaleZ;
+	rotOnly[9] = m[9] / scaleZ;
+	rotOnly[10] = m[10] / scaleZ;
+	rotOnly[11] = 0.0f;
+	rotOnly[12] = 0.0f;
+	rotOnly[13] = 0.0f;
+	rotOnly[14] = 0.0f;
+	rotOnly[15] = 1.0f;
+}
+
+void DBase::MakeAxis_MakeAxisShapes(float cylinderRadius, float cylinderHeight, float coneBaseRadius, float coneHeight, float sphereRadius, float colorAxis[3][2][3], float* colorCore) {
+	static GLUquadric* quad = nullptr;
+	if (!quad)
+		quad = gluNewQuadric();
+	int slices = 24;
+	int stacks = 12;
+	// Yellow sphere at origin
+	glPushMatrix();
+	glColor3fv(colorCore);
+	gluSphere(quad, sphereRadius, slices, stacks);
+	glPopMatrix();
+	// X axis - Red
+	glPushMatrix();
+	glColor3fv(colorAxis[0][0]);
+	glRotatef(90, 0, 1, 0); // Rotate to X axis
+	gluCylinder(quad, cylinderRadius, cylinderRadius, cylinderHeight, slices, 1);
+	glTranslatef(0.0f, 0.0f, cylinderHeight);
+	gluCylinder(quad, coneBaseRadius, 0.0f, coneHeight, slices, 1);
+	glPopMatrix();
+	// Y axis - Green
+	glPushMatrix();
+	glColor3fv(colorAxis[1][0]);
+	glRotatef(-90, 1, 0, 0); // Rotate to Y axis
+	gluCylinder(quad, cylinderRadius, cylinderRadius, cylinderHeight, slices, 1);
+	glTranslatef(0.0f, 0.0f, cylinderHeight);
+	gluCylinder(quad, coneBaseRadius, 0.0f, coneHeight, slices, 1);
+	glPopMatrix();
+	// Z axis - Blue
+	glPushMatrix();
+	glColor3fv(colorAxis[2][0]);
+	gluCylinder(quad, cylinderRadius, cylinderRadius, cylinderHeight, slices, 1);
+	glTranslatef(0.0f, 0.0f, cylinderHeight);
+	gluCylinder(quad, coneBaseRadius, 0.0f, coneHeight, slices, 1);
+	glPopMatrix();
+}
+
+void DBase::MakeAxis_InitializeFont(int fontSize, float fontScale, GLuint baseList, bool& fontsInitializedFlag, float& fontWidthOut, float& fontHeightOut) {
+	if (fontsInitializedFlag)
+		return;
+	// Get current device context
+	HDC hdc = wglGetCurrentDC();
+	// Create a bold font with desired size
+	HFONT hFont = CreateFont(
+	    -fontSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+	    ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS,
+	    ANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH,
+	    _T("Arial Black"));
+	SelectObject(hdc, hFont);
+	// Load font into OpenGL display list starting from baseList
+	wglUseFontBitmaps(hdc, 0, 256, baseList);
+	// Measure letter size in pixels
+	SIZE glyphSize;
+	GetTextExtentPoint32A(hdc, "X", 1, &glyphSize);
+	// Convert to GL units using fontScale
+	fontWidthOut = glyphSize.cx * fontScale;
+	fontHeightOut = glyphSize.cy * fontScale;
+	fontsInitializedFlag = true;
+}
+
+void DBase::MakeAxis_ShowLetters(float cylinderHeight, float labelOffset, float labelSize, float rasterScale, float colorAxis[3][2][3], float fontWidth, float fontHeight, GLuint baseList, float zoomScale) {
+	// Adjust label offset and shifts based on zoom scale
+	float adjOffset = (zoomScale > 0.0f) ? (labelOffset / zoomScale) : labelOffset;
+	float shiftVal = (zoomScale > 0.0f) ? (labelOffset / zoomScale) : labelOffset;
+	C3dVector origin(0.0f, 0.0f, 0.0f);
+	C3dVector xEnd(cylinderHeight, 0.0f, 0.0f);
+	C3dVector yEnd(0.0f, cylinderHeight, 0.0f);
+	C3dVector zEnd(0.0f, 0.0f, cylinderHeight);
+	C3dVector shiftX(0.00f, shiftVal, shiftVal);
+	C3dVector shiftY(shiftVal, 0.00f, shiftVal);
+	C3dVector shiftZ(shiftVal, shiftVal, 0.00f);
+	MakeAxis_DrawAxisLabel('X', origin, xEnd, adjOffset, shiftX, rasterScale, colorAxis[0][1], fontWidth, fontHeight, baseList);
+	MakeAxis_DrawAxisLabel('Y', origin, yEnd, adjOffset, shiftY, rasterScale, colorAxis[1][1], fontWidth, fontHeight, baseList);
+	MakeAxis_DrawAxisLabel('Z', origin, zEnd, adjOffset, shiftZ, rasterScale, colorAxis[2][1], fontWidth, fontHeight, baseList);
+}
+
+void DBase::MakeAxis_DrawAxisLabel(
+    char axis, C3dVector start, C3dVector end,
+    float offsetAlongAxis, C3dVector shift,
+    float rasterScale, float* color,
+    float fontWidth, float fontHeight, GLuint baseList) {
+	C3dVector dir = end - start;
+	dir.Normalize();
+	C3dVector cameraForward(0.0f, 0.0f, -1.0f);
+	float alignment = (float) dir.Dot(cameraForward);
+	float signedOffset = (alignment > 0) ? -offsetAlongAxis : offsetAlongAxis;
+	C3dVector labelPos = end + dir * signedOffset + shift;
+	glColor3fv(color);
+	glPushMatrix();
+	glTranslatef((float) labelPos.x - fontWidth / 2.0f, (float) labelPos.y - fontHeight / 2.0f, (float) labelPos.z);
+	glScalef(rasterScale, rasterScale, rasterScale);
+	glRasterPos3f(0, 0, 0);
+	glCallList(baseList + axis);
+	glPopMatrix();
+}
+// momo axis ======================================================
+
+// momo gdi to og
+void DBase::DrawSelectionRectangle() {
+	if (m_leftIsDragging) {
+		if (m_x2 >= m_x1 || !DeselectCadrMode) {
+			glColor3f(1.0f, 1.0f, 1.0f);
+		} else {
+			glColor3f(1.0f, 0.466666f, 0.643137f);
+		}
+		glLineWidth(1.5f);
+		glBegin(GL_LINE_STRIP);
+		glVertex2f((float) m_x1, (float) m_y1);
+		glVertex2f((float) m_x2, (float) m_y1);
+		glVertex2f((float) m_x2, (float) m_y2);
+		glVertex2f((float) m_x1, (float) m_y2);
+		glVertex2f((float) m_x1, (float) m_y1);
+		glEnd();
+	}
+	DeSelectAll = false;
+}
+
+double DBase::GetZoomScale(C3dMatrix* pModelMat) {
+	double dx = pModelMat->m_00;
+	double dy = pModelMat->m_11;
+	return sqrt(dx * dx + dy * dy);
+}
+
+void DBase::DrawSelectCircles() {
+	if (pDCDrawFlags[0] && SelectMode != 2) {
+		if (DspFlags & DSP_BLACK) {
+			glColor3f(1.0f, 1.0f, 0);
+		} else {
+			glColor3f(0, 0, 0);
+		}
+		int iDB_I;
+		int iHC = 0;
+		C3dVector vPt;
+		double zoomScale = GetZoomScale(&pModelMat);
+		double pixelRadius1 = 0.2;
+		double pixelRadius2 = 0.1;
+		double fixedRadius1 = pixelRadius1 / zoomScale;
+		double fixedRadius2 = pixelRadius2 / zoomScale;
+		if (S_Count > 0) {
+			iHC = S_Count;
+			if ((iHLimit > -1) && (iHLimit < iHC))
+				iHC = iHLimit;
+			for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
+				// if (S_Buff[iDB_I]->Drawn == 0) {
+				S_Buff[iDB_I]->SetToScr(&pModelMat, &pScrMat);
+				//}
+				// DrawCircle(S_Buff[iDB_I]->SelPt, 8.0, 1.5, 96);
+				S_Buff[iDB_I]->HighLight();
+			}
+		}
+		if (SeedVals.IsSeedMode && DB_BuffCount > 0) {
+			int iLastPen = 0;
+			for (iDB_I = 0; iDB_I < DB_BuffCount; iDB_I++) {
+				if (DB_PtBuff[iDB_I].tempSeedId > 0) {
+					glColor3f(1, 0, 0);
+				} else {
+					glColor3f(0.1333333f, 1.0f, 0.2980392f);
+				}
+				vPt = DB_PtBuff[iDB_I];
+				vPt.SetToScr(&pModelMat, &pScrMat);
+				DrawCircle(vPt, 4.5, 1.5, 96);
+			}
+		} else {
+			for (iDB_I = 0; iDB_I < DB_BuffCount; iDB_I++) {
+				vPt = DB_PtBuff[iDB_I];
+				vPt.SetToScr(&pModelMat, &pScrMat);
+				DrawCircle(vPt, 8.0, 1.5, 96);
+			}
+		}
+		if (OTemp->iNo > 0) {
+			iHC = OTemp->iNo;
+			if ((iHLimit > -1) && (iHLimit < iHC))
+				iHC = iHLimit;
+			for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
+				// DrawCircle(OTemp->Objs[iDB_I]->SelPt, 8.0, 1.5, 96);
+				OTemp->Objs[iDB_I]->HighLight();
+			}
+		}
+		if (OTemp2->iNo > 0) {
+			iHC = OTemp2->iNo;
+			if ((iHLimit > -1) && (iHLimit < iHC))
+				iHC = iHLimit;
+			for (iDB_I = 0; iDB_I < iHC; iDB_I++) {
+				// DrawCircle(OTemp2->Objs[iDB_I]->SelPt, 8.0, 1.5, 96);
+				OTemp2->Objs[iDB_I]->HighLight();
+			}
+		}
+	}
+}
+
+void DBase::StartpDCToOpenGL() {
+	if (pDCDrawFlags[0] || m_leftIsDragging) {
+		glDisable(GL_DEPTH_TEST);
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		glOrtho(0, dWidth, dHeight, 0, -1, 1);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+	}
+}
+
+void DBase::EndpDCToOpenGL() {
+	if (pDCDrawFlags[0] || m_leftIsDragging) {
+		pDCDrawFlags[0] = false;
+		glPopMatrix();
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_DEPTH_TEST);
+	}
+}
+// momo gdi to og
 
 void DBase::OglDraw(int iDspFlgs) {
 	CalcMScl();
@@ -10484,6 +10999,21 @@ void DBase::OglDraw(int iDspFlgs) {
 		glVertex3f((float) dW, (float) dH, -100);
 		glEnd();
 	}
+
+	// momo gdi to og =================================================
+	StartpDCToOpenGL();
+	DrawSelectCircles();
+	DrawSelectionRectangle();
+	EndpDCToOpenGL();
+	// momo gdi to og =================================================
+	// momo axis ======================================================
+	if (AxisOrigin) {
+		MakeAxisOrigin(false);
+	}
+	if (AxisCorner) {
+		MakeAxisCorner(-0.3f, -0.2f);
+	}
+	// momo axis ======================================================
 
 	glFlush();
 	glFinish();
@@ -10664,24 +11194,144 @@ int DBase::GetItemType() {
 	return (irc);
 }
 
-void DBase::S_BuffAdd2(CDC* pDC, G_Object* cAddObj) {
-	BOOL AddIn;
-	AddIn = S_IsIn(cAddObj);
-	if (AddIn == FALSE) {
-		cAddObj->HighLight(pDC);
-		S_Buff[S_Count] = cAddObj;
-		S_Count++;
-	}
-}
+// momo gdi to og
+// void DBase::S_BuffAdd2(CDC* pDC, G_Object* cAddObj) {
+//	BOOL AddIn;
+//	AddIn = S_IsIn(cAddObj);
+//	if (AddIn == FALSE) {
+//		cAddObj->HighLight(pDC);
+//		S_Buff[S_Count] = cAddObj;
+//		// momo
+//		S_BuffChanged(S_Count, S_Count, true);
+//		// momo
+//		S_Count++;
+//	}
+//}
+// momo gdi to og
 
 void DBase::S_BuffAdd3(G_Object* cAddObj) {
 	BOOL AddIn;
 	AddIn = S_IsIn(cAddObj);
 	if (AddIn == FALSE) {
 		S_Buff[S_Count] = cAddObj;
+		// momo
+		S_BuffChanged(S_Count, S_Count, true);
+		// momo
 		S_Count++;
 	}
 }
+
+// momo
+void DBase::S_BuffRemove3(G_Object* cAddObj) {
+	int i, iFound = -1;
+	for (i = 0; i < S_Count; i++) {
+		if (S_Buff[i] == cAddObj) {
+			iFound = i;
+			break;
+		}
+	}
+	if (iFound != -1) {
+		S_BuffChanged(iFound, iFound, false);
+		for (i = iFound + 1; i < S_Count; i++) {
+			S_Buff[i - 1] = S_Buff[i];
+		}
+		S_Buff[S_Count - 1] = NULL;
+		S_Count--;
+	}
+}
+
+void DBase::S_BuffChanged(int iSelStart, int iSelEnd, bool addMode) {
+	int iStart, iEnd, i;
+	if (iSelStart == -1000 && iSelEnd == -1000) {
+		iStart = 0;
+		iEnd = S_Count - 1;
+	} else if (addMode && iSelStart == S_Count) {
+		iStart = iSelStart;
+		iEnd = iSelEnd;
+	} else if ((iSelStart < 0 || iSelStart > S_Count - 1) || (iSelEnd < 0 || iSelEnd > S_Count - 1)) {
+		outtext1("Program error: selection error.");
+		return;
+	} else {
+		iStart = iSelStart;
+		iEnd = iSelEnd;
+	}
+	if (iSelStart == -1000 && iSelEnd == -1000) {
+		if (!addMode) {
+			DeSelectAll = true;
+		} else {
+			DeSelectAll = false;
+		}
+		for (i = 0; i < iDspLstCount; i++) {
+			if (Dsp_List[i] != nullptr) {
+				Dsp_List[i]->Selected = addMode;
+				iOGLList = -1;
+				// NSurf* selSurface;
+				// NCurve* selEdge;
+				// int j, k;
+				// selSurface = (NSurf*) Dsp_List[i];
+				// if (Dsp_List[i]->iObjType == 15) {
+				//	if (selSurface != NULL) {
+				//		for (j = 0; j < selSurface->iNoExtCvs; j++) {
+				//			if (selSurface->pExtLoop[j] != NULL) {
+				//				selEdge = (NCurve*) selSurface->pExtLoop[j];
+				//				if (selEdge != NULL) {
+				//					selEdge->Selected = addMode;
+				//				}
+				//			}
+				//		}
+				//		for (k = 0; k < selSurface->iNoIntLoops; k++) {
+				//			for (j = 0; j < selSurface->iNoIntCvs[k]; j++) {
+				//				if (selSurface->pIntLoop[k][j] != NULL) {
+				//					selEdge = (NCurve*) selSurface->pIntLoop[k][j];
+				//					if (selEdge != NULL) {
+				//						selEdge->Selected = addMode;
+				//					}
+				//				}
+				//			}
+				//		}
+				//	}
+				// }
+			}
+		}
+	} else {
+		if (addMode) {
+			DeSelectAll = false;
+		}
+		for (i = iStart; i <= iEnd; i++) {
+			if (S_Buff[i] != nullptr) {
+				S_Buff[i]->Selected = addMode;
+				iOGLList = -1;
+				// NSurf* selSurface;
+				// NCurve* selEdge;
+				// int j, k;
+				// selSurface = (NSurf*) S_Buff[i];
+				// if (S_Buff[i]->iObjType == 15) {
+				//	if (selSurface != NULL) {
+				//		for (j = 0; j < selSurface->iNoExtCvs; j++) {
+				//			if (selSurface->pExtLoop[j] != NULL) {
+				//				selEdge = (NCurve*) selSurface->pExtLoop[j];
+				//				if (selEdge != NULL) {
+				//					selEdge->Selected = addMode;
+				//				}
+				//			}
+				//		}
+				//		for (k = 0; k < selSurface->iNoIntLoops; k++) {
+				//			for (j = 0; j < selSurface->iNoIntCvs[k]; j++) {
+				//				if (selSurface->pIntLoop[k][j] != NULL) {
+				//					selEdge = (NCurve*) selSurface->pIntLoop[k][j];
+				//					if (selEdge != NULL) {
+				//						selEdge->Selected = addMode;
+				//					}
+				//				}
+				//			}
+				//		}
+				//	}
+				// }
+			}
+		}
+	}
+}
+// momo
 
 BOOL DBase::S_IsIn(G_Object* cAddObj) {
 	BOOL brc = FALSE;
@@ -10705,28 +11355,42 @@ void DBase::S_Save(ObjList* oList) {
 
 void DBase::S_Res() {
 	int i;
+	// momo
+	S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	if (OTemp->iNo > 0) {
 		for (i = 0; i < OTemp->iNo; i++) {
 			S_Buff[S_Count] = OTemp->Objs[i];
+			// momo
+			S_BuffChanged(S_Count, S_Count, true);
+			// momo
 			S_Count++;
 		}
 	}
 	if (OTemp2->iNo > 0) {
 		for (i = 0; i < OTemp2->iNo; i++) {
 			S_Buff[S_Count] = OTemp2->Objs[i];
+			// momo
+			S_BuffChanged(S_Count, S_Count, true);
+			// momo
 			S_Count++;
 		}
 	}
 	OTemp->Clear();
 	OTemp2->Clear();
+	// momo
+	ReDraw();
+	// momo
 }
 
 // G_Object S_Buff[100];
 //  Search database for object form coords visible picked
 //  only nodes search currently
 int DBase::S_BuffAdd(G_Object* cAddObj) {
-	CDC* pDC = pTheView->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = pTheView->GetDC();
+	// momo gdi to og
 	int iBuffCnt;
 	int iRetVal = 1;
 	G_Object* pO;
@@ -10759,7 +11423,14 @@ int DBase::S_BuffAdd(G_Object* cAddObj) {
 		}
 		iBuffCnt = 0;
 		while (iBuffCnt < S_Count) {
-			if (PtrIsIn(pO, S_Buff[iBuffCnt]) == TRUE) {
+			// momo
+			// if (PtrIsIn(pO, S_Buff[iBuffCnt]) == TRUE) {
+			if (pO == S_Buff[iBuffCnt]) {
+				// momo
+
+				// momo
+				S_BuffChanged(iBuffCnt, iBuffCnt, false);
+				// momo
 				S_Buff[iBuffCnt] = S_Buff[S_Count - 1];
 				S_Count--;
 				iBuffCnt--;
@@ -10770,15 +11441,26 @@ int DBase::S_BuffAdd(G_Object* cAddObj) {
 	} // end if
 
 	if (iRetVal == 1) {
-		SetPen(pDC, 6);
-		cAddObj->HighLight(pDC);
-		Sleep(200);
-		RestorePen(pDC);
+		// momo gdi to og
+		// SetPen(pDC, 6);
+		// cAddObj->HighLight(pDC);
+		// momo gdi to og
+		// momo
+		// momo// Sleep(200);
+		// momo
+		// momo gdi to og
+		// momo// RestorePen(pDC);
+		// momo gdi to og
 		S_Buff[S_Count] = cAddObj;
+		// momo
+		S_BuffChanged(S_Count, S_Count, true);
+		// momo
 		S_Count++;
 	}
 
-	pTheView->ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// pTheView->ReleaseDC(pDC);
+	// momo gdi to og
 	return (iRetVal);
 }
 
@@ -10788,16 +11470,39 @@ void DBase::SelWGName(CString inName) {
 void DBase::SelAllWGs() {
 }
 
-void DBase::UpTree() {
-	if (S_Count > 0) {
-		if (S_Buff[S_Count - 1]->pParent != NULL) {
-			S_Buff[S_Count - 1] = S_Buff[S_Count - 1]->pParent;
+// momo gdi to og
+// void DBase::UpTree(){
+//	if(S_Count > 0){
+//		if(S_Buff[S_Count - 1]->pParent != NULL){
+//			S_Buff[S_Count - 1] = S_Buff[S_Count - 1]->pParent;
+//		}
+//		CDC* pDC = pTheView->GetDC();
+//		this->Draw(pModelMat,pDC,4);
+//		pTheView->ReleaseDC(pDC);
+//	}
+//}
+bool DBase::UpTree(CPoint point) {
+	bool bApplied = false;
+	bool bNeedRedraw = false;
+	G_Object* cSelObject = S_Single(point, true);
+	if (cSelObject != NULL) {
+		G_Object* cSelParent = cSelObject->pParent;
+		S_BuffAdd(cSelObject);
+		bNeedRedraw = true;
+		if (cSelParent != NULL) {
+			if (!cSelParent->Selected) {
+				S_BuffAdd(cSelParent);
+				bNeedRedraw = true;
+				bApplied = true;
+			}
 		}
-		CDC* pDC = pTheView->GetDC();
-		this->Draw(pModelMat, pDC, 4);
-		pTheView->ReleaseDC(pDC);
 	}
+	if (bNeedRedraw) {
+		this->Draw(pModelMat, 4);
+	}
+	return bApplied;
 }
+// momo gdi to og
 
 // MoMo_Start
 // G_Object* DBase::S_Single(CPoint InPT)
@@ -10841,7 +11546,7 @@ void DBase::UpTree() {
 // MoMo_End
 
 // MoMo_Start
-G_Object* DBase::S_Single(CPoint InPT) {
+G_Object* DBase::S_Single(CPoint InPT, bool OnlyFind) {
 	double SDist = 1E36;
 	G_Object* cSel = NULL;
 
@@ -10871,13 +11576,15 @@ G_Object* DBase::S_Single(CPoint InPT) {
 				}
 			}
 		}
-		if ((cSel != NULL) && (SDist < 600)) {
-			int i;
-			i = S_BuffAdd(cSel);
-			// MoMo: i==0 means remove from selection
-			if (i == 0) {
+		if (cSel != NULL && SDist < 600) {
+			if (!OnlyFind) {
+				int i;
+				i = S_BuffAdd(cSel);
+				// MoMo: i==0 means remove from selection
 				ReGen();
 			}
+		} else {
+			cSel = NULL;
 		}
 	}
 	return (cSel);
@@ -11478,10 +12185,41 @@ void DBase::S_Box(CPoint UL, CPoint LR) {
 	// ReDraw();
 }
 
+// momo
+void DBase::DeSelect_Box(CPoint UL, CPoint LR) {
+	int i;
+	ObjList* pSel = new ObjList();
+	if (iDspLstCount > 0) {
+		for (i = 0; i < iDspLstCount; i++) {
+			if ((Dsp_List[i]->isSelectable() == 1)) {
+				Dsp_List[i]->S_Box(LR, UL, pSel);
+			}
+		}
+	}
+	// CDC* pDC=pTheView->GetDC();
+	// SetPen(pDC,6);
+	for (i = 0; i < pSel->iNo; i++) {
+		if (FILTER.isFilter(pSel->Objs[i]->iObjType) == TRUE) {
+			S_BuffRemove3(pSel->Objs[i]);
+		}
+	}
+	// RestorePen(pDC);
+	// pTheView->ReleaseDC(pDC);
+	delete (pSel);
+	pSel = NULL;
+	// ReDraw();
+}
+// momo
+
 void DBase::S_Invert() {
 	int i;
 
-	for (i = 1; i < iDspLstCount; i++) {
+	// momo gdi to og
+	S_BuffRemove3(Dsp_List[0]);
+	S_BuffRemove3(Dsp_List[1]);
+	for (i = 2; i < iDspLstCount; i++) {
+		// momo// for (i = 1; i < iDspLstCount; i++) {
+		// momo gdi to og
 		if (Dsp_List[i]->isSelectable() == 1) {
 			S_BuffAdd(Dsp_List[i]);
 		}
@@ -11513,6 +12251,9 @@ void DBase::S_All(int iT) {
 }
 
 void DBase::S_Des() {
+	// momo
+	S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	ReDraw();
 }
@@ -11575,7 +12316,10 @@ int DBase::DB_NoInBuff() {
 
 void DBase::DoMsg(int MsgType, CPoint PT1, CPoint PT2) {
 	if (MsgType == 1) {
-		G_Object* DB_h = S_Single(PT1);
+		// momo gdi to og
+		// momo// G_Object* DB_h = S_Single(PT1);
+		G_Object* DB_h = S_Single(PT1, false);
+		// momo gdi to og
 	} else if (MsgType == 3) {
 		ReDraw();
 	} else if (MsgType == 4) {
@@ -12595,6 +13339,9 @@ void DBase::S_ImportIges(FILE* pFile, CString inName) {
 	delete (PDat);
 	outtext1("FINISHED IGES READ");
 	InvalidateOGL();
+	// momo
+	S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	ReDraw();
 }
@@ -13254,15 +14001,21 @@ NCurve* DBase::BCurveIges(IgesD DE, CString PLine) {
 }
 
 void DBase::ReDraw() {
-	CDC* pDC = pTheView->GetDC();
-	this->Draw(pModelMat, pDC, 5);
-	pTheView->ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// CDC* pDC = pTheView->GetDC();
+	// momo// this->Draw(pModelMat, pDC, 5);
+	this->Draw(pModelMat, 5);
+	// momo// pTheView->ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void DBase::ReGen() {
-	CDC* pDC = pTheView->GetDC();
-	this->Draw(pModelMat, pDC, 4);
-	pTheView->ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// CDC* pDC = pTheView->GetDC();
+	// momo// this->Draw(pModelMat, pDC, 4);
+	this->Draw(pModelMat, 4);
+	// momo// pTheView->ReleaseDC(pDC);
+	// momo gdi to og
 }
 //*****************************************************
 // INIT OLG
@@ -13277,6 +14030,50 @@ void DBase::InitOGL(CDC* pDC) {
 	// CreateRGBPalette();
 	////Esp_Mod_Labels_4_27_2025_Start: Added initialization of new font system
 	HDC hdc = m_pDC->GetSafeHdc();
+	//// momo ModernOpenGL_Start
+	////HGLRC tempContext = wglCreateContext(hdc);
+	////wglMakeCurrent(hdc, tempContext);
+	////PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB =
+	////    (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB");
+	////if (!wglCreateContextAttribsARB) {
+	////	MessageBoxA(NULL, "wglCreateContextAttribsARB not supported!", "Error", MB_OK | MB_ICONERROR);
+	////	wglMakeCurrent(NULL, NULL);
+	////	wglDeleteContext(tempContext);
+	////	return;
+	////}
+	////wglMakeCurrent(NULL, NULL);
+	////wglDeleteContext(tempContext);
+	////int attribs[] = {
+	////    WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
+	////    WGL_CONTEXT_MINOR_VERSION_ARB, 3,
+	////    WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
+	////    0};
+	////hrc = wglCreateContextAttribsARB(hdc, 0, attribs);
+	////wglMakeCurrent(hdc, hrc);
+	////glewExperimental = GL_TRUE;
+	////if (glewInit() != GLEW_OK) {
+	////	MessageBoxA(NULL, "GLEW Initialization Failed!", "Error", MB_OK | MB_ICONERROR);
+	////	return;
+	////}
+	////if (StartLoad) {
+	////	CString ver;
+	////	ver.LoadString(IDR_FULLVERSION);
+	////	outtext1(ver);
+	////	const GLubyte* version = glGetString(GL_VERSION);
+	////	CString versionSt1 = (const char*) version;
+	////	CString versionSt2;
+	////	versionSt2.Format(_T("OpenGL Version = %s"), versionSt1);
+	////	outtext1(versionSt2);
+	////	outtext1("If you experience display problems, change the BUFFER option in the VIEW menu.");
+	////	SetText(_T("0.07664576\r\n0.2\r\n1.0\r\n1.0\r\n1.0\r\n1.0\r\n0.0\r\n0.0\r\n0.0\r\n1.0\r\n0.0\r\n0.0\r\n0.0"));
+	////	StartLoad = false;
+	////}
+	////InitGraphicsShaders();
+	////glViewport(0, 0, 800, 600);
+	////glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	////glClear(GL_COLOR_BUFFER_BIT);
+	////note disable next two lines after activation
+	//// momo ModernOpenGL_End
 	hrc = wglCreateContext(hdc);
 	wglMakeCurrent(hdc, hrc);
 	InitFont(hdc);
@@ -13301,6 +14098,7 @@ void DBase::InvalidateOGL() {
 
 void DBase::SetDrawType(int iType) {
 	DB_DrawState = iType;
+	MainDrawState = iType;
 	if (DB_DrawState == 0) {
 		if ((DspFlags & DSP_LINE) == 0) {
 			DspFlags = (DspFlags ^ DSP_LINE);
@@ -13475,6 +14273,9 @@ void DBase::DeleteObj() {
 	int i;
 	if (S_Count > 0) {
 		do {
+			// momo
+			S_Buff[iCO]->Selected = false;
+			// momo
 			if (S_Buff[iCO]->iObjType == 4) {
 				ME_Object* Me = (ME_Object*) S_Buff[iCO];
 				if (Me != pCurrentMesh) {
@@ -13609,8 +14410,14 @@ void DBase::DeleteObj() {
 					}
 				} //****************************************
 			}
+			// momo
+			// S_Buff[S_Count-1] = nullptr;
+			// momo
 			iCO++;
 		} while (iCO < S_Count);
+		// momo
+		// S_BuffChanged(-1000, -1000, false);
+		// momo
 		S_Count = 0;
 		InvalidateOGL();
 		ReDraw();
@@ -14213,6 +15020,9 @@ C3dVector DBase::ClosestTo(C3dVector vPt) {
 	C3dVector vRet;
 	if (S_Count > 0) {
 		vRet = S_Buff[S_Count - 1]->MinPt(vPt);
+		// momo
+		S_BuffChanged(S_Count - 1, S_Count - 1, false);
+		// momo
 		S_Count--;
 		ReDraw();
 	}
@@ -14389,7 +15199,13 @@ C3dVector DBase::Intersect(BOOL& bErr, CPoint nPt) {
 		}
 		if (!bErr) {
 			vRet = NLnInt3(Ln, Ln1, &pN1);
+			// momo
+			S_BuffChanged(S_Count - 1, S_Count - 1, false);
+			// momo
 			S_Count--;
+			// momo
+			S_BuffChanged(S_Count - 1, S_Count - 1, false);
+			// momo
 			S_Count--;
 			ReDraw();
 		}
@@ -14423,7 +15239,13 @@ void DBase::Corner2(CPoint PNear1, CPoint PNear2) {
 		}
 		if (!bErr) {
 			Corner(Ln, Ln1, pN1, pN2);
+			// momo
+			S_BuffChanged(S_Count - 1, S_Count - 1, false);
+			// momo
 			S_Count--;
+			// momo
+			S_BuffChanged(S_Count - 1, S_Count - 1, false);
+			// momo
 			S_Count--;
 			InvalidateOGL();
 			ReDraw();
@@ -14465,6 +15287,9 @@ void DBase::Trim(CPoint PNear1, CPoint PNear2) {
 					Ln->ws = dU;
 				else if ((dUse < dU) && (Ln->we < dU))
 					Ln->we = dU;
+				// momo
+				S_BuffChanged(S_Count - 3, S_Count - 1, false);
+				// momo
 				S_Count -= 2;
 				InvalidateOGL();
 				ReDraw();
@@ -14515,12 +15340,18 @@ void DBase::Trim(CPoint PNear1, CPoint PNear2) {
 					else if ((dUse < dU) && (Cv->we < dU))
 						Cv->we = dU;
 				}
+				// momo
+				S_BuffChanged(S_Count - 3, S_Count - 1, false);
+				// momo
 				S_Count -= 2;
 				InvalidateOGL();
 				ReDraw();
 			}
 		} else {
 			outtext1("ERROR: Two curves must be selected.");
+			// momo
+			S_BuffChanged(S_Count - 3, S_Count - 1, false);
+			// momo
 			S_Count -= 2;
 			ReDraw();
 		}
@@ -14616,7 +15447,13 @@ NCircle* DBase::Fillet2(double dR, CPoint PNear1, CPoint PNear2) {
 					iCVLabCnt++;
 					InvalidateOGL();
 				}
+				// momo
+				S_BuffChanged(S_Count - 1, S_Count - 1, false);
+				// momo
 				S_Count--;
+				// momo
+				S_BuffChanged(S_Count - 1, S_Count - 1, false);
+				// momo
 				S_Count--;
 				ReDraw();
 			}
@@ -17883,6 +18720,9 @@ void DBase::DeleteResVec() {
 	int i;
 	if (pCurrentMesh != NULL) {
 		i = 0;
+		// momo
+		S_BuffChanged(-1000, -1000, false);
+		// momo
 		S_Count = 0; // Deselect all
 		do // Remove from the display list
 		{
@@ -17998,9 +18838,15 @@ void DBase::SelbyTYPE(int PID) {
 		{
 			if ((bDispAll == FALSE) && (IsOnScr(pCurrentMesh->pElems[iCO]))) {
 				S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			} else if (bDispAll == TRUE) {
 				S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18015,9 +18861,15 @@ void DBase::SelbyCOL(int PID) {
 		{
 			if ((bDispAll == FALSE) && (IsOnScr(pCurrentMesh->pElems[iCO]))) {
 				S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			} else if (bDispAll == TRUE) {
 				S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18050,9 +18902,15 @@ void DBase::SelNodesbyCOL(int PID) {
 		{
 			if ((bDispAll == FALSE) && (IsOnScr(pCurrentMesh->pNodes[iCO]))) {
 				S_Buff[S_Count] = pCurrentMesh->pNodes[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			} else if (bDispAll == TRUE) {
 				S_Buff[S_Count] = pCurrentMesh->pNodes[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18066,6 +18924,9 @@ void DBase::SelSurfsbyCOL(int iCOl) {
 		if (Dsp_List[iCO]->iObjType == 15) {
 			if (Dsp_List[iCO]->iColour == iCOl) {
 				S_Buff[S_Count] = Dsp_List[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18075,11 +18936,17 @@ void DBase::SelSurfsbyCOL(int iCOl) {
 
 void DBase::SelPtsbyCOL(int iCOl) {
 	int iCO;
+	// momo
+	S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	for (iCO = 0; iCO < iDspLstCount; iCO++) {
 		if (Dsp_List[iCO]->iObjType == 0) {
 			if (Dsp_List[iCO]->iColour == iCOl) {
 				S_Buff[S_Count] = Dsp_List[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18093,6 +18960,9 @@ void DBase::SelCursbyCOL(int iCOl) {
 		if (Dsp_List[iCO]->iObjType == 7) {
 			if (Dsp_List[iCO]->iColour == iCOl) {
 				S_Buff[S_Count] = Dsp_List[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18106,6 +18976,9 @@ void DBase::SelCursbyLAY(int iLAY) {
 		if ((Dsp_List[iCO]->iObjType == 0) || (Dsp_List[iCO]->iObjType == 6) || (Dsp_List[iCO]->iObjType == 7) || (Dsp_List[iCO]->iObjType == 10)) {
 			if (Dsp_List[iCO]->iFile == iLAY) {
 				S_Buff[S_Count] = Dsp_List[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18204,6 +19077,9 @@ void DBase::EditObject() {
 		Dlg.PT = PropsT;
 		Dlg.pO = pO;
 		Dlg.DoModal();
+		// momo
+		S_BuffChanged(S_Count - 1, S_Count - 1, false);
+		// momo
 		S_Count--;
 		InvalidateOGL();
 		ReGen();
@@ -18310,9 +19186,15 @@ void DBase::SelbyPID(int PID) {
 		{
 			if ((bDispAll == FALSE) && (IsOnScr(pCurrentMesh->pElems[iCO]))) {
 				S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			} else if (bDispAll == TRUE) {
 				S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+				// momo
+				S_BuffChanged(S_Count, S_Count, true);
+				// momo
 				S_Count++;
 			}
 		}
@@ -18329,9 +19211,15 @@ void DBase::SelbyMID(int inMID) {
 			if (pP->HasMat(inMID)) {
 				if ((bDispAll == FALSE) && (IsOnScr(pCurrentMesh->pElems[iCO]))) {
 					S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+					// momo
+					S_BuffChanged(S_Count, S_Count, true);
+					// momo
 					S_Count++;
 				} else if (bDispAll == TRUE) {
 					S_Buff[S_Count] = pCurrentMesh->pElems[iCO];
+					// momo
+					S_BuffChanged(S_Count, S_Count, true);
+					// momo
 					S_Count++;
 				}
 			}
@@ -18367,9 +19255,15 @@ void DBase::RelatedTo(int iType) {
 			S_Buff[j]->RelTo(S_Buff[j], pObj, iType);
 		}
 	}
+	// momo
+	S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	for (i = 0; i < pObj->iNo; i++) {
 		S_Buff[S_Count] = pObj->Objs[i];
+		// momo
+		S_BuffChanged(S_Count, S_Count, true);
+		// momo
 		S_Count++;
 	}
 	delete (pObj);
@@ -18429,11 +19323,17 @@ void DBase::CreateCoordLine() {
 			}
 		}
 	}
+	// momo
+	S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	for (i = 0; i < pObj->iNo; i++) {
 		S_Buff[S_Count] = pObj->Objs[i];
 		Dsp_Add(pObj->Objs[i]);
 		AddTempGraphics(pObj->Objs[i]);
+		// momo
+		S_BuffChanged(S_Count, S_Count, true);
+		// momo
 		S_Count++;
 	}
 	delete (pObj);
@@ -18466,9 +19366,15 @@ void DBase::NoOfElementOnANode(int iNo) {
 			}
 		}
 	}
+	// momo
+	S_BuffChanged(-1000, -1000, false);
+	// momo
 	S_Count = 0;
 	for (i = 0; i < pObj->iNo; i++) {
 		S_Buff[S_Count] = pObj->Objs[i];
+		// momo
+		S_BuffChanged(S_Count, S_Count, true);
+		// momo
 		S_Count++;
 	}
 	delete (pObj);
@@ -18962,6 +19868,11 @@ void DBase::SelRBENode(ObjList* Items) {
 			}
 		}
 	}
+	// momo gdi to og
+	if (Items->iNo > 0) {
+		ReDraw();
+	}
+	// momo gdi to og
 	sprintf_s(s1, "%s%i", "Number of RBE Nodes Found : ", iNoC);
 	outtext1(_T(s1));
 	Items->Clear();

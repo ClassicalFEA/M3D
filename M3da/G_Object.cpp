@@ -1,4 +1,4 @@
-#include "G_Object.h"
+﻿#include "G_Object.h"
 #include "M3Da.h"
 #include "GLOBAL_VARS.h"
 #include <iostream>
@@ -6,6 +6,7 @@
 #include <fstream>
 // MoMo_Start
 #include "AppSettings.h"
+#include <array>
 // MoMo_End
 // #include <windows.h>
 using namespace std;
@@ -177,6 +178,21 @@ CString RemTrailingZeros(CString sIn) {
 }
 
 // MoMo_Start
+
+// momo gdi to og
+void DrawCircle(C3dVector vC, double radius, double lineWidth, int segments) {
+	glLineWidth((GLfloat) lineWidth);
+	glBegin(GL_LINE_LOOP);
+	for (int i = 0; i < segments; ++i) {
+		double theta = 2.0 * 3.141592653589793 * double(i) / double(segments);
+		double x = radius * cos(theta);
+		double y = radius * sin(theta);
+		glVertex3d(vC.x + x, vC.y + y, vC.z);
+	}
+	glEnd();
+}
+// momo gdi to og
+
 // MoMo// CString ncr(CString sIn) {
 CString ncr(CStringA sIn) {
 	// MoMo_End
@@ -263,9 +279,15 @@ void OglString(int iDspFlgs, double x, double y, double z, char* s) {
 	int iLen;
 	iLen = (int) strlen(s);
 	if (iDspFlgs & DSP_BLACK) {
+		// momo
 		glColor3fv(cols[124]);
+		//  momo// glColor3fv(ColorIfSelect(124,-1));
+		// momo
 	} else {
+		// momo
 		glColor3fv(cols[0]);
+		//  momo// glColor3fv(ColorIfSelect(0,-1));
+		// momo
 	}
 	glRasterPos3f((float) x, (float) y, (float) z);
 	glListBase(g_arialBase - g_firstChar);
@@ -645,20 +667,32 @@ void cLinkedList::GenIDS(int& iS) {
 	}
 }
 
-void cLinkedList::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og
+// momo// void cLinkedList::Draw(CDC* pDC, int iDrawmode) {
+void cLinkedList::Draw(int iDrawmode) {
+	// momo gdi to og
 	G_Object* pNext;
 	pNext = Head;
 	while (pNext != NULL) {
-		pNext->Draw(pDC, iDrawmode);
+		// momo gdi to og
+		// momo// pNext->Draw(pDC, iDrawmode);
+		pNext->Draw(iDrawmode);
+		// momo gdi to og
 		pNext = (G_Object*) pNext->next;
 	}
 }
 
-void cLinkedList::HighLight(CDC* pDC) {
+// momo gdi to og
+// momo// void cLinkedList::HighLight(CDC* pDC) {
+void cLinkedList::HighLight() {
+	// momo gdi to og
 	G_Object* pNext;
 	pNext = Head;
 	while (pNext != NULL) {
-		pNext->HighLight(pDC);
+		// momo gdi to og
+		// momo// pNext->HighLight(pDC);
+		pNext->HighLight();
+		// momo gdi to og
 		pNext = (G_Object*) pNext->next;
 	}
 }
@@ -1092,6 +1126,13 @@ void Filter::SetFilter(int iThisType) {
 		Filt[iNo] = iThisType;
 		iNo++;
 	}
+	// momo
+	ButtonPush.QfilterNodesOn = (iThisType == 1);
+	ButtonPush.QfilterElementsOn = (iThisType == 3);
+	ButtonPush.QfilterPointsOn = (iThisType == 0);
+	ButtonPush.QfilterCurvesOn = (iThisType == 7);
+	ButtonPush.QfilterSurfacesOn = (iThisType == 15);
+	// momo
 }
 
 void Filter::RemFilter(int iThisType) {
@@ -1637,6 +1678,42 @@ int G_Object::GetCol() {
 	return (iColour);
 }
 
+// momo
+const float* G_Object::ColorIfSelect(int iMainColor, int iSelColor) {
+	if (isSelectable() && DeSelectAll) {
+		ChangeSelected(false);
+	}
+	if (isSelectable() && SelectMode != 1) {
+		bool parentSelected = false;
+		G_Object* gParent = pParent;
+		if (gParent != NULL) {
+			parentSelected = gParent->Selected;
+		}
+		if (IsSelected() || (SelectMode == 2 && MainDrawState == 0 && parentSelected)) {
+			if (iSelColor == -1) {
+				return cols[165]; // default select color
+			} else {
+				return cols[iSelColor];
+			}
+		}
+	}
+	return cols[iMainColor];
+}
+
+bool G_Object::IsSelected() {
+	return (Selected);
+}
+
+void G_Object::ChangeSelected(bool newValue) {
+	Selected = newValue;
+}
+
+bool G_Object::IsInCadr(double Px, double Py, CPoint P1, CPoint P2) {
+	return ((P1.x <= Px && Px < P2.x) || (P1.x >= Px && Px > P2.x)) &&
+	       ((P1.y <= Py && Py < P2.y) || (P1.y >= Py && Py > P2.y));
+}
+// momo
+
 void G_Object::SetDrawn(int iOnOff) {
 	Drawn = iOnOff;
 }
@@ -1673,6 +1750,7 @@ G_Object::G_Object() {
 	nTempSeeds = 0;
 	seedChanged = false;
 	tempSeedId = 0;
+	Selected = false;
 	// MoMo_End
 }
 
@@ -1727,6 +1805,7 @@ void G_Object::Create() {
 	nTempSeeds = 0;
 	seedChanged = false;
 	tempSeedId = 0;
+	Selected = false;
 	// MoMo_End
 }
 
@@ -1823,7 +1902,10 @@ C3dVector G_Object::Get_Normal() {
 	return (vRet);
 }
 
-void G_Object::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og
+// momo// void G_Object::Draw(CDC* pDC, int iDrawmode) {
+void G_Object::Draw(int iDrawmode) {
+	// momo gdi to og
 }
 
 void G_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
@@ -1864,8 +1946,12 @@ double G_Object::getLen() {
 	return (0);
 }
 
-void G_Object::HighLight(CDC* pDC) {
-	pDC->Ellipse(int(SelPt.x + 8), int(SelPt.y + 8), int(SelPt.x - 8), int(SelPt.y - 8));
+// momo gdi to og
+// momo// void G_Object::HighLight(CDC* pDC) {
+void G_Object::HighLight() {
+	// momo// pDC->Ellipse(int(SelPt.x + 8), int(SelPt.y + 8), int(SelPt.x - 8), int(SelPt.y - 8));
+	DrawCircle(SelPt, 8.0, 1.5, 96);
+	// momo gdi to og
 }
 
 void G_Object::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
@@ -1887,10 +1973,14 @@ G_ObjectD G_Object::SelDist(CPoint InPT, Filter FIL) {
 }
 
 void G_Object::S_Box(CPoint P1, CPoint P2, ObjList* pSel) {
-	if ((SelPt.x > P1.x) &&
-	    (SelPt.x < P2.x) &&
-	    (SelPt.y > P1.y) &&
-	    (SelPt.y < P2.y)) {
+	// momo
+	// if ((SelPt.x > P1.x) &&
+	//     (SelPt.x < P2.x) &&
+	//     (SelPt.y > P1.y) &&
+	//     (SelPt.y < P2.y)) {
+	// C3dVector* SelPtStar = &SelPt;
+	if (IsInCadr(SelPt.x, SelPt.y, P1, P2)) {
+		// momo
 		pSel->AddEx(this);
 	}
 }
@@ -1931,7 +2021,10 @@ void Planet::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		int width = pTexture->width;
 		int height = pTexture->height;
 		GLuint textureID;
-		glColor3fv(cols[124]);
+		// momo
+		//  momo// glColor3fv(cols[124]);
+		glColor3fv(ColorIfSelect(124, -1));
+		// momo
 		glGenTextures(1, &textureID);
 		// "Bind" the newly created texture : all future texture functions will modify this texture
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -2050,7 +2143,10 @@ void BackGround::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		dH *= dRatio;
 
 		GLuint textureID;
-		glColor3fv(cols[124]);
+		// momo
+		//  momo// glColor3fv(cols[124]);
+		glColor3fv(ColorIfSelect(124, -1));
+		// momo
 		glGenTextures(1, &textureID);
 		// "Bind" the newly created texture: all future texture functions will modify this texture
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -2307,15 +2403,30 @@ C3dVector Node::Get_Centroid() {
 }
 
 // Draw Object line
-void Node::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) DSP_Point->x - 4, (int) DSP_Point->y + 4);
-	pDC->LineTo((int) DSP_Point->x + 4, (int) DSP_Point->y - 4);
-	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y + 4);
-	pDC->LineTo((int) DSP_Point->x - 4, (int) DSP_Point->y - 4);
-	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y);
-	pDC->LineTo((int) DSP_Point->x - 5, (int) DSP_Point->y);
-	pDC->MoveTo((int) DSP_Point->x, (int) DSP_Point->y - 4);
-	pDC->LineTo((int) DSP_Point->x, (int) DSP_Point->y + 4);
+// momo gdi to og
+// void Node::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) DSP_Point->x - 4, (int) DSP_Point->y + 4);
+//	pDC->LineTo((int) DSP_Point->x + 4, (int) DSP_Point->y - 4);
+//	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y + 4);
+//	pDC->LineTo((int) DSP_Point->x - 4, (int) DSP_Point->y - 4);
+//	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y);
+//	pDC->LineTo((int) DSP_Point->x - 5, (int) DSP_Point->y);
+//	pDC->MoveTo((int) DSP_Point->x, (int) DSP_Point->y - 4);
+//	pDC->LineTo((int) DSP_Point->x, (int) DSP_Point->y + 4);
+void Node::Draw(int iDrawmode) {
+	glLineWidth(1.5);
+	glBegin(GL_LINES);
+	glVertex2f(DSP_Point->x - 4, DSP_Point->y + 4);
+	glVertex2f(DSP_Point->x + 4, DSP_Point->y - 4);
+	glVertex2f(DSP_Point->x + 4, DSP_Point->y + 4);
+	glVertex2f(DSP_Point->x - 4, DSP_Point->y - 4);
+	glVertex2f(DSP_Point->x + 4, DSP_Point->y);
+	glVertex2f(DSP_Point->x - 5, DSP_Point->y);
+	glVertex2f(DSP_Point->x, DSP_Point->y - 4);
+	glVertex2f(DSP_Point->x, DSP_Point->y + 4);
+	glEnd();
+	// momo gdi to og
+
 	// pDC->SetPixel(DSP_Point->x, DSP_Point->y+4, 255 );
 
 	// pDC->Ellipse(DSP_Point->x+3,DSP_Point->y+3,DSP_Point->x-3,DSP_Point->y-3);
@@ -2351,7 +2462,10 @@ void Node::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 
 		Selectable = 1;
-		glColor3fv(cols[GetCol()]);
+		// momo
+		//  momo// glColor3fv(cols[GetCol()]);
+		glColor3fv(ColorIfSelect(GetCol(), 170));
+		// momo
 		glPointSize(gND_SIZE);
 		if ((iDspFlgs & DSP_NODES_ASK) > 0) {
 			glBegin(GL_POINTS);
@@ -2547,7 +2661,10 @@ void eFace::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	C3dVector v2;
 	C3dVector Vn;
 	glLineWidth(gFC_SIZE);
-	glColor3fv(cols[124]);
+	// momo
+	//  momo// glColor3fv(cols[124]);
+	glColor3fv(ColorIfSelect(124, -1));
+	// momo
 	if (NoVert == 3) {
 		glBegin(GL_LINES);
 		glVertex3f((float) (pVertex[0]->Pt_Point->x), (float) (pVertex[0]->Pt_Point->y), (float) (pVertex[0]->Pt_Point->z));
@@ -2612,7 +2729,10 @@ void eFace::OglDraw(int iDspFlgs, double dS1, double dS2) {
 
 		Vn.Normalize();
 		glBegin(GL_POLYGON);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
 		glVertex3f((float) pVertex[0]->Pt_Point->x, (float) pVertex[0]->Pt_Point->y, (float) pVertex[0]->Pt_Point->z);
 		glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
@@ -2630,7 +2750,10 @@ void eFace::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		Vn = v1.Cross(v2);
 		Vn.Normalize();
 		glBegin(GL_POLYGON);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
 		glVertex3f((float) pVertex[0]->Pt_Point->x, (float) pVertex[0]->Pt_Point->y, (float) pVertex[0]->Pt_Point->z);
 		glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
@@ -2710,7 +2833,10 @@ int eEdge::isSameWithDir(eEdge* inLink) {
 
 void eEdge::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	glLineWidth(gED_SIZE);
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	glBegin(GL_LINES);
 	glVertex3f((float) pVertex[0]->Pt_Point->x, (float) pVertex[0]->Pt_Point->y, (float) pVertex[0]->Pt_Point->z);
 	glVertex3f((float) pVertex[1]->Pt_Point->x, (float) pVertex[1]->Pt_Point->y, (float) pVertex[1]->Pt_Point->z);
@@ -2922,7 +3048,10 @@ void cSeg::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 				Y = Pts[0].y;
 				Z = Pts[0].z;
 				glLineWidth(5.0);
-				glColor3fv(cols[iColour]);
+				// momo
+				//  momo// glColor3fv(cols[iColour]);
+				glColor3fv(ColorIfSelect(iColour, -1));
+				// momo
 				glBegin(GL_LINES);
 				glVertex3f((float) vA.x, (float) vA.y, (float) vA.z);
 				glVertex3f((float) vB.x, (float) vB.y, (float) vB.z);
@@ -3449,7 +3578,10 @@ void Line_Object::Draw(CDC* pDC, int iDrawmode) {
 }
 
 void Line_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	glColor3fv(cols[GetCol()]);
+	// momo
+	//  momo// glColor3fv(cols[GetCol()]);
+	glColor3fv(ColorIfSelect(GetCol(), -1));
+	// momo
 	glBegin(GL_LINES);
 	glVertex3f((float) pVertex1->Pt_Point->x, (float) pVertex1->Pt_Point->y, (float) pVertex1->Pt_Point->z);
 	glVertex3f((float) pVertex2->Pt_Point->x, (float) pVertex2->Pt_Point->y, (float) pVertex2->Pt_Point->z);
@@ -3457,7 +3589,10 @@ void Line_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 }
 
 void Line_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	glColor3fv(cols[GetCol()]);
+	// momo
+	//  momo// glColor3fv(cols[GetCol()]);
+	glColor3fv(ColorIfSelect(GetCol(), -1));
+	// momo
 	glBegin(GL_LINES);
 	glVertex3f((float) pVertex1->Pt_Point->x, (float) pVertex1->Pt_Point->y, (float) pVertex1->Pt_Point->z);
 	glVertex3f((float) pVertex2->Pt_Point->x, (float) pVertex2->Pt_Point->y, (float) pVertex2->Pt_Point->z);
@@ -3469,10 +3604,12 @@ void Line_Object::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	pVertex2->SetToScr(pModMat, pScrTran);
 }
 
-void Line_Object::HighLight(CDC* pDC) {
-	pDC->MoveTo((int) pVertex1->DSP_Point->x, (int) pVertex1->DSP_Point->y);
-	pDC->LineTo((int) pVertex2->DSP_Point->x, (int) pVertex2->DSP_Point->y);
-}
+// momo gdi to og
+// void Line_Object::HighLight(CDC* pDC) {
+//	pDC->MoveTo((int) pVertex1->DSP_Point->x, (int) pVertex1->DSP_Point->y);
+//	pDC->LineTo((int) pVertex2->DSP_Point->x, (int) pVertex2->DSP_Point->y);
+//}
+// momo gdi to og
 
 void Line_Object::Transform(C3dMatrix TMat) {
 	pVertex1->Transform(TMat);
@@ -3574,7 +3711,10 @@ double Line_Object::getLen() {
 IMPLEMENT_DYNAMIC(Curve, CObject)
 
 void Curve::Draw(CDC* pDC, int iDrawmode) {
-	ContrPolyW::Draw(pDC, iDrawmode, 0, 1);
+	// momo gdi to og
+	// momo// ContrPolyW::Draw(pDC, iDrawmode, 0, 1);
+	ContrPolyW::Draw(iDrawmode, 0, 1);
+	// momo gdi to og
 }
 
 void Curve::OglDraw(int iDspFlgs, double dS1, double dS2) {
@@ -3585,8 +3725,12 @@ void Curve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	ContrPolyW::OglDrawW(0.0, 1.0);
 }
 
-void Curve::HighLight(CDC* pDC) {
-	ContrPolyW::Draw(pDC, 4, 0, 1);
+// momo gdi to og
+// void Curve::HighLight(CDC* pDC) {
+//	ContrPolyW::Draw(pDC, 4, 0, 1);
+void Curve::HighLight() {
+	ContrPolyW::Draw(4, 0, 1);
+	// momo gdi to og
 }
 
 CString Curve::GetName() {
@@ -3799,8 +3943,13 @@ C4dVector ContrPolyW::deCastelJau1(double u) {
 	return (vRetVect);
 }
 
-void ContrPolyW::Draw(CDC* pDC, int iDrawmode,
-                      double sw, double ew) {
+// momo gdi to og
+// momo// void ContrPolyW::Draw(CDC* pDC, int iDrawmode,
+// momo//                       double sw, double ew) {
+void ContrPolyW::Draw(int iDrawmode, double sw, double ew) {
+	glLineWidth(1.5);
+	glBegin(GL_LINE_STRIP);
+	// momo gdi to og
 	const double dInc = 0.01;
 	double w;
 
@@ -3812,7 +3961,10 @@ void ContrPolyW::Draw(CDC* pDC, int iDrawmode,
 	ThePoint->Pt_Point->y = pt.y;
 	ThePoint->Pt_Point->z = pt.z;
 	ThePoint->SetToScr(pModZ, pScrZ);
-	pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+	// momo gdi to og
+	// momo// pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+	glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+	// momo gdi to og
 	w = sw;
 
 	do {
@@ -3825,9 +3977,15 @@ void ContrPolyW::Draw(CDC* pDC, int iDrawmode,
 		ThePoint->Pt_Point->y = pt.y;
 		ThePoint->Pt_Point->z = pt.z;
 		ThePoint->SetToScr(pModZ, pScrZ);
-		pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+		// momo gdi to og
+		// momo// pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+		glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+		// momo gdi to og
 	} while (w < ew);
 	delete (ThePoint);
+	// momo gdi to og
+	glEnd();
+	// momo gdi to og
 }
 
 void ContrPolyW::OglDraw(double sw, double ew) {
@@ -3876,8 +4034,12 @@ void ContrPolyW::Transform(C3dMatrix TMat) {
 	}
 }
 
-void ContrPolyW::HighLight(CDC* pDC, double sw, double ew) {
-	Draw(pDC, 4, sw, ew);
+// momo gdi to og
+// momo// void ContrPolyW::HighLight(CDC* pDC, double sw, double ew) {
+// momo//	Draw(pDC, 4, sw, ew);
+void ContrPolyW::HighLight(double sw, double ew) {
+	Draw(4, sw, ew);
+	// momo gdi to og
 }
 
 G_ObjectD ContrPolyW::SelDist(CPoint InPT, Filter FIL) {
@@ -4190,7 +4352,10 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		if (dLE > 1) {
 			dLE = 1;
 		}
-		pSegs[0]->Draw(pDC, iDrawmode, dLS, dLE);
+		// momo gdi to og
+		// momo// pSegs[0]->Draw(pDC, iDrawmode, dLS, dLE);
+		pSegs[0]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og
 	}
 	if ((dS <= 0.5) && (dE > 0.25)) {
 		dLS = 4 * (dS - 0.25);
@@ -4201,7 +4366,10 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		if (dLE > 1) {
 			dLE = 1;
 		}
-		pSegs[1]->Draw(pDC, iDrawmode, dLS, dLE);
+		// momo gdi to og
+		// momo// pSegs[1]->Draw(pDC, iDrawmode, dLS, dLE);
+		pSegs[1]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og
 	}
 	if ((dS <= 0.75) && (dE > 0.5)) {
 		dLS = 4 * (dS - 0.5);
@@ -4212,7 +4380,10 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		if (dLE > 1) {
 			dLE = 1;
 		}
-		pSegs[2]->Draw(pDC, iDrawmode, dLS, dLE);
+		// momo gdi to og
+		// momo// pSegs[2]->Draw(pDC, iDrawmode, dLS, dLE);
+		pSegs[2]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og
 	}
 	if ((dS <= 1) && (dE > 0.75)) {
 		dLS = 4 * (dS - 0.75);
@@ -4223,7 +4394,10 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		if (dLE > 1) {
 			dLE = 1;
 		}
-		pSegs[3]->Draw(pDC, iDrawmode, dLS, dLE);
+		// momo gdi to og
+		// momo// pSegs[3]->Draw(pDC, iDrawmode, dLS, dLE);
+		pSegs[3]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og
 	}
 }
 
@@ -4281,9 +4455,11 @@ void Circ1::OglDrawW(int iDspFlgs) {
 	OglDraw(iDspFlgs);
 }
 
-void Circ1::HighLight(CDC* pDC) {
-	Draw(pDC, 4);
-}
+// momo gdi to og
+// void Circ1::HighLight(CDC* pDC) {
+//	Draw(pDC, 4);
+//}
+// momo gdi to og
 
 G_ObjectD Circ1::SelDist(CPoint InPT, Filter FIL) {
 	int iC;
@@ -4509,10 +4685,16 @@ void Surf_Ex1::Draw(CClientDC* pDC, int iDrawmode) {
 	pWCurve[1]->SetToScr(pModZ, pScrZ);
 	pWCurve[2]->SetToScr(pModZ, pScrZ);
 	pWCurve[3]->SetToScr(pModZ, pScrZ);
-	pWCurve[0]->Draw(pDC, 4, 0, 1);
-	pWCurve[1]->Draw(pDC, 4, 0, 1);
-	pWCurve[2]->Draw(pDC, 4, 0, 1);
-	pWCurve[3]->Draw(pDC, 4, 0, 1);
+	// momo gdi to og
+	// pWCurve[0]->Draw(pDC, 4, 0, 1);
+	// pWCurve[1]->Draw(pDC, 4, 0, 1);
+	// pWCurve[2]->Draw(pDC, 4, 0, 1);
+	// pWCurve[3]->Draw(pDC, 4, 0, 1);
+	pWCurve[0]->Draw(4, 0, 1);
+	pWCurve[1]->Draw(4, 0, 1);
+	pWCurve[2]->Draw(4, 0, 1);
+	pWCurve[3]->Draw(4, 0, 1);
+	// momo gdi to og
 
 	int iCnt1;
 	double fred;
@@ -4570,7 +4752,10 @@ void Surf_Ex1::OglDraw(int iDspFlgs) {
 		}
 	}
 
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	glEnable(GL_MAP2_VERTEX_4);
 	// glBegin(GL_POINTS);
 	// glVertex4fv(&ctrlpts[0]);
@@ -4611,7 +4796,10 @@ void Surf_Ex1::OglDrawW() {
 		}
 	}
 
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	glEnable(GL_MAP2_VERTEX_4);
 
 	glMap2f(GL_MAP2_VERTEX_4, 0.0f, 1.0f, 4, iu, 0.0f, 1.0f, iu * 4, iv, ctrlpts);
@@ -4628,9 +4816,11 @@ void Surf_Ex1::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	pScrZ = pScrTran;
 }
 
-void Surf_Ex1::HighLight(CClientDC* pDC) {
-	Draw(pDC, 4);
-}
+// momo gdi to og
+// void Surf_Ex1::HighLight(CClientDC* pDC) {
+//	Draw(pDC, 4);
+//}
+// momo gdi to og
 
 G_ObjectD Surf_Ex1::SelDist(CPoint InPT, Filter FIL) {
 	double dSelD;
@@ -4715,11 +4905,17 @@ void Surf_R::Draw(CDC* pDC, int iDrawmode) {
 	pWCurve[2]->SetToScr(pModZ, pScrZ);
 	pWCurve[3]->SetToScr(pModZ, pScrZ);
 	pWCurve[4]->SetToScr(pModZ, pScrZ);
-	pWCurve[0]->Draw(pDC, 4, 0, 1);
-	// pWCurve[1]->Draw(pDC,4);
-	pWCurve[2]->Draw(pDC, 4, 0, 1);
-	pWCurve[3]->Draw(pDC, 4, 0, 1);
-	pWCurve[4]->Draw(pDC, 4, 0, 1);
+	// momo gdi to og
+	// pWCurve[0]->Draw(pDC, 4, 0, 1);
+	//// pWCurve[1]->Draw(pDC,4);
+	// pWCurve[2]->Draw(pDC, 4, 0, 1);
+	// pWCurve[3]->Draw(pDC, 4, 0, 1);
+	// pWCurve[4]->Draw(pDC, 4, 0, 1);
+	pWCurve[0]->Draw(4, 0, 1);
+	pWCurve[2]->Draw(4, 0, 1);
+	pWCurve[3]->Draw(4, 0, 1);
+	pWCurve[4]->Draw(4, 0, 1);
+	// momo gdi to og
 
 	C3dVector vDrawPt;
 	C4dVector vWpt;
@@ -4827,9 +5023,11 @@ void Surf_R::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	pScrZ = pScrTran;
 }
 
-void Surf_R::HighLight(CDC* pDC) {
-	Draw(pDC, 4);
-}
+// momo gdi to og
+// void Surf_R::HighLight(CDC* pDC) {
+//	Draw(pDC, 4);
+//}
+// momo gdi to og
 
 G_ObjectD Surf_R::SelDist(CPoint InPT, Filter FIL) {
 	double dSelD;
@@ -5263,9 +5461,15 @@ void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 		Selectable = 1;
 		if ((iDspFlgs & DSP_LINE) > 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 		} else {
-			glColor3fv(cols[0]);
+			// momo
+			//  momo// glColor3fv(cols[0]);
+			glColor3fv(ColorIfSelect(0, -1));
+			// momo
 		}
 		glBegin(GL_LINES);
 		glVertex3f((float) (pVertex[0]->Pt_Point->x + d[0].x), (float) (pVertex[0]->Pt_Point->y + d[0].y), (float) (pVertex[0]->Pt_Point->z + d[0].z));
@@ -5415,7 +5619,10 @@ void E_Object38::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
 			v1.x = pVertex[1]->Pt_Point->x - pVertex[0]->Pt_Point->x;
 			v1.y = pVertex[1]->Pt_Point->y - pVertex[0]->Pt_Point->y;
@@ -5545,7 +5752,10 @@ void E_Object38::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			glEnd();
 		} else {
 			if (bD) {
-				glColor3fv(cols[124]);
+				// momo
+				//  momo// glColor3fv(cols[124]);
+				glColor3fv(ColorIfSelect(124, -1));
+				// momo
 				glEnable(GL_TEXTURE_1D);
 				glBegin(GL_POLYGON);
 				glTexCoord1f(fCols[0]);
@@ -6381,7 +6591,10 @@ void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			Vn = v1.Cross(v2);
 
 			Vn.Normalize();
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 			glBegin(GL_POLYGON);
 			glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
 			glVertex3f((float) (pVertex[0]->Pt_Point->x + d[0].x), (float) (pVertex[0]->Pt_Point->y + d[0].y), (float) (pVertex[0]->Pt_Point->z + d[0].z));
@@ -6474,7 +6687,10 @@ void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			glEnd();
 		} else {
 			if (bD) {
-				glColor3fv(cols[124]);
+				// momo
+				//  momo// glColor3fv(cols[124]);
+				glColor3fv(ColorIfSelect(124, -1));
+				// momo
 				glEnable(GL_TEXTURE_1D);
 				v1.x = pVertex[1]->Pt_Point->x - pVertex[0]->Pt_Point->x;
 				v1.y = pVertex[1]->Pt_Point->y - pVertex[0]->Pt_Point->y;
@@ -6632,9 +6848,15 @@ void E_Object36::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 		Selectable = 1;
 		if ((iDspFlgs & DSP_LINE) > 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 		} else {
-			glColor3fv(cols[0]);
+			// momo
+			//  momo// glColor3fv(cols[0]);
+			glColor3fv(ColorIfSelect(0, -1));
+			// momo
 		}
 		glBegin(GL_LINES);
 		glVertex3f((float) (pVertex[0]->Pt_Point->x + d[0].x), (float) (pVertex[0]->Pt_Point->y + d[0].y), (float) (pVertex[0]->Pt_Point->z + d[0].z));
@@ -7649,9 +7871,15 @@ void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 		Selectable = 1;
 		if ((iDspFlgs & DSP_LINE) > 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 		} else {
-			glColor3fv(cols[0]);
+			// momo
+			//  momo// glColor3fv(cols[0]);
+			glColor3fv(ColorIfSelect(0, -1));
+			// momo
 		}
 		glBegin(GL_LINES);
 		glVertex3f((float) (pVertex[0]->Pt_Point->x + d[0].x), (float) (pVertex[0]->Pt_Point->y + d[0].y), (float) (pVertex[0]->Pt_Point->z + d[0].z));
@@ -7769,7 +7997,10 @@ void E_Object34::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
 			v1.x = pVertex[1]->Pt_Point->x - pVertex[0]->Pt_Point->x;
 			v1.y = pVertex[1]->Pt_Point->y - pVertex[0]->Pt_Point->y;
@@ -7848,7 +8079,10 @@ void E_Object34::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			glEnd();
 		} else {
 			if (bD) {
-				glColor3fv(cols[124]);
+				// momo
+				//  momo// glColor3fv(cols[124]);
+				glColor3fv(ColorIfSelect(124, -1));
+				// momo
 				glEnable(GL_TEXTURE_1D);
 				v1.x = pVertex[1]->Pt_Point->x - pVertex[0]->Pt_Point->x;
 				v1.y = pVertex[1]->Pt_Point->y - pVertex[0]->Pt_Point->y;
@@ -8815,9 +9049,15 @@ void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 		Selectable = 1;
 		if ((iDspFlgs & DSP_LINE) > 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 		} else {
-			glColor3fv(cols[0]);
+			// momo
+			//  momo// glColor3fv(cols[0]);
+			glColor3fv(ColorIfSelect(0, -1));
+			// momo
 		}
 		glBegin(GL_LINES);
 		glVertex3f((float) (pVertex[0]->Pt_Point->x + d[0].x), (float) (pVertex[0]->Pt_Point->y + d[0].y), (float) (pVertex[0]->Pt_Point->z + d[0].z));
@@ -8977,7 +9217,10 @@ void E_Object310::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
 			v1 = pVertex[1]->Pt_Point - pVertex[0]->Pt_Point;
 			v2 = pVertex[2]->Pt_Point - pVertex[1]->Pt_Point;
@@ -9125,7 +9368,10 @@ void E_Object310::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			glEnd();
 		} else {
 			if (bD) {
-				glColor3fv(cols[124]);
+				// momo
+				//  momo// glColor3fv(cols[124]);
+				glColor3fv(ColorIfSelect(124, -1));
+				// momo
 				glEnable(GL_TEXTURE_1D);
 				v1 = pVertex[1]->Pt_Point - pVertex[0]->Pt_Point;
 				v2 = pVertex[2]->Pt_Point - pVertex[1]->Pt_Point;
@@ -11483,7 +11729,10 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		char sLab[20];
 		vCent = Get_Centroid();
 		if (((iDspFlgs & DSP_CONT) == 0) && (bD == TRUE)) {
-			glColor3fv(cols[124]);
+			// momo
+			//  momo// glColor3fv(cols[124]);
+			glColor3fv(ColorIfSelect(124, -1));
+			// momo
 			glEnable(GL_TEXTURE_1D);
 			glLineWidth(gEL_SIZE);
 			glBegin(GL_LINES);
@@ -11496,7 +11745,10 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, BMPSP);
 			glDisable(GL_TEXTURE_1D);
 		} else {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 			glLineWidth(gEL_SIZE);
 			glBegin(GL_LINES);
 			glVertex3f((float) (pVertex[0]->Pt_Point->x + d[0].x), (float) (pVertex[0]->Pt_Point->y + d[0].y), (float) (pVertex[0]->Pt_Point->z + d[0].z));
@@ -11520,7 +11772,10 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
 			// C3dMatrix mS = GetElSys();
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 			C3dMatrix mS; //  For spring its global or assigned
 			mS.MakeUnit();
 			if (iCSYS > -1) {
@@ -12196,7 +12451,10 @@ G_Object* E_Object2R::GetNode(int i) {
 }
 
 void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	C3dVector d[3];
 	int i;
 	for (i = 0; i < 2; i++) {
@@ -12252,7 +12510,10 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			} else {
 				// fix for line elements not showing color when in wireframe mode
 				glLineWidth(gEL_SIZE);
-				glColor3fv(cols[iColour]);
+				// momo
+				//  momo// glColor3fv(cols[iColour]);
+				glColor3fv(ColorIfSelect(iColour, -1));
+				// momo
 				glBegin(GL_LINES);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + OffA.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + OffA.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + OffA.z + d[0].z));
 				glVertex3f((float) (pVertex[1]->Pt_Point->x + OffB.x + d[1].x), (float) (pVertex[1]->Pt_Point->y + OffB.y + d[1].y), (float) (pVertex[1]->Pt_Point->z + OffB.z + d[1].z));
@@ -12260,7 +12521,10 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		} else {
 			if (((iDspFlgs & DSP_CONT) == 0) || (bD == TRUE)) {
-				glColor3fv(cols[124]);
+				// momo
+				//  momo// glColor3fv(cols[124]);
+				glColor3fv(ColorIfSelect(124, -1));
+				// momo
 				glEnable(GL_TEXTURE_1D);
 				glBegin(GL_LINES);
 				glTexCoord1f(fCols[0]);
@@ -12270,7 +12534,10 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 				glEnd();
 				glDisable(GL_TEXTURE_1D);
 			} else {
-				glColor3fv(cols[iColour]);
+				// momo
+				//  momo// glColor3fv(cols[iColour]);
+				glColor3fv(ColorIfSelect(iColour, -1));
+				// momo
 				glBegin(GL_LINES);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + OffA.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + OffA.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + OffA.z + d[0].z));
 				glVertex3f((float) (pVertex[1]->Pt_Point->x + OffB.x + d[1].x), (float) (pVertex[1]->Pt_Point->y + OffB.y + d[1].y), (float) (pVertex[1]->Pt_Point->z + OffB.z + d[1].z));
@@ -12311,9 +12578,15 @@ void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 		Selectable = 1;
 		if ((iDspFlgs & DSP_LINE) > 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, 172));
+			// momo
 		} else {
-			glColor3fv(cols[0]);
+			// momo
+			//  momo// glColor3fv(cols[0]);
+			glColor3fv(ColorIfSelect(0, -1));
+			// momo
 		}
 		glLineWidth(gEL_SIZE);
 		glBegin(GL_LINES);
@@ -12344,7 +12617,10 @@ void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -13733,9 +14009,15 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		Selectable = 1;
 		if ((iDspFlgs & DSP_ELEMENTS) > 0) {
 			if ((iDspFlgs & DSP_LINE) > 0) {
-				glColor3fv(cols[iColour]);
+				// momo
+				//  momo// glColor3fv(cols[iColour]);
+				glColor3fv(ColorIfSelect(iColour, -1));
+				// momo
 			} else {
-				glColor3fv(cols[0]);
+				// momo
+				//  momo// glColor3fv(cols[0]);
+				glColor3fv(ColorIfSelect(0, -1));
+				// momo
 			}
 			C3dVector vN;
 			C3dVector vOff;
@@ -13811,7 +14093,10 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -13962,7 +14247,10 @@ void E_Object3::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
 			if ((iDspFlgs & DSP_THK) > 0) {
 				glBegin(GL_POLYGON);
@@ -14018,7 +14306,10 @@ void E_Object3::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			vN *= 0;
 
 			if (bD) {
-				glColor3fv(cols[124]);
+				// momo
+				//  momo// glColor3fv(cols[124]);
+				glColor3fv(ColorIfSelect(124, -1));
+				// momo
 				glEnable(GL_TEXTURE_1D);
 				glBegin(GL_POLYGON);
 				glTexCoord1f(fCols[0]);
@@ -16087,7 +16378,10 @@ void E_Object1::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		glColor3fv(cols[GetCol()]);
+		// momo
+		//  momo// glColor3fv(cols[GetCol()]);
+		glColor3fv(ColorIfSelect(GetCol(), -1));
+		// momo
 		glPointSize(gLM_SIZE);
 		glBegin(GL_POINTS);
 		glVertex3f((float) vCent.x + d.x, (float) vCent.y + d.y, (float) vCent.z + d.z);
@@ -16426,7 +16720,10 @@ void E_CellS::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		Selectable = 1;
 		glEnable(GL_LINE_STIPPLE);
 		glLineStipple(1, 0x0101);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glBegin(GL_LINES);
 		glVertex3f((float) pVertex[1]->Pt_Point->x, (float) pVertex[1]->Pt_Point->y, (float) pVertex[1]->Pt_Point->z);
 		glVertex3f((float) pVertex[3]->Pt_Point->x, (float) pVertex[3]->Pt_Point->y, (float) pVertex[3]->Pt_Point->z);
@@ -18300,9 +18597,15 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		Selectable = 1;
 		if ((iDspFlgs & DSP_ELEMENTS) > 0) {
 			if ((iDspFlgs & DSP_LINE) > 0) {
-				glColor3fv(cols[iColour]);
+				// momo
+				//  momo// glColor3fv(cols[iColour]);
+				glColor3fv(ColorIfSelect(iColour, -1));
+				// momo
 			} else {
-				glColor3fv(cols[0]);
+				// momo
+				//  momo// glColor3fv(cols[0]);
+				glColor3fv(ColorIfSelect(0, -1));
+				// momo
 			}
 			C3dVector vN;
 			C3dVector vOff;
@@ -18389,7 +18692,10 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			// Results Label
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -18552,7 +18858,10 @@ void E_Object4::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
 			if ((iDspFlgs & DSP_THK) > 0) {
 				glBegin(GL_POLYGON);
@@ -18620,7 +18929,10 @@ void E_Object4::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			vN *= 0;
 
 			if (bD) {
-				glColor3fv(cols[124]);
+				// momo
+				//  momo// glColor3fv(cols[124]);
+				glColor3fv(ColorIfSelect(124, -1));
+				// momo
 				glEnable(GL_TEXTURE_1D);
 				glBegin(GL_POLYGON);
 				glTexCoord1f(fCols[0]);
@@ -19536,7 +19848,10 @@ void E_ObjectR::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
 		Selectable = 1;
 		C3dVector vCent;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		if ((iDspFlgs & DSP_RESDEF) == 0) {
 			for (i = 0; i < iNoNodes; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -20001,7 +20316,10 @@ void E_ObjectR2::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
 		Selectable = 1;
 		glLineWidth(gEL_SIZE);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glBegin(GL_LINES);
 		glVertex3f((float) pVertex[0]->Pt_Point->x, (float) pVertex[0]->Pt_Point->y, (float) pVertex[0]->Pt_Point->z);
 		glVertex3f((float) pVertex[1]->Pt_Point->x, (float) pVertex[1]->Pt_Point->y, (float) pVertex[1]->Pt_Point->z);
@@ -20314,7 +20632,10 @@ void WP_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			V.z = Pt_Point[i]->z;
 			T_Point[i] = mWPTransform * V;
 		}
-		glColor3fv(cols[GetCol()]);
+		// momo
+		//  momo// glColor3fv(cols[GetCol()]);
+		glColor3fv(ColorIfSelect(GetCol(), -1));
+		// momo
 		glLineWidth(gWP_SIZE);
 		glBegin(GL_LINE_LOOP);
 		glVertex3f((float) T_Point[0].x, (float) T_Point[0].y, (float) T_Point[0].z);
@@ -20394,7 +20715,10 @@ void WP_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			glVertex3f((float) T_Point[23].x, (float) T_Point[23].y, (float) T_Point[23].z);
 			glEnd();
 		}
-		glColor3fv(cols[154]);
+		// momo
+		//  momo// glColor3fv(cols[154]);
+		glColor3fv(ColorIfSelect(154, -1));
+		// momo
 		glEnable(GL_LINE_STIPPLE);
 		glLineStipple(1, 0x0101);
 		glBegin(GL_LINES);
@@ -20483,6 +20807,13 @@ void WP_Object::AlignZ(C3dVector p1, C3dVector p2, C3dVector p3) {
 }
 
 void WP_Object::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
+	// momo gdi to og
+	C3dVector vC;
+	vC.Set(0, 0, 0);
+	vC.SetToScr(pModMat, pScrTran);
+	SelPt = vC;
+	// momo gdi to og
+
 	int j = 0;
 	C3dVector V;
 	C3dVector R;
@@ -20512,9 +20843,11 @@ void WP_Object::Transform(C3dMatrix TMat) {
 	mWPTransform = TMat * mWPTransform;
 }
 
-void WP_Object::HighLight(CDC* pDC) {
-	Draw(pDC, 4);
-}
+// momo gdi to og
+// void WP_Object::HighLight(CDC* pDC) {
+//	Draw(pDC, 4);
+//}
+// momo gdi to og
 
 void WP_Object::Serialize(CArchive& ar, int iV) {
 	G_Object::Serialize(ar, iV);
@@ -22853,6 +23186,13 @@ void ME_Object::PostContourVals(ResSet* pRes, int iVar, int iOpt, float& fMax, f
 						if (pR != NULL) {
 							pNodes[i]->pResV = pR;
 						}
+						// momo
+					} else if (pRes->iNoV == 7) {
+						Res7* pR = (Res7*) pRes->Get(pNodes[i]->iLabel, 0);
+						if (pR != NULL) {
+							pNodes[i]->pResV = pR;
+						}
+						// momo
 					} else if (pRes->iNoV == 1) {
 						Res1* pR = (Res1*) pRes->Get(pNodes[i]->iLabel, 0);
 						if (pR != NULL) {
@@ -22943,6 +23283,13 @@ void ME_Object::PostElResDef(ResSet* pRes, int iVar, float& fMax, float& fMin) {
 				for (i = 0; i < iNdNo; i++) {
 					if (pRes->iNoV == 6) {
 						Res6* pR = (Res6*) pRes->Get(pNodes[i]->iLabel, 0);
+						if (pR != NULL) {
+							pNodes[i]->pResD = pR;
+						}
+					}
+					// momo
+					else if (pRes->iNoV == 7) {
+						Res7* pR = (Res7*) pRes->Get(pNodes[i]->iLabel, 0);
 						if (pR != NULL) {
 							pNodes[i]->pResD = pR;
 						}
@@ -26585,7 +26932,10 @@ void DrawColBar(int iDspFlgs, double dW, double dH) {
 		TOrd[i] = (float) (fInc * i / fSpan);
 		VOrd[i] = (float) (cBarMin + fInc * i);
 	}
+	// momo
 	glColor3fv(cols[124]);
+	//  momo// glColor3fv(ColorIfSelect(124,-1));
+	// momo
 	glEnable(GL_TEXTURE_1D);
 	for (i = 0; i < iNoCols; i++) {
 		tCol = (TOrd[i] + TOrd[i + 1]) / 2;
@@ -26696,37 +27046,61 @@ void ME_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void ME_Object::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og
+// momo// void ME_Object::Draw(CDC* pDC, int iDrawmode) {
+void ME_Object::Draw(int iDrawmode) {
+	// momo gdi to og
 	int i;
 	if (iDrawmode != 2) {
 		if ((iNdNo > 0) && (bDrawN == TRUE)) {
 			for (i = 0; i < iNdNo; i++) {
-				pNodes[i]->Draw(pDC, iDrawmode);
+				// momo gdi to og
+				// momo// pNodes[i]->Draw(pDC, iDrawmode);
+				pNodes[i]->Draw(iDrawmode);
+				// momo gdi to og
 			}
 		}
 		if (iElNo > 0) {
 			for (i = 0; i < iElNo; i++) {
-				pElems[i]->Draw(pDC, iDrawmode);
+				// momo gdi to og
+				// momo// pElems[i]->Draw(pDC, iDrawmode);
+				pElems[i]->Draw(iDrawmode);
+				// momo gdi to og
 			}
 		}
 		if (iCurLC != -1) {
-			LCS[iCurLC]->Draw(pDC, iDrawmode);
+			// momo gdi to og
+			// momo// LCS[iCurLC]->Draw(pDC, iDrawmode);
+			LCS[iCurLC]->Draw(iDrawmode);
+			// momo gdi to og
 		}
 		if (iCurBC != -1) {
-			BCS[iCurBC]->Draw(pDC, iDrawmode);
+			// momo gdi to og
+			// momo// BCS[iCurBC]->Draw(pDC, iDrawmode);
+			BCS[iCurBC]->Draw(iDrawmode);
+			// momo gdi to og
 		}
 		if (iCurTSet != -1) {
-			TSETS[iCurTSet]->Draw(pDC, iDrawmode);
+			// momo gdi to og
+			// momo// TSETS[iCurTSet]->Draw(pDC, iDrawmode);
+			TSETS[iCurTSet]->Draw(iDrawmode);
+			// momo gdi to og
 		}
 
 		if (iBCLDs > 0) {
 			for (i = 0; i < iBCLDs; i++) {
-				pBCLDs[i]->Draw(pDC, iDrawmode);
+				// momo gdi to og
+				// momo// pBCLDs[i]->Draw(pDC, iDrawmode);
+				pBCLDs[i]->Draw(iDrawmode);
+				// momo gdi to og
 			}
 		}
 		if (iCYS > 0) {
 			for (i = 0; i < iCYS; i++) {
-				pSys[i]->Draw(pDC, iDrawmode);
+				// momo gdi to og
+				// momo// pSys[i]->Draw(pDC, iDrawmode);
+				pSys[i]->Draw(iDrawmode);
+				// momo gdi to og
 			}
 		}
 	}
@@ -26759,6 +27133,13 @@ void ME_Object::Colour(int iCol) {
 }
 
 void ME_Object::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
+	// momo gdi to og
+	C3dVector vC;
+	vC.Set(0, 0, 0);
+	vC.SetToScr(pModMat, pScrTran);
+	SelPt = vC;
+	// momo gdi to og
+
 	int i;
 	C3dVector ll, uu;
 	GetBoundingBox(ll, uu);
@@ -26832,37 +27213,57 @@ void ME_Object::Translate(C3dVector vIn) {
 	}
 }
 
-void ME_Object::HighLight(CDC* pDC) {
-	int i = 0;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	for (i = 1; i < 4; i++)
-		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 0;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-
-	i = 4;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	for (i = 5; i < 8; i++)
-		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 4;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-
-	i = 0;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 4;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 1;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 5;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 2;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 6;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 3;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 7;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+// momo gdi to og
+// momo// void ME_Object::HighLight(CDC* pDC) {
+void ME_Object::HighLight() {
+	//	int i = 0;
+	//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	for (i = 1; i < 4; i++)
+	//		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 0;
+	//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//
+	//	i = 4;
+	//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	for (i = 5; i < 8; i++)
+	//		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 4;
+	//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//
+	//	i = 0;
+	//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 4;
+	//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 1;
+	//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 5;
+	//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 2;
+	//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 6;
+	//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 3;
+	//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	//	i = 7;
+	//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+	// momo gdi to og
+	glLineWidth(1.5);
+	glBegin(GL_LINE_LOOP);
+	for (int i = 0; i < 4; i++) {
+		glVertex2f(BBox[i].DSP_Point->x, BBox[i].DSP_Point->y);
+	}
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	for (int i = 4; i < 8; i++) {
+		glVertex2f(BBox[i].DSP_Point->x, BBox[i].DSP_Point->y);
+	}
+	glEnd();
+	glBegin(GL_LINES);
+	for (int i = 0; i < 4; i++) {
+		glVertex2f(BBox[i].DSP_Point->x, BBox[i].DSP_Point->y);
+		glVertex2f(BBox[i + 4].DSP_Point->x, BBox[i + 4].DSP_Point->y);
+	}
+	glEnd();
 }
 
 int ME_Object::GetMeshYExt() {
@@ -27227,13 +27628,19 @@ void ME_Object::Displacements(int iLC, CString sSol, CString sStep, Vec<int>& St
 	Res->sTitle = sSol;
 	Res->WID = 8;
 	Res->sName = "DISPLACEMENT";
-	Res->iNoV = 6;
+	// momo
+	// momo// Res->iNoV = 6;
+	Res->iNoV = 7;
+	// momo
 	Res->lab[0] = "TX";
 	Res->lab[1] = "TY";
 	Res->lab[2] = "TZ";
 	Res->lab[3] = "RX";
 	Res->lab[4] = "RY";
 	Res->lab[5] = "RZ";
+	// momo
+	Res->lab[6] = "Total";
+	// momo
 
 	int i;
 	// FILE* pFile;
@@ -27503,12 +27910,18 @@ void ME_Object::ForcesBUSH(int iLC, CString sSol, CString sStep, PropTable* Prop
 
 	ResS->sName = "BUSH FORCES/MOMENTS";
 	ResS->iNoV = 6;
+	// momo
+	// ResS->iNoV = 7;
+	// momo
 	ResS->lab[0] = "FX";
 	ResS->lab[1] = "FY";
 	ResS->lab[2] = "FZ";
 	ResS->lab[3] = "MX";
 	ResS->lab[4] = "MY";
 	ResS->lab[5] = "MZ";
+	// momo
+	// ResS->lab[6] = "???-Total";
+	// momo
 
 	int aa = 0;
 	for (i = 0; i < iElNo; i++) {
@@ -28882,12 +29295,18 @@ void ME_Object::AddOEFRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 	if ((iCnt > 5) && (ResultsSets[iNoRes]->TYPE == 102)) {
 		ResultsSets[iNoRes]->sName = sEL;
 		ResultsSets[iNoRes]->iNoV = 6;
+		// momo
+		// ResultsSets[iNoRes]->iNoV = 7;
+		// momo
 		ResultsSets[iNoRes]->lab[0] = "FX";
 		ResultsSets[iNoRes]->lab[1] = "FY";
 		ResultsSets[iNoRes]->lab[2] = "FZ";
 		ResultsSets[iNoRes]->lab[3] = "MX";
 		ResultsSets[iNoRes]->lab[4] = "MY";
 		ResultsSets[iNoRes]->lab[5] = "MZ";
+		// momo
+		// ResultsSets[iNoRes]->lab[6] = "???-Total";
+		// momo
 
 		for (i = 10; i < iCnt; i += 7) {
 			Res6* pRes = new Res6;
@@ -29333,12 +29752,18 @@ void ME_Object::AddOES1Res(int Vals[], int iCnt, CString sTitle, CString sSubTit
 	if ((iCnt > 7) && (ResultsSets[iNoRes]->TYPE == 102)) {
 		ResultsSets[iNoRes]->sName = sEL;
 		ResultsSets[iNoRes]->iNoV = 6;
+		// momo
+		// ResultsSets[iNoRes]->iNoV = 7;
+		// momo
 		ResultsSets[iNoRes]->lab[0] = "Translation x";
 		ResultsSets[iNoRes]->lab[1] = "Translation y";
 		ResultsSets[iNoRes]->lab[2] = "Translation z";
 		ResultsSets[iNoRes]->lab[3] = "Rotation x";
 		ResultsSets[iNoRes]->lab[4] = "Rotation y";
 		ResultsSets[iNoRes]->lab[5] = "Rotation z";
+		// momo
+		// ResultsSets[iNoRes]->lab[6] = "???-Total";
+		// momo
 		for (i = 10; i < iCnt; i += 7) {
 			Res6* pRes = new Res6;
 			pRes->ID = Vals[i] / 10;
@@ -29931,12 +30356,18 @@ void ME_Object::AddOSTRRes(int Vals[], int iCnt, CString sTitle, CString sSubTit
 	if ((iCnt > 7) && (ResultsSets[iNoRes]->TYPE == 102)) {
 		ResultsSets[iNoRes]->sName = sEL;
 		ResultsSets[iNoRes]->iNoV = 6;
+		// momo
+		// ResultsSets[iNoRes]->iNoV = 7;
+		// momo
 		ResultsSets[iNoRes]->lab[0] = "Translation x";
 		ResultsSets[iNoRes]->lab[1] = "Translation y";
 		ResultsSets[iNoRes]->lab[2] = "Translation z";
 		ResultsSets[iNoRes]->lab[3] = "Rotation x";
 		ResultsSets[iNoRes]->lab[4] = "Rotation y";
 		ResultsSets[iNoRes]->lab[5] = "Rotation z";
+		// momo
+		// ResultsSets[iNoRes]->lab[6] = "???-Total";
+		// momo
 		for (i = 10; i < iCnt; i += 7) {
 			Res6* pRes = new Res6;
 			pRes->ID = Vals[i] / 10;
@@ -30697,13 +31128,19 @@ void ME_Object::AddOQMRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 		{
 			sprintf_s(s30, "%s", "MPCF");
 			ResultsSets[iNoRes]->sName = s30;
-			ResultsSets[iNoRes]->iNoV = 6;
+			// momo
+			// momo// ResultsSets[iNoRes]->iNoV = 6;
+			ResultsSets[iNoRes]->iNoV = 7;
+			// momo
 			ResultsSets[iNoRes]->lab[0] = "TX";
 			ResultsSets[iNoRes]->lab[1] = "TY";
 			ResultsSets[iNoRes]->lab[2] = "TZ";
 			ResultsSets[iNoRes]->lab[3] = "RX";
 			ResultsSets[iNoRes]->lab[4] = "RY";
 			ResultsSets[iNoRes]->lab[5] = "RZ";
+			// momo
+			ResultsSets[iNoRes]->lab[6] = "Total";
+			// momo
 			for (i = 10; i < iCnt; i += 8) {
 				Res6* pRes = new Res6;
 				pRes->ID = Vals[i] / 10;
@@ -30779,13 +31216,19 @@ void ME_Object::AddOUGRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 		else
 			sprintf_s(s30, "%s", "DISPLACEMENT");
 		ResultsSets[iNoRes]->sName = s30;
-		ResultsSets[iNoRes]->iNoV = 6;
+		// momo
+		// momo // ResultsSets[iNoRes]->iNoV = 6;
+		ResultsSets[iNoRes]->iNoV = 7;
+		// momo
 		ResultsSets[iNoRes]->lab[0] = "TX";
 		ResultsSets[iNoRes]->lab[1] = "TY";
 		ResultsSets[iNoRes]->lab[2] = "TZ";
 		ResultsSets[iNoRes]->lab[3] = "RX";
 		ResultsSets[iNoRes]->lab[4] = "RY";
 		ResultsSets[iNoRes]->lab[5] = "RZ";
+		// momo
+		ResultsSets[iNoRes]->lab[6] = "Total";
+		// momo
 		for (i = 10; i < iCnt; i += 8) {
 			Res6* pRes = new Res6;
 			pRes->ID = Vals[i] / 10;
@@ -31610,11 +32053,17 @@ G_Object* Section::Copy(G_Object* Parrent) {
 }
 
 // Draw Object line
-void Section::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og
+// void Section::Draw(CDC* pDC, int iDrawmode) {
+void Section::Draw(int iDrawmode) {
+	// momo gdi to og
 	int j = 0;
 	if (iLnCnt != 0) {
 		for (j = 0; j < iLnCnt; j++) {
-			pLn[j]->HighLight(pDC);
+			// momo gdi to og
+			// momo// pLn[j]->HighLight(pDC);
+			pLn[j]->HighLight();
+			// momo gdi to og
 		}
 	}
 }
@@ -31659,9 +32108,11 @@ C3dVector Section::Get_Centroid() {
 	return (vT);
 }
 
-void Section::HighLight(CDC* pDC) {
-	Draw(pDC, 4);
-}
+// momo gdi to og
+// void Section::HighLight(CDC* pDC) {
+//	Draw(pDC, 4);
+//}
+// momo gdi to og
 
 G_ObjectD Section::SelDist(CPoint InPT, Filter FIL) {
 	G_ObjectD Ret;
@@ -32040,14 +32491,23 @@ void Sweep::Draw(CDC* pDC, int iDrawmode) {
 	int j = 0;
 	if (iSecCnt != 0) {
 		for (j = 0; j < iSecCnt; j++) {
-			pAllSecs[j]->Draw(pDC, iDrawmode);
+			// momo gdi to og
+			// momo// pAllSecs[j]->Draw(pDC, iDrawmode);
+			pAllSecs[j]->Draw(iDrawmode);
+			// momo gdi to og
 		}
 	}
 	if (pPath != NULL) {
-		pPath->Draw(pDC, iDrawmode);
+		// momo gdi to og
+		// momo// pPath->Draw(pDC, iDrawmode);
+		pPath->Draw(iDrawmode);
+		// momo gdi to og
 	}
 	if (Mesh != NULL) {
-		Mesh->Draw(pDC, iDrawmode);
+		// momo gdi to og
+		// momo// Mesh->Draw(pDC, iDrawmode);
+		Mesh->Draw(iDrawmode);
+		// momo gdi to og
 	}
 }
 
@@ -32116,16 +32576,25 @@ C3dVector Sweep::Get_Centroid() {
 	return (vT);
 }
 
-void Sweep::HighLight(CDC* pDC) {
+// momo gdi to og
+// momo// void Sweep::HighLight(CDC* pDC) {
+void Sweep::HighLight() {
 	int j = 0;
 	if (iSecCnt != 0) {
 		for (j = 0; j < iSecCnt; j++) {
-			pAllSecs[j]->Draw(pDC, 4);
+			// momo gdi to og
+			// momo// pAllSecs[j]->Draw(pDC, 4);
+			pAllSecs[j]->Draw(4);
+			// momo gdi to og
 		}
 	}
 	if (pPath != NULL) {
-		pPath->Draw(pDC, 4);
+		// momo gdi to og
+		// momo// pPath->Draw(pDC, 4);
+		pPath->Draw(4);
+		// momo gdi to og
 	}
+	// momo gdi to og
 }
 
 G_ObjectD Sweep::SelDist(CPoint InPT, Filter FIL) {
@@ -33196,7 +33665,10 @@ void PartsCat::Info() {
 void PartsCat::Draw(CDC* pDC, int iDrawmode) {
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
-			P_Obj[iCurDsp]->Draw(pDC, iDrawmode);
+			// momo gdi to og
+			// momo// P_Obj[iCurDsp]->Draw(pDC, iDrawmode);
+			P_Obj[iCurDsp]->Draw(iDrawmode);
+			// momo gdi to og
 			pDC->TextOut(20, 20, P_Obj[iCurDsp]->sName);
 		}
 	}
@@ -33228,10 +33700,16 @@ void PartsCat::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void PartsCat::HighLight(CDC* pDC) {
+// momo gdi to og
+// void PartsCat::HighLight(CDC* pDC) {
+void PartsCat::HighLight() {
+	// momo gdi to og
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
-			P_Obj[iCurDsp]->HighLight(pDC);
+			// momo gdi to og
+			// momo// P_Obj[iCurDsp]->HighLight(pDC);
+			P_Obj[iCurDsp]->HighLight();
+			// momo gdi to og
 		}
 	}
 }
@@ -36467,7 +36945,10 @@ void Moment::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		Z = Point[1].z;
 
 		glLineWidth(2);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glBegin(GL_LINES);
 		glVertex3f((float) Point[0].x, (float) Point[0].y, (float) Point[0].z);
 		glVertex3f((float) Point[1].x, (float) Point[1].y, (float) Point[1].z);
@@ -36608,7 +37089,10 @@ void Pressure::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		Y = Point[0].y;
 		Z = Point[0].z;
 		glLineWidth(2);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glBegin(GL_LINES);
 		glVertex3f((float) Point[0].x, (float) Point[0].y, (float) Point[0].z);
 		glVertex3f((float) Point[1].x, (float) Point[1].y, (float) Point[1].z);
@@ -36862,7 +37346,10 @@ void Temperature::OglDraw(int iDspFlgs, double dS1, double dS2) {
 void Temperature::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glLineWidth(4.0);
 		glBegin(GL_LINES);
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y - 0.2 * dS1, (float) Point.z);
@@ -37001,7 +37488,10 @@ void AccelLoad::OglDraw(int iDspFlgs, double dS1, double dS2) {
 void AccelLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glLineWidth(4.0);
 		glBegin(GL_LINES);
 		glVertex3f((float) Point.x - 0.15 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
@@ -37137,7 +37627,10 @@ void RotationLoad::OglDraw(int iDspFlgs, double dS1, double dS2) {
 void RotationLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glLineWidth(4.0);
 		glBegin(GL_LINES);
 		glVertex3f((float) Point.x - 0.15 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
@@ -37215,7 +37708,10 @@ void TemperatureBC::Create(G_Object* pInNode,
 void TemperatureBC::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glLineWidth(4.0);
 		glBegin(GL_LINES);
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
@@ -37299,7 +37795,10 @@ void FluxLoad::Create(G_Object* pInNode,
 void FluxLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glLineWidth(4.0);
 		glBegin(GL_LINES);
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
@@ -37452,9 +37951,11 @@ void Force::Draw(CDC* pDC, int iDrawmode) {
 	pDC->LineTo((int) DSP_Point[1].x, (int) DSP_Point[1].y);
 }
 
-void Force::HighLight(CDC* pDC) {
-	this->Draw(pDC, 4);
-}
+// momo gdi to og
+// void Force::HighLight(CDC* pDC) {
+//	this->Draw(pDC, 4);
+//}
+// momo gdi to og
 
 void Force::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	OglDrawW(iDspFlgs, dS1, dS2);
@@ -37485,7 +37986,10 @@ void Force::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		Z = Point[1].z;
 
 		glLineWidth(2);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glBegin(GL_LINES);
 		glVertex3f((float) Point[0].x, (float) Point[0].y, (float) Point[0].z);
 		glVertex3f((float) Point[1].x, (float) Point[1].y, (float) Point[1].z);
@@ -37649,7 +38153,10 @@ void TEMPD::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dS1 *= 5;
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glLineWidth(10.0);
 		glBegin(GL_LINES);
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y - 0.2 * dS1, (float) Point.z);
@@ -37752,7 +38259,10 @@ void GRAV::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dS1 *= 5;
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glLineWidth(10.0);
 		glBegin(GL_LINES);
 		glVertex3f((float) Point.x - 0.15 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
@@ -37923,9 +38433,11 @@ void Restraint::Draw(CDC* pDC, int iDrawmode) {
 	pDC->LineTo((int) DSP_Point.x, (int) DSP_Point.y);
 }
 
-void Restraint::HighLight(CDC* pDC) {
-	this->Draw(pDC, 4);
-}
+// momo gdi to og
+// void Restraint::HighLight(CDC* pDC) {
+//	this->Draw(pDC, 4);
+//}
+// momo gdi to og
 
 CString Restraint::GetDofStr() {
 	CString sRet;
@@ -37963,7 +38475,10 @@ CString Restraint::GetDofStr() {
 void Restraint::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if ((iDspFlgs & DSP_BC) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		C3dVector vCent;
 		vCent = pObj->Get_Centroid();
 		glRasterPos3f((float) vCent.x, (float) vCent.y, (float) vCent.z);
@@ -38150,7 +38665,10 @@ void ResultsVec::DrawVector(int iDspFlgs, double dS1, double dS2, double dS, dou
 		Y *= -1;
 		Z *= -1;
 	}
-	glColor3fv(cols[124]); // Texture colours don't work without this
+	// momo
+	//  momo// glColor3fv(cols[124]); // Texture colours don't work without this
+	glColor3fv(ColorIfSelect(124, -1)); // Texture colours don't work without this
+	// momo
 	fCol = GetContourColVec((float) iSign * Vector.Mag() * abs(dRF));
 	glEnable(GL_TEXTURE_1D);
 	glBegin(GL_LINES);
@@ -38251,7 +38769,10 @@ void ResultsVec::DrawTenVector(int iDspFlgs, double dS1, double dS2, double dS, 
 		Y *= -1;
 		Z *= -1;
 	}
-	glColor3fv(cols[124]); // Texture colours don't work without this
+	// momo
+	//  momo// glColor3fv(cols[124]); // Texture colours don't work without this
+	glColor3fv(ColorIfSelect(124, -1)); // Texture colours don't work without this
+	// momo
 	fCol = GetContourColVec((float) iSign * Vector.Mag() * abs(dRF));
 	glEnable(GL_TEXTURE_1D);
 	glBegin(GL_LINES);
@@ -38727,7 +39248,10 @@ void CoordSys::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		//	} while (iRID > 0);
 		//}
 
-		glColor3fv(cols[GetCol()]);
+		// momo
+		//  momo// glColor3fv(cols[GetCol()]);
+		glColor3fv(ColorIfSelect(GetCol(), -1));
+		// momo
 		glBegin(GL_LINES);
 
 		glVertex3f((float) O.x, (float) O.y, (float) O.z);
@@ -38741,9 +39265,15 @@ void CoordSys::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glEnd();
 
 		if (iDspFlgs & DSP_BLACK) {
-			glColor3fv(cols[124]);
+			// momo
+			//  momo// glColor3fv(cols[124]);
+			glColor3fv(ColorIfSelect(124, -1));
+			// momo
 		} else {
-			glColor3fv(cols[0]);
+			// momo
+			//  momo// glColor3fv(cols[0]);
+			glColor3fv(ColorIfSelect(0, -1));
+			// momo
 		}
 		if (CysType == 2) {
 			glRasterPos3f((float) X.x, (float) X.y, (float) X.z);
@@ -38957,7 +39487,10 @@ void Text::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			pS->Selectable = 1;
 			pS = (Symbol*) pS->next;
 		}
-		glColor3fv(cols[GetCol()]);
+		// momo
+		//  momo// glColor3fv(cols[GetCol()]);
+		glColor3fv(ColorIfSelect(GetCol(), -1));
+		// momo
 		inPt->OglDrawW(iDspFlgs, dS1, dS2);
 		pSyms->OglDrawW(iDspFlgs, dS1, dS2);
 
@@ -39028,11 +39561,17 @@ void Text::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	SelPt = vC;
 }
 
-void Text::HighLight(CDC* pDC) {
+// momo gdi to og
+// momo// void Text::HighLight(CDC* pDC) {
+void Text::HighLight() {
+	// momo gdi to og
 	Symbol* pS = NULL;
 	pS = (Symbol*) pSyms->Head;
 	while (pS != NULL) {
-		pS->HighLight(pDC);
+		// momo gdi to og
+		// momo// pS->HighLight(pDC);
+		pS->HighLight();
+		// momo gdi to og
 		pS = (Symbol*) pS->next;
 	}
 }
@@ -39381,10 +39920,13 @@ G_ObjectD DIM::SelDist(CPoint InPT, Filter FIL) {
 
 void DIM::S_Box(CPoint P1, CPoint P2, ObjList* pSel) {
 	if (pInsPt != nullptr) {
-		if ((pInsPt->DSP_Point->x > P1.x) &&
-		    (pInsPt->DSP_Point->x < P2.x) &&
-		    (pInsPt->DSP_Point->y > P1.y) &&
-		    (pInsPt->DSP_Point->y < P2.y)) {
+		// momo
+		// if ((pInsPt->DSP_Point->x > P1.x) &&
+		//     (pInsPt->DSP_Point->x < P2.x) &&
+		//     (pInsPt->DSP_Point->y > P1.y) &&
+		//     (pInsPt->DSP_Point->y < P2.y)) {
+		if (IsInCadr(pInsPt->DSP_Point->x, pInsPt->DSP_Point->y, P1, P2)) {
+			// momo
 			pSel->Add(this);
 		}
 	}
@@ -39396,9 +39938,15 @@ void DIM::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	}
 }
 
-void DIM::HighLight(CDC* pDC) {
+// momo gdi to og
+// void DIM::HighLight(CDC* pDC) {
+void DIM::HighLight() {
+	// momo gdi to og
 	if (pInsPt != nullptr) {
-		pInsPt->HighLight(pDC);
+		// momo gdi to og
+		// momo// pInsPt->HighLight(pDC);
+		pInsPt->HighLight();
+		// momo gdi to og
 	}
 }
 
@@ -39752,7 +40300,10 @@ void DIMA::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			pPt2->OglDrawW(iDspFlgs, dS1, dS2);
 		if (pInsPt != nullptr)
 			pInsPt->OglDrawW(iDspFlgs, dS1, dS2);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		// Filled Arrow Heads
 		glBegin(GL_POLYGON);
 		glVertex3f(vPP1D.x, vPP1D.y, vPP1D.z);
@@ -41155,7 +41706,10 @@ void DIML::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	pDimLine1->OglDrawW(iDspFlgs, dS1, dS2);
 	pLeader1->OglDrawW(iDspFlgs, dS1, dS2);
 	pText->OglDrawW(iDspFlgs, dS1, dS2);
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	// Dim attachment points
 	if ((iDspFlgs & DSP_CURVES) > 0) {
 		pPt1->OglDrawW(iDspFlgs, dS1, dS2);
@@ -41389,7 +41943,10 @@ void DIMR::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if (iDimOpt == 0)
 		pLeader1->OglDrawW(iDspFlgs, dS1, dS2);
 	pText->OglDrawW(iDspFlgs, dS1, dS2);
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	if ((iDspFlgs & DSP_CURVES) > 0) {
 		// pPt1->OglDrawW(iDspFlgs, dS1, dS2);
 		// pPt2->OglDrawW(iDspFlgs, dS1, dS2);
@@ -41642,7 +42199,10 @@ void DIMD::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	pText->OglDrawW(iDspFlgs, dS1, dS2);
 	if ((iDspFlgs & DSP_CURVES) > 0) {
 		pInsPt->OglDrawW(iDspFlgs, dS1, dS2);
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		glBegin(GL_POLYGON);
 		glVertex3f(vPP1D.x, vPP1D.y, vPP1D.z);
 		glVertex3f(vPP1A1.x, vPP1A1.y, vPP1A1.z);
@@ -41734,9 +42294,15 @@ void Symbol::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		Selectable = 1;
 		Link* pCL;
 		if (this->pParent != NULL)
-			glColor3fv(cols[pParent->iColour]);
+			// momo
+			//  momo// glColor3fv(cols[pParent->iColour]);
+			glColor3fv(ColorIfSelect(pParent->iColour, -1));
+		// momo
 		else
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+		// momo
 		C3dVector vPt;
 		C3dVector vPt2;
 		glLineWidth(gTXT_SIZE);
@@ -41885,9 +42451,11 @@ G_Object* Symbol::Copy(G_Object* Parrent) {
 	return (nSym);
 }
 
-void Symbol::HighLight(CDC* pDC) {
-	this->Draw(pDC, 4);
-}
+// momo gdi to og
+// void Symbol::HighLight(CDC* pDC) {
+//	this->Draw(pDC, 4);
+//}
+// momo gdi to og
 
 G_ObjectD Symbol::SelDist(CPoint InPT, Filter FIL) {
 	return (G_Object::SelDist(InPT, FIL));
@@ -42126,9 +42694,15 @@ void Face::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	//	pSurf->SetToScr(pModMat, pScrTran);
 }
 
-void Face::HighLight(CDC* pDC) {
+// momo gdi to og
+// void Face::HighLight(CDC* pDC) {
+void Face::HighLight() {
+	// momo gdi to og
 	if (pSurf != NULL)
-		pSurf->HighLight(pDC);
+		// momo gdi to og
+		// momo// pSurf->HighLight(pDC);
+		pSurf->HighLight();
+	// momo gdi to og
 }
 
 G_ObjectD Face::SelDist(CPoint InPT, Filter FIL) {
@@ -42235,11 +42809,17 @@ G_ObjectD Shell::SelDist(CPoint InPT, Filter FIL) {
 	return (Ret);
 }
 
-void Shell::HighLight(CDC* pDC) {
+// momo gdi to og
+// void Shell::HighLight(CDC* pDC) {
+void Shell::HighLight() {
+	// momo gdi to og
 	G_Object* pNext;
 	pNext = pFaces.Head;
 	while (pNext != NULL) {
-		pNext->HighLight(pDC);
+		// momo gdi to og
+		// momo// pNext->HighLight(pDC);
+		pNext->HighLight();
+		// momo gdi to og
 		pNext = (G_Object*) pNext->next;
 	}
 }
@@ -42989,37 +43569,57 @@ void Part::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	}
 }
 
-void Part::HighLight(CDC* pDC) {
-	int i = 0;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	for (i = 1; i < 4; i++)
-		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 0;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-
-	i = 4;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	for (i = 5; i < 8; i++)
-		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 4;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-
-	i = 0;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 4;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 1;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 5;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 2;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 6;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 3;
-	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
-	i = 7;
-	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+// momo gdi to og
+// void Part::HighLight(CDC* pDC) {
+//	int i = 0;
+//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	for (i = 1; i < 4; i++)
+//		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 0;
+//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//
+//	i = 4;
+//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	for (i = 5; i < 8; i++)
+//		pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 4;
+//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//
+//	i = 0;
+//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 4;
+//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 1;
+//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 5;
+//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 2;
+//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 6;
+//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 3;
+//	pDC->MoveTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+//	i = 7;
+//	pDC->LineTo((int) BBox[i].DSP_Point->x, (int) BBox[i].DSP_Point->y);
+void Part::HighLight() {
+	glLineWidth(1.5);
+	glBegin(GL_LINE_LOOP);
+	for (int i = 0; i < 4; i++) {
+		glVertex2f(BBox[i].DSP_Point->x, BBox[i].DSP_Point->y);
+	}
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	for (int i = 4; i < 8; i++) {
+		glVertex2f(BBox[i].DSP_Point->x, BBox[i].DSP_Point->y);
+	}
+	glEnd();
+	glBegin(GL_LINES);
+	for (int i = 0; i < 4; i++) {
+		glVertex2f(BBox[i].DSP_Point->x, BBox[i].DSP_Point->y); // نقطه جلو
+		glVertex2f(BBox[i + 4].DSP_Point->x, BBox[i + 4].DSP_Point->y); // نقطه پشت
+	}
+	glEnd();
+	// momo gdi to og
 }
 
 G_ObjectD Part::SelDist(CPoint InPT, Filter FIL) {
@@ -43591,11 +44191,18 @@ void CvPt_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	char sLab[20];
 	if ((iDspFlgs & DSP_POINTS) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[GetCol()]);
+		// momo
+		// momo// glColor3fv(cols[GetCol()]);
+		glColor3fv(ColorIfSelect(GetCol(), 169));
+		// momo
 		glPointSize(gPT_SIZE);
 		glBegin(GL_POINTS);
 		glVertex3f((float) Pt_Point->x, (float) Pt_Point->y, (float) Pt_Point->z);
 		glEnd();
+		// C3dVector pt(Pt_Point->x, Pt_Point->y, Pt_Point->z);
+		// DrawPixelCircleAt3D(pt,ColorIfSelect(GetCol(), -1));
+		//   momo
+
 		// Esp_Mod_Labels_4_27_2025_Start: Added global label variable for label display
 		if (gLBL_DSP_TRG)
 			bDrawLab = FALSE;
@@ -43657,10 +44264,13 @@ void CvPt_Object::ScaleX(double d) {
 }
 
 void CvPt_Object::S_Box(CPoint P1, CPoint P2, ObjList* pSel) {
-	if ((DSP_Point->x > P1.x) &&
-	    (DSP_Point->x < P2.x) &&
-	    (DSP_Point->y > P1.y) &&
-	    (DSP_Point->y < P2.y)) {
+	// momo
+	// if ((DSP_Point->x > P1.x) &&
+	//     (DSP_Point->x < P2.x) &&
+	//     (DSP_Point->y > P1.y) &&
+	//     (DSP_Point->y < P2.y)) {
+	if (IsInCadr(DSP_Point->x, DSP_Point->y, P1, P2)) {
+		// momo
 		pSel->Add(this);
 	}
 }
@@ -45221,7 +45831,10 @@ void NCurve::OglDraw(int iDspFlgs, double dS1, double dS2) {
 
 void NCurve::OglDrawCtrlPts() {
 	int i;
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	glPointSize(15.0f);
 	glBegin(GL_POINTS);
 	for (i = 0; i < iNoCPts; i++) {
@@ -45236,7 +45849,10 @@ void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	double dt;
 	if ((iDspFlgs & DSP_CURVES) > 0) {
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, 171));
+		// momo
 		if (DrawCPts || gDSP_CPTS) {
 			OglDrawCtrlPts();
 		}
@@ -45245,7 +45861,10 @@ void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			sprintf_s(sLab, " S");
 			OglString(iDspFlgs, cPts[0]->Pt_Point->x, cPts[0]->Pt_Point->y, cPts[0]->Pt_Point->z, &sLab[0]);
 		}
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, 171));
+		// momo
 		C3dVector vPt;
 		C3dVector vPt2;
 		double dw = 0;
@@ -45364,36 +45983,51 @@ void NCurve::Transform(C3dMatrix TMat) {
 	}
 }
 
-void NCurve::HighLight(CDC* pDC) {
-	double dw = 0;
-	double dSpan;
-	double dInc = 0.01;
-	C3dVector vPt;
-	int iNo;
-	int i;
-
-	dSpan = we - ws;
-	double dt;
-	dt = dSpan / dInc;
-	iNo = (int) dt;
-	dt = dSpan / iNo;
-	dw = ws;
-	vPt = GetPt(dw);
-	Node* ThePoint = new Node;
-	ThePoint->Create(vPt, 1, 0, 0, 11, 0, 0, NULL);
-	ThePoint->SetToScr(pModZ, pScrZ);
-	pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
-	for (i = 0; i < iNo; i++) {
-		dw = dw + dt;
-		vPt = GetPt(dw);
-		ThePoint->Pt_Point->x = vPt.x;
-		ThePoint->Pt_Point->y = vPt.y;
-		ThePoint->Pt_Point->z = vPt.z;
-		ThePoint->SetToScr(pModZ, pScrZ);
-		pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
-	}
-	delete (ThePoint);
-}
+// momo gdi to og
+//// momo// void NCurve::HighLight(CDC* pDC) {
+// void NCurve::HighLight() {
+//	glLineWidth(1.5);
+//	glBegin(GL_LINE_STRIP);
+//	// momo gdi to og
+//	double dw = 0;
+//	double dSpan;
+//	double dInc = 0.01;
+//	C3dVector vPt;
+//	int iNo;
+//	int i;
+//
+//	dSpan = we - ws;
+//	double dt;
+//	dt = dSpan / dInc;
+//	iNo = (int) dt;
+//	dt = dSpan / iNo;
+//	dw = ws;
+//	vPt = GetPt(dw);
+//	Node* ThePoint = new Node;
+//	ThePoint->Create(vPt, 1, 0, 0, 11, 0, 0, NULL);
+//	ThePoint->SetToScr(pModZ, pScrZ);
+//	// momo gdi to og
+//	// momo// pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+//	glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+//	// momo gdi to og
+//	for (i = 0; i < iNo; i++) {
+//		dw = dw + dt;
+//		vPt = GetPt(dw);
+//		ThePoint->Pt_Point->x = vPt.x;
+//		ThePoint->Pt_Point->y = vPt.y;
+//		ThePoint->Pt_Point->z = vPt.z;
+//		ThePoint->SetToScr(pModZ, pScrZ);
+//		// momo gdi to og
+//		// momo// pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+//		glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+//		// momo gdi to og
+//	}
+//	delete (ThePoint);
+//	// momo gdi to og
+//	glEnd();
+//	// momo gdi to og
+// }
+//  momo gdi to og
 
 G_ObjectD NCurve::SelDist(CPoint InPT, Filter FIL) {
 	G_ObjectD Ret;
@@ -45588,7 +46222,10 @@ NCurveOnSurf::NCurveOnSurf() {
 	Drawn = 0;
 	Selectable = 1;
 	Visable = 1;
-	iColour = 75;
+	// momo
+	// momo// iColour = 75;
+	iColour = 167;
+	// momo
 	iObjType = 13;
 	iNoCPts = 0;
 	p = 3;
@@ -45596,7 +46233,10 @@ NCurveOnSurf::NCurveOnSurf() {
 	we = 1.0;
 	DrawCPts = FALSE;
 	DrawNoCvs = FALSE;
-	iLnThk = 4;
+	// momo
+	//  momo// iLnThk = 4;
+	iLnThk = 6;
+	// momo
 	iLnType = 1;
 	pSC = NULL;
 	bOrient = TRUE; // Defualt agrees with space curve
@@ -45606,7 +46246,10 @@ void NCurveOnSurf::Create(int iLab, G_Object* Parrent) {
 	Drawn = 0;
 	Selectable = 1;
 	Visable = 1;
-	iColour = 75;
+	// momo
+	// momo// iColour = 75;
+	iColour = 167;
+	// momo
 	iLabel = iLab;
 	iObjType = 13;
 	iNoCPts = 0;
@@ -45616,7 +46259,10 @@ void NCurveOnSurf::Create(int iLab, G_Object* Parrent) {
 	pParent = Parrent;
 	DrawCPts = FALSE;
 	DrawNoCvs = FALSE;
-	iLnThk = 4;
+	// momo
+	//  momo// iLnThk = 4;
+	iLnThk = 6;
+	// momo
 	iLnType = 1;
 	pSC = NULL;
 	bOrient = TRUE; // Defualt agrees with space curve
@@ -45724,7 +46370,10 @@ void NCurveOnSurf::OglDrawW(int iDspFlgs) {
 			OglDrawCtrlPts();
 		}
 		NSurf* pS = (NSurf*) pParent;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, 173));
+		// momo
 		dSpan = we - ws;
 		dt = dSpan / dInc;
 		iNo = (int) dt;
@@ -45762,7 +46411,10 @@ void NCurveOnSurf::OglDrawW(int iDspFlgs) {
 void NCurveOnSurf::OglDrawCtrlPts() {
 	int i;
 	C3dVector vP;
-	glColor3fv(cols[iColour]);
+	// momo
+	//  momo// glColor3fv(cols[iColour]);
+	glColor3fv(ColorIfSelect(iColour, -1));
+	// momo
 	glPointSize(15.0f);
 	glBegin(GL_POINTS);
 	if (pParent != NULL) {
@@ -45911,39 +46563,54 @@ void NCurveOnSurf::Serialize(CArchive& ar, int iV) {
 	}
 }
 
-void NCurveOnSurf::HighLight(CDC* pDC) {
-	double dw = 0;
-	double dSpan;
-	double dInc = 0.05;
-	C3dVector vPt;
-	int iNo;
-	int i;
-	double dt;
-	Node* ThePoint = new Node;
-	if (pParent != NULL) {
-		NSurf* pS = (NSurf*) pParent;
-		dSpan = we - ws;
-		dt = dSpan / dInc;
-		iNo = (int) dt;
-		dw = ws;
-		vPt = NCurve::GetPt(dw);
-		vPt = pS->GetPt(vPt.x, vPt.y);
-		ThePoint->Create(vPt, 1, 0, 0, 11, 0, 0, NULL);
-		ThePoint->SetToScr(pModZ, pScrZ);
-		pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
-		for (i = 0; i < iNo - 1; i++) {
-			dw = dw + dInc;
-			vPt = NCurve::GetPt(dw);
-			vPt = pS->GetPt(vPt.x, vPt.y);
-			ThePoint->Pt_Point->x = vPt.x;
-			ThePoint->Pt_Point->y = vPt.y;
-			ThePoint->Pt_Point->z = vPt.z;
-			ThePoint->SetToScr(pModZ, pScrZ);
-			pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
-		}
-	}
-	delete (ThePoint);
-}
+// momo gdi to og
+//// void NCurveOnSurf::HighLight(CDC* pDC) {
+// void NCurveOnSurf::HighLight() {
+//	glLineWidth(1.5);
+//	glBegin(GL_LINE_STRIP);
+//	// momo gdi to og
+//	double dw = 0;
+//	double dSpan;
+//	double dInc = 0.05;
+//	C3dVector vPt;
+//	int iNo;
+//	int i;
+//	double dt;
+//	Node* ThePoint = new Node;
+//	if (pParent != NULL) {
+//		NSurf* pS = (NSurf*) pParent;
+//		dSpan = we - ws;
+//		dt = dSpan / dInc;
+//		iNo = (int) dt;
+//		dw = ws;
+//		vPt = NCurve::GetPt(dw);
+//		vPt = pS->GetPt(vPt.x, vPt.y);
+//		ThePoint->Create(vPt, 1, 0, 0, 11, 0, 0, NULL);
+//		ThePoint->SetToScr(pModZ, pScrZ);
+//		// momo gdi to og
+//		// momo// pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+//		glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+//		// momo gdi to og
+//		for (i = 0; i < iNo - 1; i++) {
+//			dw = dw + dInc;
+//			vPt = NCurve::GetPt(dw);
+//			vPt = pS->GetPt(vPt.x, vPt.y);
+//			ThePoint->Pt_Point->x = vPt.x;
+//			ThePoint->Pt_Point->y = vPt.y;
+//			ThePoint->Pt_Point->z = vPt.z;
+//			ThePoint->SetToScr(pModZ, pScrZ);
+//			// momo gdi to og
+//			// momo// pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+//			glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+//			// momo gdi to og
+//		}
+//	}
+//	delete (ThePoint);
+//	// momo gdi to og
+//	glEnd();
+//	// momo gdi to og
+// }
+//  momo gdi to og
 
 void NCurveOnSurf::Translate(C3dVector vIn) {
 }
@@ -46804,7 +47471,10 @@ void NLine::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			OglDrawCtrlPts();
 		}
 		Selectable = 1;
-		glColor3fv(cols[iColour]);
+		// momo
+		//  momo// glColor3fv(cols[iColour]);
+		glColor3fv(ColorIfSelect(iColour, 171));
+		// momo
 		C3dVector vPt1;
 		C3dVector vPt2;
 		vPt1 = GetPt(ws);
@@ -46842,31 +47512,45 @@ void NLine::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void NLine::HighLight(CDC* pDC) {
-	double dw = 0;
-	double dSpan;
-	double dInc = 0.02;
-	C3dVector vPt;
-	int iNo;
-	dSpan = we - ws;
-	double dt;
-	dt = dSpan / dInc;
-	iNo = (int) dt;
-	dw = ws;
-	vPt = GetPt(ws);
-	Node* ThePoint = new Node;
-	ThePoint->Create(vPt, 1, 0, 0, 11, 0, 0, NULL);
-	ThePoint->SetToScr(pModZ, pScrZ);
-	pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
-	vPt = GetPt(we);
-	ThePoint->Pt_Point->x = vPt.x;
-	ThePoint->Pt_Point->y = vPt.y;
-	ThePoint->Pt_Point->z = vPt.z;
-	ThePoint->SetToScr(pModZ, pScrZ);
-	pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
-
-	delete (ThePoint);
-}
+// momo gdi to og
+//// void NLine::HighLight(CDC* pDC) {
+// void NLine::HighLight() {
+//	glLineWidth(1.5);
+//	glBegin(GL_LINE_STRIP);
+//	// momo gdi to og
+//	double dw = 0;
+//	double dSpan;
+//	double dInc = 0.02;
+//	C3dVector vPt;
+//	int iNo;
+//	dSpan = we - ws;
+//	double dt;
+//	dt = dSpan / dInc;
+//	iNo = (int) dt;
+//	dw = ws;
+//	vPt = GetPt(ws);
+//	Node* ThePoint = new Node;
+//	ThePoint->Create(vPt, 1, 0, 0, 11, 0, 0, NULL);
+//	ThePoint->SetToScr(pModZ, pScrZ);
+//	// momo gdi to og
+//	// momo// pDC->MoveTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+//	glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+//	// momo gdi to og
+//	vPt = GetPt(we);
+//	ThePoint->Pt_Point->x = vPt.x;
+//	ThePoint->Pt_Point->y = vPt.y;
+//	ThePoint->Pt_Point->z = vPt.z;
+//	ThePoint->SetToScr(pModZ, pScrZ);
+//	// momo gdi to og
+//	// momo// pDC->LineTo((int) ThePoint->DSP_Point->x, (int) ThePoint->DSP_Point->y);
+//	glVertex2f(ThePoint->DSP_Point->x, ThePoint->DSP_Point->y);
+//	// momo gdi to og
+//	delete (ThePoint);
+//	// momo gdi to og
+//	glEnd();
+//	// momo gdi to og
+//}
+// momo gdi to og
 
 C3dVector NLine::MinPt(C3dVector inPt) {
 	C3dVector vRet;
@@ -47550,7 +48234,10 @@ void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			p3 += vVDir * dS1;
 			p4 = vO;
 			p4 += vZDir * dS1;
-			glColor3fv(cols[iColour]);
+			// momo
+			//  momo// glColor3fv(cols[iColour]);
+			glColor3fv(ColorIfSelect(iColour, -1));
+			// momo
 			// FIRST ARROW
 			C3dVector Pts[7];
 			C3dMatrix mT;
@@ -47738,7 +48425,10 @@ void NSurf::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		int kv;
 		int icu;
 
-		glColor3fv(cols[iColour]); // Solid Colour
+		// momo
+		//  momo// glColor3fv(cols[iColour]); // Solid Colour
+		glColor3fv(ColorIfSelect(iColour, 174)); // Solid Colour
+		// momo
 		if (pParent != NULL) {
 			if (pParent->iObjType == 20) {
 				Part* pPart = (Part*) pParent;
@@ -47888,11 +48578,20 @@ void NSurf::DrawCtrlPtsTog() {
 	}
 }
 
-void NSurf::HighLight(CDC* pDC) {
+// momo gdi to og
+// void NSurf::HighLight(CDC* pDC) {
+void NSurf::HighLight() {
+	// momo gdi to og
 	int i;
 	if (iNoExtCvs > 0) {
+		// momo gdi to og
+		DrawCircle(pExtLoop[0]->pParent->SelPt, 8.0, 1.5, 96);
+		// momo gdi to og
 		for (i = 0; i < iNoExtCvs; i++) {
-			pExtLoop[i]->HighLight(pDC);
+			// momo gdi to og
+			// momo// pExtLoop[i]->HighLight(pDC);
+			// pExtLoop[i]->HighLight();
+			// momo gdi to og
 		}
 	}
 }
@@ -48347,8 +49046,10 @@ NCurveOnSurf* NSurf::AddTrimCurve(NCurve* pCurve) {
 			if (pSCv != NULL) {
 				pSCv->pParent = this;
 				pSCv->iLnType = 1;
-				pSCv->iLnThk = 4;
-				pSCv->iColour = 75;
+				// momo
+				//  momo// pSCv->iLnThk = 4;
+				//  momo// pSCv->iColour = 75;
+				// momo
 				pSurfCvs[iNoTrimCvs] = pSCv;
 				// pSurfCvs[iNoTrimCvs]->iColour=this->iColour;
 				pSCv->SetToScr(pModZ, pScrZ);
@@ -50026,7 +50727,10 @@ void BSec::OglDraw(int iDspFlgs, C3dMatrix TA, C3dMatrix TB, C3dVector d0, C3dVe
 			}
 		}
 	} else {
+		// momo
 		glColor3fv(cols[124]);
+		//  momo// glColor3fv(ColorIfSelect(124,-1));
+		// momo
 		glEnable(GL_TEXTURE_1D);
 		if (iLnCnt1 > 1) {
 			for (j = 0; j < iLnCnt1 - 1; j++) {
@@ -50450,10 +51154,13 @@ void Table::Serialize(CArchive& ar, int iV) {
 //****************************************************************************
 BEGIN_MESSAGE_MAP(CResSelDialog, CDialog)
 ON_BN_CLICKED(IDOK, &CResSelDialog::OnBnClickedOk)
-ON_LBN_SELCANCEL(IDC_LIST_RES, &CResSelDialog::OnLbnSelcancelListRes)
-ON_LBN_SELCHANGE(IDC_LIST_RES, &CResSelDialog::OnLbnSelchangeListRes)
+ON_LBN_SELCANCEL(IDC_LIST_RES, &CResSelDialog::OnLbnSelCancelListRes)
+ON_LBN_SELCHANGE(IDC_LIST_RES, &CResSelDialog::OnLbnSelChangeListRes)
 //  ON_STN_CLICKED(IDC_LCTEXT, &CResSelDialog::OnStnClickedLctext)
-ON_LBN_SELCHANGE(IDC_LIST_VAL, &CResSelDialog::OnSelchangeListVal)
+ON_LBN_SELCHANGE(IDC_LIST_VAL, &CResSelDialog::OnSelChangeListVal)
+// momo
+ON_LBN_SELCHANGE(IDC_LIST_VAL2, &CResSelDialog::OnSelChangeListSec)
+// momo
 END_MESSAGE_MAP()
 
 //*****************************************************************
@@ -50472,12 +51179,25 @@ void CResSelDialog::SetData(BOOL isVec, ResSet* pInRes[], int iInNoRes, int iInC
 	bIsVec = isVec;
 	int i;
 	iNoRes = iInNoRes;
+	// momo
+	if (iNoRes >= MAX_RESSETS) {
+		outtext1("Program error: The number of resources exceeds the allowed limit.");
+		return;
+	}
+	// momo
 	for (i = 0; i < iInNoRes; i++) {
 		pRes[i] = pInRes[i];
 	}
 	iCurResSet = iInCurResSet;
 	iResVal = iInResVal;
 	iSecResID = inSecResID;
+	// momo
+	for (i = 0; i < MAX_RESSETS; i++) {
+		for (int j = 0; j < 2; j++) {
+			SelRowsNew[i][j] = SelRowsCurrent[i][j];
+		}
+	}
+	// momo
 }
 
 void CResSelDialog::Init() {
@@ -50503,6 +51223,13 @@ void CResSelDialog::OnBnClickedOk() {
 	iSecResID = pSecList->GetCurSel();
 	if (!bIsVec)
 		iSecResID += 1;
+	// momo
+	for (int i = 0; i < MAX_RESSETS; i++) {
+		for (int j = 0; j < 2; j++) {
+			SelRowsCurrent[i][j] = SelRowsNew[i][j];
+		}
+	}
+	// momo
 }
 
 BOOL CResSelDialog::OnInitDialog() {
@@ -50513,8 +51240,10 @@ BOOL CResSelDialog::OnInitDialog() {
 	CListBox* pValList = (CListBox*) GetDlgItem(IDC_LIST_VAL);
 	CListBox* pSecList = (CListBox*) GetDlgItem(IDC_LIST_VAL2);
 	Init();
-	if (iCurResSet != -1)
-		pResList->SetCurSel(iCurResSet);
+	// momo
+	// momo// if (iCurResSet != -1)
+	// momo// pResList->SetCurSel(iCurResSet);
+	// momo
 	if (iResVal != -1) {
 		char OutT[80];
 		if (pRes[iCurResSet] != NULL) {
@@ -50530,6 +51259,13 @@ BOOL CResSelDialog::OnInitDialog() {
 					pValList->AddString(OutT);
 				}
 			}
+			// momo
+			// if (pRes[iCurResSet]->iNoV == 6) {
+			//	sprintf_s(OutT, "%i : RSS-Total", 6);
+			//	pValList->AddString(OutT);
+			//	pRes[iCurResSet]->iNoV = 7;
+			//}
+			// momo
 		}
 		pValList->SetCurSel(iResVal);
 		if (!bIsVec) {
@@ -50551,16 +51287,28 @@ BOOL CResSelDialog::OnInitDialog() {
 			}
 		}
 	}
+	// momo
+	int List1Sel = pResList->GetCurSel();
+	int List1Count = pResList->GetCount();
+	if (List1Sel == -1 && List1Count != 0) {
+		if (iCurResSet != -1) {
+			pResList->SetCurSel(iCurResSet);
+		} else {
+			pResList->SetCurSel(0);
+		}
+		OnLbnSelChangeListRes();
+	}
+	// momo
 
 	return TRUE; // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
 
-void CResSelDialog::OnLbnSelcancelListRes() {
+void CResSelDialog::OnLbnSelCancelListRes() {
 	// TODO: Add your control notification handler code here
 }
 
-void CResSelDialog::OnLbnSelchangeListRes() {
+void CResSelDialog::OnLbnSelChangeListRes() {
 	// TODO: Add your control notification handler code here
 	int i;
 	CListBox* pResList = (CListBox*) GetDlgItem(IDC_LIST_RES);
@@ -50584,6 +51332,13 @@ void CResSelDialog::OnLbnSelchangeListRes() {
 			sprintf_s(OutT, "%i : %s", i, pRes[ind]->lab[i]);
 			pValList->AddString(OutT);
 		}
+		// momo
+		// if (pRes[ind]->iNoV == 6) {
+		//	sprintf_s(OutT, "%i : RSS-Total", 6);
+		//	pValList->AddString(OutT);
+		//	pRes[ind]->iNoV = 7;
+		//}
+		// momo
 	}
 	int iMaxSec;
 
@@ -50596,9 +51351,21 @@ void CResSelDialog::OnLbnSelchangeListRes() {
 			}
 		}
 	}
+	// momo
+	int List1Sel = pResList->GetCurSel();
+	if (List1Sel != -1) {
+		int List1SelOld = SelRowsNew[List1Sel][0];
+		if (List1SelOld == -1) {
+			List1SelOld = pValList->GetCount() - 1;
+		}
+		if (List1SelOld <= pValList->GetCount() - 1) {
+			pValList->SetCurSel(List1SelOld);
+		}
+	}
+	// momo
 }
 
-void CResSelDialog::OnSelchangeListVal() {
+void CResSelDialog::OnSelChangeListVal() {
 	char OutT[80];
 	CListBox* pResList = (CListBox*) GetDlgItem(IDC_LIST_RES);
 	CListBox* pValList = (CListBox*) GetDlgItem(IDC_LIST_VAL);
@@ -50620,7 +51387,27 @@ void CResSelDialog::OnSelchangeListVal() {
 			}
 		}
 	}
+	// momo
+	int List1Sel = pResList->GetCurSel();
+	int List2Sel = pValList->GetCurSel();
+	if (List1Sel != -1 && List2Sel != -1) {
+		SelRowsNew[List1Sel][0] = List2Sel;
+	}
+	// momo
 }
+
+// momo
+void CResSelDialog::OnSelChangeListSec() {
+	CListBox* pResList = (CListBox*) GetDlgItem(IDC_LIST_RES);
+	CListBox* pSecList = (CListBox*) GetDlgItem(IDC_LIST_VAL2);
+
+	int List1Sel = pResList->GetCurSel();
+	int List2Sel = pSecList->GetCurSel();
+	if (List1Sel != -1 && List2Sel != -1) {
+		SelRowsNew[List1Sel][1] = List2Sel;
+	}
+}
+// momo
 
 //******************************************************************
 // NASTRAN FIELD CLASS
@@ -51751,7 +52538,7 @@ void CEntEditDialog::InitOGL() {
 	// MoMo_Start
 	CAppSettings settings;
 	BOOL bUseDoubleBuffer = settings.ReadDoubleBuffer();
-	DWORD dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_TYPE_RGBA; // support window | upport OpenGL | RGBA type
+	DWORD dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_TYPE_RGBA; // support window | support OpenGL | RGBA type
 	if (bUseDoubleBuffer) {
 		dwFlags |= PFD_DOUBLEBUFFER; // double buffered
 	}
@@ -52010,8 +52797,19 @@ void CEntEditDialog::OnBnClickedOk() {
 			pI->GetWindowTextA(sID);
 			// MoMo_Material_SaveBugV1_05_20_2025_Start
 			// MoMo// pEnt->iID = atoi(sID); //Need to check we can no id conflics
-			if (atoi(sID) != pEnt->iID) {
-				pEnt->iID = MatT->OfferedID(atoi(sID), false, 0);
+			int textID = atoi(sID);
+			if (textID != pEnt->iID) {
+				int newID = MatT->OfferedID(atoi(sID), false, 0);
+				if (textID > pEnt->iID) {
+					if (newID < pEnt->iID) {
+						newID = pEnt->iID;
+					}
+				} else {
+					if (newID > pEnt->iID) {
+						newID = pEnt->iID;
+					}
+				}
+				pEnt->iID = newID;
 				if (!MatT->isTemp) {
 					outtextSprintf("\r\nMaterial ID changed to %i", pEnt->iID, 0.0, true, 1);
 				}
@@ -52241,7 +53039,10 @@ void Lamina::OglDraw() {
 	C3dVector p4;
 	vTmp = R * pVertex[0];
 
+	// momo
 	glColor3fv(cols[144]);
+	//  momo// glColor3fv(ColorIfSelect(144,-1));
+	// momo
 	// glBegin(GL_POLYGON);
 	//   vTmp = R*pVertex[0];
 	//   glVertex3f((float)(vTmp.x), (float)(vTmp.y), (float)(vTmp.z ));
@@ -52260,14 +53061,20 @@ void Lamina::OglDraw() {
 	p2 = R * p2;
 	p3 = R * p3;
 	p4 = R * p4;
+	// momo
 	glColor3fv(cols[4]);
+	//  momo// glColor3fv(ColorIfSelect(4,-1));
+	// momo
 	glBegin(GL_POLYGON);
 	glVertex3f((float) (p1.x), (float) (p1.y), (float) (p1.z));
 	glVertex3f((float) (p2.x), (float) (p2.y), (float) (p2.z));
 	glVertex3f((float) (p3.x), (float) (p3.y), (float) (p3.z));
 	glVertex3f((float) (p4.x), (float) (p4.y), (float) (p4.z));
 	glEnd();
+	// momo
 	glColor3fv(cols[0]);
+	//  momo// glColor3fv(ColorIfSelect(0,-1));
+	// momo
 	glLineWidth(gEL_SIZE);
 	glBegin(GL_LINES);
 	glVertex3f((float) (p1.x), (float) (p1.y), (float) (p1.z));
@@ -52304,7 +53111,10 @@ void Lamina::OglDraw() {
 	dWidInc = dWid / iInc;
 	vS = pVertex[0];
 	vE = pVertex[1];
+	// momo
 	glColor3fv(cols[0]);
+	//  momo// glColor3fv(ColorIfSelect(0,-1));
+	// momo
 
 	// glBegin(GL_LINES);
 	// for (iC =0; iC<iInc+1; iC++)
@@ -52429,10 +53239,10 @@ void CPcompEditor::InitOGL() {
 	        sizeof(PIXELFORMATDESCRIPTOR), // size of this pfd
 	        1, // version number
 	        // MoMo_Start
-	        //PFD_DRAW_TO_WINDOW | // support window
+	        // PFD_DRAW_TO_WINDOW | // support window
 	        //    PFD_SUPPORT_OPENGL | // support OpenGL
 	        //    PFD_DOUBLEBUFFER, // double buffered
-	        //PFD_TYPE_RGBA, // RGBA type
+	        // PFD_TYPE_RGBA, // RGBA type
 	        dwFlags,
 	        // MoMo_End
 	        24, // 24-bit color depth

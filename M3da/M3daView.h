@@ -27,7 +27,9 @@ class CM3daView: public CView {
 		// MoMo_Start
 		BOOL m_middleIsDraging = false;
 		// MoMo_End
-		void ClearScr();
+		// momo gdi to og
+		// momo// void ClearScr();
+		// momo gdi to og
 		BOOL bF;
 
 		void m_UpdateTriad(int iMag);
@@ -66,11 +68,18 @@ class CM3daView: public CView {
 		afx_msg void OnSize(UINT nType, int cx, int cy);
 		afx_msg void OnMove(int x, int y);
 		afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-		afx_msg void OnViewDisplayall();
+		// momo
+		// momo// afx_msg void OnViewDisplayall();
+		// momo
 		afx_msg void OnViewDisplayselected();
 		afx_msg void OnViewDisplaygroup();
 		afx_msg void OnViewLine();
 		afx_msg void OnViewShaded();
+		// momo on off button and menu
+		afx_msg void OnUpdateViewLine(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateViewShaded(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateDisplayselected(CCmdUI* pCmdUI);
+		// momo on off button and menu
 		afx_msg void OnViewLocateeye();
 		afx_msg void OnViewResetview();
 		//  afx_msg BOOL OnMouseHWheel(UINT nFlags, short zDelta, CPoint pt);

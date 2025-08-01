@@ -5,6 +5,14 @@
 #pragma once
 #include "Mnu.h"
 
+// momo gdi to og
+void OnViewDeselectCadr();
+void OnViewSelectMode(int newMode);
+// momo gdi to og
+// momo
+void OnViewAxisMode(int iMode, bool newAxisOrigin, bool newAxisCorner);
+// momo
+
 class CM3daDoc: public CDocument, public CUndo {
 	protected: // create from serialization only
 		CM3daDoc();
@@ -18,7 +26,9 @@ class CM3daDoc: public CDocument, public CUndo {
 		BOOL bFinalChkPt = FALSE;
 		BOOL bOnFirst = TRUE;
 		CView* pCView;
-		CDC* D_ClientDC;
+		// momo gdi to og
+		// momo// CDC* D_ClientDC;
+		// momo gdi to og
 		CPen* Pen;
 		CPen* OldPen;
 		int iFirst;
@@ -34,15 +44,22 @@ class CM3daDoc: public CDocument, public CUndo {
 		void SetView(CView* pCViewIn);
 		void InitDoc();
 		void SetScreenMat(CRect rRect);
-		void Draw(C3dMatrix pM, CDC* pCView, int iMode);
+		// momo gdi to og
+		// momo// void Draw(C3dMatrix pM, CDC* pCView, int iMode);
+		void Draw(C3dMatrix pM, int iMode);
+		// momo gdi to og
 		void DragUpdate(CPoint m_PointNew);
 		BOOL isBlackDisp();
 		void SetToScr2(C3dMatrix pM);
-		void DrawDrag(CDC* pDC, CPoint P1, CPoint P2);
+		// momo gdi to og
+		// momo// void DrawDrag(CDC* pDC, CPoint P1, CPoint P2);
+		// momo gdi to og
 		BOOL isDragging();
 		void SetLineStart(CPoint pS);
 		void SetLineEnd(CPoint pE);
-		void LineDrag(CDC* pDC, CPoint P1, CPoint P2);
+		// momo gdi to og
+		// momo// void LineDrag(CDC* pDC, CPoint P1, CPoint P2);
+		// momo gdi to og
 		void SelectBox(CPoint P1, CPoint P2);
 		void InitOGL(CDC* pDC);
 		void InvalidateOGL();
@@ -59,7 +76,10 @@ class CM3daDoc: public CDocument, public CUndo {
 		C3dVector GetViewPt();
 		C3dVector GetMeshCentre();
 		int GetMeshYExt();
-		void UpTree();
+		// momo gdi to og
+		// momo// void UpTree();
+		void UpTree(CPoint point);
+		// momo gdi to og
 		void Dsp_Group();
 
 	public:
@@ -87,7 +107,9 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnUpdateLC(CCmdUI* pCmdUI); // ADDED BY ME
 		afx_msg void OnUpdateBC(CCmdUI* pCmdUI); // ADDED BY ME
 		afx_msg void OnUpdateTC(CCmdUI* pCmdUI); // ADDED BY ME
-		afx_msg void OnViewDisplayall();
+		// momo
+		// momo// afx_msg void OnViewDisplayall();
+		// momo
 		afx_msg void OnEditDes();
 		afx_msg void OnEditInformation();
 		afx_msg void OnEditKeyin();
@@ -100,6 +122,8 @@ class CM3daDoc: public CDocument, public CUndo {
 		// MoMo_Start
 		afx_msg void OnEditNo();
 		afx_msg void OnEditYes();
+		afx_msg void OnFileNewButton();
+		afx_msg void OnFileOpenButton();
 		// MoMo_End
 		afx_msg void OnGroupAddtogroup();
 		afx_msg void OnGroupRemovefromgroup();
@@ -242,6 +266,15 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnCataloguedisplayDisplaycatalugue();
 		afx_msg void OnCataloguedisplayDisplaynext();
 		afx_msg void OnCataloguedisplayDisplayprevious();
+		// momo
+		afx_msg void OnVisabilityLabelOn();
+		afx_msg void OnVisabilityGeomOn();
+		afx_msg void OnVisabilityFiniteOn();
+		afx_msg void OnViewDeselectAll();
+		afx_msg void OnSelectFullBody();
+		afx_msg void OnSelectPartOfBody();
+		afx_msg void OnSelectCenterOfBody();
+		// momo
 
 	protected:
 		void API_DeleteSelectedWG(void);
@@ -347,6 +380,33 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnSurfacesonSurfacecurves();
 		afx_msg void OnSurfacesSurfaceson();
 		afx_msg void OnVisabilityPointson();
+		// momo on off button and menu
+		afx_msg void OnUpdateVisabilityPointson(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateTogglecontrolpointvisability(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateDisplayall(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityCurveson(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateSurfacesSurfaceson(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityCoordson(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityNodeon(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityElementon(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityBoundaryconditions(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateDisplayshellthickness(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateDisplayelementcoordsys(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateSurfacedirectionmarkers(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityWorkplane(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityLabelOn(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateVisabilityFiniteOn(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateQfilterNodes(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateQfilterElements(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateQfilterPoints(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateQfilterCurves(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateQfilterSurface(CCmdUI* pCmdUI);
+		// afx_msg void OnUpdateQfilterAll(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateSelectFullBody(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateSelectPartOfBody(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateSelectCenterOfBody(CCmdUI* pCmdUI);
+		// momo on off button and menu
 		afx_msg void OnCircleCirclecenreradius();
 		afx_msg void OnCircleCircle3points();
 		afx_msg void OnCircleArc3point();
@@ -593,6 +653,24 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnViewToggleBufferSingle();
 		afx_msg void OnViewToggleBufferDouble();
 		afx_msg void OnViewToggleBufferList();
+		afx_msg void OnViewDeselectCadrOn();
+		afx_msg void OnViewDeselectCadrOff();
+		afx_msg void OnUpdateDeselectCadrOn(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateDeselectCadrOff(CCmdUI* pCmdUI);
+		afx_msg void OnViewSelectModeCircle();
+		afx_msg void OnViewSelectModeColor();
+		afx_msg void OnViewSelectModeCircleAndColor();
+		afx_msg void OnUpdateSelectModeCircle(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateSelectModeColor(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateSelectModeCircleAndColor(CCmdUI* pCmdUI);
+		afx_msg void OnViewAxisOriginOn();
+		afx_msg void OnViewAxisOriginOff();
+		afx_msg void OnViewAxisCornerOn();
+		afx_msg void OnViewAxisCornerOff();
+		afx_msg void OnUpdateAxisOriginOn(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateAxisOriginOff(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateAxisCornerOn(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateAxisCornerOff(CCmdUI* pCmdUI);
 		// MoMo_Start
 		// Esp_Mod_Experimental_Toolbar_4_10_2025_Start: Added experimental menu items
 		afx_msg void OnEXP01();

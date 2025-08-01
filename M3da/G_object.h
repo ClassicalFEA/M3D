@@ -1,4 +1,4 @@
-
+﻿
 #include "stdafx.h"
 
 #include <stdlib.h>
@@ -9,6 +9,12 @@
 #include "afxcmn.h"
 #include <vector>
 #include <algorithm>
+// momo
+#include "GLOBAL_VARS.h"
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <cmath>
+// momo
 
 using namespace std;
 
@@ -27,175 +33,196 @@ const double AHead[7][3] =
      {0.000000, -0.43301, 0.250000}};
 
 // FEMAP COLORS
-const float cols[167][3] = {{0.0f, 0.0f, 0.0f},
-                            {0.254901960784314f, 0.0f, 0.0f},
-                            {0.501960784313725f, 0.0f, 0.0f},
-                            {0.752941176470588f, 0.0f, 0.0f},
-                            {1.0f, 0.0f, 0.0f},
-                            {0.0f, 0.254901960784314f, 0.0f},
-                            {0.254901960784314f, 0.254901960784314f, 0.0f},
-                            {0.501960784313725f, 0.254901960784314f, 0.0f},
-                            {0.752941176470588f, 0.254901960784314f, 0.0f},
-                            {1.0f, 0.254901960784314f, 0.0f},
-                            {0.0f, 0.501960784313725f, 0.0f},
-                            {0.254901960784314f, 0.501960784313725f, 0.0f},
-                            {0.501960784313725f, 0.501960784313725f, 0.0f},
-                            {0.752941176470588f, 0.501960784313725f, 0.0f},
-                            {1.0f, 0.501960784313725f, 0.0f},
-                            {0.0f, 0.752941176470588f, 0.0f},
-                            {0.254901960784314f, 0.752941176470588f, 0.0f},
-                            {0.501960784313725f, 0.752941176470588f, 0.0f},
-                            {0.752941176470588f, 0.752941176470588f, 0.0f},
-                            {1.0f, 0.752941176470588f, 0.0f},
-                            {0.0f, 1.0f, 0.0f},
-                            {0.254901960784314f, 1.0f, 0.0f},
-                            {0.501960784313725f, 1.0f, 0.0f},
-                            {0.752941176470588f, 1.0f, 0.0f},
-                            {1.0f, 1.0f, 0.0f},
-                            {0.0f, 0.0f, 0.254901960784314f},
-                            {0.254901960784314f, 0.0f, 0.254901960784314f},
-                            {0.501960784313725f, 0.0f, 0.254901960784314f},
-                            {0.752941176470588f, 0.0f, 0.254901960784314f},
-                            {1.0f, 0.0f, 0.254901960784314f},
-                            {0.0f, 0.254901960784314f, 0.254901960784314f},
-                            {0.254901960784314f, 0.254901960784314f, 0.254901960784314f},
-                            {0.501960784313725f, 0.254901960784314f, 0.254901960784314f},
-                            {0.752941176470588f, 0.254901960784314f, 0.254901960784314f},
-                            {1.0f, 0.254901960784314f, 0.254901960784314f},
-                            {0.0f, 0.501960784313725f, 0.254901960784314f},
-                            {0.254901960784314f, 0.501960784313725f, 0.254901960784314f},
-                            {0.501960784313725f, 0.501960784313725f, 0.254901960784314f},
-                            {0.752941176470588f, 0.501960784313725f, 0.254901960784314f},
-                            {1.0f, 0.501960784313725f, 0.254901960784314f},
-                            {0.0f, 0.752941176470588f, 0.254901960784314f},
-                            {0.254901960784314f, 0.752941176470588f, 0.254901960784314f},
-                            {0.501960784313725f, 0.752941176470588f, 0.254901960784314f},
-                            {0.752941176470588f, 0.752941176470588f, 0.254901960784314f},
-                            {1.0f, 0.752941176470588f, 0.254901960784314f},
-                            {0.0f, 1.0f, 0.254901960784314f},
-                            {0.254901960784314f, 1.0f, 0.254901960784314f},
-                            {0.501960784313725f, 1.0f, 0.254901960784314f},
-                            {0.752941176470588f, 1.0f, 0.254901960784314f},
-                            {1.0f, 1.0f, 0.254901960784314f},
-                            {0.0f, 0.0f, 0.501960784313725f},
-                            {0.254901960784314f, 0.0f, 0.501960784313725f},
-                            {0.501960784313725f, 0.0f, 0.501960784313725f},
-                            {0.752941176470588f, 0.0f, 0.501960784313725f},
-                            {1.0f, 0.0f, 0.501960784313725f},
-                            {0.0f, 0.254901960784314f, 0.501960784313725f},
-                            {0.254901960784314f, 0.254901960784314f, 0.501960784313725f},
-                            {0.501960784313725f, 0.254901960784314f, 0.501960784313725f},
-                            {0.752941176470588f, 0.254901960784314f, 0.501960784313725f},
-                            {1.0f, 0.254901960784314f, 0.501960784313725f},
-                            {0.0f, 0.501960784313725f, 0.501960784313725f},
-                            {0.254901960784314f, 0.501960784313725f, 0.501960784313725f},
-                            {0.501960784313725f, 0.501960784313725f, 0.501960784313725f},
-                            {0.752941176470588f, 0.501960784313725f, 0.501960784313725f},
-                            {1.0f, 0.501960784313725f, 0.501960784313725f},
-                            {0.0f, 0.752941176470588f, 0.501960784313725f},
-                            {0.254901960784314f, 0.752941176470588f, 0.501960784313725f},
-                            {0.501960784313725f, 0.752941176470588f, 0.501960784313725f},
-                            {0.752941176470588f, 0.752941176470588f, 0.501960784313725f},
-                            {1.0f, 0.752941176470588f, 0.501960784313725f},
-                            {0.0f, 1.0f, 0.501960784313725f},
-                            {0.254901960784314f, 1.0f, 0.501960784313725f},
-                            {0.501960784313725f, 1.0f, 0.501960784313725f},
-                            {0.752941176470588f, 1.0f, 0.501960784313725f},
-                            {1.0f, 1.0f, 0.501960784313725f},
-                            {0.0f, 0.0f, 0.752941176470588f},
-                            {0.254901960784314f, 0.0f, 0.752941176470588f},
-                            {0.501960784313725f, 0.0f, 0.752941176470588f},
-                            {0.752941176470588f, 0.0f, 0.752941176470588f},
-                            {1.0f, 0.0f, 0.752941176470588f},
-                            {0.0f, 0.254901960784314f, 0.752941176470588f},
-                            {0.254901960784314f, 0.254901960784314f, 0.752941176470588f},
-                            {0.501960784313725f, 0.254901960784314f, 0.752941176470588f},
-                            {0.752941176470588f, 0.254901960784314f, 0.752941176470588f},
-                            {1.0f, 0.254901960784314f, 0.752941176470588f},
-                            {0.0f, 0.501960784313725f, 0.752941176470588f},
-                            {0.254901960784314f, 0.501960784313725f, 0.752941176470588f},
-                            {0.501960784313725f, 0.501960784313725f, 0.752941176470588f},
-                            {0.752941176470588f, 0.501960784313725f, 0.752941176470588f},
-                            {1.0f, 0.501960784313725f, 0.752941176470588f},
-                            {0.0f, 0.752941176470588f, 0.752941176470588f},
-                            {0.254901960784314f, 0.752941176470588f, 0.752941176470588f},
-                            {0.501960784313725f, 0.752941176470588f, 0.752941176470588f},
-                            {0.752941176470588f, 0.752941176470588f, 0.752941176470588f},
-                            {1.0f, 0.752941176470588f, 0.752941176470588f},
-                            {0.0f, 1.0f, 0.752941176470588f},
-                            {0.254901960784314f, 1.0f, 0.752941176470588f},
-                            {0.501960784313725f, 1.0f, 0.752941176470588f},
-                            {0.752941176470588f, 1.0f, 0.752941176470588f},
-                            {1.0f, 1.0f, 0.752941176470588f},
-                            {0.0f, 0.0f, 1.0f},
-                            {0.254901960784314f, 0.0f, 1.0f},
-                            {0.501960784313725f, 0.0f, 1.0f},
-                            {0.752941176470588f, 0.0f, 1.0f},
-                            {1.0f, 0.0f, 1.0f},
-                            {0.0f, 0.254901960784314f, 1.0f},
-                            {0.254901960784314f, 0.254901960784314f, 1.0f},
-                            {0.501960784313725f, 0.254901960784314f, 1.0f},
-                            {0.752941176470588f, 0.254901960784314f, 1.0f},
-                            {1.0f, 0.254901960784314f, 1.0f},
-                            {0.0f, 0.501960784313725f, 1.0f},
-                            {0.254901960784314f, 0.501960784313725f, 1.0f},
-                            {0.501960784313725f, 0.501960784313725f, 1.0f},
-                            {0.752941176470588f, 0.501960784313725f, 1.0f},
-                            {1.0f, 0.501960784313725f, 1.0f},
-                            {0.0f, 0.752941176470588f, 1.0f},
-                            {0.254901960784314f, 0.752941176470588f, 1.0f},
-                            {0.501960784313725f, 0.752941176470588f, 1.0f},
-                            {0.752941176470588f, 0.752941176470588f, 1.0f},
-                            {1.0f, 0.752941176470588f, 1.0f},
-                            {0.0f, 1.0f, 1.0f},
-                            {0.254901960784314f, 1.0f, 1.0f},
-                            {0.501960784313725f, 1.0f, 1.0f},
-                            {0.752941176470588f, 1.0f, 1.0f},
-                            {1.0f, 1.0f, 1.0f},
-                            {0.0392156862745098f, 0.0392156862745098f, 0.0392156862745098f},
-                            {0.0784313725490196f, 0.0784313725490196f, 0.0784313725490196f},
-                            {0.117647058823529f, 0.117647058823529f, 0.117647058823529f},
-                            {0.156862745098039f, 0.156862745098039f, 0.156862745098039f},
-                            {0.196078431372549f, 0.196078431372549f, 0.196078431372549f},
-                            {0.235294117647059f, 0.235294117647059f, 0.235294117647059f},
-                            {0.274509803921569f, 0.274509803921569f, 0.274509803921569f},
-                            {0.313725490196078f, 0.313725490196078f, 0.313725490196078f},
-                            {0.352941176470588f, 0.352941176470588f, 0.352941176470588f},
-                            {0.392156862745098f, 0.392156862745098f, 0.392156862745098f},
-                            {0.431372549019608f, 0.431372549019608f, 0.431372549019608f},
-                            {0.470588235294118f, 0.470588235294118f, 0.470588235294118f},
-                            {0.509803921568627f, 0.509803921568627f, 0.509803921568627f},
-                            {0.549019607843137f, 0.549019607843137f, 0.549019607843137f},
-                            {0.588235294117647f, 0.588235294117647f, 0.588235294117647f},
-                            {0.627450980392157f, 0.627450980392157f, 0.627450980392157f},
-                            {0.666666666666667f, 0.666666666666667f, 0.666666666666667f},
-                            {0.705882352941177f, 0.705882352941177f, 0.705882352941177f},
-                            {0.745098039215686f, 0.745098039215686f, 0.745098039215686f},
-                            {0.784313725490196f, 0.784313725490196f, 0.784313725490196f},
-                            {0.823529411764706f, 0.823529411764706f, 0.823529411764706f},
-                            {0.862745098039216f, 0.862745098039216f, 0.862745098039216f},
-                            {0.901960784313726f, 0.901960784313726f, 0.901960784313726f},
-                            {0.941176470588235f, 0.941176470588235f, 0.941176470588235f},
-                            {0.980392156862745f, 0.980392156862745f, 0.980392156862745f},
-                            {0.00f, 0.00f, 0.00f}, // 150 Black
-                            {0.00f, 0.00f, 1.00f}, // 151 Blue
-                            {0.00f, 0.33f, 1.00f}, // 152 Grey Blue
-                            {0.00f, 0.66f, 1.00f}, // 153 Light Blue
-                            {0.00f, 1.00f, 1.00f}, // 154 Cyan
-                            {0.00f, 0.33f, 0.00f}, // 155 Dark Olive
-                            {0.00f, 0.66f, 0.00f}, // 156 Dark Green
-                            {0.00f, 1.00f, 0.00f}, // 157 Green
-                            {1.00f, 1.00f, 0.00f}, // 158 Yellow
-                            {1.00f, 0.66f, 0.00f}, // 159 Golden Orange
-                            {1.00f, 0.33f, 0.00f}, // 160 Orangr
-                            {1.00f, 0.00f, 0.00f}, // 161 Red
-                            {1.00f, 0.00f, 1.00f}, // 162 Magenta
-                            {1.00f, 0.33f, 1.00f}, // 163 Light Magenta
-                            {1.00f, 0.66f, 1.00f}, // 164 Pink
-                            {1.00f, 1.00f, 1.00f}, // 165 White
-                            {0.6f, 0.6f, 0.6f}}; // 166Grey
 
-const int MAX_RESSETS = 50000;
+// momo
+// momo // const float cols[167][3] = {{0.0f, 0.0f, 0.0f},
+const float cols[175][3] = {
+    {0.0f, 0.0f, 0.0f}, // 0
+    // momo
+    {0.254901960784314f, 0.0f, 0.0f},
+    {0.501960784313725f, 0.0f, 0.0f},
+    {0.752941176470588f, 0.0f, 0.0f},
+    {1.0f, 0.0f, 0.0f},
+    {0.0f, 0.254901960784314f, 0.0f},
+    {0.254901960784314f, 0.254901960784314f, 0.0f},
+    {0.501960784313725f, 0.254901960784314f, 0.0f},
+    {0.752941176470588f, 0.254901960784314f, 0.0f},
+    {1.0f, 0.254901960784314f, 0.0f},
+    {0.0f, 0.501960784313725f, 0.0f}, // 10
+    // momo
+    //  momo// {0.254901960784314f, 0.501960784313725f, 0.0f},
+    {0.039215686274510f, 0.784313725490196f, 0.015686274509804f}, // 11 new green for points
+    // momo
+    {0.501960784313725f, 0.501960784313725f, 0.0f},
+    {0.752941176470588f, 0.501960784313725f, 0.0f},
+    {1.0f, 0.501960784313725f, 0.0f},
+    {0.0f, 0.752941176470588f, 0.0f},
+    {0.254901960784314f, 0.752941176470588f, 0.0f},
+    {0.501960784313725f, 0.752941176470588f, 0.0f},
+    {0.752941176470588f, 0.752941176470588f, 0.0f},
+    {1.0f, 0.752941176470588f, 0.0f},
+    {0.0f, 1.0f, 0.0f}, // 20
+    {0.254901960784314f, 1.0f, 0.0f},
+    {0.501960784313725f, 1.0f, 0.0f},
+    {0.752941176470588f, 1.0f, 0.0f},
+    {1.0f, 1.0f, 0.0f},
+    {0.0f, 0.0f, 0.254901960784314f},
+    {0.254901960784314f, 0.0f, 0.254901960784314f},
+    {0.501960784313725f, 0.0f, 0.254901960784314f},
+    {0.752941176470588f, 0.0f, 0.254901960784314f},
+    {1.0f, 0.0f, 0.254901960784314f},
+    {0.0f, 0.254901960784314f, 0.254901960784314f}, // 30
+    {0.254901960784314f, 0.254901960784314f, 0.254901960784314f},
+    {0.501960784313725f, 0.254901960784314f, 0.254901960784314f},
+    {0.752941176470588f, 0.254901960784314f, 0.254901960784314f},
+    {1.0f, 0.254901960784314f, 0.254901960784314f},
+    {0.0f, 0.501960784313725f, 0.254901960784314f},
+    {0.254901960784314f, 0.501960784313725f, 0.254901960784314f},
+    {0.501960784313725f, 0.501960784313725f, 0.254901960784314f},
+    {0.752941176470588f, 0.501960784313725f, 0.254901960784314f},
+    {1.0f, 0.501960784313725f, 0.254901960784314f},
+    {0.0f, 0.752941176470588f, 0.254901960784314f}, // 40
+    {0.254901960784314f, 0.752941176470588f, 0.254901960784314f},
+    {0.501960784313725f, 0.752941176470588f, 0.254901960784314f},
+    {0.752941176470588f, 0.752941176470588f, 0.254901960784314f},
+    // momo
+    //  momo// {1.0f, 0.752941176470588f, 0.254901960784314f},
+    {1.0f, 0.596078431372549f, 0.325490196078431f},
+    // momo
+    {0.0f, 1.0f, 0.254901960784314f},
+    {0.254901960784314f, 1.0f, 0.254901960784314f},
+    {0.501960784313725f, 1.0f, 0.254901960784314f},
+    {0.752941176470588f, 1.0f, 0.254901960784314f},
+    {1.0f, 1.0f, 0.254901960784314f},
+    {0.0f, 0.0f, 0.501960784313725f}, // 50
+    {0.254901960784314f, 0.0f, 0.501960784313725f},
+    {0.501960784313725f, 0.0f, 0.501960784313725f},
+    {0.752941176470588f, 0.0f, 0.501960784313725f},
+    {1.0f, 0.0f, 0.501960784313725f},
+    {0.0f, 0.254901960784314f, 0.501960784313725f},
+    {0.254901960784314f, 0.254901960784314f, 0.501960784313725f},
+    {0.501960784313725f, 0.254901960784314f, 0.501960784313725f},
+    {0.752941176470588f, 0.254901960784314f, 0.501960784313725f},
+    {1.0f, 0.254901960784314f, 0.501960784313725f},
+    {0.0f, 0.501960784313725f, 0.501960784313725f}, // 60
+    {0.254901960784314f, 0.501960784313725f, 0.501960784313725f},
+    {0.501960784313725f, 0.501960784313725f, 0.501960784313725f},
+    {0.752941176470588f, 0.501960784313725f, 0.501960784313725f},
+    {1.0f, 0.501960784313725f, 0.501960784313725f},
+    {0.0f, 0.752941176470588f, 0.501960784313725f},
+    {0.254901960784314f, 0.752941176470588f, 0.501960784313725f},
+    {0.501960784313725f, 0.752941176470588f, 0.501960784313725f},
+    {0.752941176470588f, 0.752941176470588f, 0.501960784313725f},
+    {1.0f, 0.752941176470588f, 0.501960784313725f},
+    {0.0f, 1.0f, 0.501960784313725f}, // 70
+    {0.254901960784314f, 1.0f, 0.501960784313725f},
+    {0.501960784313725f, 1.0f, 0.501960784313725f},
+    {0.752941176470588f, 1.0f, 0.501960784313725f},
+    {1.0f, 1.0f, 0.501960784313725f},
+    {0.0f, 0.0f, 0.752941176470588f},
+    {0.254901960784314f, 0.0f, 0.752941176470588f},
+    {0.501960784313725f, 0.0f, 0.752941176470588f},
+    {0.752941176470588f, 0.0f, 0.752941176470588f},
+    {1.0f, 0.0f, 0.752941176470588f},
+    {0.0f, 0.254901960784314f, 0.752941176470588f}, // 80
+    {0.254901960784314f, 0.254901960784314f, 0.752941176470588f},
+    {0.501960784313725f, 0.254901960784314f, 0.752941176470588f},
+    {0.752941176470588f, 0.254901960784314f, 0.752941176470588f},
+    {1.0f, 0.254901960784314f, 0.752941176470588f},
+    {0.0f, 0.501960784313725f, 0.752941176470588f},
+    {0.254901960784314f, 0.501960784313725f, 0.752941176470588f},
+    {0.501960784313725f, 0.501960784313725f, 0.752941176470588f},
+    {0.752941176470588f, 0.501960784313725f, 0.752941176470588f},
+    {1.0f, 0.501960784313725f, 0.752941176470588f},
+    {0.0f, 0.752941176470588f, 0.752941176470588f}, // 90
+    {0.254901960784314f, 0.752941176470588f, 0.752941176470588f},
+    {0.501960784313725f, 0.752941176470588f, 0.752941176470588f},
+    {0.752941176470588f, 0.752941176470588f, 0.752941176470588f},
+    {1.0f, 0.752941176470588f, 0.752941176470588f},
+    {0.0f, 1.0f, 0.752941176470588f},
+    {0.254901960784314f, 1.0f, 0.752941176470588f},
+    {0.501960784313725f, 1.0f, 0.752941176470588f},
+    {0.752941176470588f, 1.0f, 0.752941176470588f},
+    {1.0f, 1.0f, 0.752941176470588f},
+    {0.0f, 0.0f, 1.0f}, // 100
+    {0.254901960784314f, 0.0f, 1.0f},
+    {0.501960784313725f, 0.0f, 1.0f},
+    {0.752941176470588f, 0.0f, 1.0f},
+    {1.0f, 0.0f, 1.0f},
+    {0.0f, 0.254901960784314f, 1.0f},
+    {0.254901960784314f, 0.254901960784314f, 1.0f},
+    {0.501960784313725f, 0.254901960784314f, 1.0f},
+    {0.752941176470588f, 0.254901960784314f, 1.0f},
+    {1.0f, 0.254901960784314f, 1.0f},
+    {0.0f, 0.501960784313725f, 1.0f}, // 110
+    {0.254901960784314f, 0.501960784313725f, 1.0f},
+    {0.501960784313725f, 0.501960784313725f, 1.0f},
+    {0.752941176470588f, 0.501960784313725f, 1.0f},
+    {1.0f, 0.501960784313725f, 1.0f},
+    {0.0f, 0.752941176470588f, 1.0f},
+    {0.254901960784314f, 0.752941176470588f, 1.0f},
+    {0.501960784313725f, 0.752941176470588f, 1.0f},
+    {0.752941176470588f, 0.752941176470588f, 1.0f},
+    {1.0f, 0.752941176470588f, 1.0f},
+    {0.0f, 1.0f, 1.0f}, // 120
+    {0.254901960784314f, 1.0f, 1.0f},
+    {0.501960784313725f, 1.0f, 1.0f},
+    {0.752941176470588f, 1.0f, 1.0f},
+    {1.0f, 1.0f, 1.0f},
+    {0.0392156862745098f, 0.0392156862745098f, 0.0392156862745098f},
+    {0.0784313725490196f, 0.0784313725490196f, 0.0784313725490196f},
+    {0.117647058823529f, 0.117647058823529f, 0.117647058823529f},
+    {0.156862745098039f, 0.156862745098039f, 0.156862745098039f},
+    {0.196078431372549f, 0.196078431372549f, 0.196078431372549f},
+    {0.235294117647059f, 0.235294117647059f, 0.235294117647059f}, // 130
+    {0.274509803921569f, 0.274509803921569f, 0.274509803921569f},
+    {0.313725490196078f, 0.313725490196078f, 0.313725490196078f},
+    {0.352941176470588f, 0.352941176470588f, 0.352941176470588f},
+    {0.392156862745098f, 0.392156862745098f, 0.392156862745098f},
+    {0.431372549019608f, 0.431372549019608f, 0.431372549019608f},
+    {0.470588235294118f, 0.470588235294118f, 0.470588235294118f},
+    {0.509803921568627f, 0.509803921568627f, 0.509803921568627f},
+    {0.549019607843137f, 0.549019607843137f, 0.549019607843137f},
+    {0.588235294117647f, 0.588235294117647f, 0.588235294117647f},
+    {0.627450980392157f, 0.627450980392157f, 0.627450980392157f}, // 140
+    {0.666666666666667f, 0.666666666666667f, 0.666666666666667f},
+    {0.705882352941177f, 0.705882352941177f, 0.705882352941177f},
+    {0.745098039215686f, 0.745098039215686f, 0.745098039215686f},
+    {0.784313725490196f, 0.784313725490196f, 0.784313725490196f},
+    {0.823529411764706f, 0.823529411764706f, 0.823529411764706f},
+    {0.862745098039216f, 0.862745098039216f, 0.862745098039216f},
+    {0.901960784313726f, 0.901960784313726f, 0.901960784313726f},
+    {0.941176470588235f, 0.941176470588235f, 0.941176470588235f},
+    {0.980392156862745f, 0.980392156862745f, 0.980392156862745f},
+    {0.00f, 0.00f, 0.00f}, // 150 Black
+    {0.00f, 0.00f, 1.00f}, // 151 Blue
+    {0.00f, 0.33f, 1.00f}, // 152 Grey Blue
+    {0.00f, 0.66f, 1.00f}, // 153 Light Blue
+    {0.00f, 1.00f, 1.00f}, // 154 Cyan
+    {0.00f, 0.33f, 0.00f}, // 155 Dark Olive
+    {0.00f, 0.66f, 0.00f}, // 156 Dark Green
+    {0.00f, 1.00f, 0.00f}, // 157 Green
+    {1.00f, 1.00f, 0.00f}, // 158 Yellow
+    {1.00f, 0.66f, 0.00f}, // 159 Golden Orange
+    {1.00f, 0.33f, 0.00f}, // 160 Orangr
+    {1.00f, 0.00f, 0.00f}, // 161 Red
+    {1.00f, 0.00f, 1.00f}, // 162 Magenta
+    {1.00f, 0.33f, 1.00f}, // 163 Light Magenta
+    {1.00f, 0.66f, 1.00f}, // 164 Pink
+    {1.00f, 1.00f, 1.00f}, // 165 White
+    {0.6f, 0.6f, 0.6f}, // 166 Grey
+    // momo
+    {0.215686274509804f, 0.529411764705882f, 1.0f}, // 167 for NCurveOnSurf
+    {0.498039215686274f, 0.498039215686274f, 0.498039215686274f}, // 168 for NSufr
+    {0.623529411764706f, 1.0f, 0.701960784313725f}, // 169 light green for selected points
+    {1.0f, 0.701960784313725f, 0.701960784313725f}, // 170 light red for selected nodes
+    {0.658823529411764f, 0.772549019607843f, 1.0f}, // 171 light blue for selected lines
+    {1.0f, 0.815686274509804f, 0.690196078431373f}, // 172 light orange for selected elements
+    {0.682352941176471f, 0.843137254901961f, 1.0f}, // 173 for selected NCurveOnSurf
+    {0.415686274509803f, 0.709803921568627f, 1.0f} // 174 for selected NSufr
+};
+// momo
+
 class Part;
 class Graph;
 class GRAV;
@@ -259,6 +286,79 @@ const int DOF_3 = 0x00000004;
 const int DOF_4 = 0x00000008;
 const int DOF_5 = 0x00000010;
 const int DOF_6 = 0x00000020;
+
+// momo
+static const int CIRCLE_SIZE = 11;
+static GLubyte circleBitmap[CIRCLE_SIZE][CIRCLE_SIZE];
+static bool circleBitmapInitialized;
+static void CreateCircleBitmap();
+static void DrawPixelCircleAt3D(const C3dVector& pt, const float* rgb);
+static float GetPixelSizeInX();
+// momo
+
+// momo
+void DrawPixelCircleAt3D(const C3dVector& pt, const float* rgb) {
+	if (!circleBitmapInitialized)
+		CreateCircleBitmap();
+	float r = rgb[0];
+	float g = rgb[1];
+	float b = rgb[2];
+	glColor3f(r, g, b);
+	glPixelTransferf(GL_RED_SCALE, r);
+	glPixelTransferf(GL_GREEN_SCALE, g);
+	glPixelTransferf(GL_BLUE_SCALE, b);
+	float pointMovement = GetPixelSizeInX() * ((int) (CIRCLE_SIZE / 2));
+	glRasterPos3f((float) pt.x - pointMovement, (float) pt.y - pointMovement, (float) pt.z);
+	glDrawPixels(CIRCLE_SIZE, CIRCLE_SIZE, GL_LUMINANCE, GL_UNSIGNED_BYTE, circleBitmap);
+	glPixelTransferf(GL_RED_SCALE, 1.0f);
+	glPixelTransferf(GL_GREEN_SCALE, 1.0f);
+	glPixelTransferf(GL_BLUE_SCALE, 1.0f);
+}
+
+float GetPixelSizeInX() {
+	GLdouble modelview[16], projection[16];
+	GLint viewport[4];
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);
+	glGetIntegerv(GL_VIEWPORT, viewport);
+
+	GLint cx = viewport[0] + viewport[2] / 2;
+	GLint cy = viewport[1] + viewport[3] / 2;
+
+	float winZ = 0.0f;
+	glReadPixels(cx, cy, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+	GLdouble worldX1, worldY1, worldZ1;
+	gluUnProject((GLdouble) cx, (GLdouble) cy, (GLdouble) winZ,
+	             modelview, projection, viewport,
+	             &worldX1, &worldY1, &worldZ1);
+
+	GLdouble worldX2, worldY2, worldZ2;
+	gluUnProject((GLdouble) (cx + 1), (GLdouble) cy, (GLdouble) winZ,
+	             modelview, projection, viewport,
+	             &worldX2, &worldY2, &worldZ2);
+
+	return (float) (worldX2 - worldX1);
+}
+
+void CreateCircleBitmap() {
+	int r = CIRCLE_SIZE / 2;
+	float radius = r + 0.2f;
+	for (int y = 0; y < CIRCLE_SIZE; ++y) {
+		for (int x = 0; x < CIRCLE_SIZE; ++x) {
+			int dx = x - r;
+			int dy = y - r;
+			float dist = sqrtf((float) (dx * dx + dy * dy));
+			circleBitmap[y][x] = (dist <= radius) ? 255 : 0;
+		}
+	}
+	circleBitmapInitialized = true;
+}
+// momo
+
+// momo gdi to og
+void DrawCircle(C3dVector vC, double radius, double lineWidth, int segments);
+// momo gdi to og
 
 // Defines the type and meaning of the results
 class ResDef {
@@ -1245,10 +1345,13 @@ class CResSelDialog: public CDialog {
 		DECLARE_MESSAGE_MAP()
 		afx_msg void OnBnClickedOk();
 		virtual BOOL OnInitDialog();
-		afx_msg void OnLbnSelcancelListRes();
-		afx_msg void OnLbnSelchangeListRes();
+		afx_msg void OnLbnSelCancelListRes();
+		afx_msg void OnLbnSelChangeListRes();
 		//  afx_msg void OnStnClickedLctext();
-		afx_msg void OnSelchangeListVal();
+		afx_msg void OnSelChangeListVal();
+		// momo
+		afx_msg void OnSelChangeListSec();
+		// momo
 };
 
 class CFilterDialog: public CDialog {
@@ -1546,7 +1649,11 @@ class G_Object: public CCmdTarget {
 		double realdL;
 		double realdLBefore;
 		double realdLNext;
+		bool Selected = false;
 		// MoMo_End
+		// momo
+		bool IsInCadr(double Px, double Py, CPoint P1, CPoint P2);
+		// momo
 
 		void SetVisable(int iOnOff);
 		void SetSelectable(int iOnOff);
@@ -1566,7 +1673,10 @@ class G_Object: public CCmdTarget {
 		virtual C3dVector MinPt(C3dVector inPt);
 		virtual G_Object* Copy(G_Object* Parrent);
 		virtual void Serialize(CArchive& ar, int iV);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw(int iDrawmode);
+		// momo gdi to og
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void Transform(C3dMatrix TMat);
@@ -1581,10 +1691,18 @@ class G_Object: public CCmdTarget {
 		virtual G_Object* GetObj(int iType, int iLab);
 		virtual void Move(C3dVector vM);
 		virtual G_Object* OffSet(C3dVector vN, C3dVector vDir, double Dist);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
+		// momo
+		const float* ColorIfSelect(int iRow, int iSelColor);
+		bool G_Object::IsSelected();
+		void G_Object::ChangeSelected(bool newValue);
+		// momo
 		virtual void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void Colour(int iCol);
 		virtual double GetCharSize();
@@ -1639,8 +1757,12 @@ class cLinkedList: public G_Object {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void Draw(CDC* pDC, int iDrawmode);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void Draw(int iDrawmode);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual void RelTo(G_Object* pThis, ObjList* pList, int iType);
@@ -1783,7 +1905,9 @@ class WP_Object: public G_Object {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void Translate(C3dVector vIn);
@@ -1851,7 +1975,10 @@ class Node: public G_Object {
 		virtual void Info();
 		virtual CString ToString();
 		virtual G_Object* Copy(G_Object* Parrent);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw(int iDrawmode);
+		// momo gdi to og
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		C3dVector GetCoords();
@@ -1925,7 +2052,9 @@ class Line_Object: public G_Object {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual double MinDist(C3dVector vInPt);
 		virtual void Transform(C3dMatrix TMat);
@@ -1953,11 +2082,17 @@ class ContrPolyW: public G_Object {
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual void AddVert(C3dVector* pInVertex1, double dWght);
 		virtual void AddVertW(C4dVector pInVertex1);
-		virtual void Draw(CDC* pDC, int iDrawmode, double sw, double ew);
+		// momo gdi to og
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode, double sw, double ew);
+		virtual void Draw(int iDrawmode, double sw, double ew);
+		// momo gdi to og
 		virtual void OglDraw(double sw, double ew);
 		virtual void OglDrawW(double sw, double ew);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC, double sw, double ew);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC, double sw, double ew);
+		virtual void HighLight(double sw, double ew);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void Translate(C3dVector vTVect);
 		virtual void CWeight(double dW);
@@ -1978,7 +2113,10 @@ class Curve: public ContrPolyW {
 		virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual CString GetName();
 		virtual int GetVarHeaders(CString sVar[]);
 		virtual int GetVarValues(CString sVar[]);
@@ -2021,7 +2159,10 @@ class Text: public G_Object {
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual void Transform(C3dMatrix TMAt);
 		virtual void Translate(C3dVector vIn);
 		virtual void Move(C3dVector vM);
@@ -2086,7 +2227,10 @@ class DIM: public G_Object {
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		// virtual void Transform(C3dMatrix TMAt);
 		// virtual void Translate(C3dVector vIn);
 		// virtual void Move(C3dVector vM);
@@ -2314,7 +2458,9 @@ class Symbol: public G_Object {
 		void CalculateMetrics();
 		C3dVector GetCoords();
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL); // use defualt gObject which uses getCentroid
 		// virtual void SetTo(C3dVector cInVect);
 		virtual void Transform(C3dMatrix TMAt);
@@ -2377,7 +2523,10 @@ class NCurve: public G_Object {
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawCtrlPts();
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		//virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual void Translate(C3dVector vIn);
@@ -2446,7 +2595,10 @@ class NCurveOnSurf: public NCurve {
 		virtual void Create(int iLab, G_Object* Parrent);
 		void OglDrawCtrlPts();
 		virtual void OglDrawW(int iDspFlgs);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		//virtual void HighLight();
+		// momo gdi to og
 		virtual void Translate(C3dVector vIn);
 		virtual void Transform(C3dMatrix TMat);
 		virtual void Serialize(CArchive& ar, int iV);
@@ -2511,7 +2663,10 @@ class NSurf: public G_Object {
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual G_ObjectD SelDistFace(CPoint InPT, Filter FIL);
@@ -2620,7 +2775,10 @@ class NLine: public NCurve {
 		virtual void Create(C3dVector vP1, C3dVector vP2, int iLab, G_Object* Parrent);
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		//virtual void HighLight();
+		// momo gdi to og
 		virtual C3dVector MinPt(C3dVector inPt);
 		virtual G_Object* OffSet(C3dVector vN, C3dVector vDir, double Dist);
 		virtual double getLen();
@@ -2640,7 +2798,9 @@ class Surf_Ex1: public G_Object {
 		virtual void Create(ContrPolyW* pWCurveIn, C3dVector vTranVecIn, int iLab, G_Object* Parrent);
 		virtual void Draw(CClientDC* pDC, int iDrawmode);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CClientDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CClientDC* pDC);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual C4dVector deCastelJau2(double u, double v);
 		virtual void OglDraw(int iDspFlgs);
@@ -2657,7 +2817,9 @@ class Surf_R: public G_Object {
 		virtual void Create(ContrPolyW* pWCurveIn, C3dVector vRotVecIn, int iLab, G_Object* Parrent);
 		virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual C4dVector deCastelJau2(double u, double v);
 		virtual void OglDraw(int iDspFlgs);
@@ -2684,7 +2846,9 @@ class Circ1: public G_Object {
 		virtual void OglDraw(int iDspFlgs);
 		virtual void OglDrawW(int iDspFlgs);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual double Bernstein(double dU, int ii, int inn);
 		virtual void Transform(C3dMatrix TMat);
@@ -2729,7 +2893,10 @@ class Face: public G_Object {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual void Translate(C3dVector vTVect);
@@ -2758,7 +2925,10 @@ class Shell: public G_Object {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void Info();
 		void AddFace(Face* pF, BOOL bO, int iLab);
@@ -2800,7 +2970,10 @@ class Part: public G_Object {
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void GetBoundingBox(C3dVector& vll, C3dVector& vur);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual int GetVarHeaders(CString sVar[]);
 		virtual int GetVarValues(CString sVar[]);
@@ -3938,14 +4111,20 @@ class ME_Object: public G_Object {
 		void DeleteNodeList();
 		virtual G_Object* Copy(G_Object* Parrent);
 		virtual void Serialize(CArchive& ar, int iV);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw(int iDrawmode);
+		// momo gdi to og
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void Transform(C3dMatrix TMat);
 		virtual void Translate(C3dVector vIn);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual void Colour(int iCol);
 		void MaxLab();
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
@@ -4134,7 +4313,10 @@ class PartsCat: public G_Object {
 		// virtual G_Object* Copy();
 		virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		// virtual void SetTo(C3dVector cInVect);
 		virtual void Transform(C3dMatrix TMAt);
@@ -4161,11 +4343,16 @@ class Section: public G_Object {
 		virtual ~Section();
 		virtual void Create(int iLab, int inPID, int inPID2, int inSec, int inCol, G_Object* Parrent);
 		virtual void Serialize(CArchive& ar, int iV);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw(int iDrawmode);
+		// momo gdi to og
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual C3dVector Get_Centroid();
 		virtual void AddLine(double X1, double Y1, double X2, double Y2, int NoDivs);
@@ -4211,7 +4398,10 @@ class Sweep: public G_Object {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		virtual void HighLight();
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual C3dVector Get_Centroid();
@@ -4354,7 +4544,9 @@ class Force: public BCLD {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual C3dVector Get_Centroid();
 		virtual void ExportUNV(FILE* pFile);
@@ -4557,7 +4749,9 @@ class Restraint: public BCLD {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void HighLight(CDC* pDC);
+		// momo gdi to og
+		// momo// virtual void HighLight(CDC* pDC);
+		// momo gdi to og
 		// virtual G_ObjectD SelDist(CPoint InPT,Filter FIL);
 		virtual C3dVector Get_Centroid();
 		virtual void ExportUNV(FILE* pFile);

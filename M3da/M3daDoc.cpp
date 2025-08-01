@@ -10,11 +10,19 @@
 #include <fstream>
 // #include "G_Object.h"
 
+// momo gdi to og
+#include "AppSettings.h"
+// momo gdi to og
+// momo change command box color
+#include "MyEdit.h"
+#include "MainFrm.h"
+// momo change command box color
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 // The data base class
-DBase* cDBase;
+static DBase* cDBase;
 zMnu* pMnu;
 
 // CM3daDoc
@@ -22,7 +30,9 @@ zMnu* pMnu;
 IMPLEMENT_DYNCREATE(CM3daDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CM3daDoc, CDocument)
-ON_COMMAND(ID_VIEW_DISPLAYALL, &CM3daDoc::OnViewDisplayall)
+// momo
+// momo// ON_COMMAND(ID_VIEW_DISPLAYALL, &CM3daDoc::OnViewDisplayall)
+// momo
 ON_COMMAND(ID_EDIT_DES, &CM3daDoc::OnEditDes)
 ON_COMMAND(ID_EDIT_INFORMATION, &CM3daDoc::OnEditInformation)
 ON_COMMAND(ID_EDIT_KEYIN, &CM3daDoc::OnEditKeyin)
@@ -138,6 +148,11 @@ ON_COMMAND(ID_QWANTA_BUILDAMDEXPORT, &CM3daDoc::OnQwantaBuildamdexport)
 ON_COMMAND(ID_GROUP_DELETEALLGROUPS, &CM3daDoc::OnGroupDeleteallgroups)
 // ON_COMMAND(ID_FILE_SAVE, &CM3daDoc::OnFileSave)
 // ON_COMMAND(ID_FILE_NEW, &CM3daDoc::OnFileNew)
+// momo
+ON_COMMAND(ID_FILE_NEW, &CM3daDoc::OnFileNewButton)
+ON_COMMAND(ID_FILE_OPEN, &CM3daDoc::OnFileOpenButton)
+ON_COMMAND(ID_IMPORT_OP2, &CM3daDoc::OnImportOp2)
+// momo
 // ON_COMMAND(ID_FILE_SAVE_AS, &CM3daDoc::OnFileSaveAs)
 // ON_COMMAND(ID_FILE_OPEN, &CM3daDoc::OnFileOpen)
 ON_COMMAND(ID_VIEW_WHITE, &CM3daDoc::OnViewWhite)
@@ -182,6 +197,42 @@ ON_COMMAND(ID_SOLVER_CREATEFORCE, &CM3daDoc::OnSolverCreateforce)
 ON_COMMAND(ID_SURFACESON_SURFACECURVES, &CM3daDoc::OnSurfacesonSurfacecurves)
 ON_COMMAND(ID_SURFACES_SURFACESON, &CM3daDoc::OnSurfacesSurfaceson)
 ON_COMMAND(ID_VISABILITY_POINTSON, &CM3daDoc::OnVisabilityPointson)
+// momo on off button and menu
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_POINTSON, &CM3daDoc::OnUpdateVisabilityPointson)
+ON_UPDATE_COMMAND_UI(ID_VIEW_TOGGLECONTROLPOINTVISABILITY, &CM3daDoc::OnUpdateTogglecontrolpointvisability)
+// momo
+// momo// ON_UPDATE_COMMAND_UI(ID_VIEW_DISPLAYALL, &CM3daDoc::OnUpdateDisplayall)
+ON_COMMAND(ID_EDIT_DESLECTALL, &CM3daDoc::OnViewDeselectAll)
+// momo
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_CURVESON, &CM3daDoc::OnUpdateVisabilityCurveson)
+ON_UPDATE_COMMAND_UI(ID_SURFACES_SURFACESON, &CM3daDoc::OnUpdateSurfacesSurfaceson)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_COORDSON, &CM3daDoc::OnUpdateVisabilityCoordson)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_NODEON, &CM3daDoc::OnUpdateVisabilityNodeon)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_ELEMENTON, &CM3daDoc::OnUpdateVisabilityElementon)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_BOUNDARYCONDITIONS, &CM3daDoc::OnUpdateVisabilityBoundaryconditions)
+ON_UPDATE_COMMAND_UI(ID_VIEW_DISPLAYSHELLTHICKNESS, &CM3daDoc::OnUpdateDisplayshellthickness)
+ON_UPDATE_COMMAND_UI(ID_VIEW_DISPLAYELEMENTCOORDSYS, &CM3daDoc::OnUpdateDisplayelementcoordsys)
+ON_UPDATE_COMMAND_UI(ID_VIEW_SURFACEDIRECTIONMARKERS, &CM3daDoc::OnUpdateSurfacedirectionmarkers)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_WORKPLANE, &CM3daDoc::OnUpdateVisabilityWorkplane)
+ON_COMMAND(ID_VISABILITY_LABELESON, &CM3daDoc::OnVisabilityLabelOn)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_LABELESON, &CM3daDoc::OnUpdateVisabilityLabelOn)
+ON_COMMAND(ID_VISABILITY_GEOMSON, &CM3daDoc::OnVisabilityGeomOn)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_GEOMSON, &CM3daDoc::OnUpdateVisabilityGeomOn)
+ON_COMMAND(ID_VISABILITY_FINITESON, &CM3daDoc::OnVisabilityFiniteOn)
+ON_UPDATE_COMMAND_UI(ID_VISABILITY_FINITESON, &CM3daDoc::OnUpdateVisabilityFiniteOn)
+ON_UPDATE_COMMAND_UI(ID_QFILTER_NODES, &CM3daDoc::OnUpdateQfilterNodes)
+ON_UPDATE_COMMAND_UI(ID_QFILTER_ELEMENTS, &CM3daDoc::OnUpdateQfilterElements)
+ON_UPDATE_COMMAND_UI(ID_QFILTER_POINTS, &CM3daDoc::OnUpdateQfilterPoints)
+ON_UPDATE_COMMAND_UI(ID_QFILTER_CURVES, &CM3daDoc::OnUpdateQfilterCurves)
+ON_UPDATE_COMMAND_UI(ID_QFILTER_SURFACE, &CM3daDoc::OnUpdateQfilterSurface)
+// ON_UPDATE_COMMAND_UI(ID_QFILTER_ALL, &CM3daDoc::OnUpdateQfilterAll)
+ON_COMMAND(ID_PICKING_FULLBODY, &CM3daDoc::OnSelectFullBody)
+ON_UPDATE_COMMAND_UI(ID_PICKING_FULLBODY, &CM3daDoc::OnUpdateSelectFullBody)
+ON_COMMAND(ID_PICKING_PARTOFBODY, &CM3daDoc::OnSelectPartOfBody)
+ON_UPDATE_COMMAND_UI(ID_PICKING_PARTOFBODY, &CM3daDoc::OnUpdateSelectPartOfBody)
+ON_COMMAND(ID_PICKING_CENTEROFBODY, &CM3daDoc::OnSelectCenterOfBody)
+ON_UPDATE_COMMAND_UI(ID_PICKING_CENTEROFBODY, &CM3daDoc::OnUpdateSelectCenterOfBody)
+//  momo on off button and menu
 ON_COMMAND(ID_CIRCLE_CIRCLECENRERADIUS, &CM3daDoc::OnCircleCirclecenreradius)
 ON_COMMAND(ID_CIRCLE_CIRCLE3POINTS, &CM3daDoc::OnCircleCircle3points)
 ON_COMMAND(ID_CIRCLE_ARC3POINT, &CM3daDoc::OnCircleArc3point)
@@ -425,6 +476,24 @@ ON_COMMAND(ID_TOGGLE_BUFFER_AUTO, &CM3daDoc::OnViewToggleBufferAuto)
 ON_COMMAND(ID_TOGGLE_BUFFER_SINGLE, &CM3daDoc::OnViewToggleBufferSingle)
 ON_COMMAND(ID_TOGGLE_BUFFER_DOUBLE, &CM3daDoc::OnViewToggleBufferDouble)
 ON_COMMAND(ID_TOGGLE_BUFFER_LIST, &CM3daDoc::OnViewToggleBufferList)
+ON_COMMAND(ID_DESELECT_CADR_ON, &CM3daDoc::OnViewDeselectCadrOn)
+ON_COMMAND(ID_DESELECT_CADR_OFF, &CM3daDoc::OnViewDeselectCadrOff)
+ON_UPDATE_COMMAND_UI(ID_DESELECT_CADR_ON, &CM3daDoc::OnUpdateDeselectCadrOn)
+ON_UPDATE_COMMAND_UI(ID_DESELECT_CADR_OFF, &CM3daDoc::OnUpdateDeselectCadrOff)
+ON_COMMAND(ID_SELECT_MODE_CIRCLE, &CM3daDoc::OnViewSelectModeCircle)
+ON_COMMAND(ID_SELECT_MODE_COLOR, &CM3daDoc::OnViewSelectModeColor)
+ON_COMMAND(ID_SELECT_MODE_CIRCLE_COLOR, &CM3daDoc::OnViewSelectModeCircleAndColor)
+ON_UPDATE_COMMAND_UI(ID_SELECT_MODE_CIRCLE, &CM3daDoc::OnUpdateSelectModeCircle)
+ON_UPDATE_COMMAND_UI(ID_SELECT_MODE_COLOR, &CM3daDoc::OnUpdateSelectModeColor)
+ON_UPDATE_COMMAND_UI(ID_SELECT_MODE_CIRCLE_COLOR, &CM3daDoc::OnUpdateSelectModeCircleAndColor)
+ON_COMMAND(ID_AXIS_ORIGIN_ON, &CM3daDoc::OnViewAxisOriginOn)
+ON_COMMAND(ID_AXIS_ORIGIN_OFF, &CM3daDoc::OnViewAxisOriginOff)
+ON_COMMAND(ID_AXIS_CORNER_ON, &CM3daDoc::OnViewAxisCornerOn)
+ON_COMMAND(ID_AXIS_CORNER_OFF, &CM3daDoc::OnViewAxisCornerOff)
+ON_UPDATE_COMMAND_UI(ID_AXIS_ORIGIN_ON, &CM3daDoc::OnUpdateAxisOriginOn)
+ON_UPDATE_COMMAND_UI(ID_AXIS_ORIGIN_OFF, &CM3daDoc::OnUpdateAxisOriginOff)
+ON_UPDATE_COMMAND_UI(ID_AXIS_CORNER_ON, &CM3daDoc::OnUpdateAxisCornerOn)
+ON_UPDATE_COMMAND_UI(ID_AXIS_CORNER_OFF, &CM3daDoc::OnUpdateAxisCornerOff)
 // MoMo_End
 // Esp_Mod_Experimental_Toolbar_4_10_2025_Start: Added functions for new menu items
 // MoMo_Start
@@ -511,13 +580,13 @@ BOOL CM3daDoc::OnNewDocument() {
 	if (bOnFirst == FALSE) {
 		InitDoc();
 		// MoMo_Start
-		outtextSprintf("\r\nVersion of New File = %.2f", 0, abs(VERSION_NO / 10.0), false, 1);
+		outtextSprintf("\r\n\r\nVersion of New File = %.2f", 0, abs(VERSION_NO / 10.0), false, 1);
 		// MoMo_End
 	} else {
 		bOnFirst = FALSE;
 		// MoMo_Start
 		outtext1("If you experience display problems, change the BUFFER option in the VIEW menu.");
-		outtextSprintf("Version of Files = %.2f", 0, abs(VERSION_NO / 10.0), false, 1);
+		outtextSprintf("Version of Files = %.2f\r\n\r\n", 0, abs(VERSION_NO / 10.0), false, 1);
 		// MoMo_End
 	}
 	ReSet();
@@ -534,7 +603,10 @@ void CM3daDoc::Serialize(CArchive& ar) {
 	} else {
 		// TODO: add loading code here
 		cDBase->Serialize(ar);
-		cDBase->Dsp_All();
+		// momo on off button and menu
+		// momo// cDBase->Dsp_All();
+		cDBase->Dsp_All(true);
+		// momo on off button and menu
 	}
 }
 
@@ -587,6 +659,9 @@ void CM3daDoc::InitDoc() {
 		iDrawMode = 4;
 		cDBase = new DBase(10);
 	}
+	// momo
+	cDBase->S_BuffChanged(-1000, -1000, false);
+	// momo
 	cDBase->S_Count = 0;
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_GRAD);
 	pMnu = new zMnu();
@@ -602,14 +677,22 @@ void CM3daDoc::SetScreenMat(CRect rRect) {
 	cDBase->SetScreenMat(rRect);
 }
 
-void CM3daDoc::UpTree() {
+// momo gdi to og
+// momo// void CM3daDoc::UpTree() {
+void CM3daDoc::UpTree(CPoint point) {
+	// momo gdi to og
 	// TODO: Add your command handler code here
 	if (cDBase != NULL) {
 		// MoMo_Start
 		if (!SeedVals.SelectSurfaceCurves) {
 			// MoMo_End
-			cDBase->UpTree();
-			outtext1("Up Tree");
+			// momo gdi to og
+			// cDBase->UpTree();
+			// outtext1("Up Tree");
+			if (cDBase->UpTree(point)) {
+				outtext1("Up Tree");
+			}
+			// momo gdi to og
 			// MoMo_Start
 		}
 		// MoMo_End
@@ -644,9 +727,14 @@ void CM3daDoc::SetToScr2(C3dMatrix pM) {
 	cDBase->SetToScr2(pM);
 }
 
-void CM3daDoc::Draw(C3dMatrix pM, CDC* pCView, int iMode) {
-	D_ClientDC = pCView;
-	cDBase->Draw(pM, pCView, iMode);
+// momo gdi to og
+// momo// void CM3daDoc::Draw(C3dMatrix pM, CDC* pCView, int iMode) {
+void CM3daDoc::Draw(C3dMatrix pM, int iMode) {
+	// momo gdi to og
+	// momo// D_ClientDC = pCView;
+	// momo// cDBase->Draw(pM, pCView, iMode);
+	cDBase->Draw(pM, iMode);
+	// momo gdi to og
 }
 
 void CM3daDoc::DragUpdate(CPoint m_PointNew) {
@@ -660,9 +748,12 @@ BOOL CM3daDoc::isBlackDisp() {
 double CM3daDoc::GetHeight() {
 	return (cDBase->dHeight);
 }
-void CM3daDoc::DrawDrag(CDC* pCView, CPoint P1, CPoint P2) {
-	cDBase->DrawDrag(pCView, P1, P2);
-}
+
+// momo gdi to og
+// void CM3daDoc::DrawDrag(CDC* pCView, CPoint P1, CPoint P2) {
+//	cDBase->DrawDrag(pCView, P1, P2);
+//}
+// momo gdi to og
 
 BOOL CM3daDoc::isDragging() {
 	if (cDBase != NULL)
@@ -681,13 +772,24 @@ void CM3daDoc::SetLineEnd(CPoint pE) {
 		cDBase->SetLineEnd(pE);
 }
 
-void CM3daDoc::LineDrag(CDC* pCView, CPoint P1, CPoint P2) {
-	if (cDBase != NULL)
-		cDBase->LineDrag(pCView, P1, P2);
-}
+// momo gdi to og
+// void CM3daDoc::LineDrag(CDC* pCView, CPoint P1, CPoint P2) {
+//	if (cDBase != NULL)
+//		cDBase->LineDrag(pCView, P1, P2);
+//}
+// momo gdi to og
 
 void CM3daDoc::SelectBox(CPoint P1, CPoint P2) {
-	cDBase->S_Box(P1, P2);
+	// momo deselect cadr
+	// momo// if (P2.x >= P1.x) {
+	if (P2.x >= P1.x || !DeselectCadrMode) {
+		// momo deselect cadr
+		cDBase->S_Box(P1, P2);
+		// momo deselect cadr
+	} else {
+		cDBase->DeSelect_Box(P1, P2);
+	}
+	// momo deselect cadr
 }
 
 void SendMsg(CString AAA) {
@@ -704,7 +806,10 @@ BOOL CM3daDoc::isMenuNULL() {
 
 void CM3daDoc::DspAll() {
 	outtext1("Display All.");
-	cDBase->Dsp_All();
+	// momo on off button and menu
+	// momo// cDBase->Dsp_All();
+	cDBase->Dsp_All(true);
+	// momo on off button and menu
 }
 
 void CM3daDoc::DspSel() {
@@ -795,11 +900,16 @@ void CM3daDoc::OnUpdateTC(CCmdUI* pCmdUI) {
 	pCmdUI->SetText(strPage);
 }
 
-void CM3daDoc::OnViewDisplayall() {
-	// TODO: Add your command handler code here
-	outtext1("Display All.");
-	cDBase->Dsp_All();
-}
+// momo
+// void CM3daDoc::OnViewDisplayall() {
+//	// TODO: Add your command handler code here
+//	outtext1("Display All.");
+//	// momo on off button and menu
+//	// momo// cDBase->Dsp_All();
+//	cDBase->Dsp_All(true);
+//	// momo on off button and menu
+//}
+// momo
 
 void CM3daDoc::OnEditDes() {
 	// TODO: Add your command handler code here
@@ -847,6 +957,9 @@ void CM3daDoc::OnEditCancel() {
 		outtextMSG2("Cancel");
 	}
 	// MoMo_End
+	// momo change command box color
+	CheckCommandEditColor();
+	// momo change command box color
 }
 
 void CM3daDoc::OnEditDone() {
@@ -875,6 +988,26 @@ void CM3daDoc::OnEditYes() {
 	outtextMSG2("Yes");
 }
 // MoMo_End
+
+// momo
+void CM3daDoc::OnFileNewButton() {
+	if (pMnu->isNULL()) {
+		outtextMSG2("New");
+		sLastcmd = "New";
+	} else {
+		outtext1("Finish Current Operation. (By: Rightclick >> Cancel)");
+	}
+}
+
+void CM3daDoc::OnFileOpenButton() {
+	if (pMnu->isNULL()) {
+		outtextMSG2("Open");
+		sLastcmd = "Open";
+	} else {
+		outtext1("Finish Current Operation. (By: Rightclick >> Cancel)");
+	}
+}
+// momo
 
 void CM3daDoc::Dsp_Group() {
 	// TODO: Add your command handler code here
@@ -1500,6 +1633,15 @@ void CM3daDoc::OnViewDisplayelementcoordsys() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_ELSYS);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.ElementCoordSysOn = !(cDBase->DspFlags & DSP_ELSYS);
+	if (ButtonPush.ElementCoordSysOn) {
+		outtext1("Element Coordinate Systems Visibility OFF");
+	} else {
+		outtext1("Element Coordinate Systems Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnGroupCreategroup() {
@@ -2015,6 +2157,15 @@ void CM3daDoc::OnVisabilityNodeon() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_NODES);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.NodeOn = !(cDBase->DspFlags & DSP_NODES);
+	if (ButtonPush.NodeOn) {
+		outtext1("Nodes Visibility OFF");
+	} else {
+		outtext1("Nodes Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnVisabilityElementon() {
@@ -2022,6 +2173,15 @@ void CM3daDoc::OnVisabilityElementon() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_ELEMENTS);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.ElementOn = !(cDBase->DspFlags & DSP_ELEMENTS);
+	if (ButtonPush.ElementOn) {
+		outtext1("Elements Visibility OFF");
+	} else {
+		outtext1("Elements Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnViewNodesask() {
@@ -2043,14 +2203,35 @@ void CM3daDoc::OnVisabilityCurveson() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_CURVES);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.CurvesOn = !(cDBase->DspFlags & DSP_CURVES);
+	if (ButtonPush.CurvesOn) {
+		outtext1("Curves Visibility OFF");
+	} else {
+		outtext1("Curves Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnVisabilityAllvisable() {
 	// TODO: Add your command handler code here
-	cDBase->DspFlags = DSP_ALL;
+	// momo
+	// momo// cDBase->DspFlags = DSP_ALL;
+	bool bViewWireFrame = (cDBase->DspFlags & DSP_LINE);
+	if (bViewWireFrame) {
+		cDBase->DspFlags = DSP_ALL;
+	} else {
+		cDBase->DspFlags = (DSP_ALL ^ DSP_LINE);
+	}
+	// momo
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_GRAD);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	outtext1("All Objects Visibility ON");
+	CheckPushedButtons("AllVisible");
+	// momo on off button and menu
 }
 
 void CM3daDoc::OnViewLabelentities() {
@@ -2380,7 +2561,10 @@ void CM3daDoc::API_DisplayAll(void) {
 	AFX_MANAGE_STATE(AfxGetAppModuleState());
 
 	outtext1("Display All.");
-	cDBase->Dsp_All();
+	// momo on off button and menu
+	// momo// cDBase->Dsp_All();
+	cDBase->Dsp_All(true);
+	// momo on off button and menu
 }
 
 void CM3daDoc::OnViewWhite() {
@@ -2520,6 +2704,15 @@ void CM3daDoc::OnViewDisplayshellthickness() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_THK);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.ShellThicknessOn = !(cDBase->DspFlags & DSP_THK);
+	if (ButtonPush.ShellThicknessOn) {
+		outtext1("Shell Thicknesses Visibility OFF");
+	} else {
+		outtext1("Shell Thicknesses Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnViewDisplayelementoffsets() {
@@ -2906,6 +3099,15 @@ void CM3daDoc::OnSurfacesSurfaceson() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_SURFACES);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.SurfaceOn = !(cDBase->DspFlags & DSP_SURFACES);
+	if (ButtonPush.SurfaceOn) {
+		outtext1("Surfaces Visibility OFF");
+	} else {
+		outtext1("Surfaces Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnVisabilityPointson() {
@@ -2913,6 +3115,15 @@ void CM3daDoc::OnVisabilityPointson() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_POINTS);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.Points = !(cDBase->DspFlags & DSP_POINTS);
+	if (ButtonPush.Points) {
+		outtext1("Points Visibility OFF");
+	} else {
+		outtext1("Points Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnCircleCirclecenreradius() {
@@ -3188,6 +3399,15 @@ void CM3daDoc::OnVisabilityBoundaryconditions() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_BC);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.BoundaryConditionsOn = !(cDBase->DspFlags & DSP_BC);
+	if (ButtonPush.BoundaryConditionsOn) {
+		outtext1("Boundary Conditions Visibility OFF");
+	} else {
+		outtext1("Boundary Conditions Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnPostExportresultstotextfile() {
@@ -3384,6 +3604,15 @@ void CM3daDoc::OnVisabilityCoordson() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_COORD);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.CoordsOn = !(cDBase->DspFlags & DSP_COORD);
+	if (ButtonPush.CoordsOn) {
+		outtext1("Coordinate Systems Visibility OFF");
+	} else {
+		outtext1("Coordinate Systems Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnGroupNextgroup() {
@@ -4080,6 +4309,15 @@ void CM3daDoc::OnVisabilityWorkplane() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_WP);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.WorkplaneOn = !(cDBase->DspFlags & DSP_WP);
+	if (ButtonPush.WorkplaneOn) {
+		outtext1("Work Plane Visibility OFF");
+	} else {
+		outtext1("Work Plane Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnToolsMeasureangle() {
@@ -4217,6 +4455,15 @@ void CM3daDoc::OnViewSurfacedirectionmarkers() {
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_SURFU);
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.SurfaceDirectionMarkersOn = !(cDBase->DspFlags & DSP_SURFU);
+	if (ButtonPush.SurfaceDirectionMarkersOn) {
+		outtext1("Surface Direction Markers Visibility OFF");
+	} else {
+		outtext1("Surface Direction Markers Visibility ON");
+	}
+	CheckPushedButtons("Check");
+	//  momo on off button and menu
 }
 
 void CM3daDoc::OnPostListnodalresults() {
@@ -5288,7 +5535,198 @@ void CM3daDoc::OnViewTogglecontrolpointvisability() {
 	}
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
+	// momo on off button and menu
+	ButtonPush.ControlPoint = gDSP_CPTS;
+	// momo on off button and menu
 }
+
+// momo on off button and menu
+void CM3daDoc::OnUpdateVisabilityPointson(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.Points);
+}
+
+void CM3daDoc::OnUpdateTogglecontrolpointvisability(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.ControlPoint);
+}
+
+void CM3daDoc::OnUpdateDisplayall(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.DisplayAll);
+}
+
+void CM3daDoc::OnUpdateVisabilityCurveson(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.CurvesOn);
+}
+
+void CM3daDoc::OnUpdateSurfacesSurfaceson(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.SurfaceOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityCoordson(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.CoordsOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityNodeon(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.NodeOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityElementon(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.ElementOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityBoundaryconditions(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.BoundaryConditionsOn);
+}
+
+void CM3daDoc::OnUpdateDisplayshellthickness(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.ShellThicknessOn);
+}
+
+void CM3daDoc::OnUpdateDisplayelementcoordsys(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.ElementCoordSysOn);
+}
+
+void CM3daDoc::OnUpdateSurfacedirectionmarkers(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.SurfaceDirectionMarkersOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityWorkplane(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.WorkplaneOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityLabelOn(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.LabelOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.GeomOn);
+}
+
+void CM3daDoc::OnUpdateVisabilityFiniteOn(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.FiniteOn);
+}
+
+void CM3daDoc::OnUpdateQfilterNodes(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.QfilterNodesOn);
+}
+
+void CM3daDoc::OnUpdateQfilterElements(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.QfilterElementsOn);
+}
+
+void CM3daDoc::OnUpdateQfilterPoints(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.QfilterPointsOn);
+}
+
+void CM3daDoc::OnUpdateQfilterCurves(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.QfilterCurvesOn);
+}
+
+void CM3daDoc::OnUpdateQfilterSurface(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.QfilterSurfacesOn);
+}
+
+// void CM3daDoc::OnUpdateQfilterAll(CCmdUI* pCmdUI) {
+//	pCmdUI->SetCheck(!ButtonPush.QfilterNodesOn && !ButtonPush.QfilterElementsOn && !ButtonPush.QfilterPointsOn && !ButtonPush.QfilterCurvesOn && !ButtonPush.QfilterSurfacesOn);
+// }
+
+void CM3daDoc::OnUpdateSelectFullBody(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.FullBody);
+}
+
+void CM3daDoc::OnUpdateSelectPartOfBody(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.PartOfBody);
+}
+
+void CM3daDoc::OnUpdateSelectCenterOfBody(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.CenterOfBody);
+}
+//  momo on off button and menu
+//  momo
+void CM3daDoc::OnVisabilityLabelOn() {
+	gLBL_DSP_TRG = true;
+	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_RESLAB);
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	gLBL_DSP_TRG = false;
+	ButtonPush.LabelOn = !(cDBase->DspFlags & DSP_RESLAB);
+	if (ButtonPush.LabelOn) {
+		outtext1("Labeles Visibility OFF");
+	} else {
+		outtext1("Labeles Visibility ON");
+	}
+	CheckPushedButtons("Check");
+}
+
+void CM3daDoc::OnVisabilityGeomOn() {
+	ButtonPush.GeomOn = !ButtonPush.GeomOn;
+	if (ButtonPush.GeomOn) {
+		outtext1("Geom Elements Visibility OFF");
+		cDBase->DspFlags &= ~DSP_POINTS;
+		cDBase->DspFlags &= ~DSP_CURVES;
+		cDBase->DspFlags &= ~DSP_SURFACES;
+		cDBase->DspFlags &= ~DSP_COORD;
+	} else {
+		outtext1("Geom Elements Visibility ON");
+		cDBase->DspFlags |= DSP_POINTS;
+		cDBase->DspFlags |= DSP_CURVES;
+		cDBase->DspFlags |= DSP_SURFACES;
+		cDBase->DspFlags |= DSP_COORD;
+	}
+	CheckPushedButtons("GeomOn");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+}
+
+void CM3daDoc::OnVisabilityFiniteOn() {
+	ButtonPush.FiniteOn = !ButtonPush.FiniteOn;
+	if (ButtonPush.FiniteOn) {
+		outtext1("Finite Elements Visibility OFF");
+		cDBase->DspFlags &= ~DSP_NODES;
+		cDBase->DspFlags &= ~DSP_ELEMENTS;
+		cDBase->DspFlags &= ~DSP_BC;
+	} else {
+		outtext1("Finite Elements Visibility ON");
+		cDBase->DspFlags |= DSP_NODES;
+		cDBase->DspFlags |= DSP_ELEMENTS;
+		cDBase->DspFlags |= DSP_BC;
+	}
+	CheckPushedButtons("FiniteOn");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+}
+
+void CM3daDoc::OnViewDeselectAll() {
+	cDBase->S_Des();
+	outtext1("Deselect All.");
+}
+
+void CM3daDoc::OnSelectFullBody() {
+	ButtonPush.FullBody = !ButtonPush.FullBody;
+	if (ButtonPush.FullBody) {
+		outtext1("Full Body Selection ON");
+	} else {
+		outtext1("Full Body Selection OFF");
+	}
+}
+
+void CM3daDoc::OnSelectPartOfBody() {
+	ButtonPush.PartOfBody = !ButtonPush.PartOfBody;
+	if (ButtonPush.PartOfBody) {
+		outtext1("Part of Body Selection ON");
+	} else {
+		outtext1("Part of Body Selection OFF");
+	}
+}
+
+void CM3daDoc::OnSelectCenterOfBody() {
+	ButtonPush.CenterOfBody = !ButtonPush.CenterOfBody;
+	if (ButtonPush.CenterOfBody) {
+		outtext1("Center of Body Selection ON");
+	} else {
+		outtext1("Center of Body Selection OFF");
+	}
+}
+// momo
 
 void CM3daDoc::OnExportExportdxf() {
 	// TODO: Add your command handler code here
@@ -5621,28 +6059,145 @@ void CM3daDoc::OnImportImportdxf() {
 }
 
 // MoMo_Start
-//void CM3daDoc::OnViewToggleon33455() {
+// void CM3daDoc::OnViewToggleon33455() {
 //	// TODO: Add your command handler code here
 //}
 
 void CM3daDoc::OnViewToggleBufferAuto() {
-	// TODO: Add your command handler code here
 	cDBase->ToggleDoubleBuffering(2);
 }
 
 void CM3daDoc::OnViewToggleBufferSingle() {
-	// TODO: Add your command handler code here
 	cDBase->ToggleDoubleBuffering(0);
 }
 
 void CM3daDoc::OnViewToggleBufferDouble() {
-	// TODO: Add your command handler code here
 	cDBase->ToggleDoubleBuffering(1);
 }
 
 void CM3daDoc::OnViewToggleBufferList() {
-	// TODO: Add your command handler code here
 	cDBase->ListDoubleBuffering();
+}
+
+void CM3daDoc::OnViewDeselectCadrOn() {
+	OnViewDeselectCadr();
+}
+
+void CM3daDoc::OnViewDeselectCadrOff() {
+	OnViewDeselectCadr();
+}
+
+void CM3daDoc::OnUpdateDeselectCadrOn(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DeselectCadrMode == true);
+}
+
+void CM3daDoc::OnUpdateDeselectCadrOff(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DeselectCadrMode == false);
+}
+
+void OnViewDeselectCadr() {
+	DeselectCadrMode = !DeselectCadrMode;
+	CAppSettings settings;
+	if (DeselectCadrMode) {
+		outtext1("Deselect Cadr ON");
+		settings.WriteDeselectCadrMode(1);
+	} else {
+		outtext1("Deselect Cadr OFF");
+		settings.WriteDeselectCadrMode(0);
+	}
+}
+
+void CM3daDoc::OnViewSelectModeCircle() {
+	OnViewSelectMode(1);
+	outtext1("Show Selection with Circle");
+}
+
+void CM3daDoc::OnViewSelectModeColor() {
+	OnViewSelectMode(2);
+	outtext1("Show Selection by Color Change");
+}
+
+void CM3daDoc::OnViewSelectModeCircleAndColor() {
+	OnViewSelectMode(3);
+	outtext1("Show Selection with Circle and by Color Change");
+}
+
+void CM3daDoc::OnUpdateSelectModeCircle(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(SelectMode == 1);
+}
+
+void CM3daDoc::OnUpdateSelectModeColor(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(SelectMode == 2);
+}
+
+void CM3daDoc::OnUpdateSelectModeCircleAndColor(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(SelectMode == 3);
+}
+
+void OnViewSelectMode(int newMode) {
+	if (SelectMode != newMode) {
+		SelectMode = newMode;
+		CAppSettings settings;
+		settings.WriteSelectMode(newMode);
+		cDBase->iOGLList = -1;
+		cDBase->ReDraw();
+	}
+}
+
+void CM3daDoc::OnViewAxisOriginOn() {
+	OnViewAxisMode(1, !AxisOrigin, !AxisOrigin);
+}
+
+void CM3daDoc::OnViewAxisOriginOff() {
+	OnViewAxisMode(1, !AxisOrigin, !AxisOrigin);
+}
+
+void CM3daDoc::OnViewAxisCornerOn() {
+	OnViewAxisMode(2, !AxisCorner, !AxisCorner);
+}
+
+void CM3daDoc::OnViewAxisCornerOff() {
+	OnViewAxisMode(2, !AxisCorner, !AxisCorner);
+}
+
+void CM3daDoc::OnUpdateAxisOriginOn(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(AxisOrigin);
+}
+
+void CM3daDoc::OnUpdateAxisOriginOff(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(!AxisOrigin);
+}
+
+void CM3daDoc::OnUpdateAxisCornerOn(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(AxisCorner);
+}
+
+void CM3daDoc::OnUpdateAxisCornerOff(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(!AxisCorner);
+}
+
+void OnViewAxisMode(int iMode, bool newAxisOrigin, bool newAxisCorner) {
+	if ((iMode == 1 && newAxisOrigin != AxisOrigin) || (iMode == 2 && newAxisCorner != AxisCorner)) {
+		if (iMode == 1) {
+			AxisOrigin = newAxisOrigin;
+			if (AxisOrigin) {
+				outtext1("Origin Axis ON");
+			} else {
+				outtext1("Origin Axis OFF");
+			}
+		} else {
+			AxisCorner = newAxisCorner;
+			if (AxisCorner) {
+				outtext1("Corner Axis ON");
+			} else {
+				outtext1("Corner Axis OFF");
+			}
+		}
+		CAppSettings settings;
+		settings.WriteAxisMode(AxisOrigin, AxisCorner);
+		cDBase->iOGLList = -1;
+		cDBase->ReDraw();
+	}
 }
 // MoMo_End
 
@@ -5650,11 +6205,13 @@ void CM3daDoc::OnViewToggleBufferList() {
 void CM3daDoc::OnEXP01() {
 	// TODO: Add your command handler code here
 	////Esp_Mod_Labels_4_27_2025_Start: Toggle display labels
-	gLBL_DSP_TRG = true;
-	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_RESLAB);
-	cDBase->InvalidateOGL();
-	cDBase->ReDraw();
-	gLBL_DSP_TRG = false;
+	// momo
+	// gLBL_DSP_TRG = true;
+	// cDBase->DspFlags = (cDBase->DspFlags ^ DSP_RESLAB);
+	// cDBase->InvalidateOGL();
+	// cDBase->ReDraw();
+	// gLBL_DSP_TRG = false;
+	// momo
 	////Esp_Mod_Labels_4_27_2025_End
 	// MoMo_Start
 	// ExportLinesToAutoCADScript(m_pObject, "Lines.scr");

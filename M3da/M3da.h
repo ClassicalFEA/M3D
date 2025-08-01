@@ -19,7 +19,7 @@
 class CM3daApp: public CWinAppEx {
 	public:
 		CM3daApp();
-		// Overrides
+		//  Overrides
 	public:
 		virtual BOOL InitInstance();
 		virtual int ExitInstance();
@@ -31,6 +31,10 @@ class CM3daApp: public CWinAppEx {
 		virtual void PreLoadState();
 		virtual void LoadCustomState();
 		virtual void SaveCustomState();
+		// momo
+		void OnFileNewMain();
+		void OnFileOpenMain();
+		// momo
 
 		afx_msg void OnAppAbout();
 		DECLARE_MESSAGE_MAP()
@@ -51,5 +55,15 @@ void SendMsg(CString AAA);
 void SetFocus();
 void outtextMSG(CString AAA);
 void outtextMSG2(CString AAA);
+//// momo ModernOpenGL_Start
+////CString ReadText();
+////void SetText(CString sIn);
+//// momo ModernOpenGL_End
+// momo change command box color
+void CheckCommandEditColor();
+// momo change command box color
+// momo on off button and menu
+void CheckPushedButtons(CString sMode);
+// momo on off button and menu
 
 extern CM3daApp theApp;

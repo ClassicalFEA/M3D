@@ -1,4 +1,4 @@
-
+﻿
 #include "stdafx.h"
 #include "3dSupport.h"
 #include <cmath>
@@ -1473,7 +1473,9 @@ void DSP_Triad::SetFrontView() {
 void DSP_Triad::ReSet2() {
 }
 
-void DSP_Triad::Draw(CDC* pDC, C3dMatrix pMod, C3dMatrix pScrTran) {
+// momo gdi to og
+// momo// void DSP_Triad::Draw(CDC* pDC, C3dMatrix pMod, C3dMatrix pScrTran) {
+// momo gdi to og
 	// C3dVector vDspPts[4];
 	// C3dVector vAxisDsp[4];
 
@@ -1524,7 +1526,9 @@ void DSP_Triad::Draw(CDC* pDC, C3dMatrix pMod, C3dMatrix pScrTran) {
 	// pDC->TextOut((int) vDspPts[3].x,(int) vDspPts[3].y,OutT);
 	// pDC->MoveTo((int) vDspPts[0].x,(int) vDspPts[0].y);
 	// pDC->LineTo((int) vDspPts[3].x,(int) vDspPts[3].y);
-}
+// momo gdi to og
+// momo// }
+// momo gdi to og
 
 void DSP_Triad::SetEye(double x, double y, double z) {
 	/// Trans(-vAxisPts[0].x*dSclFact,-vAxisPts[0].y*dSclFact,-vAxisPts[0].z*dSclFact);

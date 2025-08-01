@@ -25,28 +25,61 @@ class CMainFrame: public CFrameWndEx {
 #endif
 
 	protected: // control bar embedded members
-		CMFCMenuBar m_wndMenuBar;
-		CMFCToolBar m_wndToolBar;
-		CMFCStatusBar m_wndStatusBar;
-		CMFCToolBarImages m_UserImages;
-		CInputPane m_Input;
-		CMFCToolBar m_Draw;
-		CMFCToolBar m_Create;
-		CMFCToolBar m_Edit;
-		CMFCToolBar m_FE;
-		CMFCToolBar m_Group;
-		CMFCToolBar m_Qwanta;
-		CMFCToolBar m_BC;
-		CMFCToolBar m_ELTYPE;
-		CMFCToolBar m_POST;
-		CMFCToolBar m_Projection;
-		CMFCToolBar m_Utils;
-		CMFCToolBar m_QFilter;
-		CMFCToolBar m_DIMS;
+		// momo
+		//// momo// CMFCMenuBar m_wndMenuBar;
+		//// momo// CMFCToolBar m_wndToolBar;
+		// CMFCMenuBar mWnd_MenuBar;
+		// CMFCToolBar m_File;
+		// CMFCToolBar m_MenuCommands;
+		//// momo
+		// CMFCStatusBar mWnd_StatusBar;
+		// CMFCStatusBar mWnd_StatusBar;
+		////momo
+		// CMFCToolBarImages m_UserImages;
+		////momo
+		// CMFCToolBar m_Draw;
+		//// momo on off button and menu
+		// CMFCToolBar m_ShowHide;
+		// CMFCToolBar m_Selection;
+		//// momo on off button and menu
+		// CMFCToolBar m_Create;
+		// CMFCToolBar m_Edit;
+		// CMFCToolBar m_FE;
+		// CMFCToolBar m_Group;
+		//// momo
+		//// momo// CMFCToolBar m_Qwanta;
+		//// momo
+		// CMFCToolBar m_BC;
+		// CMFCToolBar m_ELTYPE;
+		// CMFCToolBar m_POST;
+		// CMFCToolBar m_Projection;
+		// CMFCToolBar m_Utils;
+		// CMFCToolBar m_QFilter;
+		// CMFCToolBar m_DIMS;
 
-		// Esp_Mod_Experimental_Toolbar_4_10_2025_Start: experimental toolbar field
-		CMFCToolBar m_EXP;
-		// Esp_Mod_Experimental_Toolbar_4_10_2025_End
+		//// Esp_Mod_Experimental_Toolbar_4_10_2025_Start: experimental toolbar field
+		// CMFCToolBar m_EXP;
+		//// Esp_Mod_Experimental_Toolbar_4_10_2025_End
+		CMFCMenuBar m_MenuBar;
+		CMFCStatusBar s_StatusBar;
+		CMFCToolBar t_BoundaryConditions;
+		CMFCToolBar t_Create;
+		CMFCToolBar t_Dimension;
+		CMFCToolBar t_Draw;
+		CMFCToolBar t_Edit;
+		CMFCToolBar t_ElementTypes;
+		CMFCToolBar t_Experimental;
+		CMFCToolBar t_FE;
+		CMFCToolBar t_File;
+		CMFCToolBar t_Groups;
+		CMFCToolBar t_MenuCommands;
+		CMFCToolBar t_PostProcessing;
+		CMFCToolBar t_Projection;
+		CMFCToolBar t_QuickFilter;
+		CMFCToolBar t_Selection;
+		CMFCToolBar t_ShowHide;
+		CMFCToolBar t_Utils;
+		// momo
 
 		// Generated message map functions
 	protected:
@@ -63,6 +96,9 @@ class CMainFrame: public CFrameWndEx {
 		// MoMo_Start
 		CFont m_EditFont;
 		// MoMo_End
+		// momo change command box color
+		CInputPane p_Input;
+		// momo change command box color
 
 	public:
 		inline void SetFontSpec(CFont& fontObj, int fontSize, CString fontName = _T("Tahoma"), bool isBold = false, CWnd* pCtrl = nullptr) {

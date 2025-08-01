@@ -653,7 +653,9 @@ class DSP_Triad {
 		void SetBackView();
 		void SetRightView();
 		void ReSet2();
-		void Draw(CDC* pDC, C3dMatrix pMod, C3dMatrix pScrTran);
+		// momo gdi to og
+		// momo// void Draw(CDC* pDC, C3dMatrix pMod, C3dMatrix pScrTran);
+		// momo gdi to og
 		void SetEye(double x, double y, double z);
 		void Rot(float fAx, float fAy, float fAz);
 		void Trans(double dX, double dY, double dZ);

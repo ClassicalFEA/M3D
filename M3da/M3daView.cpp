@@ -1,4 +1,4 @@
-
+﻿
 // M3daView.cpp : implementation of the CM3daView class
 //
 
@@ -9,6 +9,9 @@
 #include "resource.h"
 #include "math.h"
 #include "GLOBAL_VARS.h"
+// MoMo_Start
+#include "AppSettings.h"
+// MoMo_End
 DSP_Triad tOrient;
 
 #ifdef _DEBUG
@@ -34,11 +37,18 @@ ON_WM_SIZE()
 ON_WM_MOVE()
 ON_WM_RBUTTONDOWN()
 ON_WM_RBUTTONUP()
-ON_COMMAND(ID_VIEW_DISPLAYALL, &CM3daView::OnViewDisplayall)
+// momo
+// momo// ON_COMMAND(ID_VIEW_DISPLAYALL, &CM3daView::OnViewDisplayall)
+// momo
 ON_COMMAND(ID_VIEW_DISPLAYSELECTED, &CM3daView::OnViewDisplayselected)
 ON_COMMAND(ID_VIEW_DISPLAYGROUP, &CM3daView::OnViewDisplaygroup)
 ON_COMMAND(ID_VIEW_LINE, &CM3daView::OnViewLine)
 ON_COMMAND(ID_VIEW_SHADED, &CM3daView::OnViewShaded)
+// momo on off button and menu
+ON_UPDATE_COMMAND_UI(ID_VIEW_LINE, &CM3daView::OnUpdateViewLine)
+ON_UPDATE_COMMAND_UI(ID_VIEW_SHADED, &CM3daView::OnUpdateViewShaded)
+ON_UPDATE_COMMAND_UI(ID_VIEW_DISPLAYSELECTED, &CM3daView::OnUpdateDisplayselected)
+// momo on off button and menu
 ON_COMMAND(ID_VIEW_LOCATEEYE, &CM3daView::OnViewLocateeye)
 ON_COMMAND(ID_VIEW_RESETVIEW, &CM3daView::OnViewResetview)
 //  ON_WM_MOUSEHWHEEL()
@@ -105,7 +115,10 @@ void CM3daView::OnDraw(CDC* pDC) {
 		pDoc->InitOGL(pDC2);
 		bF = FALSE;
 	}
-	pDoc->Draw(tOrient.RetrieveMat(), pDC, 4);
+	// momo gdi to og
+	// momo// pDoc->Draw(tOrient.RetrieveMat(), pDC, 4);
+	pDoc->Draw(tOrient.RetrieveMat(), 4);
+	// momo gdi to og
 }
 
 // CM3daView printing
@@ -133,7 +146,10 @@ void CM3daView::OnRButtonUp(UINT nFlags, CPoint point) {
 }
 
 void CM3daView::OnContextMenu(CWnd* pWnd, CPoint point) {
-	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
+	// momo
+	//  momo// theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
+	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT_MANAGER, point.x, point.y, this, TRUE);
+	// momo
 }
 
 // CM3daView diagnostics
@@ -176,7 +192,7 @@ void CM3daView::m_UpdateTriad(int iMag) {
 		dY1 = -2 * (d2 / dWidth) * WPSize;
 		dZ1 = 0;
 		tOrient.Trans(dX1, dY1, dZ1);
-	} else if (m_iFuncKey == 2) // scale
+	} else if (m_iFuncKey == 2) // scale // momo: zoom
 	{
 		double dS = tOrient.GetScl(); // new
 		dSR = 0.1;
@@ -188,7 +204,10 @@ void CM3daView::m_UpdateTriad(int iMag) {
 		} else {
 			tOrient.Scl(dS * dSR * gZOOM_SCL);
 		}
-	} else if (m_iFuncKey == 3) // scale
+		// momo
+		// momo// } else if (m_iFuncKey == 3) // scale
+	} else if (m_iFuncKey == 3) // rotate
+	                            // momo
 	{
 		dSR = 1;
 		if (iMag < 2) {
@@ -204,32 +223,34 @@ void CM3daView::m_UpdateTriad(int iMag) {
 	}
 }
 
-void CM3daView::ClearScr()
-
-{
-	CRect rc;
-	CDC* pDC = this->GetDC();
-	GetClientRect(&rc);
-	CBrush br(RGB(0, 0, 0));
-	pDC->FillRect(&rc, &br);
-	ReleaseDC(pDC);
-}
+// momo gdi to og
+// void CM3daView::ClearScr()
+//
+//{
+//	CRect rc;
+//	CDC* pDC = this->GetDC();
+//	GetClientRect(&rc);
+//	CBrush br(RGB(0, 0, 0));
+//	pDC->FillRect(&rc, &br);
+//	ReleaseDC(pDC);
+//}
+// momo gdi to og
 // CM3daView message handlers
 
 void CM3daView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	// TODO: Add your message handler code here and/or call default
 
-	if ((nChar == 112) || (nChar == 17)) {
+	if ((nChar == 112) || (nChar == 17)) { // momo: F1 key or Ctrl key (move)
 		m_iFuncKey = 1;
-	} else if (nChar == 113) {
+	} else if (nChar == 113) { // momo: F2 key (zoom)
 		m_iFuncKey = 2;
-	} else if ((nChar == 114) || (nChar == 16)) {
+	} else if ((nChar == 114) || (nChar == 16)) { // momo: F3 key or Shift key (rotate)
 		m_iFuncKey = 3;
-	} else if (nChar == 13) {
+	} else if (nChar == 13) { // momo: Enter key (done)
 		m_iFuncKey = 4;
-	} else if (nChar == 27) {
+	} else if (nChar == 27) { // momo: Escape key (cancel)
 		m_iFuncKey = 5;
-	} else if (nChar == 46) {
+	} else if (nChar == 46) { // momo: Delete key (delete)
 		m_iFuncKey = 6;
 	} else {
 		m_iFuncKey = 0;
@@ -241,12 +262,17 @@ void CM3daView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 void CM3daView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	// TODO: Add your message handler code here and/or call default
 	if ((m_iFuncKey == 1) || (m_iFuncKey == 2) || (m_iFuncKey == 3)) {
-		CDC* pDC = this->GetDC();
+		// momo gdi to og
+		// momo// CDC* pDC = this->GetDC();
+		// momo gdi to og
 		GetDocument()->SetView(this);
 		CRect C;
 		GetDocument()->SetScreenMat(C);
-		GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-		ReleaseDC(pDC);
+		// momo gdi to og
+		// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+		GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+		// momo// ReleaseDC(pDC);
+		// momo gdi to og
 	} else if (m_iFuncKey == 4) {
 		// MoMo_Start
 		if (!SeedVals.IsSeedMode) {
@@ -297,14 +323,26 @@ void CM3daView::OnLButtonUp(UINT nFlags, CPoint point) {
 		b = iX * iX + iY * iY;
 		a = sqrt(b);
 		iMag = (int) a;
-		if (iMag > 20) {
+		// momo
+		// if (iMag > 20) {
+		if (m_leftIsDragging) { // stop selection cadr
+			// momo
+			// MoMo_Start
+			// if (CurrentBufferResult) {
+			m_leftIsDragging = false;
+			//}
+			// MoMo_End
 			GetDocument()->SelectBox(m_PointDown, point);
-			CDC* pDC = this->GetDC();
+			// momo gdi to og
+			// momo// CDC* pDC = this->GetDC();
+			// momo gdi to og
 			GetDocument()->SetView(this);
 			GetDocument()->SetScreenMat(C);
-			GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 5);
-			ReleaseDC(pDC);
-
+			// momo gdi to og
+			// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 5);
+			GetDocument()->Draw(tOrient.RetrieveMat(), 5);
+			// momo// ReleaseDC(pDC);
+			// momo gdi to og
 		} else {
 			CDC* pDC = this->GetDC();
 			// if (GetDocument()->isBlackDisp())
@@ -328,12 +366,18 @@ void CM3daView::OnLButtonUp(UINT nFlags, CPoint point) {
 	}
 	m_iMouseButStat = 0;
 	GetDocument()->SetView(this);
+	// MoMo_Start
+	m_leftIsDragging = false;
+	// MoMo_End
 	CView::OnLButtonUp(nFlags, point);
 }
 
 void CM3daView::OnLButtonDblClk(UINT nFlags, CPoint point) {
 	// TODO: Add your message handler code here and/or call default
-	GetDocument()->UpTree();
+	// momo gdi to og
+	// momo// GetDocument()->UpTree();
+	GetDocument()->UpTree(point);
+	// momo gdi to og
 	CView::OnLButtonDblClk(nFlags, point);
 }
 
@@ -352,15 +396,26 @@ void CM3daView::OnMouseMove(UINT nFlags, CPoint point) {
 		iMag = (int) a;
 		m_UpdateTriad(iMag);
 		// MoMo_Start
-		if (iMag > 0 && m_iFuncKey == 1) {
+		if (iMag > 5 && m_iFuncKey == 1) { // start middle mouse draging
 			m_middleIsDraging = true;
 		}
+		// MoMo// m_PointOld = m_PointNew;
 		// MoMo_End
-		m_PointOld = m_PointNew;
-		CDC* pDC = this->GetDC();
+		// momo gdi to og
+		// momo// CDC* pDC = this->GetDC();
+		// momo gdi to og
 		GetDocument()->SetView(this);
-		GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 3);
-		ReleaseDC(pDC);
+		// momo gdi to og
+		// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 3);
+		GetDocument()->Draw(tOrient.RetrieveMat(), 3);
+		// momo gdi to og
+		//// momo ModernOpenGL_Start
+		////if (pDC != NULL) {
+		//// momo ModernOpenGL_End
+		// momo// ReleaseDC(pDC);
+		//// momo ModernOpenGL_Start
+		////}
+		//// momo ModernOpenGL_End
 	} else if (m_iMouseButStat == 1) {
 		iX = m_PointNew.x - m_PointDown.x;
 		iY = m_PointNew.y - m_PointDown.y;
@@ -368,12 +423,47 @@ void CM3daView::OnMouseMove(UINT nFlags, CPoint point) {
 		a = sqrt(b);
 		iMag = (int) a;
 		// iMag = (int) sqrt(pow(m_PointNew.x - m_PointDown.x,2) + pow(m_PointNew.y - m_PointDown.y,2));
-		if (iMag > 20) {
-			CDC* pDC = this->GetDC();
+		// momo
+		// if (iMag > 20) {
+		if (iMag > 5 || m_leftIsDragging) { // start selection cadr
+			// momo
+			// MoMo_Start
+			// if (CurrentBufferResult) {
+			m_leftIsDragging = true;
+			m_x1 = m_PointDown.x;
+			m_y1 = m_PointDown.y;
+			m_x2 = point.x;
+			m_y2 = point.y;
+			//}
+			// MoMo_End
+			// momo gdi to og
+			// momo// CDC* pDC = this->GetDC();
+			// momo gdi to og
 			GetDocument()->SetView(this);
-			GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 3);
-			GetDocument()->DrawDrag(pDC, m_PointDown, point);
-			ReleaseDC(pDC);
+			// MoMo_Start
+			if (nFlags & MK_LBUTTON) {
+				// MoMo_End
+				// momo gdi to og
+				// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 3);
+				GetDocument()->Draw(tOrient.RetrieveMat(), 3);
+				// momo gdi to og
+				// momo// GetDocument()->DrawDrag(pDC, m_PointDown, point);
+				// MoMo_Start
+			} else {
+				m_leftIsDragging = false;
+				m_iMouseButStat = 0;
+				CRect C;
+				GetDocument()->SelectBox(m_PointDown, m_PointOld);
+				GetDocument()->SetScreenMat(C);
+				// momo gdi to og
+				// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 5);
+				GetDocument()->Draw(tOrient.RetrieveMat(), 5);
+				// momo gdi to og
+			}
+			// MoMo_End
+			// momo gdi to og
+			// momo// ReleaseDC(pDC);
+			// momo gdi to og
 		}
 	} else if (GetDocument()->isDragging()) {
 		iX = m_PointNew.x - m_PointDown.x;
@@ -382,14 +472,22 @@ void CM3daView::OnMouseMove(UINT nFlags, CPoint point) {
 		a = sqrt(b);
 		iMag = (int) a;
 		// iMag = (int) sqrt(pow(m_PointNew.x - m_PointDown.x,2) + pow(m_PointNew.y - m_PointDown.y,2));
-		if (iMag > 20) {
-			CDC* pDC = this->GetDC();
+		// momo
+		// if (iMag > 20) {
+		if (iMag > 0) { // apply draw draging
+			// momo
+			// momo gdi to og
+			// momo// CDC* pDC = this->GetDC();
+			// momo gdi to og
 			GetDocument()->SetView(this);
 			GetDocument()->DragUpdate(m_PointNew);
-			GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 3);
+			// momo gdi to og
+			// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 3);
+			GetDocument()->Draw(tOrient.RetrieveMat(), 3);
+			// momo gdi to og
 			// GetDocument()->SetLineEnd(m_PointNew);
 			// GetDocument()->LineDrag(pDC, m_PointDown, m_PointNew);
-			ReleaseDC(pDC);
+			// momo// ReleaseDC(pDC);
 		}
 	}
 
@@ -419,21 +517,33 @@ void CM3daView::OnRButtonDown(UINT nFlags, CPoint point) {
 	CView::OnRButtonDown(nFlags, point);
 }
 
-void CM3daView::OnViewDisplayall() {
-	// TODO: Add your command handler code here
-	// GetDocument()->DspAll();
-	if (GetDocument()->isMenuNULL())
-		outtextMSG2("DSPALL");
-	// CDC* pDC = this->GetDC();
-	// GetDocument()->SetView(this);
-	// GetDocument()->Draw(tOrient.RetrieveMat(),pDC,4);
-	// ReleaseDC(pDC);
-}
+// momo
+// void CM3daView::OnViewDisplayall() {
+//	// TODO: Add your command handler code here
+//	// GetDocument()->DspAll();
+//	if (GetDocument()->isMenuNULL())
+//		outtextMSG2("DSPALL");
+//	// CDC* pDC = this->GetDC();
+//	// GetDocument()->SetView(this);
+//	// GetDocument()->Draw(tOrient.RetrieveMat(),pDC,4);
+//	// ReleaseDC(pDC);
+//}
+// momo
 
 void CM3daView::OnViewDisplayselected() {
 	// TODO: Add your command handler code here
 	if (GetDocument()->isMenuNULL())
-		outtextMSG2("DSPSEL");
+	// momo
+	// momo// outtextMSG2("DSPSEL");
+	{
+		if (ButtonPush.SelectedOn) {
+			outtextMSG2("DSPALL");
+		} else {
+			outtextMSG2("DSPSEL");
+		}
+		ButtonPush.SelectedOn = !ButtonPush.SelectedOn;
+	}
+	// momo
 	// GetDocument()->DspSel();
 	// CDC* pDC = this->GetDC();
 	// GetDocument()->SetView(this);
@@ -450,44 +560,102 @@ void CM3daView::OnViewDisplaygroup() {
 
 void CM3daView::OnViewLine() {
 	// TODO: Add your command handler code here
-	outtext1("Draw Wire Frame.");
+	// momo on off button and menu
+	ButtonPush.WireFrame = !ButtonPush.WireFrame;
+	ButtonPush.Shaded = !ButtonPush.WireFrame;
+	// momo// outtext1("Draw Wire Frame.");
+	if (ButtonPush.WireFrame) {
+		outtext1("Draw Wire Frame.");
+	} else {
+		outtext1("Draw Shaded.");
+	}
+	// momo on off button and menu
 	// ClearScr();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->SetDrawType(0);
+	// momo on off button and menu
+	// momo// GetDocument()->SetDrawType(0);
+	GetDocument()->SetDrawType((int) ButtonPush.Shaded);
+	// momo on off button and menu
 	GetDocument()->InvalidateOGL();
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnViewShaded() {
 	// TODO: Add your command handler code here
-	outtext1("Draw Shaded.");
-	CDC* pDC = this->GetDC();
+	// momo on off button and menu
+	ButtonPush.WireFrame = !ButtonPush.WireFrame;
+	ButtonPush.Shaded = !ButtonPush.WireFrame;
+	// momo// outtext1("Draw Shaded.");
+	if (ButtonPush.WireFrame) {
+		outtext1("Draw Wire Frame.");
+	} else {
+		outtext1("Draw Shaded.");
+	}
+	// momo on off button and menu
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->SetDrawType(1);
+	// momo on off button and menu
+	// momo// GetDocument()->SetDrawType(1);
+	GetDocument()->SetDrawType((int) ButtonPush.Shaded);
+	// momo on off button and menu
 	GetDocument()->InvalidateOGL();
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
+
+// momo on off button and menu
+void CM3daView::OnUpdateViewLine(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.WireFrame);
+}
+
+void CM3daView::OnUpdateViewShaded(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.Shaded);
+}
+
+void CM3daView::OnUpdateDisplayselected(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.DisplaySelected);
+}
+// momo on off button and menu
 
 void CM3daView::OnViewLocateeye() {
 	// TODO: Add your command handler code here
 	C3dVector vP;
 	vP = GetDocument()->GetViewPt();
 	tOrient.SetEye(vP.x, vP.y, vP.z);
-	CDC* pDC = this->GetDC();
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnViewResetview() {
 	// TODO: Add your command handler code here
 	tOrient.ReSet();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 // BOOL CM3daView::OnMouseHWheel(UINT nFlags, short zDelta, CPoint pt)
@@ -535,11 +703,21 @@ void CM3daView::OnMButtonUp(UINT nFlags, CPoint point) {
 		m_middleIsDraging = false;
 	}
 	// MoMo_End
-
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo gdi to og
+	//// momo ModernOpenGL_Start
+	////if (pDC != NULL) {
+	//// momo ModernOpenGL_End
+	// momo// ReleaseDC(pDC);
+	//// momo ModernOpenGL_Start
+	////}
+	//// momo ModernOpenGL_End
 }
 
 BOOL CM3daView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt) {
@@ -553,10 +731,21 @@ BOOL CM3daView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt) {
 	} else {
 		tOrient.Scl(dS * dSR * gZOOM_SCL);
 	}
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo gdi to og
+	//// momo ModernOpenGL_Start
+	////if (pDC != NULL) {
+	//// momo ModernOpenGL_End
+	// momo// ReleaseDC(pDC);
+	//// momo ModernOpenGL_Start
+	////}
+	//// momo ModernOpenGL_End
 	return CView::OnMouseWheel(nFlags, zDelta, pt);
 }
 
@@ -568,7 +757,9 @@ void CM3daView::OnViewZoomall() {
 
 	vP = GetDocument()->GetMeshCentre();
 	tOrient.SetEye(vP.x, vP.y, vP.z);
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	// Centre the mesh and redraw
 	// GetDocument()->Draw(tOrient.RetrieveMat(),pDC,5);
 	GetDocument()->SetToScr2(tOrient.RetrieveMat());
@@ -584,11 +775,16 @@ void CM3daView::OnViewZoomall() {
 		dS = GetDocument()->GetHeight() / iYExt;
 		for (i = 10; i > 0; i--) {
 			tOrient.dSclFact = dS / i;
-			GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 5);
+			// momo gdi to og
+			// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 5);
+			GetDocument()->Draw(tOrient.RetrieveMat(), 5);
+			// momo gdi to og
 		}
 		GetDocument()->SetToScr2(tOrient.RetrieveMat());
 	}
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnMButtonDown(UINT nFlags, CPoint point) {
@@ -626,64 +822,99 @@ void CM3daView::OnProjwp() {
 	C3dMatrix mat;
 	mat = GetDocument()->GetWPmat();
 	tOrient.SetVIEW(mat);
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnProjFront() {
 	// TODO: Add your command handler code here
 	tOrient.SetFrontView();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnProjBottomxz() {
 	// TODO: Add your command handler code here
 	tOrient.SetBottomView();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnProjTop() {
 	// TODO: Add your command handler code here
 	tOrient.SetTopView();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnProjLeftxy() {
 	// TODO: Add your command handler code here
 	tOrient.SetLeftView();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnProjRight() {
 	// TODO: Add your command handler code here
 	tOrient.SetRightView();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnProjBack() {
 	// TODO: Add your command handler code here
 	tOrient.SetBackView();
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnProjso1() {
@@ -694,10 +925,15 @@ void CM3daView::OnProjso1() {
 	mat.Rotate(0, 45.0, 0);
 	mat.Rotate(-35.564, 0.0, 0);
 	tOrient.SetVIEW(mat);
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnPropiso2() {
@@ -708,10 +944,15 @@ void CM3daView::OnPropiso2() {
 	mat.Rotate(0, -45.0, 0);
 	mat.Rotate(-35.564, 0.0, 0);
 	tOrient.SetVIEW(mat);
-	CDC* pDC = this->GetDC();
+	// momo gdi to og
+	// momo// CDC* pDC = this->GetDC();
+	// momo gdi to og
 	GetDocument()->SetView(this);
-	GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
-	ReleaseDC(pDC);
+	// momo gdi to og
+	// momo// GetDocument()->Draw(tOrient.RetrieveMat(), pDC, 4);
+	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
+	// momo// ReleaseDC(pDC);
+	// momo gdi to og
 }
 
 void CM3daView::OnEditUndo() {
@@ -724,9 +965,12 @@ void CM3daView::OnEditUndo() {
 			pDoc->bFinalChkPt = TRUE;
 		}
 		pDoc->Undo();
-		CDC* pDC = this->GetDC();
-		pDoc->Draw(tOrient.RetrieveMat(), pDC, 4);
-		ReleaseDC(pDC);
+		// momo gdi to og
+		// momo// CDC* pDC = this->GetDC();
+		// momo// pDoc->Draw(tOrient.RetrieveMat(), pDC, 4);
+		pDoc->Draw(tOrient.RetrieveMat(), 4);
+		// momo// ReleaseDC(pDC);
+		// momo gdi to og
 	}
 	// pDoc->UpdateAllViews(NULL);
 }

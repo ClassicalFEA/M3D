@@ -33,6 +33,25 @@ class DBase: public CCmdTarget {
 		void ToggleDoubleBuffering(int newMode);
 		void ListDoubleBuffering();
 		// MoMo_End
+		// momo gdi to og
+		void DrawSelectionRectangle();
+		double GetZoomScale(C3dMatrix* pScrTran);
+		void DrawSelectCircles();
+		void StartpDCToOpenGL();
+		void EndpDCToOpenGL();
+		// momo gdi to og
+		// momo axis
+		void MakeAxisCorner(float dx, float dy);
+		void MakeAxisOrigin(bool bWireframeMode);
+		double MakeAxis_GetZoomScale3D(C3dMatrix* m);
+		void MakeAxis_CornerSettings1(int w, int h, double fovy, double zNear, double zFar, float camZ, float dx, float dy);
+		void MakeAxis_CornerSettings2();
+		void MakeAxis_ExtractPureRotationMatrix(const float* m, float* rotOnly);
+		void MakeAxis_MakeAxisShapes(float cylinderRadius, float cylinderHeight, float coneBaseRadius, float coneHeight, float sphereRadius, float colorAxis[3][2][3], float* colorCore);
+		void MakeAxis_InitializeFont(int fontSize, float fontScale, GLuint baseList, bool& fontsInitializedFlag, float& fontWidthOut, float& fontHeightOut);
+		void MakeAxis_ShowLetters(float cylinderHeight, float labelOffset, float labelSize, float rasterScale, float colorAxis[3][2][3], float fontWidth, float fontHeight, GLuint baseList, float zoomScale);
+		void MakeAxis_DrawAxisLabel(char axis, C3dVector start, C3dVector end, float offsetAlongAxis, C3dVector shift, float rasterScale, float* color, float fontWidth, float fontHeight, GLuint baseList);
+
 		void LabGaps(int iGap);
 		HGLRC hrc;
 		// Dynamic draging object
@@ -67,6 +86,7 @@ class DBase: public CCmdTarget {
 		// MoMo_Start
 		// MoMo// int iVER;
 		int iVER = 0;
+		bool pDCDrawFlags[10];
 		// MoMo_End
 		void ClearSymTable();
 		void AddSymbol(Symbol* pSym);
@@ -166,8 +186,14 @@ class DBase: public CCmdTarget {
 		int GetItemType();
 		G_Object* S_Buff[MAX_SIZE]; // selector array
 		int S_BuffAdd(G_Object* cAddObj); // 0 removed 1 added
-		void S_BuffAdd2(CDC* pDC, G_Object* cAddObj);
+		// momo gdi to og
+		// momo// void S_BuffAdd2(CDC* pDC, G_Object* cAddObj);
+		// momo gdi to og
 		void S_BuffAdd3(G_Object* cAddObj);
+		// momo
+		void S_BuffRemove3(G_Object* cAddObj);
+		void S_BuffChanged(int iSelStart, int iSelEnd, bool addMode);
+		// momo
 		BOOL S_IsIn(G_Object* cAddObj);
 		void S_Save(ObjList* oList);
 		void S_Res();
@@ -177,7 +203,10 @@ class DBase: public CCmdTarget {
 		int iFastView;
 		BOOL bNoList; // no in display list
 		void Serialize(CArchive& ar);
-		void Dsp_All();
+		// momo on off button and menu
+		// momo// void Dsp_All();
+		void Dsp_All(bool changeButtonIcon);
+		// momo on off button and menu
 		void Dsp_ShowAll();
 		void Dsp_Hide();
 		void Info();
@@ -351,7 +380,9 @@ class DBase: public CCmdTarget {
 		NCircle* AddCirCR(C3dVector vNorm, C3dVector vCent, double dR, int ilab);
 		NCircle* AddArDXF2D(C3dVector vNorm, C3dVector vCent, double dR, double dSA, double dEA, int ilab);
 		void AddDragCIR(C3dVector vN, C3dVector v1);
-		void TrimLn();
+		// momo gdi to og
+		// momo// void TrimLn();
+		// momo gdi to og
 		// Fileet two LINES in 3d
 		NCircle* Fillet(NLine* L1, NLine* L2, double dR, C3dVector PNear1, C3dVector PNear2);
 		// Fileet two Curves in 3d iterate for intersections
@@ -504,15 +535,20 @@ class DBase: public CCmdTarget {
 		void CoincidentNodes(ObjList* Nodes, ObjList* CNodes, double dTol);
 		void CoincidentElements(ObjList* Chkls);
 		void AddSurfR(C3dVector vB, C3dVector vD, double dAng);
-		void Draw(C3dMatrix pM, CDC* pDC, int iDrawmode);
+		// momo gdi to og
+		// momo// void Draw(C3dMatrix pM, CDC* pDC, int iDrawmode);
+		void Draw(C3dMatrix pM, int iDrawmode);
+		// momo gdi to og
 		BOOL isBlackDisp();
 		void AddObj(G_Object* gIn);
 		void RemTempGraphics(G_Object* gIn);
 		void AddTempGraphics(G_Object* gIn);
 		void RemObj(G_Object* gIn);
 		void RemObjNoDel(G_Object* gIn);
-		void DrawDrag(CDC* pDC, CPoint p1, CPoint p2);
-		void LineDrag(CDC* pDC, CPoint p1, CPoint p2);
+		// momo gdi to og
+		// momo// void DrawDrag(CDC* pDC, CPoint p1, CPoint p2);
+		// momo// void LineDrag(CDC* pDC, CPoint p1, CPoint p2);
+		// momo gdi to og
 		void DBase::GenAnimationW(int iDspFlgs, int iNoFrames);
 		void DBase::GenAnimationS(int iDspFlgs, int iNoFrames);
 		void DBase::GenAnimationFrameW(int iDspFlgs, int iFrameNo, double dF);
@@ -573,8 +609,14 @@ class DBase: public CCmdTarget {
 		// selector buffer management
 		//***************************************************
 		int S_Count;
-		G_Object* S_Single(CPoint InPT);
+		// momo gdi to og
+		// momo// G_Object* S_Single(CPoint InPT);
+		G_Object* S_Single(CPoint InPT, bool OnlyFind);
+		// momo gdi to og
 		void S_Box(CPoint UL, CPoint LR);
+		// momo
+		void DeSelect_Box(CPoint UL, CPoint LR);
+		// momo
 		void S_Des();
 		void S_All(int iT);
 		void S_Invert();
@@ -653,7 +695,10 @@ class DBase: public CCmdTarget {
 		void ExportGroupsTXT(FILE* pFile2);
 		void ExportPermGroupsTXT(FILE* pFile2);
 		int gDim;
-		void UpTree();
+		// momo gdi to og
+		// momo// void UpTree();
+		bool UpTree(CPoint point);
+		// momo gdi to og
 
 		//****************************OGL********************************
 		int iF;

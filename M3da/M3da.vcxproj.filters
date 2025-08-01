@@ -42,9 +42,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mnu.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="MyEditBasicFnc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,13 +57,16 @@
     <ClCompile Include="3dSupport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mnu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="G_object.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mnu.h">
-      <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Undo.h">
       <Filter>Source Files</Filter>
@@ -122,6 +122,12 @@
     <ClInclude Include="AppSettings.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mnu.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderUtils.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="M3da.idl">
@@ -165,9 +171,6 @@
     <Image Include="res\Toolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\toolbar1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\Toolbar256.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -177,10 +180,34 @@
     <Image Include="res\bmp00009.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bmp00010.bmp">
+    <Image Include="res\bmp00011.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bmp00011.bmp">
+    <Image Include="res\ToolbarSelection.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarShowHide.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarView.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarQuickFilter.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\toolbar1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarSelection32bit4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\experimental.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar1IconTest3.BMP">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarSelectionTest.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

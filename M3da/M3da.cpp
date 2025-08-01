@@ -14,6 +14,10 @@
 #include "GLOBAL_VARS.h"
 // Esp_Mod_Config_File_Mod_End
 
+// momo
+#include "AppSettings.h"
+// momo
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -21,15 +25,47 @@
 // MoMo_Start
 SeedValues SeedVals;
 CString LastRequest = "";
+BOOL CurrentBufferResult = false;
+BOOL m_leftIsDragging = false;
+BOOL DeSelectAll = false;
+BOOL StartLoad = true;
+int m_x1 = 0;
+int m_y1 = 0;
+int m_x2 = 0;
+int m_y2 = 0;
+bool DeselectCadrMode = true;
+int SelectMode = 3;
+int MainDrawState = 0;
+bool AxisOrigin = false;
+bool AxisCorner = false;
 // MoMo_End
+// momo
+int SelRowsCurrent[MAX_RESSETS][2];
+int SelRowsNew[MAX_RESSETS][2];
+// for (int i = 0; i < MAX_RESSETS; i++) {
+//	for (int j = 0; j < 2; j++) {
+//		SelRowsCurrent[i][j] = 0;
+//		SelRowsNew[i][j] = 0;
+//	}
+// }
+// momo
+// momo change command box color
+BOOL CommandIsActive = false;
+BOOL CommandIsActiveNewState = false;
+// momo change command box color
+// momo on off button and menu
+ButtonPushed ButtonPush;
+// momo on off button and menu
 
 // CM3daApp
 
 BEGIN_MESSAGE_MAP(CM3daApp, CWinAppEx)
 ON_COMMAND(ID_APP_ABOUT, &CM3daApp::OnAppAbout)
 // Standard file based document commands
-ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
-ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
+// momo
+// momo// ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
+// momo// ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
+// momo
 // Standard print setup command
 ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
 ON_COMMAND(ID_FILE_RUNSCRIPTFILE, &CM3daApp::OnFileRunscriptfile)
@@ -43,6 +79,16 @@ CM3daApp::CM3daApp() {
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
+
+// momo
+void CM3daApp::OnFileNewMain() {
+	OnFileNew();
+}
+
+void CM3daApp::OnFileOpenMain() {
+	OnFileOpen();
+}
+// momo
 
 // The one and only CM3daApp object
 
@@ -186,8 +232,39 @@ BOOL CM3daApp::InitInstance() {
 	// such as the name of your company or organization
 	// MoMo_Start
 	// MoMo// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	SetRegistryKey(_T("M3D-DevM-Reg-1"));
+	SetRegistryKey(_T("M3D-DevM-Reg-11"));
 	// MoMo_End
+	// momo
+	SelRowsCurrent[0][0] = -1;
+	ButtonPush.Points = false;
+	ButtonPush.WireFrame = true;
+	ButtonPush.Shaded = false;
+	ButtonPush.ControlPoint = false;
+	ButtonPush.DisplayAll = true;
+	ButtonPush.DisplaySelected = false;
+	ButtonPush.CurvesOn = false;
+	ButtonPush.SurfaceOn = false;
+	ButtonPush.CoordsOn = false;
+	ButtonPush.NodeOn = false;
+	ButtonPush.ElementOn = false;
+	ButtonPush.BoundaryConditionsOn = false;
+	ButtonPush.ShellThicknessOn = false;
+	ButtonPush.ElementCoordSysOn = false;
+	ButtonPush.SurfaceDirectionMarkersOn = false;
+	ButtonPush.WorkplaneOn = false;
+	ButtonPush.LabelOn = false;
+	ButtonPush.GeomOn = false;
+	ButtonPush.FiniteOn = false;
+	ButtonPush.QfilterNodesOn = false;
+	ButtonPush.QfilterElementsOn = false;
+	ButtonPush.QfilterPointsOn = false;
+	ButtonPush.QfilterCurvesOn = false;
+	ButtonPush.QfilterSurfacesOn = false;
+	ButtonPush.SelectedOn = false;
+	ButtonPush.FullBody = true;
+	ButtonPush.PartOfBody = false;
+	ButtonPush.CenterOfBody = true;
+	// momo
 	LoadStdProfileSettings(4); // Load standard INI file options (including MRU)
 
 	InitContextMenuManager();
@@ -273,7 +350,22 @@ BOOL CM3daApp::InitInstance() {
 		return FALSE;
 
 	// The one and only window has been initialized, so show and update it
-	m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
+	// momo gdi to og
+	CAppSettings settings;
+	DeselectCadrMode = settings.ReadDeselectCadrMode();
+	SelectMode = settings.ReadSelectMode();
+	settings.ReadAxisMode(AxisOrigin, AxisCorner);
+	// momo gdi to og
+	// momo
+	bool windowMaximized = settings.ReadWindowState();
+	if (windowMaximized) {
+		m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
+	} else {
+		// momo
+		m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
+		// momo
+	}
+	// momo
 	m_pMainWnd->UpdateWindow();
 	// call DragAcceptFiles only if there's a suffix
 	//  In an SDI app, this should occur after ProcessShellCommand
@@ -334,7 +426,10 @@ void CM3daApp::PreLoadState() {
 	CString strName;
 	bNameValid = strName.LoadString(IDS_EDIT_MENU);
 	// ASSERT(bNameValid);
-	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EDIT);
+	// momo
+	// momo// GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EDIT);
+	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EDIT_MANAGER);
+	// momo
 }
 
 void CM3daApp::LoadCustomState() {

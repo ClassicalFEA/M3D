@@ -39,13 +39,24 @@ IDR_M3daTYPE            ICON                    "res\\M3daDoc.ico"
 // Bitmap
 //
 
-IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
-
-IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar.bmp"
+// momo
+//IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+//
+//IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar.bmp"
+IDR_MAINFRAME           BITMAP                  "res\\ToolbarFile.bmp"
+IDR_FILE                BITMAP                  "res\\ToolbarFile.bmp"
+// momo
 //Esp_Mod_Toolbar256_4_2025: "Toolbar256.bmp" is not a sharp image
 //IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
 
-IDR_DRAW                BITMAP                  "res\\toolbar1.bmp"
+// momo on off button and menu
+// momo// IDR_DRAW                BITMAP                  "res\\toolbar1.bmp"
+IDR_DRAW                BITMAP                  "res\\ToolbarView.bmp"
+
+IDR_SHOWHIDE            BITMAP                  "res\\ToolbarShowHide.bmp"
+
+IDR_SELECTION_TOOLBAR   BITMAP                  "res\\ToolbarSelection.bmp"
+// momo on off button and menu
 
 IDR_CREATE              BITMAP                  "res\\bmp00001.bmp"
 
@@ -65,12 +76,21 @@ IDR_PROJ                BITMAP                  "res\\bmp00009.bmp"
 
 IDR_UTILITIES           BITMAP                  "res\\bmp00005.bmp"
 
-IDR_QFILTER             BITMAP                  "res\\bmp00010.bmp"
+// momo
+// momo// IDR_QFILTER             BITMAP                  "res\\bmp00010.bmp"
+IDR_QFILTER             BITMAP                  "res\\ToolbarQuickFilter.bmp"
+
+IDR_MENU_COMMANDS       BITMAP                  "res\\ToolbarMenuCommands.bmp"
+
+// momo
 
 IDR_DIMS                BITMAP                  "res\\bmp00011.bmp"
 
 // Esp_Mod_Experimental_Toolbar_4_10_2025_Start: Added experimental bitmap
-IDR_EXPERIMENTAL        BITMAP                  "res\\experimental.bmp"
+// momo
+// momo// IDR_EXPERIMENTAL        BITMAP                  "res\\experimental.bmp"
+IDR_EXPERIMENTAL        BITMAP                  "res\\ToolbarExperimental.bmp"
+// momo
 // Esp_Mod_Experimental_Toolbar_4_10_2025_End
 
 /////////////////////////////////////////////////////////////////////////////
@@ -78,7 +98,10 @@ IDR_EXPERIMENTAL        BITMAP                  "res\\experimental.bmp"
 // Toolbar
 //
 // Esp_Mod_Icon_Size: To change the size, modify all of the "X, X" to "newX, newX" for each toolbar (As of 3/30/2025, there are 14 toolbars).
-IDR_MAINFRAME TOOLBAR 24, 24
+// momo
+// momo// IDR_MAINFRAME TOOLBAR 24, 24
+IDR_FILE TOOLBAR 24, 24
+// momo
 BEGIN
     BUTTON      ID_FILE_NEW
     BUTTON      ID_FILE_OPEN
@@ -92,44 +115,108 @@ BEGIN
     BUTTON      ID_APP_ABOUT
 END
 
-IDR_MAINFRAME_256 TOOLBAR 24, 24
-BEGIN
-    BUTTON      ID_FILE_NEW
-    BUTTON      ID_FILE_OPEN
-    BUTTON      ID_FILE_SAVE
-    BUTTON      ID_EDIT_CUT
-    BUTTON      ID_EDIT_COPY
-    BUTTON      ID_EDIT_PASTE
-    BUTTON      ID_FILE_PRINT
-    BUTTON      ID_APP_ABOUT
-END
+// momo
+//IDR_MAINFRAME_256 TOOLBAR 24, 24
+//BEGIN
+//    BUTTON      ID_FILE_NEW
+//    BUTTON      ID_FILE_OPEN
+//    BUTTON      ID_FILE_SAVE
+//    BUTTON      ID_EDIT_CUT
+//    BUTTON      ID_EDIT_COPY
+//    BUTTON      ID_EDIT_PASTE
+//    BUTTON      ID_FILE_PRINT
+//    BUTTON      ID_APP_ABOUT
+//END
+// momo
 
+// momo on off button and menu
+//IDR_DRAW TOOLBAR 24, 24
+//BEGIN
+//    BUTTON      ID_VIEW_DISPLAYALL
+//    BUTTON      ID_VIEW_DISPLAYSELECTED
+//    BUTTON      ID_VIEW_SHADED
+//    BUTTON      ID_VIEW_LINE
+//    BUTTON      ID_VIEW_NODESOFF
+//    BUTTON      ID_VIEW_ZOOMALL
+//    BUTTON      ID_VIEW_RESETVIEW
+//    BUTTON      ID_VIEW_LOCATEEYE
+//    BUTTON      ID_VIEW_LABELENTITIES
+//    BUTTON      ID_VISABILITY_WORKPLANE
+//    SEPARATOR
+//    BUTTON      ID_VISABILITY_POINTSON
+//    BUTTON      ID_VIEW_TOGGLECONTROLPOINTVISABILITY
+//    BUTTON      ID_VISABILITY_CURVESON
+//    BUTTON      ID_SURFACES_SURFACESON
+//    BUTTON      ID_VISABILITY_ALLVISABLE
+//    BUTTON      ID_VISABILITY_COORDSON
+//    BUTTON      ID_VISABILITY_NODEON
+//    BUTTON      ID_VISABILITY_ELEMENTON
+//    BUTTON      ID_VISABILITY_BOUNDARYCONDITIONS
+//END
+// momo on off button and menu
+// momo on off button and menu
 IDR_DRAW TOOLBAR 24, 24
 BEGIN
-    BUTTON      ID_VIEW_DISPLAYALL
-    BUTTON      ID_VIEW_DISPLAYSELECTED
     BUTTON      ID_VIEW_SHADED
     BUTTON      ID_VIEW_LINE
-    BUTTON      ID_VIEW_NODESOFF
+    SEPARATOR
     BUTTON      ID_VIEW_ZOOMALL
     BUTTON      ID_VIEW_RESETVIEW
     BUTTON      ID_VIEW_LOCATEEYE
     BUTTON      ID_VIEW_LABELENTITIES
+    BUTTON      ID_VISABILITY_LABELESON
     BUTTON      ID_VISABILITY_WORKPLANE
-    SEPARATOR
-    BUTTON      ID_VISABILITY_POINTSON
-    BUTTON      ID_VIEW_TOGGLECONTROLPOINTVISABILITY
-    BUTTON      ID_VISABILITY_CURVESON
-    BUTTON      ID_SURFACES_SURFACESON
-    BUTTON      ID_VISABILITY_ALLVISABLE
-    BUTTON      ID_VISABILITY_COORDSON
-    BUTTON      ID_VISABILITY_NODEON
-    BUTTON      ID_VISABILITY_ELEMENTON
-    BUTTON      ID_VISABILITY_BOUNDARYCONDITIONS
     BUTTON      ID_VIEW_DISPLAYSHELLTHICKNESS
     BUTTON      ID_VIEW_DISPLAYELEMENTCOORDSYS
     BUTTON      ID_VIEW_SURFACEDIRECTIONMARKERS
 END
+
+IDR_SHOWHIDE TOOLBAR 24, 24
+BEGIN
+    BUTTON      ID_VISABILITY_ALLVISABLE
+    SEPARATOR
+    BUTTON      ID_VISABILITY_GEOMSON
+    BUTTON      ID_VISABILITY_POINTSON
+    BUTTON      ID_VIEW_TOGGLECONTROLPOINTVISABILITY
+    BUTTON      ID_VISABILITY_CURVESON
+    BUTTON      ID_SURFACES_SURFACESON
+    BUTTON      ID_VISABILITY_COORDSON
+    SEPARATOR
+    BUTTON      ID_VISABILITY_FINITESON
+    BUTTON      ID_VISABILITY_NODEON
+    BUTTON      ID_VISABILITY_ELEMENTON
+    BUTTON      ID_VISABILITY_BOUNDARYCONDITIONS
+    SEPARATOR
+    BUTTON      ID_VIEW_DISPLAYSELECTED
+    BUTTON      ID_VIEW_NODESOFF
+END
+
+IDR_SELECTION_TOOLBAR TOOLBAR 24, 24
+BEGIN
+    BUTTON      ID_EDIT_DESLECTALL
+    SEPARATOR
+    BUTTON      ID_PICKING_FULLBODY
+    BUTTON      ID_PICKING_PARTOFBODY
+    BUTTON      ID_PICKING_CENTEROFBODY
+    SEPARATOR
+    BUTTON      ID_SELECT_MODE_COLOR
+    BUTTON      ID_SELECT_MODE_CIRCLE
+    BUTTON      ID_SELECT_MODE_CIRCLE_COLOR
+    SEPARATOR
+    BUTTON      ID_DESELECT_CADR_OFF
+    BUTTON      ID_DESELECT_CADR_ON
+END
+// momo on off button and menu
+// momo
+IDR_MENU_COMMANDS TOOLBAR 24, 24
+BEGIN
+    BUTTON      ID_AXIS_CORNER_ON
+    BUTTON      ID_AXIS_CORNER_OFF
+    BUTTON      ID_AXIS_ORIGIN_ON
+    BUTTON      ID_AXIS_ORIGIN_OFF
+END
+// momo
+
 
 IDR_CREATE TOOLBAR 24, 24
 BEGIN
@@ -196,6 +283,10 @@ END
 
 IDR_FE TOOLBAR 24, 24
 BEGIN
+    //momo
+    BUTTON      ID_IMPORT_DAT
+    SEPARATOR
+    //momo
     BUTTON      ID_TOOLS_SETCURRENTMESH
     BUTTON      ID_EXPORT_CURRENTMESHTO
     SEPARATOR
@@ -216,6 +307,10 @@ BEGIN
     BUTTON      ID_MESH_SHELLCOATSOLIDELEMENTS
     BUTTON      ID_MESH_MESHSIZEONSURFACE
     BUTTON      ID_MESH_ADVANCINGFRONTSURFACEMESHTRI
+    //momo
+    SEPARATOR
+    BUTTON      ID_EXPORT_CURRENTMESTTONAS
+    //momo
 END
 
 IDR_GROUP TOOLBAR 24, 24
@@ -272,24 +367,50 @@ END
 
 IDR_POST TOOLBAR 24, 24
 BEGIN
+    //momo
+    //BUTTON      ID_POST_SELECTDEFORMEDRESULTS
+    //BUTTON      ID_POST_SELECTRESULTS
+    //BUTTON      ID_POST_DEFORMEDDISPLAY
+    //BUTTON      ID_POST_CONTOURRAWDATA
+    //BUTTON      ID_POST_SELECTVECTORRESULTS
+    //BUTTON      ID_OPTIONS_VECTORSCALE
+    //BUTTON      ID_POST_CLEARRESULTSVECTORS
+    //BUTTON      ID_POST_ANIMATE
+    //BUTTON      ID_POST_ANIMATIONFRAMES
+    //BUTTON      ID_POST_FRAMEDELAY
+    //BUTTON      ID_POST_ANIMATENEG
+    //BUTTON      ID_OPTIONS_DEFORMATIONSCALE
+    //BUTTON      ID_OPTIONS_REVERSECOLOURBAR
+    //BUTTON      ID_OPTIONS_SETCOLOURBAR
+    //BUTTON      ID_POST_TOGRESULTSLABELS
+    //BUTTON      ID_POST_LISTNODALRESULTS
+    //BUTTON      ID_POST_LISTELEMENTRESULT
+    //BUTTON      ID_POST_DELETEALLRESULTSSETS
+    BUTTON      ID_IMPORT_OP2
+    SEPARATOR
     BUTTON      ID_POST_SELECTDEFORMEDRESULTS
-    BUTTON      ID_POST_SELECTRESULTS
     BUTTON      ID_POST_DEFORMEDDISPLAY
+    BUTTON      ID_OPTIONS_DEFORMATIONSCALE
+    SEPARATOR
+    BUTTON      ID_POST_SELECTRESULTS
     BUTTON      ID_POST_CONTOURRAWDATA
-    BUTTON      ID_POST_SELECTVECTORRESULTS
-    BUTTON      ID_OPTIONS_VECTORSCALE
-    BUTTON      ID_POST_CLEARRESULTSVECTORS
+    BUTTON      ID_OPTIONS_REVERSECOLOURBAR
+    BUTTON      ID_OPTIONS_SETCOLOURBAR
+    SEPARATOR
     BUTTON      ID_POST_ANIMATE
     BUTTON      ID_POST_ANIMATIONFRAMES
     BUTTON      ID_POST_FRAMEDELAY
     BUTTON      ID_POST_ANIMATENEG
-    BUTTON      ID_OPTIONS_DEFORMATIONSCALE
-    BUTTON      ID_OPTIONS_REVERSECOLOURBAR
-    BUTTON      ID_OPTIONS_SETCOLOURBAR
+    SEPARATOR
+    BUTTON      ID_POST_SELECTVECTORRESULTS
+    BUTTON      ID_OPTIONS_VECTORSCALE
+    BUTTON      ID_POST_CLEARRESULTSVECTORS
+    SEPARATOR
     BUTTON      ID_POST_TOGRESULTSLABELS
     BUTTON      ID_POST_LISTNODALRESULTS
     BUTTON      ID_POST_LISTELEMENTRESULT
     BUTTON      ID_POST_DELETEALLRESULTSSETS
+   //momo
 END
 
 IDR_PROJ TOOLBAR 24, 24
@@ -316,12 +437,17 @@ END
 
 IDR_QFILTER TOOLBAR 24, 24
 BEGIN
+    // momo
+    BUTTON      ID_QFILTER_ALL
+    // momo
     BUTTON      ID_QFILTER_NODES
     BUTTON      ID_QFILTER_ELEMENTS
     BUTTON      ID_QFILTER_POINTS
     BUTTON      ID_QFILTER_CURVES
     BUTTON      ID_QFILTER_SURFACE
-    BUTTON      ID_QFILTER_ALL
+    // momo
+    // momo// BUTTON      ID_QFILTER_ALL
+    // momo
 END
 
 IDR_DIMS TOOLBAR 24, 24
@@ -373,7 +499,10 @@ BEGIN
         POPUP "Import"
         BEGIN
             MENUITEM "Ideas UNV",                   ID_IMPORT_UNV
-            MENUITEM "Nastran DAT",                 ID_IMPORT_DAT
+            //momo
+            // momo// MENUITEM "Nastran DAT",                 ID_IMPORT_DAT
+            MENUITEM "Nastran DAT/DECK",                 ID_IMPORT_DAT
+            //momo
             MENUITEM "IGES",                        ID_IMPORT_IGES
             MENUITEM "Nastran OP2",                 ID_IMPORT_OP2
             MENUITEM "Import DXF",                  ID_IMPORT_IMPORTDXF
@@ -424,6 +553,30 @@ BEGIN
             MENUITEM "Double", ID_TOGGLE_BUFFER_DOUBLE 
             MENUITEM "List Current State", ID_TOGGLE_BUFFER_LIST 
         END
+        POPUP "Deselect Drag Box - Right to Left"
+        BEGIN
+            MENUITEM "Deselect Cadr On", ID_DESELECT_CADR_ON 
+            MENUITEM "Deselect Cadr Off", ID_DESELECT_CADR_OFF
+        END
+        POPUP "Select Response"
+        BEGIN
+            MENUITEM "Circle", ID_SELECT_MODE_CIRCLE 
+            MENUITEM "Color Change", ID_SELECT_MODE_COLOR
+            MENUITEM "Circle And Color Change", ID_SELECT_MODE_CIRCLE_COLOR
+        END
+        POPUP "Global System"
+        BEGIN
+            POPUP "Origin"
+            BEGIN
+               MENUITEM "Origin Axis On", ID_AXIS_ORIGIN_ON 
+               MENUITEM "Origin Axis Off", ID_AXIS_ORIGIN_OFF
+            END
+            POPUP "Corner"
+            BEGIN
+               MENUITEM "Corner Axis On", ID_AXIS_CORNER_ON 
+               MENUITEM "Corner Axis Off", ID_AXIS_CORNER_OFF
+            END
+        END
         // MoMo_End
         MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
         MENUITEM "HighLight Limit",             ID_VIEW_HIGHLIGHTLIMIT
@@ -440,12 +593,17 @@ BEGIN
             MENUITEM "BOTTOM XZ",                   ID_VIEW_BOTTOMXZ
         END
         MENUITEM "Select All",                  ID_VIEW_SELECTALL
-        MENUITEM "Display All",                 ID_VIEW_DISPLAYALL
+        // momo
+        // momo// MENUITEM "Display All",                 ID_VIEW_DISPLAYALL
+        // momo
         MENUITEM "Display Selected",            ID_VIEW_DISPLAYSELECTED
         MENUITEM "Hide Entities",               ID_VIEW_HIDEENTITIES
         MENUITEM "Show All Hidden",             ID_VIEW_SHOWALLHIDDEN
         MENUITEM "Display Group",               ID_VIEW_DISPLAYGROUP
-        MENUITEM "Line",                        ID_VIEW_LINE
+        // momo
+        // momo// MENUITEM "Line",                        ID_VIEW_LINE
+        MENUITEM "Wireframe",                        ID_VIEW_LINE
+        // momo
         MENUITEM "Shaded",                      ID_VIEW_SHADED
         MENUITEM "Label Entities",              ID_VIEW_LABELENTITIES
         MENUITEM "Nodes On/Off",                ID_VIEW_NODESOFF
@@ -481,6 +639,11 @@ BEGIN
             MENUITEM "Element On/Off",              ID_VISABILITY_ELEMENTON
             MENUITEM "Boundary Conditions",         ID_VISABILITY_BOUNDARYCONDITIONS
             MENUITEM "Curves On/Off",               ID_VISABILITY_CURVESON
+            // momo
+            MENUITEM "Labels On/Off",               ID_VISABILITY_LABELESON
+            MENUITEM "Geom Elements On/Off",               ID_VISABILITY_GEOMSON
+            MENUITEM "Finite Elements On/Off",               ID_VISABILITY_FINITESON
+            // momo
             POPUP "Surfaces"
             BEGIN
                 MENUITEM "Surfaces On/Off",             ID_SURFACES_SURFACESON
@@ -836,14 +999,30 @@ BEGIN
         MENUITEM "Create Thermal Temp BC",      ID_LOADSBC_CREATETHERMALTEMPBC
         MENUITEM "Create Thermal Nett Flux Load", ID_LOADSBC_CREATETHERMALNETTFLUXLOAD
     END
-    POPUP "Solution"
+    //momo
+    //POPUP "Solution"
+    //BEGIN
+    //    MENUITEM "List Solutions",              ID_SOLUTION_LISTSOLUTIONSEQUENCES
+    //    MENUITEM "Create Solution",             ID_SOLUTION_CREATESOLUTIONSEQUENCE
+    //    MENUITEM "Create Solution Step",        ID_SOLUTION_CREATE
+    //    MENUITEM SEPARATOR
+    //    MENUITEM "Solve",                       ID_SOLVER_SOLVE
+    //END
+    POPUP "Solution Setup"
     BEGIN
-        MENUITEM "List Solutions",              ID_SOLUTION_LISTSOLUTIONSEQUENCES
         MENUITEM "Create Solution",             ID_SOLUTION_CREATESOLUTIONSEQUENCE
         MENUITEM "Create Solution Step",        ID_SOLUTION_CREATE
-        MENUITEM SEPARATOR
-        MENUITEM "Solve",                       ID_SOLVER_SOLVE
+        MENUITEM "List Solutions",              ID_SOLUTION_LISTSOLUTIONSEQUENCES
     END
+    POPUP "Decks Mods"
+    BEGIN
+        MENUITEM "Decks Mods",                ID_DECKS_MODS_1
+    END
+    POPUP "Solve"
+    BEGIN
+        MENUITEM "Internal M3D Solver",         ID_SOLVER_SOLVE
+    END
+    //momo
     POPUP "Post-Processing"
     BEGIN
         MENUITEM "List Res Set",                ID_POST_LISTRESSET
@@ -851,6 +1030,9 @@ BEGIN
         MENUITEM "List Selected Res Set",       ID_POST_LISTSELECTEDRESSET
         MENUITEM "Select Contour Results",      ID_POST_SELECTRESULTS
         MENUITEM "Select Deformed Results",     ID_POST_SELECTDEFORMEDRESULTS
+        //momo
+        MENUITEM "Import Nastran OP2",     ID_IMPORT_OP2
+        //momo
         MENUITEM "Select Vector Results",       ID_POST_SELECTVECTORRESULTS
         MENUITEM "Clear Results Vectors",       ID_POST_CLEARRESULTSVECTORS
         MENUITEM "Display Contour Raw Results", ID_POST_CONTOURRAWDATA
@@ -928,14 +1110,48 @@ BEGIN
         MENUITEM "Project",                     ID_EDIT_PROJECT
         MENUITEM "Projected to Workplane",      ID_EDIT_ONSCREENLOCATION
         // MoMo_Start
-        MENUITEM "No",                          ID_EDIT_NO
+        MENUITEM SEPARATOR
         MENUITEM "Yes",                         ID_EDIT_YES
+        MENUITEM "No",                          ID_EDIT_NO
+        MENUITEM SEPARATOR
         // MoMo_End
         MENUITEM "Cancel",                      ID_EDIT_CANCEL
         MENUITEM "Done",                        ID_EDIT_DONE
     END
 END
 
+//momo
+IDR_POPUP_EDIT_MANAGER MENU
+BEGIN
+    POPUP "Edit"
+    BEGIN
+        MENUITEM "Deselect All",                ID_EDIT_DES
+        MENUITEM "Filter",                      ID_EDIT_FILTERNONE
+        MENUITEM "Information",                 ID_EDIT_INFORMATION
+        MENUITEM "Related To",                  ID_EDIT_RELATEDTO
+        MENUITEM "Label",                       ID_EDIT_LABEL
+        MENUITEM SEPARATOR
+        POPUP "Others"
+        BEGIN
+           MENUITEM "Repeat Last Command",         ID_EDIT_REPEATLASTCOMMAND
+           MENUITEM "Key In",                      ID_EDIT_KEYIN
+           MENUITEM "Pick",                        ID_EDIT_PICK
+           MENUITEM "Between",                     ID_EDIT_BETWEEN
+           MENUITEM "Translated From",             ID_EDIT_TRANSLATEDFROM
+           MENUITEM "Polar Translated From",       ID_EDIT_POLARTRANSLATEDFROM
+           MENUITEM "Intersection",                ID_EDIT_IITERSECTION
+           MENUITEM "Project",                     ID_EDIT_PROJECT
+           MENUITEM "Projected to Workplane",      ID_EDIT_ONSCREENLOCATION
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Yes",                         ID_EDIT_YES
+        MENUITEM "No",                          ID_EDIT_NO
+        MENUITEM SEPARATOR
+        MENUITEM "Cancel",                      ID_EDIT_CANCEL
+        MENUITEM "Done",                        ID_EDIT_DONE
+    END
+END
+//momo
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -974,7 +1190,7 @@ BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
     // MoMo_Start
     // MoMo// LTEXT           "M3D, Version 7.8 09,03,2025 64BIT WIN11",IDC_STATIC,43,14,247,8,SS_NOPREFIX
-    LTEXT           "M3D, Version 7.9 09,03,2025 64BIT WIN11",IDC_STATIC,43,14,247,8,SS_NOPREFIX
+    LTEXT           "M3D, Version 7.9.35 09,03,2025 64BIT WIN11",IDC_STATIC,43,14,247,8,SS_NOPREFIX
     // MoMo_End
     LTEXT           "Copyright (C) 2010 - 2025",IDC_STATIC,43,26,114,8
     DEFPUSHBUTTON   "OK",IDOK,261,123,50,14,WS_GROUP
@@ -997,6 +1213,9 @@ BEGIN
     EDITTEXT        IDC_EDIT1,168,7,142,40,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
     EDITTEXT        IDC_EDIT2,7,7,155,40,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT3,14,58,288,20,ES_AUTOHSCROLL
+    //// momo ModernOpenGL_Start
+    ////EDITTEXT        IDC_EDIT_VIEW_SCALES, 65,10,50,14,ES_AUTOHSCROLL
+    //// momo ModernOpenGL_End
 END
 
 IDD_DIALOG2 DIALOGEX 0, 0, 274, 171
@@ -1196,7 +1415,10 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,0
+ // momo
+ // momo// FILEVERSION 1,0,0,0
+ FILEVERSION 7,9,3,35
+ // momo
  PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -1214,12 +1436,18 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "M3d Bespoke Engineering Solutions"
             VALUE "FileDescription", "M3d Model File"
-            VALUE "FileVersion", "5.0"
+            // momo
+            // momo// VALUE "FileVersion", "5.0"
+            VALUE "FileVersion", "7.90"
+            // momo
             VALUE "InternalName", "M3da.exe"
             VALUE "LegalCopyright", "M3d Bespoke Enginnering Solutions.  All rights reserved."
             VALUE "OriginalFilename", "M3da.exe"
             VALUE "ProductName", "M3d"
-            VALUE "ProductVersion", "6.4"
+            // momo
+            // momo// VALUE "ProductVersion", "6.4"
+            VALUE "ProductVersion", "7.9.3.35"
+            // momo
         END
     END
     BLOCK "VarFileInfo"
@@ -1454,10 +1682,16 @@ BEGIN
     ID_GROUP_LISTGROUPS     "List groups\n[Group] List"
     ID_VIEW_LOCATEEYE2      "Locate the centre of rotation for dynamic viewing."
     ID_VIEW_RESETVIEW2      "Import Ideas universal file."
-    ID_GROUP_ADDTOGROUP2    "Import Nastran DECK."
+    //momo
+    // momo// ID_GROUP_ADDTOGROUP2    "Import Nastran DECK."
+    ID_GROUP_ADDTOGROUP2    "Import Nastran results DAT/DECK file.\n[FE] Import Nastran DAT/DECK"
+    //momo
     ID_GROUP_REMOVEFROMGROUP2 "Import IGES geometry file."
     ID_GROUP_ADDGROUP2      "Add a group to the current group."
-    ID_VIEW_NODESOFF        "Nodes On/Off, at the Assembly Level. Double click a node to activate an assembly.\n[Draw] Nodes On/Off, at the Assembly Level"
+    //momo
+    // momo// ID_VIEW_NODESOFF        "Nodes On/Off, at the Assembly Level. Double click a node to activate an assembly.\n[Draw] Nodes On/Off, at the Assembly Level"
+    ID_VIEW_NODESOFF        "Nodes On/Off, at the Assembly Level. Double click a node to activate an assembly.\n[Show/Hide] Nodes On/Off, at the Assembly Level"
+    //momo
     ID_GROUP_REMOVEGROUP2   "Remove a group to the current group."
     ID_GROUP_SETCURRENT2    "Set the current group."
     ID_CREATE_POINT         "Create Points\n[Create] Points"
@@ -1472,16 +1706,35 @@ END
 STRINGTABLE
 BEGIN
     ID_EDIT_DES             "De-select all objects."
-    ID_VIEW_DISPLAYALL      "Display all objects that are SET TO VISIBLE. \n[Draw] Display All (If Set to Visible)\n"
+    // momo
+    // momo// ID_VIEW_DISPLAYALL      "Display all objects that are SET TO VISIBLE. \n[Draw] Display All (If Set to Visible)\n"
+    // momo
     ID_EDIT_INFORMATION     "Information\n[Edit] Information"
-    ID_VIEW_DISPLAYALL2     "Display all objects."
-    ID_EDIT_INFORMATION2    "Show information for selected objects."
-    ID_EDIT_KEYIN2          "Type in a translation for a command."
+    //momo
+    //ID_VIEW_DISPLAYALL2     "Display all objects."
+    //ID_EDIT_INFORMATION2    "Show information for selected objects."
+    //ID_EDIT_KEYIN2          "Type in a translation for a command."
+    // momo
+    // momo// ID_VIEW_DISPLAYALL2     "Key In"
+    // momo
+    ID_EDIT_INFORMATION2    "Pick"
+    ID_EDIT_KEYIN2          "Between"
+    //momo
     ID_EDIT_PICK2           "Pick two objects to specify a translation vector for a command."
-    ID_EDIT_BETWEEN2        "returns a location between two other locations."
-    ID_EDIT_TRANSLATEDFROM2 "returns a location translated from another location."
-    ID_EDIT_FILTERNONE2     "Set the object filter."
-    ID_VIEW_DISPLAYSELECTED "Display only selected objects.From the main window, each subsquent selection ADDS to the selection buffer. A filter can be used to select different types of objects.\n[Draw] Display Selected (If Set to Visible)"
+    //momo
+    //ID_EDIT_BETWEEN2        "returns a location between two other locations."
+    //ID_EDIT_TRANSLATEDFROM2 "returns a location translated from another location."
+    //ID_EDIT_FILTERNONE2     "Set the object filter."
+    ID_EDIT_BETWEEN2        "Filter"
+    ID_EDIT_TRANSLATEDFROM2 "Cancel"
+    ID_EDIT_FILTERNONE2     "Done"
+    ID_EDIT_YES "Yes"
+    ID_EDIT_NO "No"
+    ID_EDIT_POLARTRANSLATEDFROM "Polar Translated From"
+    ID_EDIT_ONSCREENLOCATION "Projected to Workplane"      
+    // momo// ID_VIEW_DISPLAYSELECTED "Display only selected objects.From the main window, each subsquent selection ADDS to the selection buffer. A filter can be used to select different types of objects.\n[Draw] Display Selected (If Set to Visible)"
+    ID_VIEW_DISPLAYSELECTED "Display only selected objects.From the main window, each subsquent selection ADDS to the selection buffer. A filter can be used to select different types of objects.\n[Show/Hide] Display Selected (If Set to Visible)"
+    //momo
     ID_VIEW_DISPLAYGROUP    "Display active group\n[Group] Display Active"
 END
 
@@ -1620,16 +1873,27 @@ BEGIN
     ID_MESH_SWEEPELEMENTS   "Sweep elements\n[FE] Sweep Elements"
     ID_MESH_SWEEPELEMENTS2  "Sweep elements."
     ID_VIEW_SHADEDEDGES2    "Display shaded edges of elements."
-    ID_VISABILITY_NODEON    "Toggle display of nodes\n[Draw] Toggle Node Visibility"
-    ID_VISABILITY_ELEMENTON "Toggle display of elements\n[Draw] Toggle Element Visibility"
-    ID_VISABILITY_NODEON2   "Toggle Node Visability"
-    ID_VISABILITY_CURVESON  "Toggle display of curves\n[Draw] Display Curves"
+    // momo
+    // momo// ID_VISABILITY_NODEON    "Toggle display of nodes\n[Draw] Toggle Node Visibility"
+    // momo// ID_VISABILITY_ELEMENTON "Toggle display of elements\n[Draw] Toggle Element Visibility"
+    // momo// ID_VISABILITY_NODEON2   "Toggle Node Visability"
+    // momo// ID_VISABILITY_CURVESON  "Toggle display of curves\n[Draw] Display Curves"
+    ID_VISABILITY_NODEON    "Toggle display of nodes\n[Show/Hide] Toggle Node Visibility"
+    ID_VISABILITY_ELEMENTON "Toggle display of elements\n[Show/Hide] Toggle Element Visibility"
+    ID_VISABILITY_CURVESON  "Toggle display of curves\n[Show/Hide] Display Curves"
+    ID_VISABILITY_LABELESON  "Toggle display of labeles\n[Draw] Display Labels"
+    ID_VISABILITY_GEOMSON  "Toggle display of geom elements\n[Show/Hide] Display Geom Elements"
+    ID_VISABILITY_FINITESON  "Toggle display of finite elements\n[Show/Hide] Display Finite Elements"
+    // momo
 END
 
 STRINGTABLE
 BEGIN
     ID_VISABILITY_ELEMENTON2 "Toggle Element Visability"
-    ID_VISABILITY_ALLVISABLE "Make all objects visible\n[Draw] All Visible"
+    // momo
+    // momo// ID_VISABILITY_ALLVISABLE "Make all objects visible\n[Draw] All Visible"
+    ID_VISABILITY_ALLVISABLE "Make all objects visible\n[Show/Hide] All Visible"
+    // momo
     ID_VIEW_NODESASK2       "Displat the nodes as *"
     ID_VIEW_LABELENTITIES   "Label selected entities with ID Label\n[Draw] Label Selected Entities"
     ID_QWANTA_IMPORTCATALOGUE "Import Parts Catalogue"
@@ -1670,7 +1934,10 @@ BEGIN
     ID_TOOLS_SCALE2         "Scale selected objects."
     ID_TOOLS_REFLECT2       "Reflect selected objects."
     ID_TOOLS_LISTALLPROPERTIES "List all properties in current mesh"
-    ID_EXPORT_CURRENTMESTTONAS "Export current mesh to Nastran."
+    //momo
+    // momo// ID_EXPORT_CURRENTMESTTONAS "Export current mesh to Nastran."
+    ID_EXPORT_CURRENTMESTTONAS "Export current mesh to Nastran.\n[FE] Export current mesh to Nastran"
+    //momo
     ID_NODEMODIFY_DEFINITIONCOORDSYS 
                             "Change the nodal definition coordinate system."
     ID_ELEMENTTYPE_RIGID    "Set element type to RIGID SPIDER\n[Set Element] RIGID SPIDER"
@@ -1698,8 +1965,14 @@ STRINGTABLE
 BEGIN
     ID_SOLVER_CREATERESTRAINT "A '1' indicates the DOF is restrained. A space skips the DOF. For example ' 1 1' sets DOF 2 and 3 to zero for TRANS. Does not support enforced displacements. Manually modify deck for enforced displacements. \n[BC] Nodal Restraint"
     ID_SURFACESON_SURFACECURVES "Display curves on surfaces"
-    ID_SURFACES_SURFACESON  "Toggle display of surfaces\n[Draw] Display Surfaces"
-    ID_SURFACES_SURFACESON2 "Toggle display of points\n[Draw] Toggle Point Visibility"
+    // momo
+    // momo// ID_SURFACES_SURFACESON  "Toggle display of surfaces\n[Draw] Display Surfaces"
+    ID_SURFACES_SURFACESON  "Toggle display of surfaces\n[Show/Hide] Display Surfaces"
+    // momo
+    // momo on off button and menu
+    // momo// ID_SURFACES_SURFACESON2 "Toggle display of points\n[Draw] Toggle Point Visibility"
+    ID_VISABILITY_POINTSON "Toggle display of points\n[Show/Hide] Toggle Point Visibility"
+    // momo on off button and menu
     ID_CIRCLE_CIRCLECENRERADIUS 
                             "Create circle by selecting a centre point and radius\n[Create] Centre + Radius"
     ID_CIRCLE_CIRCLE3POINTS "Create circle through three points\n[Create] 3 points"
@@ -1723,8 +1996,11 @@ BEGIN
     ID_ANALYSIS_CREATEMOMENT "Create a moment on node. Use a space as a separator. For example, '1.5 -200 0'\n[BC] Moment"
     ID_ANALYSIS_CREATEPRESSURE 
                             "Create a pressure on shell element\n[BC] Pressure"
-    ID_VISABILITY_BOUNDARYCONDITIONS 
-                            "Toggle display of boundary conditions\n[Draw] Toggle Boundary Condition Visibility"
+    // momo
+    // momo// ID_VISABILITY_BOUNDARYCONDITIONS 
+    // momo//                         "Toggle display of boundary conditions\n[Draw] Toggle Boundary Condition Visibility"
+    ID_VISABILITY_BOUNDARYCONDITIONS "Toggle display of boundary conditions\n[Show/Hide] Toggle Boundary Condition Visibility"
+    // momo
     ID_OPTIONS_DEFORMATIONSCALE2 "Export results to .CSV file."
     ID_ELEMENTTYPE_ROD2     "Increase node label by fixed increment."
     ID_VIEW_DISPLAYELEMENTCOORDSYS2 "Increase node label by fixed increment."
@@ -1782,7 +2058,10 @@ END
 STRINGTABLE
 BEGIN
     ID_WORKPLAIN_WPCENTRE2  "Centre the workplain at a specified point."
-    ID_IMPORT_OP2           "Import Nastran results OP2 file."
+    //momo
+    // momo// ID_IMPORT_OP2           "Import Nastran results OP2 file."
+    ID_IMPORT_OP2 "Import Nastran results OP2 file.\n[POST] Import Nastran OP2" 
+    //momo
     ID_POST_SELECTRESULTS   "Select contour results\n[POST] Select Contour Results"
     ID_POST_SELECTRESULTS2  "Select contour results."
     ID_POST_LISTRESSET2     "List all results sets."
@@ -1828,6 +2107,10 @@ BEGIN
     ID_INDC_LC              "LC               "
     ID_INDC_BC              "BC              "
     IDR_DRAW                "Draw"
+    // momo on off button and menu
+    IDR_SHOWHIDE            "Show/Hide"
+    IDR_SELECTION_TOOLBAR   "Selection"
+    // momo on off button and menu
     ID_INDICATOR_TS         "TS               "
     IDR_CREATE              "Create"
     ID_INDC_LC2             "LC               "
@@ -1875,10 +2158,17 @@ STRINGTABLE
 BEGIN
     IDP_OLE_INIT_FAILED     "OLE initialization failed.  Make sure that the OLE libraries are the correct version."
     IDD_INPUT               "INPUT"
-    IDS_EDIT1               "EIDIT1"
+    //momo
+    // momo// IDS_EDIT1               "EIDIT1"
+    //momo
+    IDS_EDIT1               "Edit1"
     IDS_EDIT2               "Edit2"
     IDS_EDIT3               "Edit3"
     IDS_DRAW                "Draw"
+    // momo on off button and menu
+    IDS_SHOWHIDE            "Show/Hide"
+    IDS_SELECTION_TOOLBAR   "Selection"
+    // momo on off button and menu
     IDS_EDIT                "Edit"
     IDS_FE                  "FE"
     IDS_GROUP               "Groups"
@@ -1933,7 +2223,10 @@ END
 STRINGTABLE
 BEGIN
     ID_CHECKS_FREEFACEDSP   "Element free face check."
-    ID_MESH_SHELLCOATSOLIDELEMENTS "Shell coat solid elements."
+    // momo
+    // momo// ID_MESH_SHELLCOATSOLIDELEMENTS "Shell coat solid elements."
+    ID_MESH_SHELLCOATSOLIDELEMENTS "Shell coat solid elements.\n[FE] Shell coat solid elements"
+    // momo
     ID_CHECKS_FREEEDGEDISPLAY 
                             "Display the free edges of selected elements\n[Utils] Display Free Edges of Selected Elements"
     ID_MESH_SHELLCOATSOLIDELEMENTS2 "Shell coat solid element free faces."
@@ -1959,7 +2252,10 @@ BEGIN
     ID_ELEMENTMODIFIY_REVERSE2 
                             "Toggle display of element material directions."
     ID_OPTIONS_SETCOLOURBAR "Set colour bar scale\n[POST] Set Colour Bar Scale"
-    ID_VISABILITY_COORDSON  "Toggle display of coordinate systems\n[Draw] Display Coordinate Systems"
+    // momo
+    // momo// ID_VISABILITY_COORDSON  "Toggle display of coordinate systems\n[Draw] Display Coordinate Systems"
+    ID_VISABILITY_COORDSON  "Toggle display of coordinate systems\n[Show/Hide] Display Coordinate Systems"
+    // momo
     ID_MESHQND2             "Set next group active\n[Group] Next"
     ID_IMPORT_TXTTOGROUPS2  "Set previous group active\n[Group] Previous"
     ID_VIEW_DISPLAYMATERIALDURECTION2 "Display element material directions."
@@ -1994,7 +2290,10 @@ BEGIN
     ID_POST_SELECTVECTORRESULTS 
                             "Select vector results for arrow display\n[POST] Select Vectors"
     ID_OPTIONS_VECTORSCALE2 "Set Vector Length Scale Factor"
-    ID_POST_CLEARRESULTSVECTORS "Remove Results Vectors from Display"
+    // momo
+    // momo// ID_POST_CLEARRESULTSVECTORS "Remove Results Vectors from Display"
+    ID_POST_CLEARRESULTSVECTORS "Remove Results Vectors from Display\n[POST] Clear Results Vectors"
+    // momo
     ID_POST_SELECTVECTORRESULTS2 "Select vector results for arrow display."
     ID_BUTTON33305          "Set Vector Length Scale Factor"
     ID_BUTTON33306          "No of Animation Frames"
@@ -2091,8 +2390,11 @@ BEGIN
     ID_CURVETOOLS_LINETANGENTTO2CIRCLES2 "Create a Line Tangent to 2 Circles"
     ID_CURVETOOLS_POINTSONCIRCLE "Create points around a circle."
     ID_ORTHO                "Ortgogonal Line Drawing Mode"
-    ID_VIEW_TOGGLECONTROLPOINTVISABILITY 
-                            "Toggle display of control points\n[Draw] Toggle Control Point Visibility"
+    // momo
+    //ID_VIEW_TOGGLECONTROLPOINTVISABILITY 
+    //                        "Toggle display of control points\n[Draw] Toggle Control Point Visibility"
+    ID_VIEW_TOGGLECONTROLPOINTVISABILITY "Toggle display of control points\n[Show/Hide] Toggle Control Point Visibility"
+    // momo
     ID_BUTTON33403          "Toggle Control Point Visability"
     ID_VIEW_TOGGLECONTROLPOINTVISABILITY2 
                             "Toggle On and Off All Objects Control Points"
@@ -2136,11 +2438,28 @@ BEGIN
                             "Angular dimension by three points\n[Dimension] Angular by 3 points"
     ID_DIMENSIONTOOLS_DRAGDIM 
                             "Reposition dimension by dragging\n[Dimension] Drag Dimension"
-    IDR_DIMS                "Dimensioning"
+    // momo
+    // momo// IDR_DIMS                "Dimensioning"
+    IDR_DIMS                "Dimension"
+    // momo
     ID_DIMENSIONTOOLS_ALIGNEDDIM2 "Create an aligned dimension."
     ID_DIMENSIONTOOLS_LINEARDIM2 "Create a horizontal linear dimension."
     ID_DIMENSIONTOOLS_HORIZONTALDIM2 "Create horizonatal linear dimension"
     ID_DIMENSIONTOOLS_VERTICALDIM2 "Create vertical linear dimension"
+END
+
+STRINGTABLE
+BEGIN
+    IDR_BC           "Boundary Conditions"
+    IDR_EDIT         "Edit"
+    IDR_ELTYPE       "Element Types"
+    IDR_FE           "F.E."
+    IDR_FILE         "File"
+    IDR_GROUP        "Groups"
+    IDR_POST         "Post Processing"
+    IDR_PROJ         "Projection"
+    IDR_QFILTER      "Quick Filter"
+    IDR_UTILITIES    "Utilities"
 END
 
 STRINGTABLE
@@ -2169,8 +2488,27 @@ BEGIN
     ID_TOGGLE_BUFFER_DOUBLE "Single"
     ID_TOGGLE_BUFFER_SINGLE "Double"
     ID_TOGGLE_BUFFER_LIST "List Current State"
+    ID_DESELECT_CADR_ON "Enable Deselect Cadr\n[Selection] Deselect Cadr On"
+    ID_DESELECT_CADR_OFF "Disable Deselect Cadr\n[Selection] Deselect Cadr Off"
+    ID_SELECT_MODE_CIRCLE "Show selected object with circle\n[Selection] Circle"
+    ID_SELECT_MODE_COLOR "Show selected object by changing its color\n[Selection] Color Change"
+    ID_SELECT_MODE_CIRCLE_COLOR "Show selected object with circle and by changing its color\n[Selection] Circle And Color Change"
+    ID_EDIT_DESLECTALL "Deselect All Objects\n[Selection] Deselect All"
+    ID_PICKING_FULLBODY "Select object when entire body is within selection box\n[Selection] Full Body"
+    ID_PICKING_PARTOFBODY "Select object when any part of it is within selection box\n[Selection] Part of Body"
+    ID_PICKING_CENTEROFBODY "Select object when its center is within selection box\n[Selection] Center of Body"
     // MoMo_End
 END
+// momo
+STRINGTABLE
+BEGIN
+    ID_AXIS_CORNER_ON     "Corner Axis On\n [View] Corner Axis On"
+    ID_AXIS_CORNER_OFF    "Corner Axis Off\n [View] Corner Axis Off"
+    ID_AXIS_ORIGIN_ON     "Origin Axis On\n [View] Origin Axis On"
+    ID_AXIS_ORIGIN_OFF    "Origin Axis Off\n [View] Origin Axis Off"
+    IDR_MENU_COMMANDS     "Menu Commands"
+END
+// momo
 
 STRINGTABLE
 BEGIN
@@ -2243,7 +2581,10 @@ BEGIN
     ID_VIEW_ONWP2           "View on Workplane"
     IDS_STATUS_PANE1        "Pane 1"
     IDS_STATUS_PANE2        "Pane 2"
-    IDS_TOOLBAR_STANDARD    "Standard"
+    // momo
+    // momo// IDS_TOOLBAR_STANDARD    "Standard"
+    IDS_TOOLBAR_FILE        "File"
+    // momo
     IDS_TOOLBAR_CUSTOMIZE   "Customize..."
 END
 
@@ -2308,14 +2649,20 @@ END
 
 STRINGTABLE
 BEGIN
-    IDR_MAINFRAME           "M3d\n\nM3da\nM3da Files (*.m3d)\n.m3d\nM3da.Document\nM3da.Document"
+    //momo
+    // momo// IDR_MAINFRAME           "M3d\n\nM3da\nM3da Files (*.m3d)\n.m3d\nM3da.Document\nM3da.Document"
+    IDR_MAINFRAME           "M3D 7.9.35\n\nM3da\nM3da Files (*.m3d)\n.m3d\nM3da.Document\nM3da.Document"
+    IDR_FULLVERSION         "M3D 7.9.35"
+    //momo
 END
 
-STRINGTABLE
-BEGIN
-    IDS_STRING349           "Profection"
-    IDS_DRAW2               "Draw"
-END
+// momo
+//STRINGTABLE
+//BEGIN
+//    IDS_STRING349           "Profection"
+//    IDS_DRAW2               "Draw"
+//END
+// momo
 
 STRINGTABLE
 BEGIN
@@ -2373,11 +2720,11 @@ END
 // MoMo_Start
 STRINGTABLE
 BEGIN
-    ID_EXP01 "Click to check experiment code 1\nEperiment Button 1"
-    ID_EXP02 "Click to check experiment code 2\nEperiment Button 2"
-    ID_EXP03 "Click to check experiment code 3\nEperiment Button 3"
-    ID_EXP04 "Click to check experiment code 4\nEperiment Button 4"
-    ID_EXP05 "Click to check experiment code 5\nEperiment Button 5"
+    ID_EXP01 "Click to check experiment code 1\nExperiment Button 1"
+    ID_EXP02 "Click to check experiment code 2\nExperiment Button 2"
+    ID_EXP03 "Click to check experiment code 3\nExperiment Button 3"
+    ID_EXP04 "Click to check experiment code 4\nExperiment Button 4"
+    ID_EXP05 "Click to check experiment code 5\nExperiment Button 5"
 END
 // MoMo_End
 
@@ -2401,6 +2748,7 @@ STRINGTABLE
 BEGIN
     ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle Status Bar"
 END
+
 
 #endif    // English (United Kingdom) resources
 /////////////////////////////////////////////////////////////////////////////

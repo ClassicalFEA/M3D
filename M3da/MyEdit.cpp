@@ -1,4 +1,4 @@
-// MyEdit.cpp : implementation file
+﻿// MyEdit.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -7,13 +7,18 @@
 // MoMo_Start
 #include "GLOBAL_VARS.h"
 // MoMo_End
-
 // CMyEdit
 
 IMPLEMENT_DYNAMIC(CMyEdit, CEdit)
 
-CMyEdit::CMyEdit() {
+// momo change command box color
+// CMyEdit::CMyEdit() {
+//}
+CMyEdit::CMyEdit()
+    : m_bgColor(::GetSysColor(COLOR_WINDOW)) {
+	m_brush.CreateSolidBrush(m_bgColor);
 }
+// momo change command box color
 
 CMyEdit::~CMyEdit() {
 }
@@ -22,6 +27,9 @@ BEGIN_MESSAGE_MAP(CMyEdit, CEdit)
 ON_CONTROL_REFLECT(EN_CHANGE, &CMyEdit::OnEnChange)
 ON_WM_SYSCOMMAND()
 ON_WM_CLOSE()
+// momo change command box color
+ON_WM_CTLCOLOR_REFLECT()
+// momo change command box color
 END_MESSAGE_MAP()
 
 // CMyEdit message handlers
@@ -34,6 +42,9 @@ void CMyEdit::OnEnChange() {
 
 	// TODO:  Add your control notification handler code here
 	outtextMSG("AA");
+	// momo change command box color
+	CheckCommandEditColor();
+	// momo change command box color
 }
 
 void CMyEdit::OnSysCommand(UINT nID, LPARAM lParam) {
@@ -82,3 +93,18 @@ BOOL CMyEdit::PreTranslateMessage(MSG* pMsg) {
 		return CEdit::PreTranslateMessage(pMsg);
 	}
 }
+
+// momo change command box color
+void CMyEdit::SetBgColor(COLORREF clr) {
+	m_bgColor = clr;
+	if (m_brush.GetSafeHandle())
+		m_brush.DeleteObject();
+	m_brush.CreateSolidBrush(m_bgColor);
+	Invalidate();
+}
+
+HBRUSH CMyEdit::CtlColor(CDC* pDC, UINT /*nCtlColor*/) {
+	pDC->SetBkColor(m_bgColor);
+	return (HBRUSH) m_brush.GetSafeHandle();
+}
+// momo change command box color

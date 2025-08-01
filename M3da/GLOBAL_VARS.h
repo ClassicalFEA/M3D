@@ -9,7 +9,6 @@ class PropTable;
 class MatTable;
 // MoMo_End
 
-
 extern int gBACKGRD_COL;
 extern bool gDOUBLEBUFF;
 extern double gZOOM_SCL;
@@ -41,7 +40,62 @@ struct SeedValues {
 };
 extern SeedValues SeedVals;
 extern CString LastRequest;
+extern BOOL CurrentBufferResult;
+extern BOOL m_leftIsDragging;
+extern int m_x1;
+extern int m_y1;
+extern int m_x2;
+extern int m_y2;
+extern BOOL DeSelectAll;
+extern BOOL StartLoad;
 // MoMo_End
+// momo
+const int MAX_RESSETS = 10000;
+extern int SelRowsCurrent[MAX_RESSETS][2];
+extern int SelRowsNew[MAX_RESSETS][2];
+extern bool DeselectCadrMode;
+extern int SelectMode;
+extern int MainDrawState;
+extern bool AxisOrigin;
+extern bool AxisCorner;
+// momo
+// momo change command box color
+extern BOOL CommandIsActive;
+extern BOOL CommandIsActiveNewState;
+// momo change command box color
+// momo on off button and menu
+struct ButtonPushed {
+		bool Points = false;
+		bool WireFrame = true;
+		bool Shaded = false;
+		bool ControlPoint = false;
+		bool DisplayAll = true;
+		bool DisplaySelected = false;
+		bool CurvesOn = false;
+		bool SurfaceOn = false;
+		bool CoordsOn = false;
+		bool NodeOn = false;
+		bool ElementOn = false;
+		bool BoundaryConditionsOn = false;
+		bool ShellThicknessOn = false;
+		bool ElementCoordSysOn = false;
+		bool SurfaceDirectionMarkersOn = false;
+		bool WorkplaneOn = false;
+		bool LabelOn = false;
+		bool GeomOn = false;
+		bool FiniteOn = false;
+		bool QfilterNodesOn = false;
+		bool QfilterElementsOn = false;
+		bool QfilterPointsOn = false;
+		bool QfilterCurvesOn = false;
+		bool QfilterSurfacesOn = false;
+		bool SelectedOn = false;
+		bool FullBody = true;
+		bool PartOfBody = false;
+		bool CenterOfBody = true;
+};
+extern ButtonPushed ButtonPush;
+// momo on off button and menu
 extern BOOL gDSP_BACK;
 extern BOOL gORTHO;
 extern DSP_Triad tOrient;
