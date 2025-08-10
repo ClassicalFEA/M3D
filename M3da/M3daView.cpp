@@ -70,8 +70,8 @@ ON_COMMAND(ID_PROJ_TOP, &CM3daView::OnProjTop)
 ON_COMMAND(ID_PROJ_LEFTXY, &CM3daView::OnProjLeftxy)
 ON_COMMAND(ID_PROJ_RIGHT, &CM3daView::OnProjRight)
 ON_COMMAND(ID_PROJ_BACK, &CM3daView::OnProjBack)
-ON_COMMAND(ID_PROJSO1, &CM3daView::OnProjso1)
-ON_COMMAND(ID_PROPISO2, &CM3daView::OnPropiso2)
+ON_COMMAND(ID_PROJISO1, &CM3daView::OnProjso1)
+ON_COMMAND(ID_PROJISO2, &CM3daView::OnPropiso2)
 ON_COMMAND(ID_EDIT_UNDO, &CM3daView::OnEditUndo)
 ON_UPDATE_COMMAND_UI(ID_EDIT_UNDO, &CM3daView::OnUpdateEditUndo)
 ON_COMMAND(ID_EDIT_REDO, &CM3daView::OnEditRedo)
@@ -538,8 +538,10 @@ void CM3daView::OnViewDisplayselected() {
 	{
 		if (ButtonPush.SelectedOn) {
 			outtextMSG2("DSPALL");
+			outtext1("Display only selected objects: OFF");
 		} else {
 			outtextMSG2("DSPSEL");
+			outtext1("Display only selected objects: ON");
 		}
 		ButtonPush.SelectedOn = !ButtonPush.SelectedOn;
 	}

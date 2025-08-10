@@ -15,6 +15,7 @@
 // momo gdi to og
 // momo change command box color
 #include "MyEdit.h"
+#include "EditBasic.h"
 #include "MainFrm.h"
 // momo change command box color
 
@@ -958,7 +959,7 @@ void CM3daDoc::OnEditCancel() {
 	}
 	// MoMo_End
 	// momo change command box color
-	CheckCommandEditColor();
+	CheckCommandEditColor(false);
 	// momo change command box color
 }
 
@@ -2224,6 +2225,12 @@ void CM3daDoc::OnVisabilityAllvisable() {
 	} else {
 		cDBase->DspFlags = (DSP_ALL ^ DSP_LINE);
 	}
+	gDSP_CPTS = false;
+	ButtonPush.ControlPoint = gDSP_CPTS;
+	ButtonPush.SelectedOn = true;
+	cDBase->Dsp_All(true);
+	//outtextMSG2("DSPALL");
+	ButtonPush.SelectedOn = !ButtonPush.SelectedOn;
 	// momo
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_GRAD);
 	cDBase->InvalidateOGL();
@@ -5672,6 +5679,8 @@ void CM3daDoc::OnVisabilityGeomOn() {
 		cDBase->DspFlags |= DSP_SURFACES;
 		cDBase->DspFlags |= DSP_COORD;
 	}
+	gDSP_CPTS = ButtonPush.GeomOn;
+	ButtonPush.ControlPoint = gDSP_CPTS;
 	CheckPushedButtons("GeomOn");
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
@@ -6215,15 +6224,32 @@ void CM3daDoc::OnEXP01() {
 	////Esp_Mod_Labels_4_27_2025_End
 	// MoMo_Start
 	// ExportLinesToAutoCADScript(m_pObject, "Lines.scr");
+	// outtext1("EXP01");
+	// outtext1("There is currently no code for this.");
+	CommIsActive.ChangeEdit1 = !CommIsActive.ChangeEdit1;
+	if (CommIsActive.ChangeEdit1) {
+		outtext1("\"Command Report Text Box\" Auto Color ON.");
+	} else {
+		outtext1("\"Command Report Text Box\" Auto Color OFF.");
+	}
+	CheckCommandEditColor(true);
 	// MoMo_End
 }
 
 void CM3daDoc::OnEXP02() {
 	// TODO: Add your command handler code here
+	// momo
+	outtext1("EXP02");
+	outtext1("There is currently no code for this.");
+	// momo
 }
 
 void CM3daDoc::OnEXP03() {
 	// TODO: Add your command handler code here
+	// momo
+	outtext1("EXP03");
+	outtext1("There is currently no code for this.");
+	// momo
 }
 
 // MoMo_Start

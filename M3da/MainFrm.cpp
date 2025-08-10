@@ -17,9 +17,9 @@
 #endif
 
 // CMainFrame
-CEditBasic* Edit1;
-CEditBasic* Edit2;
-CMyEdit* Edit3;
+CEditBasic* Edit1; // momo: "Command Report Text Box"
+CEditBasic* Edit2; // momo: "Information Text Box"
+CMyEdit* Edit3; // momo: "Command Entry Text Box"
 //// momo ModernOpenGL_Start
 ////CMyEdit* EditViewScales;
 //// momo ModernOpenGL_End
@@ -511,20 +511,20 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	ToolBarInfo toolbars[] = {
 	    {&t_ElementTypes, IDR_ELTYPE, true, 4},
 	    {&t_FE, IDR_FE, true, 4},
+	    {&t_BoundaryConditions, IDR_BC, true, 4},
 	    {&t_PostProcessing, IDR_POST, true, 1},
 	    {&t_Edit, IDR_EDIT, true, 2},
 	    {&t_Create, IDR_CREATE, true, 2},
 	    {&t_Selection, IDR_SELECTION_TOOLBAR, true, 0},
-	    {&t_BoundaryConditions, IDR_BC, true, 0},
+	    {&t_ShowHide, IDR_SHOWHIDE, true, 0},
 	    {&t_QuickFilter, IDR_QFILTER, true, 0},
-	    {&t_Experimental, IDR_EXPERIMENTAL, true, 0},
 	    {&t_Projection, IDR_PROJ, true, 0},
 	    {&t_Draw, IDR_DRAW, true, 0},
-	    {&t_ShowHide, IDR_SHOWHIDE, true, 0},
-	    {&t_Utils, IDR_UTILITIES, true, 0},
+	    {&t_Experimental, IDR_EXPERIMENTAL, true, 0},
 	    {&t_File, IDR_FILE, true, 0},
 	    {&t_Dimension, IDR_DIMS, true, 0},
 	    {&t_Groups, IDR_GROUP, true, 0},
+	    {&t_Utils, IDR_UTILITIES, true, 0},
 	    {&t_MenuCommands, IDR_MENU_COMMANDS, false, 0},
 	};
 
@@ -594,25 +594,38 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
 	EnableDocking(CBRS_ALIGN_ANY);
 
+	// Top Row 1:
 	DockPane(&m_MenuBar);
-	DockPane(&t_Groups);
+	// Top Row 2:
+	DockPane(&t_Utils);
+	DockPaneLeftOf(&t_Groups, &t_Utils);
 	DockPaneLeftOf(&t_Dimension, &t_Groups);
 	DockPaneLeftOf(&t_File, &t_Dimension);
-	DockPane(&t_Utils);
-	DockPaneLeftOf(&t_ShowHide, &t_Utils);
-	DockPaneLeftOf(&t_Draw, &t_ShowHide);
-	DockPaneLeftOf(&t_Projection, &t_Draw);
+	// Top Row 3:
 	DockPane(&t_Experimental);
-	DockPaneLeftOf(&t_QuickFilter, &t_Experimental);
-	DockPaneLeftOf(&t_BoundaryConditions, &t_QuickFilter);
-	DockPane(&t_Selection);
-	DockPaneLeftOf(&t_Selection, &t_BoundaryConditions);
+	DockPaneLeftOf(&t_Draw, &t_Experimental);
+	DockPaneLeftOf(&t_Projection, &t_Draw);
+	// Top Row 4:
+	DockPane(&t_QuickFilter);
+	DockPaneLeftOf(&t_ShowHide, &t_QuickFilter);
+	DockPaneLeftOf(&t_Selection, &t_ShowHide);
+	// Center:
 	DockPane(&p_Input);
+	// Left:
 	DockPane(&t_Create);
 	DockPane(&t_Edit);
+	// Right:
 	DockPane(&t_PostProcessing);
-	DockPane(&t_FE);
+	// Bottom:
+	DockPane(&t_BoundaryConditions);
+	DockPaneLeftOf(&t_FE, &t_BoundaryConditions);
 	DockPaneLeftOf(&t_ElementTypes, &t_FE);
+
+	for (auto& tb: toolbars) {
+		if (tb.isVisible) {
+			tb.pToolbar->EnableDocking(CBRS_ALIGN_ANY);
+		}
+	}
 
 	// enable Visual Studio 2005 style docking window behavior
 	//	CDockingManager::SetDockingMode(DT_SMART);
@@ -819,20 +832,26 @@ void outtextMSG2(CString AAA) {
 	outtext2(strNewText);
 	SendMsg(AAA);
 	// momo change command box color
-	CheckCommandEditColor();
+	CheckCommandEditColor(false);
 	// momo change command box color
 }
 
 // momo change command box color
-void CheckCommandEditColor() {
-	if (CommandIsActiveNewState != CommandIsActive) {
-		CommandIsActive = CommandIsActiveNewState;
+void CheckCommandEditColor(bool bForceToCheck) {
+	if (CommIsActive.NewState != CommIsActive.CurrentState || bForceToCheck) {
+		CommIsActive.CurrentState = CommIsActive.NewState;
 		CMainFrame* pMainFrame = DYNAMIC_DOWNCAST(CMainFrame, AfxGetMainWnd());
 		if (pMainFrame) {
-			if (CommandIsActive) {
+			if (CommIsActive.CurrentState) {
 				pMainFrame->p_Input.Edit3.SetBgColor(RGB(191, 242, 206));
+				if (CommIsActive.ChangeEdit1) {
+					pMainFrame->p_Input.Edit1.SetBgColor(RGB(191, 242, 206));
+				} else {
+					pMainFrame->p_Input.Edit1.SetBgColor(RGB(255, 255, 255));
+				}
 			} else {
 				pMainFrame->p_Input.Edit3.SetBgColor(RGB(255, 255, 255));
+				pMainFrame->p_Input.Edit1.SetBgColor(RGB(255, 255, 255));
 			}
 		}
 	}

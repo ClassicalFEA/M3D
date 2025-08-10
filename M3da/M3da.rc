@@ -43,53 +43,64 @@ IDR_M3daTYPE            ICON                    "res\\M3daDoc.ico"
 //IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 //
 //IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar.bmp"
-IDR_MAINFRAME           BITMAP                  "res\\ToolbarFile.bmp"
-IDR_FILE                BITMAP                  "res\\ToolbarFile.bmp"
 // momo
 //Esp_Mod_Toolbar256_4_2025: "Toolbar256.bmp" is not a sharp image
 //IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
 
-// momo on off button and menu
+// momo
 // momo// IDR_DRAW                BITMAP                  "res\\toolbar1.bmp"
-IDR_DRAW                BITMAP                  "res\\ToolbarView.bmp"
+// momo
 
-IDR_SHOWHIDE            BITMAP                  "res\\ToolbarShowHide.bmp"
+// momo
+//IDR_CREATE              BITMAP                  "res\\bmp00001.bmp"
+//
+//IDR_EDIT                BITMAP                  "res\\bmp00002.bmp"
+//
+//IDR_FE                  BITMAP                  "res\\bmp00003.bmp"
+//
+//IDR_GROUP               BITMAP                  "res\\bmp00004.bmp"
+//
+//IDR_BC                  BITMAP                  "res\\bmp00006.bmp"
+//
+//IDR_ELTYPE              BITMAP                  "res\\bmp00007.bmp"
+//
+//IDR_POST                BITMAP                  "res\\bmp00008.bmp"
+//
+//IDR_PROJ                BITMAP                  "res\\bmp00009.bmp"
+//
+//IDR_UTILITIES           BITMAP                  "res\\bmp00005.bmp"
 
-IDR_SELECTION_TOOLBAR   BITMAP                  "res\\ToolbarSelection.bmp"
-// momo on off button and menu
-
-IDR_CREATE              BITMAP                  "res\\bmp00001.bmp"
-
-IDR_EDIT                BITMAP                  "res\\bmp00002.bmp"
-
-IDR_FE                  BITMAP                  "res\\bmp00003.bmp"
-
-IDR_GROUP               BITMAP                  "res\\bmp00004.bmp"
-
-IDR_BC                  BITMAP                  "res\\bmp00006.bmp"
-
-IDR_ELTYPE              BITMAP                  "res\\bmp00007.bmp"
-
-IDR_POST                BITMAP                  "res\\bmp00008.bmp"
-
-IDR_PROJ                BITMAP                  "res\\bmp00009.bmp"
-
-IDR_UTILITIES           BITMAP                  "res\\bmp00005.bmp"
+IDR_MAINFRAME           BITMAP                  "res\\FileToolbar.bmp"
+IDR_FILE                BITMAP                  "res\\FileToolbar.bmp"
+IDR_DRAW                BITMAP                  "res\\DrawToolbar.bmp"
+IDR_SHOWHIDE            BITMAP                  "res\\ShowHideToolbar.bmp"
+IDR_SELECTION_TOOLBAR   BITMAP                  "res\\SelectionToolbar.bmp"
+IDR_CREATE              BITMAP                  "res\\CreateToolbar.bmp"
+IDR_EDIT                BITMAP                  "res\\EditToolbar.bmp"
+IDR_FE                  BITMAP                  "res\\FEToolbar.bmp"
+IDR_GROUP               BITMAP                  "res\\GroupToolbar.bmp"
+IDR_BC                  BITMAP                  "res\\BCToolbar.bmp"
+IDR_ELTYPE              BITMAP                  "res\\SetElementToolbar.bmp"
+IDR_POST                BITMAP                  "res\\PostToolbar.bmp"
+IDR_PROJ                BITMAP                  "res\\ProjectionToolbar.bmp"
+IDR_UTILITIES           BITMAP                  "res\\UtilitiesToolbar.bmp"
+IDR_DIMS                BITMAP                  "res\\DimensionToolbar.bmp"
+IDR_QFILTER             BITMAP                  "res\\QuickFilterToolbar.bmp"
+IDR_EXPERIMENTAL        BITMAP                  "res\\ExperimentalToolbar.bmp"
+IDR_MENU_COMMANDS       BITMAP                  "res\\MenuCommandsToolbar.bmp"
+// momo
 
 // momo
 // momo// IDR_QFILTER             BITMAP                  "res\\bmp00010.bmp"
-IDR_QFILTER             BITMAP                  "res\\ToolbarQuickFilter.bmp"
-
-IDR_MENU_COMMANDS       BITMAP                  "res\\ToolbarMenuCommands.bmp"
-
 // momo
 
-IDR_DIMS                BITMAP                  "res\\bmp00011.bmp"
+// momo
+// momo// IDR_DIMS                BITMAP                  "res\\bmp00011.bmp"
+// momo
 
 // Esp_Mod_Experimental_Toolbar_4_10_2025_Start: Added experimental bitmap
 // momo
 // momo// IDR_EXPERIMENTAL        BITMAP                  "res\\experimental.bmp"
-IDR_EXPERIMENTAL        BITMAP                  "res\\ToolbarExperimental.bmp"
 // momo
 // Esp_Mod_Experimental_Toolbar_4_10_2025_End
 
@@ -106,12 +117,11 @@ BEGIN
     BUTTON      ID_FILE_NEW
     BUTTON      ID_FILE_OPEN
     BUTTON      ID_FILE_SAVE
+    BUTTON      ID_FILE_SAVE_AS
     SEPARATOR
-    BUTTON      ID_EDIT_CUT
-    BUTTON      ID_EDIT_COPY
-    BUTTON      ID_EDIT_PASTE
+    BUTTON      ID_EDIT_UNDO
+    BUTTON      ID_EDIT_REDO
     SEPARATOR
-    BUTTON      ID_FILE_PRINT
     BUTTON      ID_APP_ABOUT
 END
 
@@ -188,6 +198,9 @@ BEGIN
     BUTTON      ID_VISABILITY_BOUNDARYCONDITIONS
     SEPARATOR
     BUTTON      ID_VIEW_DISPLAYSELECTED
+    // momo
+    BUTTON      ID_VISABILITY_WORKPLANE
+    // momo
     BUTTON      ID_VIEW_NODESOFF
 END
 
@@ -214,6 +227,12 @@ BEGIN
     BUTTON      ID_AXIS_CORNER_OFF
     BUTTON      ID_AXIS_ORIGIN_ON
     BUTTON      ID_AXIS_ORIGIN_OFF
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    //BUTTON      ID_FILE_PRINT
+    //BUTTON      ID_FILE_PRINT_PREVIEW
+    //BUTTON      ID_FILE_PRINT_SETUP
 END
 // momo
 
@@ -292,12 +311,18 @@ BEGIN
     SEPARATOR
     BUTTON      ID_CREATE_NODE
     BUTTON      ID_CREATE_ELEMENT
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_CREATE_NODEMOVETO
     BUTTON      ID_CREATE_COPYNODES
     BUTTON      ID_CREATE_NODESBETWEEN
     BUTTON      ID_CREATE_NODESONCURVE
     BUTTON      ID_CREATE_COORDSYS
     BUTTON      ID_CREATE_COORDSYSLINE
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_MESH_SWEEPELEMENTS
     BUTTON      ID_MESH_MAPPEDSURFACEMESH
     BUTTON      ID_MESH_MAPPEDTRIMESH
@@ -305,6 +330,9 @@ BEGIN
     BUTTON      ID_MESH_QUADTOTRI
     BUTTON      ID_MESH_TETFROMSHELLBOUNDARY
     BUTTON      ID_MESH_SHELLCOATSOLIDELEMENTS
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_MESH_MESHSIZEONSURFACE
     BUTTON      ID_MESH_ADVANCINGFRONTSURFACEMESHTRI
     //momo
@@ -325,6 +353,9 @@ BEGIN
     BUTTON      ID_GROUP_REMOVEFROMGROUP
     BUTTON      ID_GROUP_ADDGROUP
     BUTTON      ID_GROUP_REMOVEGROUP
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_GROUP_ELEMENTSBYPID
     BUTTON      ID_GROUP_ELEMENTSBYMID
     BUTTON      ID_GROUP_ELEMENTSBYCOLOUR
@@ -340,12 +371,21 @@ BEGIN
     BUTTON      ID_ANALYSIS_LOADSETS
     BUTTON      ID_LOADSBC_BCSETS
     BUTTON      ID_LOADSBC_TEMPERATURESETS
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_SOLVER_CREATERESTRAINT
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_SOLVER_CREATEFORCE
     BUTTON      ID_ANALYSIS_CREATEMOMENT
     BUTTON      ID_ANALYSIS_CREATEPRESSURE
     BUTTON      ID_LOADSBC_CREATEACCELERATIONBODYLOAD
     BUTTON      ID_LOADSBC_CREATEROTATIONALBODYLOAD
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_LOADSBC_CREATESTRUCTURALTEMP
 END
 
@@ -353,14 +393,26 @@ IDR_ELTYPE TOOLBAR 24, 24
 BEGIN
     BUTTON      ID_ELEMENTTYPE_ROD
     BUTTON      ID_ELEMENTTYPE_BEAM
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_ELEMENTTYPE_TRI
     BUTTON      ID_ELEMENTTYPE_QUAD
     BUTTON      ID_ELEMENTTYPE_TET
     BUTTON      ID_ELEMENTTYPE_WEDGE
     BUTTON      ID_ELEMENTTYPE_BRICK
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_ELEMENTTYPE_TRANSLATIONALSPRING
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_ELEMENTTYPE_ROTATIONALSPRING
     BUTTON      ID_ELEMENTTYPE_MASS
+    // momo
+    SEPARATOR
+    // momo
     BUTTON      ID_ELEMENTTYPE_RIGID
     BUTTON      ID_ELEMENTTYPE_BUSH
 END
@@ -409,6 +461,7 @@ BEGIN
     BUTTON      ID_POST_TOGRESULTSLABELS
     BUTTON      ID_POST_LISTNODALRESULTS
     BUTTON      ID_POST_LISTELEMENTRESULT
+    SEPARATOR
     BUTTON      ID_POST_DELETEALLRESULTSSETS
    //momo
 END
@@ -422,8 +475,11 @@ BEGIN
     BUTTON      ID_PROJ_LEFTXY
     BUTTON      ID_PROJ_BACK
     BUTTON      ID_PROJ_RIGHT
-    BUTTON      ID_PROJSO1
-    BUTTON      ID_PROPISO2
+    // momo
+    SEPARATOR
+    // momo
+    BUTTON      ID_PROJISO1
+    BUTTON      ID_PROJISO2
 END
 
 IDR_UTILITIES TOOLBAR 24, 24
@@ -490,10 +546,12 @@ BEGIN
         MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
         MENUITEM SEPARATOR
-        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
-        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
-        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
-        MENUITEM SEPARATOR
+        // momo
+        //MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        //MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        //MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        //MENUITEM SEPARATOR
+        // momo
         MENUITEM "Recent File",                 ID_FILE_MRU_FILE1
         MENUITEM SEPARATOR
         POPUP "Import"
@@ -1163,7 +1221,9 @@ BEGIN
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
-    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    // momo
+    // momo// "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    // momo
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
     "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
@@ -1190,7 +1250,7 @@ BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
     // MoMo_Start
     // MoMo// LTEXT           "M3D, Version 7.8 09,03,2025 64BIT WIN11",IDC_STATIC,43,14,247,8,SS_NOPREFIX
-    LTEXT           "M3D, Version 7.9.35 09,03,2025 64BIT WIN11",IDC_STATIC,43,14,247,8,SS_NOPREFIX
+    LTEXT           "M3D, Version 7.9.4.37 09,03,2025 64BIT WIN11",IDC_STATIC,43,14,247,8,SS_NOPREFIX
     // MoMo_End
     LTEXT           "Copyright (C) 2010 - 2025",IDC_STATIC,43,26,114,8
     DEFPUSHBUTTON   "OK",IDOK,261,123,50,14,WS_GROUP
@@ -1417,7 +1477,7 @@ END
 VS_VERSION_INFO VERSIONINFO
  // momo
  // momo// FILEVERSION 1,0,0,0
- FILEVERSION 7,9,3,35
+ FILEVERSION 7,9,4,37
  // momo
  PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x3fL
@@ -1446,7 +1506,7 @@ BEGIN
             VALUE "ProductName", "M3d"
             // momo
             // momo// VALUE "ProductVersion", "6.4"
-            VALUE "ProductVersion", "7.9.3.35"
+            VALUE "ProductVersion", "7.9.4.37"
             // momo
         END
     END
@@ -2144,14 +2204,25 @@ BEGIN
     ID_WP_VIEW              "View On WP"
     ID_BUTTON33236          "WP VIEW"
     ID_BUTTON33238          "View on WP"
-    ID_PROJWP               "Align view to workplane\n[View] Workplane"
-    ID_PROJ_FRONT           "Align view to front\n[View] Front"
-    ID_PROJ_TOP             "Align view to top\n[View] Top"
-    ID_PROJ_BOTTOMXZ        "Align view to bottom\n[View] Bottom"
-    ID_PROJ_LEFTXY          "Align view to left\n[View] Left"
-    ID_PROJ_BACK            "Align view to back\n[View] Back"
-    ID_PROJ_RIGHT           "Align view to right\n[View] Right"
-    ID_PROJSO1              "Change to isometric view\n[View] Isometric"
+    // momo
+    //ID_PROJWP               "Align view to workplane\n[View] Workplane"
+    //ID_PROJ_FRONT           "Align view to front\n[View] Front"
+    //ID_PROJ_TOP             "Align view to top\n[View] Top"
+    //ID_PROJ_BOTTOMXZ        "Align view to bottom\n[View] Bottom"
+    //ID_PROJ_LEFTXY          "Align view to left\n[View] Left"
+    //ID_PROJ_BACK            "Align view to back\n[View] Back"
+    //ID_PROJ_RIGHT           "Align view to right\n[View] Right"
+    //ID_PROJISO1             "Change to isometric view\n[View] Isometric"
+    ID_PROJWP               "Align view to workplane\n[Projection] Workplane"
+    ID_PROJ_FRONT           "Align view to front\n[Projection] Front"
+    ID_PROJ_TOP             "Align view to top\n[Projection] Top"
+    ID_PROJ_BOTTOMXZ        "Align view to bottom\n[Projection] Bottom"
+    ID_PROJ_LEFTXY          "Align view to left\n[Projection] Left"
+    ID_PROJ_BACK            "Align view to back\n[Projection] Back"
+    ID_PROJ_RIGHT           "Align view to right\n[Projection] Right"
+    ID_PROJISO1             "Change to isometric view\n[Projection] Isometric"
+    ID_PROJISO2             "Change to alternative isometric viewpoint\n[Projection] Alternative Isometric"
+    // momo
 END
 
 STRINGTABLE
@@ -2178,7 +2249,9 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_PROPISO2             "Change to alternative isometric viewpoint\n[View] Alt Isometric"
+    // momo
+    // momo// ID_PROJISO2             "Change to alternative isometric viewpoint\n[View] Alt Isometric"
+    // momo
     ID_ELEMENTTYPE_MASS     "Set element type to LUMPED MASS\n[Set Element] LUMPED MASS"
     ID_VISABILITY_WORKPLANE "Toggle display of work plane\n[Draw] Display Work Plane"
     ID_VISABILITY_WORKPLANE2 "Toggle workplane visability"
@@ -2396,8 +2469,10 @@ BEGIN
     ID_VIEW_TOGGLECONTROLPOINTVISABILITY "Toggle display of control points\n[Show/Hide] Toggle Control Point Visibility"
     // momo
     ID_BUTTON33403          "Toggle Control Point Visability"
-    ID_VIEW_TOGGLECONTROLPOINTVISABILITY2 
-                            "Toggle On and Off All Objects Control Points"
+    // momo
+    // momo// ID_VIEW_TOGGLECONTROLPOINTVISABILITY2 
+    // momo//                        "Toggle On and Off All Objects Control Points"
+    // momo
     ID_EXPORT_EXPORTDXF     "Export 2d geometry to Autocad DXF file."
     ID_CURVEMODIFY_LAYERNUMBER "Set the Curve / Point Layer Number"
     ID_SELECTION_SELECTCURVE "Select Curves/Points by Layer ID"
@@ -2651,8 +2726,8 @@ STRINGTABLE
 BEGIN
     //momo
     // momo// IDR_MAINFRAME           "M3d\n\nM3da\nM3da Files (*.m3d)\n.m3d\nM3da.Document\nM3da.Document"
-    IDR_MAINFRAME           "M3D 7.9.35\n\nM3da\nM3da Files (*.m3d)\n.m3d\nM3da.Document\nM3da.Document"
-    IDR_FULLVERSION         "M3D 7.9.35"
+    IDR_MAINFRAME           "M3D 7.9.4.37\n\nM3da\nM3da Files (*.m3d)\n.m3d\nM3da.Document\nM3da.Document"
+    IDR_FULLVERSION         "M3D 7.9.4.37"
     //momo
 END
 

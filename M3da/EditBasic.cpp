@@ -12,14 +12,24 @@
 
 IMPLEMENT_DYNAMIC(CEditBasic, CEdit)
 
-CEditBasic::CEditBasic() {
+// momo change command box color
+// CEditBasic::CEditBasic() {
+//}
+CEditBasic::CEditBasic()
+    : m_bgColor(::GetSysColor(COLOR_WINDOW)) {
+	m_brush.CreateSolidBrush(m_bgColor);
 }
+// momo change command box color
 
 CEditBasic::~CEditBasic() {
 }
 
 BEGIN_MESSAGE_MAP(CEditBasic, CEdit)
+// momo change command box color
+ON_WM_CTLCOLOR_REFLECT()
+// momo change command box color
 END_MESSAGE_MAP()
+
 
 // CEditBasic message handlers
 
@@ -58,3 +68,18 @@ BOOL CEditBasic::PreTranslateMessage(MSG* pMsg) {
 		return CEdit::PreTranslateMessage(pMsg);
 	}
 }
+
+// momo change command box color
+void CEditBasic::SetBgColor(COLORREF clr) {
+	m_bgColor = clr;
+	if (m_brush.GetSafeHandle())
+		m_brush.DeleteObject();
+	m_brush.CreateSolidBrush(m_bgColor);
+	Invalidate();
+}
+
+HBRUSH CEditBasic::CtlColor(CDC* pDC, UINT /*nCtlColor*/) {
+	pDC->SetBkColor(m_bgColor);
+	return (HBRUSH) m_brush.GetSafeHandle();
+}
+// momo change command box color

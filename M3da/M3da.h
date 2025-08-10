@@ -60,7 +60,7 @@ void outtextMSG2(CString AAA);
 ////void SetText(CString sIn);
 //// momo ModernOpenGL_End
 // momo change command box color
-void CheckCommandEditColor();
+void CheckCommandEditColor(bool bForceToCheck);
 // momo change command box color
 // momo on off button and menu
 void CheckPushedButtons(CString sMode);

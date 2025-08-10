@@ -43,7 +43,7 @@ void CMyEdit::OnEnChange() {
 	// TODO:  Add your control notification handler code here
 	outtextMSG("AA");
 	// momo change command box color
-	CheckCommandEditColor();
+	CheckCommandEditColor(false);
 	// momo change command box color
 }
 

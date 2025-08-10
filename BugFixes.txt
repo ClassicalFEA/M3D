@@ -11,55 +11,69 @@ Note: If you save a file with a higher version, you cannot open it with a lower 
 10- Improving the Tab key function in the Material Form  
 11- Improving the method of editing material specifications in the list  
 12- When the user was trying to drag the shape with the middle mouse button, the program was mistakenly sending the "Done" command, preventing the user from doing so and forcing them to use the Control key and the left mouse button instead — which was very inconvenient. Why? Because after each drag, they had to release the Control key and press it again along with the mouse to start the next drag.
-13- When the "Esc" key is pressed in all text boxes, the "Cancel" command is executed.
-14- The Information and Command entry text boxes were locked.
-15- "Control+C" and Control+V added to all text boxes.
-16- Added a buffering option to the View menu with three modes: Auto (adapts to the operating system), SINGLE, and DOUBLE.
-17- Fixed the failure to display the select box in some buffer states
-18- Fixed the interference of the selected object color with the selection color (white) in selected objects
-19- Fixed the failure to display selected objects when dragging the select box
-20- Fixed the failure to display selected objects when dragging the screen
-21- Added a "deselect box" with a pink color (starting from the right)
-22- Fixed the inability to select with the select box from left-bottom to right-top
-23- Fixed the inability to select with the select box from right-top to left-bottom by setting the "deselect box" for this state
-24- Fixed the inability to select with the select box from right-bottom to left-top by setting the "deselect box" for this state
-25- Fixed the situation that: If the mouse leaves the drawing page while dragging the select box and the left mouse button is released in the same state, The select box became ineffective.
-26- Fixed the situation that: If the mouse left the drawing page while dragging the select box and the left mouse button was released in the same state, then we clicked at a point on the page to stop displaying the select box, the select box would not be deleted.
-27- Fixed the situation that: If we gave the material ID repeatedly in the material form and the program searched for the appropriate ID, when the appropriate ID was not found, it should have suggested the current ID, but it suggested a number larger than the current ID.
-28- Display "Buffer status after restart" in the "Show current buffer status" menu
-29-Start the program in full screen mode
-30-Change the right-click menu
-31-Add "Yes" and "No" options to right-click menu
-32-Use a separator for "Cancel", "Done", "Yes", and "No" in the right-click menu
-33-Start the program in the last window state (full screen or restored)
-34-Add RSS-Total to the "[POST] Select Contour Results" window
-35-"[POST] Select Deformed Results": Some bugs fixed
-36-"[POST] Select Deformed Results": Different selections in the lists are remembered
-37-"[POST] Clear Results Vectors": Tooltip not appearing has been fixed
-38-Rearrange the [POST] toolbar icons
-39-Sometimes the "Select Circle" is not at the center issue has been fixed
-40-Removed some graphic bugs in Windows 11
-41-Edit the "UP TREE" behavior
-42-You can move the menubar to the top like other softwares
-43-Fixed the situation where if you minimize the selection box and then stop it, the selection box doesn't remove
-44-Change the "command text box" color when a command is active
-45-Fixed the situation where we cannot make a tiny selection box
-46-Fixed the situation where, while using LNC command and others, we cannot move the mouse near the last point
-47-Disable "File > New" when any command is active
-48-Disable "File > Open" when any command is active
-49-Added depressed and released states to the buttons
-50-Convert the two buttons "[Draw] Display All" and "[Draw] Display Selected" into one button
-51-"Selection" toolbar added
-52-"Show Hide Geom" button added
-53-"Show Hide FEA" button added
-54-Bug fix: Changing mode from "Shaded" to "WireFrame" when pressing the "[Draw] All Visible" button
-55-"[Draw] Display Labels" button added
-56-"Show/Hide" Toolbar Added
-57-Changing the "Quick Filter" toolbar
-58-Corner Axis Added
-59-Origin Axis Added
-60-On the first run of the program on the user's system, the toolbars are arranged in a specific order.
-61-Menu commands (that are not in any toolbar) can have an icon
-62-Now we can use 24-bit icons for buttons in toolbars
-63-Changing the visual appearance of the main text boxes font
-64-Change the file version in the "Details" tab in the "right-click>properties" of the executable (EXE) file
+
+In the two newly added commands for adding and using mesh seeds (which are still in the editing stage and not yet completed), I have been trying to follow the rules below. I hope we will be able to apply them to other menus as well in the near future:
+13- In the text box on the right (the "Information Text Box", in my opinion), all main steps are being shown with numbers.
+14- When the user is about to enter a value from the keyboard but accidentally clicks on the screen, a warning is being added in the box on the left (the "Command Report Text Box", in my opinion), and the focus is being moved to the "Command Entry Text Box".
+15- When the user uses the right-click menu to send the "Done" or "Cancel" command, instead of sending the letters "D" or "C", the words "Done" or "Cancel" are being sent in the "Command Report Text Box", which is helping with better readability and understanding of the steps of previous commands.
+16- I have been trying to provide helpful information in the "Command Report Text Box" so that users can complete the steps of this menu more quickly and accurately. Also, if the user is new (as I was in the beginning), this explanation is helping a lot.
+17- When the "Esc" key is pressed in all text boxes, the "Cancel" command is executed.
+18- The "Information Text Box" and "Command Entry Text Box" were locked.
+19- "Control+C" and Control+V added to all text boxes.
+20- Added a buffering option to the View menu with three modes: Auto (adapts to the operating system), SINGLE, and DOUBLE.
+21- Fixed the failure to display the select box in some buffer states
+22- Fixed the interference of the selected object color with the selection color (white) in selected objects
+23- Fixed the failure to display selected objects when dragging the select box
+24- Fixed the failure to display selected objects when dragging the screen
+25- Added a "deselect box" with a pink color (starting from the right)
+26- Fixed the inability to select with the select box from left-bottom to right-top
+27- Fixed the inability to select with the select box from right-top to left-bottom by setting the "deselect box" for this state
+28- Fixed the inability to select with the select box from right-bottom to left-top by setting the "deselect box" for this state
+29- Fixed the situation that: If the mouse leaves the drawing page while dragging the select box and the left mouse button is released in the same state, The select box became ineffective.
+30- Fixed the situation that: If the mouse left the drawing page while dragging the select box and the left mouse button was released in the same state, then we clicked at a point on the page to stop displaying the select box, the select box would not be deleted.
+31- Fixed the situation that: If we gave the material ID repeatedly in the material form and the program searched for the appropriate ID, when the appropriate ID was not found, it should have suggested the current ID, but it suggested a number larger than the current ID.
+32- Display "Buffer status after restart" in the "Show current buffer status" menu
+33-Start the program in full screen mode
+34-Change the right-click menu
+35-Add "Yes" and "No" options to right-click menu
+36-Use a separator for "Cancel", "Done", "Yes", and "No" in the right-click menu
+37-Start the program in the last window state (full screen or restored)
+38-Add RSS-Total to the "[POST] Select Contour Results" window
+39-"[POST] Select Deformed Results": Some bugs fixed
+40-"[POST] Select Deformed Results": Different selections in the lists are remembered
+41-"[POST] Clear Results Vectors": Tooltip not appearing has been fixed
+42-Rearrange the [POST] toolbar icons
+43-Sometimes the "Select Circle" is not at the center issue has been fixed
+44-Removed some graphic bugs in Windows 11
+45-Edit the "UP TREE" behavior
+46-You can move the menubar to the top like other softwares
+47-Fixed the situation where if you minimize the selection box and then stop it, the selection box doesn't remove
+48-Change the "Command Entry Text Box" color when a command is active
+49-Fixed the situation where we cannot make a tiny selection box
+50-Fixed the situation where, while using LNC command and others, we cannot move the mouse near the last point
+51-Disable "File > New" when any command is active
+52-Disable "File > Open" when any command is active
+53-Added depressed and released states to the buttons
+54-Convert the two buttons "[Draw] Display All" and "[Draw] Display Selected" into one button
+55-"Selection" toolbar added
+56-"Show Hide Geom" button added
+57-"Show Hide FEA" button added
+58-Bug fix: Changing mode from "Shaded" to "WireFrame" when pressing the "[Draw] All Visible" button
+59-"[Draw] Display Labels" button added
+60-"Show/Hide" Toolbar Added
+61-Changing the "Quick Filter" toolbar
+62-Corner Axis Added
+63-Origin Axis Added
+64-On the first run of the program on the user's system, the toolbars are arranged in a specific order.
+65-Menu commands (that are not in any toolbar) can have an icon
+66-Now we can use 24-bit icons for buttons in toolbars
+67-Changing the visual appearance of the main text boxes font
+68-Change the file version in the "Details" tab in the "right-click>properties" of the executable (EXE) file
+69-The main program icon has been made transparent.
+70-Experimental buttons without code now display an "There is currently no code for this." warning in the "Information Text Box" to prevent user confusion.
+71-The icons of many toolbars have been changed.
+72-The ability to change color has been added to the "Command Report Text Box" when commands are active.
+73-The print-related commands have been temporarily removed.
+74-Changed the behavior of the "Toggle Control Point Visibility" button.
+75-Changed the behavior of the "Display Selected" button.
+

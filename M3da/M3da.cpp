@@ -50,8 +50,7 @@ int SelRowsNew[MAX_RESSETS][2];
 // }
 // momo
 // momo change command box color
-BOOL CommandIsActive = false;
-BOOL CommandIsActiveNewState = false;
+CommandIsActive CommIsActive;
 // momo change command box color
 // momo on off button and menu
 ButtonPushed ButtonPush;
@@ -232,7 +231,7 @@ BOOL CM3daApp::InitInstance() {
 	// such as the name of your company or organization
 	// MoMo_Start
 	// MoMo// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	SetRegistryKey(_T("M3D-DevM-Reg-11"));
+	SetRegistryKey(_T("M3D-DevM-Reg-13"));
 	// MoMo_End
 	// momo
 	SelRowsCurrent[0][0] = -1;
@@ -265,6 +264,11 @@ BOOL CM3daApp::InitInstance() {
 	ButtonPush.PartOfBody = false;
 	ButtonPush.CenterOfBody = true;
 	// momo
+	// momo change command box color
+	CommIsActive.CurrentState = false;
+	CommIsActive.NewState = false;
+	CommIsActive.ChangeEdit1 = false;
+	// momo change command box color
 	LoadStdProfileSettings(4); // Load standard INI file options (including MRU)
 
 	InitContextMenuManager();

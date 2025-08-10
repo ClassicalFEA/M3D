@@ -29,9 +29,9 @@ class CInputPane: public CDockablePane {
 		// Esp_Mod_Font_Start: Added CFont object for the font
 		CFont m_Font;
 		// Esp_Mod_Font_End
-		CEditBasic Edit1;
-		CEditBasic Edit2;
-		CMyEdit Edit3;
+		CEditBasic Edit1; // momo: "Command Report Text Box"
+		CEditBasic Edit2; // momo: "Information Text Box"
+		CMyEdit Edit3; // momo: "Command Entry Text Box"
 		//// momo ModernOpenGL_Start
 		////CMyEdit EditViewScales;
 		//// momo ModernOpenGL_End

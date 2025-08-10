@@ -2547,9 +2547,9 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		// momo change command box color
 		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase("NEW") != 0 && CInMsg.CompareNoCase("OPEN") != 0 && CInMsg.CompareNoCase("DSPALL") != 0 && CInMsg.CompareNoCase("DSPSEL") != 0 && CInMsg.CompareNoCase("SHOWALL") != 0 && CInMsg.CompareNoCase("DSPGP") != 0) {
-			CommandIsActiveNewState = true;
+			CommIsActive.NewState = true;
 		} else if (inputInOneCommand == -1) {
-			CommandIsActiveNewState = false;
+			CommIsActive.NewState = false;
 		}
 		// momo change command box color
 	}

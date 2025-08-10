@@ -60,8 +60,12 @@ extern bool AxisOrigin;
 extern bool AxisCorner;
 // momo
 // momo change command box color
-extern BOOL CommandIsActive;
-extern BOOL CommandIsActiveNewState;
+struct CommandIsActive {
+	bool CurrentState;
+	bool NewState;
+	bool ChangeEdit1;
+};
+extern CommandIsActive CommIsActive;
 // momo change command box color
 // momo on off button and menu
 struct ButtonPushed {
