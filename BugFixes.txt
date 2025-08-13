@@ -77,3 +77,8 @@ In the two newly added commands for adding and using mesh seeds (which are still
 74-Changed the behavior of the "Toggle Control Point Visibility" button.
 75-Changed the behavior of the "Display Selected" button.
 76-Add "Reference" folder, containing "M3dLogo.jpg" and "Vector_Icons.zip"
+77-Unicode support has been added to the program structure.
+78-The ability to open files from Unicode paths has been added.
+79-In the "Set Element" toolbar tooltip, the word "Type" has been supplemented with the Unicode character ➤.
+80-The ability to use Unicode characters in the program’s text boxes has been added.
+81-The ability to use lowercase letters for most program commands has been added.

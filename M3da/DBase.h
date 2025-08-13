@@ -462,10 +462,10 @@ class DBase: public CCmdTarget {
 		// MoMo_Start
 		void CreateBSegs_EXP04(ObjList* pP, cLinkedList* pS, double dS, NSurf* pSf);
 		void AddOrRemoveTempSeeds_EXP04();
-		void ViewCurveSeeds(CString sMode, int tempSeedId, NCurve* curveIn);
+		void ViewCurveSeeds(const char* sMode, int tempSeedId, NCurve* curveIn);
 		void CalcTempSeeds_EXP04();
 		std::vector<double> BalancedSegs_EXP04(int n, double L, double L1, double Ln, double Lm);
-		void SaveOrResetTempSeeds_EXP04(CString sMode);
+		void SaveOrResetTempSeeds_EXP04(const char* sMode);
 		// MoMo_End
 		void GenPts(NSurf* pS, ObjList* Pts);
 		BOOL UpdateFront(NSurf* pSf, int& iNodeLab, int& iSegLab, BOOL isNewNd, cSeg* pBaseSeg, ObjList* Pts, cLinkedList* Segs, c2dParPt* pbFNd, C2dVector pTmp, ObjList* pEls);

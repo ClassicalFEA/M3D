@@ -80,9 +80,10 @@ float cBarVecMin;
 
 // MoMo_Start
 // MoMo// CString ExtractSubString2(int iP, CString sIn) {
-CString ExtractSubString2(int iP, CStringA sIn) {
+CString ExtractSubString2(int iP, const CString& inStr) {
 	// MoMo_End
-	sIn.Replace(",", " ");
+	CString sIn(inStr);
+	sIn.Replace(_T(","), _T(" "));
 	int i;
 	int iS = 0;
 	int iLen = sIn.GetLength();
@@ -91,7 +92,7 @@ CString ExtractSubString2(int iP, CStringA sIn) {
 	int iCBlock = 0;
 	BOOL bF = FALSE;
 	for (i = 0; i < iLen; i++) {
-		if (sIn[i] != ' ') {
+		if (sIn[i] != _T(' ')) {
 			if (bF == FALSE) {
 				bF = TRUE;
 				iCBlock++;
@@ -193,13 +194,19 @@ void DrawCircle(C3dVector vC, double radius, double lineWidth, int segments) {
 }
 // momo gdi to og
 
-// MoMo// CString ncr(CString sIn) {
-CString ncr(CStringA sIn) {
-	// MoMo_End
-	sIn.Replace("\n", "");
-	sIn.Replace(" ", "");
-	return (sIn);
+// momo
+// CString ncr(CString sIn) {
+//	sIn.Replace("\n", "");
+//	sIn.Replace(" ", "");
+//	return (CString(CA2W(sIn)));
+//}
+CString ncr(LPCTSTR sIn) {
+    CString s(sIn);
+    s.Replace(_T("\n"), _T(""));
+    s.Replace(_T(" "),  _T(""));
+    return s; 
 }
+// momo
 
 CString f8(double dIn) {
 	char s80[80];
@@ -245,7 +252,7 @@ CString e8(double dIn) {
 			iD = s8.Find('e');
 			iL = s8.GetLength();
 			sExp = s8.Right(3);
-			dExp = atoi(sExp);
+			dExp = _ttoi(sExp);
 			if ((dExp > 4) || (dExp < -4)) {
 				if ((dExp > 99) || (dExp < -99)) {
 					sNum = s8.Left(4);
@@ -1767,7 +1774,7 @@ void G_Object::ExportDXF(FILE* pFile) {
 }
 
 CString G_Object::GetName() {
-	return ("Base Object");
+	return (_T("Base Object"));
 }
 
 int G_Object::GetVarHeaders(CString sVar[]) {
@@ -1872,7 +1879,7 @@ void G_Object::Serialize(CArchive& ar, int iV) {
 }
 
 CString G_Object::ToString() {
-	return ("");
+	return (_T(""));
 }
 
 void G_Object::Build() {
@@ -2554,7 +2561,7 @@ void Node::SetTo(C3dVector cInVect) {
 }
 
 CString Node::GetName() {
-	return ("Node (GRID)");
+	return (_T("Node (GRID)"));
 }
 
 int Node::GetVarHeaders(CString sVar[]) {
@@ -2600,17 +2607,17 @@ int Node::GetVarValues(CString sVar[]) {
 
 void Node::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	DefSys = atoi(sVar[1]);
-	OutSys = atof(sVar[2]);
+	iFile = _ttoi(sVar[0]);
+	DefSys = _ttoi(sVar[1]);
+	OutSys = _ttof(sVar[2]);
 	;
-	Pt_Point->x = atof(sVar[3]);
-	;
-	;
-	Pt_Point->y = atof(sVar[4]);
+	Pt_Point->x = _ttof(sVar[3]);
 	;
 	;
-	Pt_Point->z = atof(sVar[5]);
+	Pt_Point->y = _ttof(sVar[4]);
+	;
+	;
+	Pt_Point->z = _ttof(sVar[5]);
 	;
 	;
 }
@@ -2803,9 +2810,9 @@ void eEdge::Info() {
 	char S1[80];
 	G_Object::Info();
 	sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f", pVertex[0]->iLabel, pVertex[0]->Pt_Point->x, pVertex[0]->Pt_Point->y, pVertex[0]->Pt_Point->z);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f", pVertex[1]->iLabel, pVertex[1]->Pt_Point->x, pVertex[1]->Pt_Point->y, pVertex[1]->Pt_Point->z);
-	outtext1(_T(S1));
+	outtext1(S1);
 }
 
 void eEdge::Reverse() {
@@ -3734,7 +3741,7 @@ void Curve::HighLight() {
 }
 
 CString Curve::GetName() {
-	return ("Curve");
+	return (_T("Curve"));
 }
 
 int Curve::GetVarHeaders(CString sVar[]) {
@@ -3755,7 +3762,7 @@ int Curve::GetVarValues(CString sVar[]) {
 }
 
 void Curve::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
-	// DefSys = atoi(sVar[0]);
+	// DefSys = _ttoi(sVar[0]);
 }
 
 IMPLEMENT_DYNAMIC(ContrPolyW, CObject)
@@ -6179,7 +6186,7 @@ int E_Object38::noDof() {
 }
 
 CString E_Object38::GetName() {
-	return ("8 Node BRICK (CHEXA)");
+	return (_T("8 Node BRICK (CHEXA)"));
 }
 
 int E_Object38::GetVarHeaders(CString sVar[]) {
@@ -6252,8 +6259,8 @@ int E_Object38::GetVarValues(CString sVar[]) {
 void E_Object38::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	int newPID = atoi(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	int newPID = _ttoi(sVar[1]);
 	if (newPID != PID) {
 		Property* pr = PT->GetItem(newPID);
 		if (pr != NULL) {
@@ -6263,15 +6270,15 @@ void E_Object38::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 			else
 				outtext1("Invalid Property");
 		}
-		iMatID = atoi(sVar[2]);
-		int N1 = atoi(sVar[3]);
-		int N2 = atoi(sVar[4]);
-		int N3 = atoi(sVar[5]);
-		int N4 = atoi(sVar[6]);
-		int N5 = atoi(sVar[7]);
-		int N6 = atoi(sVar[8]);
-		int N7 = atoi(sVar[9]);
-		int N8 = atoi(sVar[10]);
+		iMatID = _ttoi(sVar[2]);
+		int N1 = _ttoi(sVar[3]);
+		int N2 = _ttoi(sVar[4]);
+		int N3 = _ttoi(sVar[5]);
+		int N4 = _ttoi(sVar[6]);
+		int N5 = _ttoi(sVar[7]);
+		int N6 = _ttoi(sVar[8]);
+		int N7 = _ttoi(sVar[9]);
+		int N8 = _ttoi(sVar[10]);
 		if (pVertex[0]->iLabel != N1) {
 			pN = pMe->GetNode(N1);
 			if (pN != NULL)
@@ -7291,7 +7298,7 @@ Mat E_Object36::ShapeDer(Mat Points, int i) {
 }
 
 CString E_Object36::GetName() {
-	return ("6 Node WEDGE (CPENTA)");
+	return (_T("6 Node WEDGE (CPENTA)"));
 }
 
 int E_Object36::GetVarHeaders(CString sVar[]) {
@@ -7354,8 +7361,8 @@ int E_Object36::GetVarValues(CString sVar[]) {
 void E_Object36::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	int newPID = atoi(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	int newPID = _ttoi(sVar[1]);
 	if (newPID != PID) {
 		Property* pr = PT->GetItem(newPID);
 		if (pr != NULL) {
@@ -7366,13 +7373,13 @@ void E_Object36::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 				outtext1("Invalid Property");
 		}
 	}
-	iMatID = atoi(sVar[2]);
-	int N1 = atoi(sVar[3]);
-	int N2 = atoi(sVar[4]);
-	int N3 = atoi(sVar[5]);
-	int N4 = atoi(sVar[6]);
-	int N5 = atoi(sVar[7]);
-	int N6 = atoi(sVar[8]);
+	iMatID = _ttoi(sVar[2]);
+	int N1 = _ttoi(sVar[3]);
+	int N2 = _ttoi(sVar[4]);
+	int N3 = _ttoi(sVar[5]);
+	int N4 = _ttoi(sVar[6]);
+	int N5 = _ttoi(sVar[7]);
+	int N6 = _ttoi(sVar[8]);
 	if (pVertex[0]->iLabel != N1) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
@@ -8441,7 +8448,7 @@ Vec<int> E_Object34::GetSteerVec1d() {
 }
 
 CString E_Object34::GetName() {
-	return ("4 Node TET (CTETRA)");
+	return (_T("4 Node TET (CTETRA)"));
 }
 
 int E_Object34::GetVarHeaders(CString sVar[]) {
@@ -8494,8 +8501,8 @@ int E_Object34::GetVarValues(CString sVar[]) {
 void E_Object34::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	int newPID = atoi(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	int newPID = _ttoi(sVar[1]);
 	if (newPID != PID) {
 		Property* pr = PT->GetItem(newPID);
 		if (pr != NULL) {
@@ -8506,11 +8513,11 @@ void E_Object34::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 				outtext1("Invalid Property");
 		}
 	}
-	iMatID = atoi(sVar[2]);
-	int N1 = atoi(sVar[3]);
-	int N2 = atoi(sVar[4]);
-	int N3 = atoi(sVar[5]);
-	int N4 = atoi(sVar[6]);
+	iMatID = _ttoi(sVar[2]);
+	int N1 = _ttoi(sVar[3]);
+	int N2 = _ttoi(sVar[4]);
+	int N3 = _ttoi(sVar[5]);
+	int N4 = _ttoi(sVar[6]);
 	if (pVertex[0]->iLabel != N1) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
@@ -9841,7 +9848,7 @@ Vec<int> E_Object310::GetSteerVec1d() {
 }
 
 CString E_Object310::GetName() {
-	return ("10 Node TET (CTETRA)");
+	return (_T("10 Node TET (CTETRA)"));
 }
 
 int E_Object310::GetVarHeaders(CString sVar[]) {
@@ -9894,8 +9901,8 @@ int E_Object310::GetVarValues(CString sVar[]) {
 void E_Object310::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	int newPID = atoi(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	int newPID = _ttoi(sVar[1]);
 	if (newPID != PID) {
 		Property* pr = PT->GetItem(newPID);
 		if (pr != NULL) {
@@ -9906,11 +9913,11 @@ void E_Object310::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 				outtext1("Invalid Property");
 		}
 	}
-	iMatID = atoi(sVar[2]);
-	int N1 = atoi(sVar[3]);
-	int N2 = atoi(sVar[4]);
-	int N3 = atoi(sVar[5]);
-	int N4 = atoi(sVar[6]);
+	iMatID = _ttoi(sVar[2]);
+	int N1 = _ttoi(sVar[3]);
+	int N2 = _ttoi(sVar[4]);
+	int N3 = _ttoi(sVar[5]);
+	int N4 = _ttoi(sVar[6]);
 	if (pVertex[0]->iLabel != N1) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
@@ -11887,7 +11894,7 @@ void E_Object2::ExportUNV(FILE* pFile) {
 
 CString E_Object2::ToString() {
 	char S[80] = "";
-	CString src = "";
+	CString src = _T("");
 	C3dMatrix TMat;
 	int iCS;
 	if (iCSYS < 0)
@@ -11967,7 +11974,7 @@ void E_Object2::ExportUPVecs(FILE* pFile) {
 }
 
 CString E_Object2::GetName() {
-	return ("Spring (CBUSH)");
+	return (_T("Spring (CBUSH)"));
 }
 
 int E_Object2::GetVarHeaders(CString sVar[]) {
@@ -12010,11 +12017,11 @@ int E_Object2::GetVarValues(CString sVar[]) {
 void E_Object2::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	PID = atoi(sVar[1]);
-	iCSYS = atoi(sVar[2]);
-	int N1 = atof(sVar[3]);
-	int N2 = atof(sVar[4]);
+	iFile = _ttoi(sVar[0]);
+	PID = _ttoi(sVar[1]);
+	iCSYS = _ttoi(sVar[2]);
+	int N1 = _ttof(sVar[3]);
+	int N2 = _ttof(sVar[4]);
 	if (pVertex[0]->iLabel != N1) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
@@ -13060,7 +13067,7 @@ void E_Object2R::ExportNAS(FILE* pFile) {
 }
 
 CString E_Object2R::ToString() {
-	CString sRT = "";
+	CString sRT = _T("");
 	char S1[80] = "";
 	if (iType == 11) {
 		sprintf_s(S1, "%8s%8i%8i%8i%8i\n", "CROD    ", iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel);
@@ -13133,7 +13140,7 @@ void E_Object2R::ExportUPVecs(FILE* pFile) {
 }
 
 CString E_Object2R::GetName() {
-	return ("Rod (CROD)");
+	return (_T("Rod (CROD)"));
 }
 //----------------------------------------------------------------------------
 //    CBEAM E L E M E N T   O B J E C T
@@ -13258,7 +13265,7 @@ G_Object* E_Object2B::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int
 
 CString E_Object2B::ToString() {
 	char S[80] = "";
-	CString src = "";
+	CString src = _T("");
 	C3dMatrix TMat;
 
 	if (iType == 21) {
@@ -13642,7 +13649,7 @@ Vec<int> E_Object2B::GetSteerVec1d() {
 }
 
 CString E_Object2B::GetName() {
-	return ("Beam (CBAR)");
+	return (_T("Beam (CBAR)"));
 }
 
 int E_Object2B::GetVarHeaders(CString sVar[]) {
@@ -13693,11 +13700,11 @@ int E_Object2B::GetVarValues(CString sVar[]) {
 void E_Object2B::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	PID = atoi(sVar[1]);
-	iCSYS = atoi(sVar[2]);
-	int N1 = atof(sVar[3]);
-	int N2 = atof(sVar[4]);
+	iFile = _ttoi(sVar[0]);
+	PID = _ttoi(sVar[1]);
+	iCSYS = _ttoi(sVar[2]);
+	int N1 = _ttof(sVar[3]);
+	int N2 = _ttof(sVar[4]);
 	if (pVertex[0]->iLabel != N1) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
@@ -15789,7 +15796,7 @@ void E_Object3::TransformAVF(C3dMatrix TMat) {
 }
 
 CString E_Object3::GetName() {
-	return ("Tri Shell (CTRIA3)");
+	return (_T("Tri Shell (CTRIA3)"));
 }
 
 int E_Object3::GetVarHeaders(CString sVar[]) {
@@ -15847,8 +15854,8 @@ int E_Object3::GetVarValues(CString sVar[]) {
 void E_Object3::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	int newPID = atoi(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	int newPID = _ttoi(sVar[1]);
 	if (newPID != PID) {
 		Property* pr = PT->GetItem(newPID);
 		if (pr != NULL) {
@@ -15859,15 +15866,15 @@ void E_Object3::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 				outtext1("Invalid Property");
 		}
 	}
-	iMCys = atoi(sVar[2]);
-	MAng = atof(sVar[3]);
+	iMCys = _ttoi(sVar[2]);
+	MAng = _ttof(sVar[3]);
 	;
-	dZOFFS = atof(sVar[4]);
+	dZOFFS = _ttof(sVar[4]);
 	;
 	;
-	int N1 = atoi(sVar[5]);
-	int N2 = atoi(sVar[6]);
-	int N3 = atoi(sVar[7]);
+	int N1 = _ttoi(sVar[5]);
+	int N2 = _ttoi(sVar[6]);
+	int N3 = _ttoi(sVar[7]);
 	if (pVertex[0]->iLabel != N1) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
@@ -16204,7 +16211,7 @@ void E_Object1::ExportNAS(FILE* pFile) {
 
 CString E_Object1::ToString() {
 	char S[80] = "";
-	CString src = "";
+	CString src = _T("");
 	sprintf_s(S, "$%s\n", sLab.GetString());
 	src = S;
 	sprintf_s(S, "%8s%8i%8i%8i%8s%8s%8s%8s\n", "CONM2   ", iLabel, pVertex->iLabel, iCID, e8(dM).GetString(), e8(dX1).GetString(), e8(dX2).GetString(), e8(dX3).GetString());
@@ -16448,7 +16455,7 @@ int E_Object1::GetVarHeaders(CString sVar[]) {
 }
 //"CONM2   "
 CString E_Object1::GetName() {
-	return ("Mass (CONM2)");
+	return (_T("Mass (CONM2)"));
 }
 
 int E_Object1::GetVarValues(CString sVar[]) {
@@ -16504,31 +16511,31 @@ int E_Object1::GetVarValues(CString sVar[]) {
 void E_Object1::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
+	iFile = _ttoi(sVar[0]);
 	sLab = sVar[1];
-	PID = atoi(sVar[2]);
-	iCID = atoi(sVar[3]);
-	dM = atof(sVar[4]);
+	PID = _ttoi(sVar[2]);
+	iCID = _ttoi(sVar[3]);
+	dM = _ttof(sVar[4]);
 	;
-	dX1 = atof(sVar[5]);
+	dX1 = _ttof(sVar[5]);
 	;
-	dX2 = atof(sVar[6]);
+	dX2 = _ttof(sVar[6]);
 	;
-	dX3 = atof(sVar[7]);
+	dX3 = _ttof(sVar[7]);
 	;
-	dI11 = atof(sVar[8]);
+	dI11 = _ttof(sVar[8]);
 	;
-	dI21 = atof(sVar[9]);
+	dI21 = _ttof(sVar[9]);
 	;
-	dI22 = atof(sVar[10]);
+	dI22 = _ttof(sVar[10]);
 	;
-	dI31 = atof(sVar[11]);
+	dI31 = _ttof(sVar[11]);
 	;
-	dI32 = atof(sVar[12]);
+	dI32 = _ttof(sVar[12]);
 	;
-	dI33 = atof(sVar[13]);
+	dI33 = _ttof(sVar[13]);
 	;
-	int N1 = atof(sVar[14]);
+	int N1 = _ttof(sVar[14]);
 	;
 	if (pVertex->iLabel != N1) {
 		pN = pMe->GetNode(N1);
@@ -19230,7 +19237,7 @@ double E_Object4::QualAspect() {
 }
 
 CString E_Object4::GetName() {
-	return ("Quad Shell (CQUAD4)");
+	return (_T("Quad Shell (CQUAD4)"));
 }
 
 int E_Object4::GetVarHeaders(CString sVar[]) {
@@ -19293,8 +19300,8 @@ int E_Object4::GetVarValues(CString sVar[]) {
 void E_Object4::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	Node* pN;
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	iFile = atoi(sVar[0]);
-	int newPID = atoi(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	int newPID = _ttoi(sVar[1]);
 	if (newPID != PID) {
 		Property* pr = PT->GetItem(newPID);
 		if (pr != NULL) {
@@ -19305,16 +19312,16 @@ void E_Object4::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 				outtext1("Invalid Property");
 		}
 	}
-	iMCys = atoi(sVar[2]);
-	MAng = atof(sVar[3]);
+	iMCys = _ttoi(sVar[2]);
+	MAng = _ttof(sVar[3]);
 	;
-	dZOFFS = atof(sVar[4]);
+	dZOFFS = _ttof(sVar[4]);
 	;
 	;
-	int N1 = atoi(sVar[5]);
-	int N2 = atoi(sVar[6]);
-	int N3 = atoi(sVar[7]);
-	int N4 = atoi(sVar[8]);
+	int N1 = _ttoi(sVar[5]);
+	int N2 = _ttoi(sVar[6]);
+	int N3 = _ttoi(sVar[7]);
+	int N4 = _ttoi(sVar[8]);
 	if (pVertex[0]->iLabel != N1) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
@@ -19702,7 +19709,7 @@ void E_ObjectR::ExportUNV(FILE* pFile) {
 
 CString E_ObjectR::ToString() {
 	char S[200] = "";
-	CString src = "";
+	CString src = _T("");
 
 	int i;
 	int iFN;
@@ -19778,7 +19785,7 @@ void E_ObjectR::Info() {
 }
 
 CString E_ObjectR::GetName() {
-	return ("Rigid Spider (RBE2)");
+	return (_T("Rigid Spider (RBE2)"));
 }
 
 int E_ObjectR::GetVarHeaders(CString sVar[]) {
@@ -19814,15 +19821,15 @@ int E_ObjectR::GetVarValues(CString sVar[]) {
 void E_ObjectR::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	ME_Object* pMe = (ME_Object*) this->pParent;
 	Node* pN;
-	iFile = atoi(sVar[0]);
-	int N1 = atoi(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	int N1 = _ttoi(sVar[1]);
 	if ((pVertex[0]->iLabel != N1) && (pMe != NULL)) {
 		pN = pMe->GetNode(N1);
 		if (pN != NULL)
 			pVertex[0] = pN;
 	}
 	SetDOFString(sVar[2]);
-	dALPHA = atof(sVar[3]);
+	dALPHA = _ttof(sVar[3]);
 	;
 }
 
@@ -19992,7 +19999,7 @@ Mat E_ObjectR::GetThermMat(PropTable* PropsT, MatTable* MatT) {
 }
 
 Mat E_ObjectR::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& bErr) {
-	CString sRel = "";
+	CString sRel = _T("");
 	Mat KM(6 * iNoNodes, 6 * iNoNodes);
 	KM.MakeZero();
 	Mat KMB;
@@ -20063,7 +20070,7 @@ Mat E_ObjectR::GetThermalStrainMat3d(PropTable* PropsT, MatTable* MatT, double d
 	Node* pNDs[200];
 	Mat FS(iNoNodes, 3);
 	Area = Pi * gSTIFF_BDIA * gSTIFF_BDIA / 4;
-	// gDEF_CTE = atof(sVar[iC++]);
+	// gDEF_CTE = _ttof(sVar[iC++]);
 	double dF;
 	E_Object2B* pEB = new E_Object2B();
 	pNDs[0] = pVertex[0];
@@ -20119,25 +20126,25 @@ double E_ObjectR::GetElCentriodVal() {
 }
 
 CString E_ObjectR::GetDofRelString() {
-	CString sRel = "";
+	CString sRel = _T("");
 
 	if (!(iDOF & DOF_1)) {
-		sRel = sRel + "1";
+		sRel = sRel + _T("1");
 	}
 	if (!(iDOF & DOF_2)) {
-		sRel = sRel + "2";
+		sRel = sRel + _T("2");
 	}
 	if (!(iDOF & DOF_3)) {
-		sRel = sRel + "3";
+		sRel = sRel + _T("3");
 	}
 	if (!(iDOF & DOF_4)) {
-		sRel = sRel + "4";
+		sRel = sRel + _T("4");
 	}
 	if (!(iDOF & DOF_5)) {
-		sRel = sRel + "5";
+		sRel = sRel + _T("5");
 	}
 	if (!(iDOF & DOF_6)) {
-		sRel = sRel + "6";
+		sRel = sRel + _T("6");
 	}
 	return (sRel);
 }
@@ -20914,7 +20921,7 @@ G_ObjectD WP_Object::SelDist(CPoint InPT, Filter FIL) {
 }
 
 CString WP_Object::GetName() {
-	return ("Workplane Object");
+	return (_T("Workplane Object"));
 }
 
 //****************************************************************************
@@ -20933,7 +20940,7 @@ Solution::Solution() {
 }
 
 CString Solution::GetSolutionTitleString() {
-	CString src = "ERROR.";
+	CString src = _T("ERROR.");
 	char S1[80] = "";
 	sprintf_s(S1, "%s TP: %i TOL: %g", sTitle, iType, dTol);
 	src = S1;
@@ -21524,13 +21531,13 @@ ME_Object::ME_Object() {
 	pResVectors = NULL;
 	FcList = NULL;
 	LkList = NULL;
-	pSOLS = new SolSets("UNDEFINED");
+	pSOLS = new SolSets(_T("UNDEFINED"));
 	iIntID = reinterpret_cast<uintptr_t>(this);
 	iFileNo = -1;
 }
 
 CString ME_Object::GetName() {
-	return ("Mesh Object)");
+	return (_T("Mesh Object)"));
 }
 
 int ME_Object::GetVarHeaders(CString sVar[]) {
@@ -22966,9 +22973,9 @@ void ME_Object::ResEnvMin(CString sSeq[], int iNo) {
 	int i;
 	int j;
 	for (i = 0; i < iNo; i++) {
-		iRS[i] = atoi(ExtractSubString2(1, sSeq[i]));
-		iVAR[i] = atoi(ExtractSubString2(2, sSeq[i]));
-		iOPT[i] = atoi(ExtractSubString2(3, sSeq[i]));
+		iRS[i] = _ttoi(ExtractSubString2(1, sSeq[i]));
+		iVAR[i] = _ttoi(ExtractSubString2(2, sSeq[i]));
+		iOPT[i] = _ttoi(ExtractSubString2(3, sSeq[i]));
 	}
 
 	double dVal;
@@ -23036,9 +23043,9 @@ void ME_Object::ResEnvMax(CString sSeq[], int iNo) {
 	int i;
 	int j;
 	for (i = 0; i < iNo; i++) {
-		iRS[i] = atoi(ExtractSubString2(1, sSeq[i]));
-		iVAR[i] = atoi(ExtractSubString2(2, sSeq[i]));
-		iOPT[i] = atoi(ExtractSubString2(3, sSeq[i]));
+		iRS[i] = _ttoi(ExtractSubString2(1, sSeq[i]));
+		iVAR[i] = _ttoi(ExtractSubString2(2, sSeq[i]));
+		iOPT[i] = _ttoi(ExtractSubString2(3, sSeq[i]));
 	}
 
 	double dVal;
@@ -23103,9 +23110,9 @@ void ME_Object::ResSetScale(CString sSeq, double dS) {
 	int iOPT;
 
 	int i;
-	iRS = atoi(ExtractSubString2(1, sSeq));
-	iVAR = atoi(ExtractSubString2(2, sSeq));
-	iOPT = atoi(ExtractSubString2(3, sSeq));
+	iRS = _ttoi(ExtractSubString2(1, sSeq));
+	iVAR = _ttoi(ExtractSubString2(2, sSeq));
+	iOPT = _ttoi(ExtractSubString2(3, sSeq));
 
 	ResSet* pC = NULL;
 	pC = ResultsSets[iRS];
@@ -23128,9 +23135,9 @@ void ME_Object::ResSetDivInTo(CString sSeq, double dS) {
 	double dV;
 
 	int i;
-	iRS = atoi(ExtractSubString2(1, sSeq));
-	iVAR = atoi(ExtractSubString2(2, sSeq));
-	iOPT = atoi(ExtractSubString2(3, sSeq));
+	iRS = _ttoi(ExtractSubString2(1, sSeq));
+	iVAR = _ttoi(ExtractSubString2(2, sSeq));
+	iOPT = _ttoi(ExtractSubString2(3, sSeq));
 
 	ResSet* pC = NULL;
 	pC = ResultsSets[iRS];
@@ -24102,7 +24109,7 @@ void ME_Object::IterSol3dLin(PropTable* PropsT, MatTable* MatT) {
 	BOOL bRS;
 	iStep = 0;
 
-	PrintTime("START TIME: ");
+	PrintTime(_T("START TIME: "));
 	bGo = GetStepCasesLinStat(iStep, sSol, sStep, dTol, pLC, pBC, pTC, bRS);
 	if (iStep == -1) {
 		outtext1("ERROR: No Solution Step is Active.");
@@ -24227,7 +24234,7 @@ void ME_Object::IterSol3dLin(PropTable* PropsT, MatTable* MatT) {
 			RecoverShell(iStep, sSol, sStep, PropsT, MatT, Steer, xnew);
 			Stresses3d(iStep, sSol, sStep, PropsT, MatT, Steer, xnew);
 		}
-		PrintTime("END TIME: ");
+		PrintTime(_T("END TIME: "));
 	} else {
 		outtext1("FATAL ERROR");
 	}
@@ -24495,7 +24502,7 @@ void ME_Object::ExplicitSolTest(PropTable* PropsT, MatTable* MatT) {
 			sprintf_s(s1, "%s: %g %s: %g %s: %g %s: %g\n", "T ", t, "X ", *x.nn(130), "Y ", *x.nn(131), "Z ", *x.nn(132));
 			// sprintf_s(s1, "%s: %i %s: %g %s: %g %s: %g\n", "ITER", k, "X1 ", TMat.m_00, "X2 ", TMat.m_01, "X3 ", TMat.m_02);
 			outtext1(s1);
-			Displacements(k, "T", "A", Steer, x);
+			Displacements(k, _T("T"), _T("A"), Steer, x);
 		}
 	}
 }
@@ -24547,7 +24554,7 @@ void ME_Object::IterSol1dSS(PropTable* PropsT, MatTable* MatT) {
 		outtext1("STARTING SOLUTION OF:-");
 		outtext1(sSol);
 		outtext1(sStep);
-		PrintTime("START TIME: ");
+		PrintTime(_T("START TIME: "));
 		ZeroDOF(); // Zero the DOFS                                //THIS NEED TO BE REPORFED ONLY IF BC CHANGE THEN NEED TO RESTART ALL
 		int iDof = ApplyResSS(pBC); // APply Restraints (not local ones
 		neq = GenDofs1D(iDof); // Gen DOFS numbers
@@ -24685,7 +24692,7 @@ void ME_Object::IterSol1dSS(PropTable* PropsT, MatTable* MatT) {
 			Temperatures(iStep, sSol, sStep, Steer, xnew);
 			TempBCSet(iStep, sSol, sStep, Steer, xnew);
 		}
-		PrintTime("END TIME: ");
+		PrintTime(_T("END TIME: "));
 	} else {
 		outtext1("FATAL ERROR");
 	}
@@ -25034,18 +25041,18 @@ void ME_Object::ReportFResultant(Vec<double>& FVec) {
 		}
 	}
 	sprintf_s(s1, "%s: %1.16f\n", "FX", FXTot);
-	outtext1(_T(s1));
+	outtext1(s1);
 	sprintf_s(s1, "%s: %1.16f\n", "FY", FYTot);
-	outtext1(_T(s1));
+	outtext1(s1);
 	sprintf_s(s1, "%s: %1.16f\n", "FZ", FZTot);
-	outtext1(_T(s1));
+	outtext1(s1);
 
 	sprintf_s(s1, "%s: %1.16f\n", "MX", MXTot);
-	outtext1(_T(s1));
+	outtext1(s1);
 	sprintf_s(s1, "%s: %1.16f\n", "MY", MYTot);
-	outtext1(_T(s1));
+	outtext1(s1);
 	sprintf_s(s1, "%s: %1.16f\n", "MZ", MZTot);
-	outtext1(_T(s1));
+	outtext1(s1);
 }
 
 void ME_Object::ReportQResultant(Vec<double>& QVec) {
@@ -25064,7 +25071,7 @@ void ME_Object::ReportQResultant(Vec<double>& QVec) {
 		}
 	}
 	sprintf_s(s1, "%s: %f\n", "Q", Q);
-	outtext1(_T(s1));
+	outtext1(s1);
 }
 
 GRAV* ME_Object::LSEThasGRAV(cLinkedList* pLC) {
@@ -28264,7 +28271,7 @@ ResSet* ME_Object::Create2dForceResSet(CString sTitle, int iLC, CString sStep, C
 	ResSet* ResSt = new ResSet();
 	ResDef* pVT;
 	pVT = new ResDef();
-	pVT->sResType = sTitle + "(Flux Mid)";
+	pVT->sResType = sTitle + _T("(Flux Mid)");
 	pVT->iResType = 3; // 2d Tensor
 	pVT->iLoc = 1; // Element Centroid(cys global)
 	pVT->iComponents[0] = 0;
@@ -28315,7 +28322,7 @@ ResSet* ME_Object::Create2dStressResSet(CString sTitle, int iLC, CString sStep, 
 	// ResSet* ResSt = new ResSet();
 	ResDef* pVT;
 	pVT = new ResDef();
-	pVT->sResType = sTitle + "(Mid)";
+	pVT->sResType = sTitle + _T("(Mid)");
 	pVT->iResType = 3; // 2d Tenspr
 	pVT->iLoc = 1; // Element Centroid(cys global)
 	pVT->iComponents[0] = 0;
@@ -28328,7 +28335,7 @@ ResSet* ME_Object::Create2dStressResSet(CString sTitle, int iLC, CString sStep, 
 	ResS->AddResDef(pVT);
 
 	pVT = new ResDef();
-	pVT->sResType = sTitle + "(Z1 Bot)";
+	pVT->sResType = sTitle + _T("(Z1 Bot)");
 	pVT->iResType = 3; // 2d Tenspr
 	pVT->iLoc = 1; // Element Centroid(cys global)
 	pVT->iComponents[0] = 7;
@@ -28341,7 +28348,7 @@ ResSet* ME_Object::Create2dStressResSet(CString sTitle, int iLC, CString sStep, 
 	ResS->AddResDef(pVT);
 
 	pVT = new ResDef();
-	pVT->sResType = sTitle + "(Z2 Top)";
+	pVT->sResType = sTitle + _T("(Z2 Top)");
 	pVT->iResType = 3; // 2d Tenspr
 	pVT->iLoc = 1; // Element Centroid(cys global)
 	pVT->iComponents[0] = 14;
@@ -28448,8 +28455,8 @@ void ME_Object::Stresses2d(int iLC, CString sSol, CString sStep, PropTable* Prop
 	double SX, SY, SXY, RX, RY, RXY;
 	ResSet* ResS; // Mid Stress Results Set
 	ResSet* ResStrn; // Strain (dir & cur) Results Set
-	ResS = Create2dStressResSet("2d EL STRESSES", iLC, sStep, sSol);
-	ResStrn = Create2dStrainResSet("2d EL STRAINS (Mid)", iLC, sStep, sSol);
+	ResS = Create2dStressResSet(_T("2d EL STRESSES"), iLC, sStep, sSol);
+	ResStrn = Create2dStrainResSet(_T("2d EL STRAINS (Mid)"), iLC, sStep, sSol);
 
 	SX = 0;
 	SY = 0, SXY = 0;
@@ -28682,9 +28689,9 @@ void ME_Object::RecoverShell(int iLC, CString sSol, CString sStep, PropTable* Pr
 	ResSet* ResF;
 	ResSet* ResS; // Mid Stress Results Set
 	ResSet* ResStrn; // Strain (dir & cur) Results Set
-	ResF = Create2dForceResSet("2d EL FORCES", iLC, sStep, sSol);
-	ResS = Create2dStressResSet("2d EL STRESSES", iLC, sStep, sSol);
-	ResStrn = Create2dStrainResSet("2d EL STRAINS (Mid)", iLC, sStep, sSol);
+	ResF = Create2dForceResSet(_T("2d EL FORCES"), iLC, sStep, sSol);
+	ResS = Create2dStressResSet(_T("2d EL STRESSES"), iLC, sStep, sSol);
+	ResStrn = Create2dStrainResSet(_T("2d EL STRAINS (Mid)"), iLC, sStep, sSol);
 
 	SX = 0;
 	SY = 0, SXY = 0;
@@ -29280,7 +29287,7 @@ void ME_Object::AddOEFRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 			S += ss[1];
 			S += ss[2];
 			S += ss[3];
-			pRes->v[2] = atof(S); // Was this??
+			pRes->v[2] = _ttof(S); // Was this??
 			if (Vals[i + 6] == -1)
 				pRes->v[3] = Vals[i + 6];
 			else
@@ -31723,11 +31730,11 @@ int ExtractRad(CString inS, double* dRad) {
 	CString sR;
 	CString sVec;
 
-	i1 = inS.Find("Bend Rad=");
+	i1 = inS.Find(_T("Bend Rad="));
 	sVec = inS.Right(inS.GetLength() - i1 - 9);
-	i2 = sVec.Find("(Angle");
+	i2 = sVec.Find(_T("(Angle"));
 	sVec = sVec.Left(i2);
-	*dRad = atof(sVec) / 1000;
+	*dRad = _ttof(sVec) / 1000;
 	return (iRet);
 }
 
@@ -31739,14 +31746,14 @@ int ExtractTwistLen(CString inS, double* dTw) {
 	CString sR;
 	CString sVec;
 
-	i1 = inS.Find("MM");
+	i1 = inS.Find(_T("MM"));
 	if (i1 < 0) {
-		i1 = inS.Find("mm");
+		i1 = inS.Find(_T("mm"));
 	}
 	sVec = inS.Left(i1);
 	i2 = sVec.ReverseFind('_');
 	sVec = sVec.Right(sVec.GetLength() - i2 - 1);
-	*dTw = atof(sVec) / 1000;
+	*dTw = _ttof(sVec) / 1000;
 	return (iRet);
 }
 
@@ -31758,14 +31765,14 @@ int ExtractTwistAng(CString inS, double* dA) {
 	CString sR;
 	CString sVec;
 
-	i1 = inS.Find("DEG");
+	i1 = inS.Find(_T("DEG"));
 	if (i1 < 0) {
-		i1 = inS.Find("deg");
+		i1 = inS.Find(_T("deg"));
 	}
 	sVec = inS.Left(i1);
 	i2 = sVec.ReverseFind('_');
 	sVec = sVec.Right(sVec.GetLength() - i2 - 1);
-	*dA = atof(sVec);
+	*dA = _ttof(sVec);
 	return (iRet);
 }
 
@@ -31780,45 +31787,45 @@ int ExtractWG(CString inS, int* iW, double* dW, int* iW2, double* dW2, BOOL* bQ1
 	CString sWG1;
 
 	sWG1 = inS;
-	i1 = inS.Find(",");
+	i1 = inS.Find(_T(","));
 	if (i1 > -1) {
 		sWG1 = sWG1.Left(i1);
 	}
-	i1 = sWG1.Find("_WR");
+	i1 = sWG1.Find(_T("_WR"));
 	sVec = sWG1.Right(sWG1.GetLength() - i1 - 3);
-	i2 = sVec.Find("_");
+	i2 = sVec.Find(_T("_"));
 	sR = sVec.Left(i2);
-	*iW = atoi(sVec);
+	*iW = _ttoi(sVec);
 	sVec = sVec.Right(sVec.GetLength() - i2);
-	i2 = sVec.Find("MM");
+	i2 = sVec.Find(_T("MM"));
 	sR = sVec.Left(i2);
-	i1 = sR.Find("_Q_");
+	i1 = sR.Find(_T("_Q_"));
 	if (i1 > -1) {
 		*bQ1 = TRUE;
 		sR = sR.Right(sR.GetLength() - 3);
 	} else {
 		sR = sR.Right(sR.GetLength() - 1);
 	}
-	*dW = atof(sR);
-	i1 = inS.Find(",");
+	*dW = _ttof(sR);
+	i1 = inS.Find(_T(","));
 	if (i1 > -1) {
 		sWG2 = inS.Right(inS.GetLength() - i1 - 1);
-		i1 = sWG2.Find("_WR");
+		i1 = sWG2.Find(_T("_WR"));
 		sVec = sWG2.Right(sWG2.GetLength() - i1 - 3);
-		i2 = sVec.Find("_");
+		i2 = sVec.Find(_T("_"));
 		sR = sVec.Left(i2);
-		*iW2 = atoi(sVec);
+		*iW2 = _ttoi(sVec);
 		sVec = sVec.Right(sVec.GetLength() - i2);
-		i2 = sVec.Find("MM");
+		i2 = sVec.Find(_T("MM"));
 		sR = sVec.Left(i2);
-		i1 = sR.Find("_Q_");
+		i1 = sR.Find(_T("_Q_"));
 		if (i1 > -1) {
 			*bQ2 = TRUE;
 			sR = sR.Right(sR.GetLength() - 3);
 		} else {
 			sR = sR.Right(sR.GetLength() - 1);
 		}
-		*dW2 = atof(sR);
+		*dW2 = _ttof(sR);
 	}
 
 	return (iRet);
@@ -31833,19 +31840,19 @@ int ExtractPt(CString inS, C3dVector* inVec) {
 	CString sX;
 	CString sY;
 	CString sVec;
-	i1 = inS.Find(":");
+	i1 = inS.Find(_T(":"));
 	sVec = inS.Right(inS.GetLength() - i1 - 1);
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sX = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sY = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	i1 = sVec.Find(".");
+	i1 = sVec.Find(_T("."));
 	sVec = sVec.Left(i1 + 3);
-	dx = atof(sX);
-	dy = atof(sY);
-	dz = atof(sVec);
+	dx = _ttof(sX);
+	dy = _ttof(sY);
+	dz = _ttof(sVec);
 	inVec->Set(dx / 1000, dy / 1000, dz / 1000);
 	return (iRet);
 }
@@ -31859,19 +31866,19 @@ int ExtractPtS(CString inS, C3dVector* inVec) {
 	CString sX;
 	CString sY;
 	CString sVec;
-	i1 = inS.Find("(");
+	i1 = inS.Find(_T("("));
 	sVec = inS.Right(inS.GetLength() - i1 - 1);
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sX = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sY = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	i1 = sVec.Find(")");
+	i1 = sVec.Find(_T(")"));
 	sVec = sVec.Left(i1);
-	dx = atof(sX);
-	dy = atof(sY);
-	dz = atof(sVec);
+	dx = _ttof(sX);
+	dy = _ttof(sY);
+	dz = _ttof(sVec);
 	inVec->Set(dx / 1000, dy / 1000, dz / 1000);
 	return (iRet);
 }
@@ -31882,7 +31889,7 @@ int ExtractName(CString inS, CString* sName) {
 	int i1;
 
 	S = inS.Right(inS.GetLength() - 57);
-	i1 = S.Find(" ");
+	i1 = S.Find(_T(" "));
 	*sName = S.Left(i1);
 	return (iRet);
 }
@@ -31900,15 +31907,15 @@ int ExtractOPt(CString inS, C3dVector* inVec)
 	CString sVec;
 
 	sVec = inS;
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sX = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sY = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	dx = atof(sX);
-	dy = atof(sY);
-	dz = atof(sVec);
+	dx = _ttof(sX);
+	dy = _ttof(sY);
+	dz = _ttof(sVec);
 	inVec->Set(dx / 1000, dy / 1000, dz / 1000);
 	return (iRet);
 }
@@ -31924,17 +31931,17 @@ int ExtractOOPt(CString inS, C3dVector* inVec)
 	CString sX;
 	CString sY;
 	CString sVec;
-	i1 = inS.Find(":");
+	i1 = inS.Find(_T(":"));
 	sVec = inS.Right(inS.GetLength() - i1 - 1);
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sX = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	i1 = sVec.Find(",");
+	i1 = sVec.Find(_T(","));
 	sY = sVec.Left(i1);
 	sVec = sVec.Right(sVec.GetLength() - i1 - 1);
-	dx = atof(sX);
-	dy = atof(sY);
-	dz = atof(sVec);
+	dx = _ttof(sX);
+	dy = _ttof(sY);
+	dz = _ttof(sVec);
 	inVec->Set(dx / 1000, dy / 1000, dz / 1000);
 	return (iRet);
 }
@@ -32826,7 +32833,7 @@ void Sweep::GenMesh(int iDim, PSHELL* pS, PBARL* pB) {
 		if (this->pPath->getLen() > 0.000001) {
 			if (iDim == 2) {
 				Mesh = new ME_Object();
-				Mesh->Create("", this, iMeshCnt);
+				Mesh->Create(_T(""), this, iMeshCnt);
 				for (i = 0; i < iSecCnt; i++) {
 					iCnt1 = 0;
 					for (j = 0; j < pAllSecs[i]->GetNoLines(); j++) {
@@ -32867,7 +32874,7 @@ void Sweep::GenMesh(int iDim, PSHELL* pS, PBARL* pB) {
 				}
 			} else if (iDim == 1) {
 				Mesh = new ME_Object();
-				Mesh->Create("", this, iMeshCnt);
+				Mesh->Create(_T(""), this, iMeshCnt);
 				for (i = 0; i < iSecCnt; i++) {
 					Nd = pAllSecs[i]->inPt;
 					pNd = Mesh->AddNode(Nd, i + 1, 0, 0, 11, 0, 0);
@@ -33173,7 +33180,7 @@ void SweepF::GenMesh(int iDim, PSHELL* pS1, PSHELL* pS2, PSHELL* pS3, PSHELL* pS
 
 		if (iDim == 2) {
 			Mesh = new ME_Object();
-			Mesh->Create("", this, iMeshCnt);
+			Mesh->Create(_T(""), this, iMeshCnt);
 
 			for (i = 0; i < iSecCnt; i++) {
 				iCnt1 = 0;
@@ -33252,7 +33259,7 @@ void SweepF::GenMesh(int iDim, PSHELL* pS1, PSHELL* pS2, PSHELL* pS3, PSHELL* pS
 			}
 		} else if (iDim == 1) {
 			Mesh = new ME_Object();
-			Mesh->Create("", this, iMeshCnt);
+			Mesh->Create(_T(""), this, iMeshCnt);
 			for (i = 0; i < iSecCnt; i++) {
 				Nd = pAllSecs[i]->inPt;
 				pNd = Mesh->AddNode(Nd, i + 1, 0, 0, 11, 0, 0);
@@ -33358,7 +33365,7 @@ void SweepFB::GenMesh(int iDim, PSHELL* pS1, PSHELL* pS2, PSHELL* pS3, PSHELL* p
 
 		if (iDim == 2) {
 			Mesh = new ME_Object();
-			Mesh->Create("", this, iMeshCnt);
+			Mesh->Create(_T(""), this, iMeshCnt);
 
 			for (i = 0; i < iSecCnt; i++) {
 				iCnt1 = 0;
@@ -33416,7 +33423,7 @@ void SweepFB::GenMesh(int iDim, PSHELL* pS1, PSHELL* pS2, PSHELL* pS3, PSHELL* p
 			}
 		} else if (iDim == 1) {
 			Mesh = new ME_Object();
-			Mesh->Create("", this, iMeshCnt);
+			Mesh->Create(_T(""), this, iMeshCnt);
 			for (i = 0; i < iSecCnt; i++) {
 				Nd = pAllSecs[i]->inPt;
 				pNd = Mesh->AddNode(Nd, i + 1, 0, 0, 11, 0, 0);
@@ -33959,7 +33966,7 @@ void Entity::ListShort(int iRow)
 	// MoMo// sprintf_s(S1, "%s %i %s %i %s %i  %s", "FNO", iFile, "ID", iID, "TYPE", iType, this->sTitle);
 	sprintf_s(S1, "%i >> %s %i %s %i %s %i  %s", iRow, "FNO", iFile, "Material ID", iID, "TYPE", iType, this->sTitle);
 	// MoMo_Material_SaveBugV1_05_20_2025_End
-	outtext1(_T(S1));
+	outtext1(S1);
 }
 
 void Entity::ExportNAS(FILE* pFile) {
@@ -34128,7 +34135,7 @@ int PMASS::GetVarValues(CString sVar[]) {
 }
 
 void PMASS::PutVarValues(int iNo, CString sVar[]) {
-	dM = atof(sVar[1]);
+	dM = _ttof(sVar[1]);
 }
 
 IMPLEMENT_DYNAMIC(PSPRINGT, CObject)
@@ -34226,11 +34233,11 @@ int PSPRINGT::GetVarValues(CString sVar[]) {
 }
 
 void PSPRINGT::PutVarValues(int iNo, CString sVar[]) {
-	iFile = atoi(sVar[0]);
-	dkx = atof(sVar[1]);
-	dky = atof(sVar[2]);
-	dkz = atof(sVar[3]);
-	dkcoeff = atof(sVar[4]);
+	iFile = _ttoi(sVar[0]);
+	dkx = _ttof(sVar[1]);
+	dky = _ttof(sVar[2]);
+	dkz = _ttof(sVar[3]);
+	dkcoeff = _ttof(sVar[4]);
 }
 
 void PSPRINGT::ExportNAS(FILE* pFile) {
@@ -34422,15 +34429,15 @@ int PBUSH::GetVarValues(CString sVar[]) {
 }
 
 void PBUSH::PutVarValues(int iNo, CString sVar[]) {
-	iFile = atoi(sVar[0]);
+	iFile = _ttoi(sVar[0]);
 	sFlg = sVar[1];
-	dK1 = atof(sVar[2]);
-	dK2 = atof(sVar[3]);
-	dK3 = atof(sVar[4]);
-	dK4 = atof(sVar[5]);
-	dK5 = atof(sVar[6]);
-	dK6 = atof(sVar[7]);
-	dkcoeff = atof(sVar[8]);
+	dK1 = _ttof(sVar[2]);
+	dK2 = _ttof(sVar[3]);
+	dK3 = _ttof(sVar[4]);
+	dK4 = _ttof(sVar[5]);
+	dK5 = _ttof(sVar[6]);
+	dK6 = _ttof(sVar[7]);
+	dkcoeff = _ttof(sVar[8]);
 }
 
 void PBUSH::ExportNAS(FILE* pFile) {
@@ -34480,11 +34487,11 @@ void PSOLID::List() {
 	OutT = S1;
 	outtext1(OutT);
 	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %i", "MAT1  : ", iMID);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %i", "CSYS  : ", iCORDM);
-	outtext1(_T(S1));
+	outtext1(S1);
 }
 
 int PSOLID::GetMat() {
@@ -34554,9 +34561,9 @@ int PSOLID::GetVarValues(CString sVar[]) {
 }
 
 void PSOLID::PutVarValues(int iNo, CString sVar[]) {
-	iFile = atoi(sVar[0]);
-	iMID = atoi(sVar[1]);
-	iCORDM = atoi(sVar[2]);
+	iFile = _ttoi(sVar[0]);
+	iMID = _ttoi(sVar[1]);
+	iCORDM = _ttoi(sVar[2]);
 }
 
 IMPLEMENT_DYNAMIC(PBAR, CObject)
@@ -34676,12 +34683,12 @@ int PBAR::GetVarValues(CString sVar[]) {
 }
 
 void PBAR::PutVarValues(int iNo, CString sVar[]) {
-	iMID = atoi(sVar[1]);
-	dA = atof(sVar[2]);
-	dI1 = atof(sVar[3]);
-	dI2 = atof(sVar[4]);
-	dJ = atof(sVar[5]);
-	dNSM = atof(sVar[6]);
+	iMID = _ttoi(sVar[1]);
+	dA = _ttof(sVar[2]);
+	dI1 = _ttof(sVar[3]);
+	dI2 = _ttof(sVar[4]);
+	dJ = _ttof(sVar[5]);
+	dNSM = _ttof(sVar[6]);
 	CreateSec();
 }
 
@@ -34920,7 +34927,7 @@ void PBEAM::ExportNAS(FILE* pFile) {
 	fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(C1[0]), e8(C2[0]), e8(D1[0]), e8(D2[0]), e8(E1[0]), e8(E2[0]), e8(F1[0]), e8(F2[0]));
 	for (i = 1; i < iNo; i++) {
 		fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", SO[i], e8(XXB[i]), e8(A[i]), e8(I1[i]), e8(I2[i]), e8(I12[i]), e8(J[i]), e8(NSM[i]));
-		if ((SO[i].Find("YESA") > -1) || (SO[i].Find("NO") > -1)) {
+		if ((SO[i].Find(_T("YESA")) > -1) || (SO[i].Find(_T("NO")) > -1)) {
 		} else {
 			fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(C1[i]), e8(C2[i]), e8(D1[i]), e8(D2[i]), e8(E1[i]), e8(E2[i]), e8(F1[i]), e8(F2[i]));
 		}
@@ -35056,16 +35063,16 @@ int PBARL::GetVarValues(CString sVar[]) {
 void PBARL::PutVarValues(int iNo, CString sVar[]) {
 	int iC = 1;
 	int i;
-	iFile = atoi(sVar[0]);
-	iMID = atoi(sVar[iC]);
+	iFile = _ttoi(sVar[0]);
+	iMID = _ttoi(sVar[iC]);
 	iC++;
 	iC++;
 	for (i = 0; i < iNoDims; i++) {
-		dDIMs[i] = atof(sVar[iC]);
+		dDIMs[i] = _ttof(sVar[iC]);
 		iC++;
 	}
 	iC++;
-	dNSM = atof(sVar[iC]);
+	dNSM = _ttof(sVar[iC]);
 	CreateSec();
 }
 
@@ -35105,54 +35112,54 @@ void PBARL::List() {
 	OutT = S1;
 	outtext1(OutT);
 	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %s", "TYPE  : ", sSecType);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %s", "GRP   : ", sGROUP);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %i", "MAT1  : ", iMID);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %g", "A     : ", A);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %g", "Iyy   : ", Iyy);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %g", "Izz   : ", Izz);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %g", "J     : ", J);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %f", "yBar     : ", ybar);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %f", "zBar     : ", zbar);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %f", "NSM   : ", dNSM);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %i", "IDIMS : ", iNoDims);
-	outtext1(_T(S1));
+	outtext1(S1);
 	int i;
 	for (i = 0; i < iNoDims; i++) {
 		sprintf_s(S1, "DIM: %i : %f", i, dDIMs[i]);
-		outtext1(_T(S1));
+		outtext1(S1);
 	}
 }
 
 void PBARL::CreateSec() {
 	this->CalcProps();
-	if (sSecType.Find("BOX") > -1) {
+	if (sSecType.Find(_T("BOX")) > -1) {
 		DspSec.CreateBox(dDIMs[0], dDIMs[1], dDIMs[2], dDIMs[3]);
 	}
-	if (sSecType.Find("L ") > -1) {
+	if (sSecType.Find(_T("L ")) > -1) {
 		DspSec.CreateL(dDIMs[0], dDIMs[1], dDIMs[2], dDIMs[3], ybar, zbar);
-	} else if (sSecType.Find("BAR") > -1) {
+	} else if (sSecType.Find(_T("BAR")) > -1) {
 		DspSec.CreateBar(dDIMs[0], dDIMs[1]);
-	} else if (sSecType.Find("ROD") > -1) {
+	} else if (sSecType.Find(_T("ROD")) > -1) {
 		DspSec.CreateRod(dDIMs[0]);
-	} else if (sSecType.Find("TUBE") > -1) {
+	} else if (sSecType.Find(_T("TUBE")) > -1) {
 		DspSec.CreateTube(dDIMs[0], dDIMs[1]);
-	} else if (sSecType.Find("T2") > -1) {
+	} else if (sSecType.Find(_T("T2")) > -1) {
 		DspSec.CreateT2(dDIMs[0], dDIMs[1], dDIMs[2], dDIMs[3], ybar);
-	} else if (sSecType.Find("CHAN2") > -1) {
+	} else if (sSecType.Find(_T("CHAN2")) > -1) {
 		DspSec.CreateCHAN2(dDIMs[0], dDIMs[1], dDIMs[2], dDIMs[3], ybar);
-	} else if (sSecType.Find("I ") > -1) {
+	} else if (sSecType.Find(_T("I ")) > -1) {
 		DspSec.CreateI2(dDIMs[0], dDIMs[1], dDIMs[2], dDIMs[3], dDIMs[4], dDIMs[5], ybar);
 	}
 }
@@ -35171,15 +35178,15 @@ BOOL PBARL::HasMat(int inMID) {
 
 int PBARL::GetNoDims() {
 	int iRet = -1;
-	if (sSecType.Find("BOX") > -1) {
+	if (sSecType.Find(_T("BOX")) > -1) {
 		iRet = 4;
-	} else if (sSecType.Find("BAR") > -1) {
+	} else if (sSecType.Find(_T("BAR")) > -1) {
 		iRet = 2;
-	} else if (sSecType.Find("ROD") > -1) {
+	} else if (sSecType.Find(_T("ROD")) > -1) {
 		iRet = 1;
-	} else if (sSecType.Find("TUBE") > -1) {
+	} else if (sSecType.Find(_T("TUBE")) > -1) {
 		iRet = 2;
-	} else if (sSecType.Find("I   ") > -1) {
+	} else if (sSecType.Find(_T("I   ")) > -1) {
 		iRet = 6;
 	}
 	return iRet;
@@ -35188,7 +35195,10 @@ int PBARL::GetNoDims() {
 void PBARL::ExportNAS(FILE* pFile) {
 	int i;
 	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s\n", "PBARL   ", iID, iMID, sGROUP, ncr(sSecType), " ");
+	// momo
+	// momo// fprintf(pFile, "%8s%8i%8i%8s%8s%8s\n", "PBARL   ", iID, iMID, sGROUP, ncr(sSecType), " ");
+	fprintf(pFile, "%8s%8i%8i%8s%8s%8s\n", "PBARL   ", iID, iMID, CStringA(sGROUP).GetString(), CStringA(ncr(sSecType)).GetString(), " ");
+	// momo
 	fprintf(pFile, "%8s", " ");
 	for (i = 0; i < iNoDims; i++) {
 		fprintf(pFile, "%8s", e8(dDIMs[i]));
@@ -35239,20 +35249,20 @@ int PBARL::GetDefMatID() {
 }
 
 void PBARL::CalcProps() {
-	if (sSecType.Find("ROD") != -1) {
+	if (sSecType.Find(_T("ROD")) != -1) {
 		double R = dDIMs[0];
 		A = Pi * R * R;
 		Izz = Pi * R * R * R * R / 4;
 		Iyy = Izz;
 		J = Pi * R * R * R * R / 2;
-	} else if (sSecType.Find("TUBE") != -1) {
+	} else if (sSecType.Find(_T("TUBE")) != -1) {
 		double Do = 2 * dDIMs[0];
 		double Di = 2 * dDIMs[1];
 		A = Pi * (Do * Do - Di * Di) / 4;
 		Izz = Pi * (Do * Do * Do * Do - Di * Di * Di * Di) / 64;
 		Iyy = Izz;
 		J = Pi * (Do * Do * Do * Do - Di * Di * Di * Di) / 32;
-	} else if (sSecType.Find("BAR") != -1) {
+	} else if (sSecType.Find(_T("BAR")) != -1) {
 		double W = dDIMs[0];
 		double H = dDIMs[1];
 		double a, b;
@@ -35267,7 +35277,7 @@ void PBARL::CalcProps() {
 		Izz = W * H * H * H / 12;
 		J = a * b * b * b * (0.333333333 - 0.21 * b / a * (1 - b * b * b * b / (12 * a * a * a * a)));
 
-	} else if (sSecType.Find("BOX") != -1) {
+	} else if (sSecType.Find(_T("BOX")) != -1) {
 		double Wo = dDIMs[0];
 		double Ho = dDIMs[1];
 		double Wi = Wo - 2 * dDIMs[2];
@@ -35279,7 +35289,7 @@ void PBARL::CalcProps() {
 		Izz = Wo * Ho * Ho * Ho / 12 - Wi * Hi * Hi * Hi / 12;
 		J = 2 * wt * ht * (Wo - wt) * (Wo - wt) * (Ho - ht) * (Ho - ht);
 		J /= (Wo * wt + Ho * ht - wt * wt - ht * ht);
-	} else if (sSecType.Find("T2") != -1) {
+	} else if (sSecType.Find(_T("T2")) != -1) {
 		double h = dDIMs[1];
 		double b = dDIMs[0];
 		double tw = dDIMs[3];
@@ -35298,7 +35308,7 @@ void PBARL::CalcProps() {
 		dd = h - tf / 2;
 
 		J = (b * tf * tf * tf + dd * tw * tw * tw) / 3;
-	} else if (sSecType.Find("CHAN2") != -1) {
+	} else if (sSecType.Find(_T("CHAN2")) != -1) {
 		double h = dDIMs[2];
 		double w = dDIMs[3];
 		double wt = dDIMs[1];
@@ -35319,7 +35329,7 @@ void PBARL::CalcProps() {
 		bb = h - wt / 2;
 		dd = w - ft;
 		J = (2 * bb * ft * ft * ft + dd * wt * w * wt) / 3;
-	} else if (sSecType.Find("I ") != -1) {
+	} else if (sSecType.Find(_T("I ")) != -1) {
 		double h = dDIMs[0];
 		double wb = dDIMs[1];
 		;
@@ -35344,7 +35354,7 @@ void PBARL::CalcProps() {
 		double dd;
 		dd = h - (ttf + tbf) / 0.5;
 		J = (wt * ttf * ttf * ttf + wb * tbf * tbf * tbf + dd * tw * tw * tw) / 3;
-	} else if (sSecType.Find("L ") != -1) {
+	} else if (sSecType.Find(_T("L ")) != -1) {
 		double w = dDIMs[0];
 		double h = dDIMs[1];
 		;
@@ -35446,17 +35456,17 @@ void PROD::List() {
 	OutT = S1;
 	outtext1(OutT);
 	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %s", "TYPE  : ", sSecType);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %s", "GRP   : ", sGROUP);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %i", "MAT1  : ", iMID);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %f", "A     : ", A);
-	outtext1(_T(S1));
+	outtext1(S1);
 	sprintf_s(S1, "%s %f", "J     : ", J);
-	outtext1(_T(S1));
+	outtext1(S1);
 }
 
 BSec* PROD::GetSec() {
@@ -35515,10 +35525,10 @@ int PROD::GetVarValues(CString sVar[]) {
 }
 
 void PROD::PutVarValues(int iNo, CString sVar[]) {
-	iFile = atoi(sVar[0]);
-	iMID = atoi(sVar[1]);
-	A = atof(sVar[2]);
-	J = atof(sVar[3]);
+	iFile = _ttoi(sVar[0]);
+	iMID = _ttoi(sVar[1]);
+	A = _ttof(sVar[2]);
+	J = _ttof(sVar[3]);
 	CreateSec();
 }
 
@@ -35656,7 +35666,7 @@ void PSHELL::ExportNAS(FILE* pFile) {
 
 CString PSHELL::ToString() {
 	char S[200] = "";
-	CString src = "";
+	CString src = _T("");
 	sprintf_s(S, "%8s%8i%8i%8s%8i", "PSHELL  ", iID, iMID1, e8(dT), iMID2);
 	src = S;
 	if (d12IT3 == 0)
@@ -35768,17 +35778,17 @@ int PSHELL::GetVarValues(CString sVar[]) {
 }
 
 void PSHELL::PutVarValues(int iNo, CString sVar[]) {
-	iFile = atoi(sVar[0]);
-	iMID1 = atoi(sVar[1]);
-	dT = atof(sVar[2]);
-	iMID2 = atoi(sVar[3]);
-	d12IT3 = atof(sVar[4]);
-	iMID3 = atoi(sVar[5]);
-	dTST = atof(sVar[6]);
-	dNSM = atof(sVar[7]);
-	dZ1 = atof(sVar[8]);
-	dZ2 = atof(sVar[9]);
-	iMID4 = atoi(sVar[10]);
+	iFile = _ttoi(sVar[0]);
+	iMID1 = _ttoi(sVar[1]);
+	dT = _ttof(sVar[2]);
+	iMID2 = _ttoi(sVar[3]);
+	d12IT3 = _ttof(sVar[4]);
+	iMID3 = _ttoi(sVar[5]);
+	dTST = _ttof(sVar[6]);
+	dNSM = _ttof(sVar[7]);
+	dZ1 = _ttof(sVar[8]);
+	dZ2 = _ttof(sVar[9]);
+	iMID4 = _ttoi(sVar[10]);
 }
 
 // MAt1
@@ -35893,15 +35903,15 @@ int MAT1::GetVarValues(CString sVar[]) {
 }
 
 void MAT1::PutVarValues(int iNo, CString sVar[]) {
-	iFile = atoi(sVar[0]);
-	dE = atof(sVar[1]);
-	dG = atof(sVar[2]);
-	dNU = atof(sVar[3]);
-	dRHO = atof(sVar[4]);
-	dA = atof(sVar[5]);
-	dTREF = atof(sVar[6]);
-	iMCSID = atoi(sVar[7]);
-	dk = atof(sVar[8]);
+	iFile = _ttoi(sVar[0]);
+	dE = _ttof(sVar[1]);
+	dG = _ttof(sVar[2]);
+	dNU = _ttof(sVar[3]);
+	dRHO = _ttof(sVar[4]);
+	dA = _ttof(sVar[5]);
+	dTREF = _ttof(sVar[6]);
+	iMCSID = _ttoi(sVar[7]);
+	dk = _ttof(sVar[8]);
 }
 
 Mat MAT1::DeeMEM() {
@@ -35991,8 +36001,8 @@ void MAT1::Serialize(CArchive& ar, int iV) {
 
 void MAT1::ExportNAS(FILE* pFile) {
 	fprintf(pFile, "$%s\n", sTitle.GetString());
-	CString sG = "        ";
-	CString sV = "        ";
+	CString sG = _T("        ");
+	CString sV = _T("        ");
 	CString CTE;
 	if (dG > 0) {
 		sG = e8(dG);
@@ -36116,7 +36126,7 @@ void MAT8::ExportNAS(FILE* pFile) {
 
 CString MAT8::ToString() {
 	char S[200] = "";
-	CString src = "";
+	CString src = _T("");
 	sprintf_s(S, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", "MAT8    ", iID, e8(dE1).GetString(), e8(dE2).GetString(), e8(dNU12).GetString(), e8(dG12).GetString(), e8(dG1Z).GetString(), e8(dG2Z).GetString(), e8(dRHO).GetString());
 	src = S;
 	sprintf_s(S, "        %8s%8s", e8(dA1).GetString(), e8(dA2).GetString());
@@ -36286,27 +36296,27 @@ int MAT8::GetVarValues(CString sVar[]) {
 }
 
 void MAT8::PutVarValues(int iNo, CString sVar[]) {
-	iFile = atoi(sVar[0]);
-	dE1 = atof(sVar[1]);
-	dE2 = atof(sVar[2]);
-	dNU12 = atof(sVar[3]);
-	dG12 = atof(sVar[4]);
-	dG1Z = atof(sVar[5]);
-	dG2Z = atof(sVar[6]);
-	dRHO = atof(sVar[7]);
+	iFile = _ttoi(sVar[0]);
+	dE1 = _ttof(sVar[1]);
+	dE2 = _ttof(sVar[2]);
+	dNU12 = _ttof(sVar[3]);
+	dG12 = _ttof(sVar[4]);
+	dG1Z = _ttof(sVar[5]);
+	dG2Z = _ttof(sVar[6]);
+	dRHO = _ttof(sVar[7]);
 
-	dA1 = atof(sVar[8]);
-	dA2 = atof(sVar[9]);
-	dTREF = atof(sVar[10]);
-	dXt = atof(sVar[11]);
-	dXc = atof(sVar[12]);
-	dYt = atof(sVar[13]);
-	dYc = atof(sVar[14]);
+	dA1 = _ttof(sVar[8]);
+	dA2 = _ttof(sVar[9]);
+	dTREF = _ttof(sVar[10]);
+	dXt = _ttof(sVar[11]);
+	dXc = _ttof(sVar[12]);
+	dYt = _ttof(sVar[13]);
+	dYc = _ttof(sVar[14]);
 
-	dS = atof(sVar[15]);
-	dGE = atof(sVar[16]);
-	F12 = atof(sVar[17]);
-	STRN = atof(sVar[18]);
+	dS = _ttof(sVar[15]);
+	dGE = _ttof(sVar[16]);
+	F12 = _ttof(sVar[17]);
+	STRN = _ttof(sVar[18]);
 }
 
 //*************************************************************************
@@ -36474,10 +36484,10 @@ void PCOMPG::PutVarValues(int iNo, CString sVar[]) {
 	int iOut;
 	CString sFT;
 	CString sSYM;
-	iFile = atoi(sVar[0]);
-	dZ0 = atof(sVar[1]);
-	dNSM = atof(sVar[2]);
-	dSB = atof(sVar[3]);
+	iFile = _ttoi(sVar[0]);
+	dZ0 = _ttof(sVar[1]);
+	dNSM = _ttof(sVar[2]);
+	dSB = _ttof(sVar[3]);
 	sFT = ExtractSubString2(1, sVar[4]);
 	FT = 0;
 	if (sFT == "HILL")
@@ -36496,22 +36506,22 @@ void PCOMPG::PutVarValues(int iNo, CString sVar[]) {
 		FT = 7;
 	else if (sFT == "MCT")
 		FT = 8;
-	dRefT = atof(sVar[5]);
-	dGE = atof(sVar[6]);
+	dRefT = _ttof(sVar[5]);
+	dGE = _ttof(sVar[6]);
 	sSYM = ExtractSubString2(1, sVar[7]);
 
 	if (sSYM == "SYM")
 		bLAM = TRUE;
 	else
 		bLAM = FALSE;
-	iNoLays = atoi(sVar[8]);
+	iNoLays = _ttoi(sVar[8]);
 	int iP = 0;
 	for (i = 10; i < 10 + iNoLays; i++) {
-		iLay = atoi(ExtractSubString2(1, sVar[i]));
-		iMID = atoi(ExtractSubString2(2, sVar[i]));
-		dThk = atof(ExtractSubString2(3, sVar[i]));
-		dTheta = atof(ExtractSubString2(4, sVar[i]));
-		iOut = atoi(ExtractSubString2(5, sVar[i]));
+		iLay = _ttoi(ExtractSubString2(1, sVar[i]));
+		iMID = _ttoi(ExtractSubString2(2, sVar[i]));
+		dThk = _ttof(ExtractSubString2(3, sVar[i]));
+		dTheta = _ttof(ExtractSubString2(4, sVar[i]));
+		iOut = _ttoi(ExtractSubString2(5, sVar[i]));
 		GPLYID[iP] = iLay;
 		MID[iP] = iMID;
 		T[iP] = dThk;
@@ -36628,13 +36638,13 @@ BOOL PCOMP::HasMat(int inMID) {
 CString PCOMP::ToString() {
 	int i;
 	char S[200] = "";
-	CString src = "";
+	CString src = _T("");
 	CString sSB;
 	if (dSB != 0)
 		sSB = e8(dSB);
 	else
 		sSB = "        ";
-	CString sFT = "        ";
+	CString sFT = _T("        ");
 	if (FT == 0)
 		sFT = "        ";
 	if (FT == 1)
@@ -36653,7 +36663,7 @@ CString PCOMP::ToString() {
 		sFT = "   PUCK ";
 	else if (FT == 8)
 		sFT = "     MCT";
-	CString sLAM = "        ";
+	CString sLAM = _T("        ");
 	if (bLAM)
 		sLAM = "SYM     ";
 	sprintf_s(S, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", "PCOMP   ", iID, e8(dZ0).GetString(), e8(dNSM).GetString(), sSB.GetString(), sFT.GetString(), e8(dRefT).GetString(), e8(dGE), sLAM.GetString());
@@ -36662,7 +36672,7 @@ CString PCOMP::ToString() {
 	for (i = 0; i < iNoLays; i++) {
 		if (iLcnt == 0)
 			src += "        ";
-		CString sO = "      NO";
+		CString sO = _T("      NO");
 		if (sOut[i] == TRUE)
 			sO = "     YES";
 		if (iLcnt == 0) {
@@ -36838,10 +36848,10 @@ void PCOMP::PutVarValues(int iNo, CString sVar[]) {
 	int iOut;
 	CString sFT;
 	CString sSYM;
-	iFile = atoi(sVar[0]);
-	dZ0 = atof(sVar[1]);
-	dNSM = atof(sVar[2]);
-	dSB = atof(sVar[3]);
+	iFile = _ttoi(sVar[0]);
+	dZ0 = _ttof(sVar[1]);
+	dNSM = _ttof(sVar[2]);
+	dSB = _ttof(sVar[3]);
 	sFT = ExtractSubString2(1, sVar[4]);
 	FT = 0;
 	if (sFT == "HILL")
@@ -36860,21 +36870,21 @@ void PCOMP::PutVarValues(int iNo, CString sVar[]) {
 		FT = 7;
 	else if (sFT == "MCT")
 		FT = 8;
-	dRefT = atof(sVar[5]);
-	dGE = atof(sVar[6]);
+	dRefT = _ttof(sVar[5]);
+	dGE = _ttof(sVar[6]);
 	sSYM = ExtractSubString2(1, sVar[7]);
 
 	if (sSYM == "SYM")
 		bLAM = TRUE;
 	else
 		bLAM = FALSE;
-	iNoLays = atoi(sVar[8]);
+	iNoLays = _ttoi(sVar[8]);
 	int iP = 0;
 	for (i = 10; i < 10 + iNoLays; i++) {
-		iMID = atoi(ExtractSubString2(1, sVar[i]));
-		dThk = atof(ExtractSubString2(2, sVar[i]));
-		dTheta = atof(ExtractSubString2(3, sVar[i]));
-		iOut = atoi(ExtractSubString2(4, sVar[i]));
+		iMID = _ttoi(ExtractSubString2(1, sVar[i]));
+		dThk = _ttof(ExtractSubString2(2, sVar[i]));
+		dTheta = _ttof(ExtractSubString2(3, sVar[i]));
+		iOut = _ttoi(ExtractSubString2(4, sVar[i]));
 		MID[iP] = iMID;
 		T[iP] = dThk;
 		Theta[iP] = dTheta;
@@ -37034,7 +37044,7 @@ void Moment::ExportNAS(FILE* pFile) {
 }
 
 CString Moment::GetName() {
-	return ("Moment (MOMENT)");
+	return (_T("Moment (MOMENT)"));
 }
 
 IMPLEMENT_DYNAMIC(Pressure, CObject)
@@ -37205,7 +37215,7 @@ void Pressure::ExportNAS(FILE* pFile) {
 }
 
 CString Pressure::GetName() {
-	return ("Presure (PLOAD)");
+	return (_T("Presure (PLOAD)"));
 }
 
 int Pressure::GetVarHeaders(CString sVar[]) {
@@ -37231,7 +37241,7 @@ void Pressure::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	double dP;
 
 	ME_Object* pMe = (ME_Object*) this->pParent;
-	dP = atof(sVar[0]);
+	dP = _ttof(sVar[0]);
 	F.Normalize();
 	F.x = dP;
 }
@@ -38063,7 +38073,7 @@ void Force::Info() {
 }
 
 CString Force::GetName() {
-	return ("Force (FORCE)");
+	return (_T("Force (FORCE)"));
 }
 
 int Force::GetVarHeaders(CString sVar[]) {
@@ -38098,9 +38108,9 @@ int Force::GetVarValues(CString sVar[]) {
 void Force::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	ME_Object* pMe = (ME_Object*) this->pParent;
 
-	F.x = atof(sVar[0]);
-	F.y = atof(sVar[1]);
-	F.z = atof(sVar[2]);
+	F.x = _ttof(sVar[0]);
+	F.y = _ttof(sVar[1]);
+	F.z = _ttof(sVar[2]);
 }
 
 IMPLEMENT_DYNAMIC(TEMPD, CObject)
@@ -38196,7 +38206,7 @@ int TEMPD::GetVarValues(CString sVar[]) {
 
 void TEMPD::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	int i = 0;
-	dTempD = atof(sVar[i++]);
+	dTempD = _ttof(sVar[i++]);
 }
 
 IMPLEMENT_DYNAMIC(GRAV, CObject)
@@ -38313,11 +38323,11 @@ int GRAV::GetVarValues(CString sVar[]) {
 
 void GRAV::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	int i = 0;
-	iCID = atoi(sVar[i++]);
-	dScl = atof(sVar[i++]);
-	vV.x = atof(sVar[i++]);
-	vV.y = atof(sVar[i++]);
-	vV.z = atof(sVar[i++]);
+	iCID = _ttoi(sVar[i++]);
+	dScl = _ttof(sVar[i++]);
+	vV.x = _ttof(sVar[i++]);
+	vV.y = _ttof(sVar[i++]);
+	vV.z = _ttof(sVar[i++]);
 }
 
 IMPLEMENT_DYNAMIC(Restraint, CObject)
@@ -38521,7 +38531,7 @@ void Restraint::Info() {
 }
 
 CString Restraint::GetName() {
-	return ("Restraint (SPC)");
+	return (_T("Restraint (SPC)"));
 }
 
 int Restraint::GetVarHeaders(CString sVar[]) {
@@ -38572,32 +38582,32 @@ int Restraint::GetVarValues(CString sVar[]) {
 }
 
 void Restraint::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
-	int iDF = atoi(sVar[0]);
+	int iDF = _ttoi(sVar[0]);
 	if (iDF != 1)
 		REST[0] = FALSE;
 	else
 		REST[0] = TRUE;
-	iDF = atoi(sVar[1]);
+	iDF = _ttoi(sVar[1]);
 	if (iDF != 1)
 		REST[1] = FALSE;
 	else
 		REST[1] = TRUE;
-	iDF = atoi(sVar[2]);
+	iDF = _ttoi(sVar[2]);
 	if (iDF != 1)
 		REST[2] = FALSE;
 	else
 		REST[2] = TRUE;
-	iDF = atoi(sVar[3]);
+	iDF = _ttoi(sVar[3]);
 	if (iDF != 1)
 		REST[3] = FALSE;
 	else
 		REST[3] = TRUE;
-	iDF = atoi(sVar[4]);
+	iDF = _ttoi(sVar[4]);
 	if (iDF != 1)
 		REST[4] = FALSE;
 	else
 		REST[4] = TRUE;
-	iDF = atoi(sVar[5]);
+	iDF = _ttoi(sVar[5]);
 	if (iDF != 1)
 		REST[5] = FALSE;
 	else
@@ -39138,7 +39148,7 @@ void CoordSys::Info() {
 }
 
 CString CoordSys::GetName() {
-	return ("Coordinate System");
+	return (_T("Coordinate System"));
 }
 
 int CoordSys::GetVarHeaders(CString sVar[]) {
@@ -39160,8 +39170,8 @@ int CoordSys::GetVarValues(CString sVar[]) {
 }
 
 void CoordSys::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
-	CysType = atoi(sVar[0]);
-	RID = atoi(sVar[1]);
+	CysType = _ttoi(sVar[0]);
+	RID = _ttoi(sVar[1]);
 }
 
 C3dVector CoordSys::Get_Centroid() {
@@ -39700,7 +39710,7 @@ G_Object* Text::Copy(G_Object* Parrent) {
 }
 
 CString Text::GetName() {
-	return ("Text");
+	return (_T("Text"));
 }
 
 int Text::GetVarHeaders(CString sVar[]) {
@@ -39749,10 +39759,10 @@ void Text::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	CString line;
 	CString field;
 	CArray<CString, CString> v;
-	iFile = atoi(sVar[0]);
+	iFile = _ttoi(sVar[0]);
 	sText = sVar[1];
-	dTextHeight = atof(sVar[2]);
-	line = _T(sVar[3]);
+	dTextHeight = _ttof(sVar[2]);
+	line = sVar[3];
 	index = 0;
 	while (AfxExtractSubString(field, line, index, _T(',')) ||
 	       AfxExtractSubString(field, line, index, _T(' '))) {
@@ -39760,24 +39770,11 @@ void Text::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 		++index;
 	}
 	if (index == 3) {
-		vInsPt.x = atof(v[0]);
-		vInsPt.y = atof(v[1]);
-		vInsPt.z = atof(v[2]);
+		vInsPt.x = _ttof(v[0]);
+		vInsPt.y = _ttof(v[1]);
+		vInsPt.z = _ttof(v[2]);
 	}
-	line = _T(sVar[4]);
-	index = 0;
-	v.RemoveAll();
-	while (AfxExtractSubString(field, line, index, _T(',')) ||
-	       AfxExtractSubString(field, line, index, _T(' '))) {
-		v.Add(field);
-		++index;
-	}
-	if (index == 3) {
-		vDir.x = atof(v[0]);
-		vDir.y = atof(v[1]);
-		vDir.z = atof(v[2]);
-	}
-	line = _T(sVar[5]);
+	line = sVar[4];
 	index = 0;
 	v.RemoveAll();
 	while (AfxExtractSubString(field, line, index, _T(',')) ||
@@ -39786,9 +39783,22 @@ void Text::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 		++index;
 	}
 	if (index == 3) {
-		vNorm.x = atof(v[0]);
-		vNorm.y = atof(v[1]);
-		vNorm.z = atof(v[2]);
+		vDir.x = _ttof(v[0]);
+		vDir.y = _ttof(v[1]);
+		vDir.z = _ttof(v[2]);
+	}
+	line = sVar[5];
+	index = 0;
+	v.RemoveAll();
+	while (AfxExtractSubString(field, line, index, _T(',')) ||
+	       AfxExtractSubString(field, line, index, _T(' '))) {
+		v.Add(field);
+		++index;
+	}
+	if (index == 3) {
+		vNorm.x = _ttof(v[0]);
+		vNorm.y = _ttof(v[1]);
+		vNorm.z = _ttof(v[2]);
 	}
 
 	BuildText();
@@ -40019,7 +40029,7 @@ void DIM::Serialize(CArchive& ar, int iV) {
 }
 
 CString DIM::GetName() {
-	return ("Simension");
+	return (_T("Simension"));
 }
 
 int DIM::GetVarHeaders(CString sVar[]) {
@@ -40067,12 +40077,12 @@ void DIM::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 		sText = sVar[1];
 		bTextOverRide = TRUE;
 	} else {
-		bTextOverRide = atoi(sVar[5]);
+		bTextOverRide = _ttoi(sVar[5]);
 	}
 	sTextPost = sVar[2];
-	dDimScl = atof(sVar[3]);
-	dDrgScl = atof(sVar[4]);
-	iDimOpt = atoi(sVar[6]);
+	dDimScl = _ttof(sVar[3]);
+	dDrgScl = _ttof(sVar[4]);
+	iDimOpt = _ttoi(sVar[6]);
 	Clean();
 	Build();
 }
@@ -43717,8 +43727,8 @@ int Part::GetVarValues(CString sVar[]) {
 
 void Part::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	sName = sVar[0];
-	iColour = atoi(sVar[1]);
-	Alpha = atof(sVar[2]);
+	iColour = _ttoi(sVar[1]);
+	Alpha = _ttof(sVar[2]);
 }
 
 void Part::RelTo(G_Object* pThis, ObjList* pList, int iType) {
@@ -43884,7 +43894,7 @@ void Part::Transform(C3dMatrix TMat) {
 }
 
 CString Part::GetName() {
-	return ("Solid Part");
+	return (_T("Solid Part"));
 }
 
 void Part::S_Box(CPoint P1, CPoint P2, ObjList* pSel) {
@@ -44082,7 +44092,7 @@ void CvPt_Object::Info() {
 	char S1[80];
 	G_Object::Info();
 	sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f W: %f LAYER: %i", iLabel, Pt_Point->x, Pt_Point->y, Pt_Point->z, w, iFile);
-	outtext1(_T(S1));
+	outtext1(S1);
 }
 
 C3dVector CvPt_Object::MinPt(C3dVector inPt) {
@@ -44301,7 +44311,7 @@ void CvPt_Object::ExportDXF(FILE* pFile) {
 }
 
 CString CvPt_Object::GetName() {
-	return ("Point");
+	return (_T("Point"));
 }
 
 int CvPt_Object::GetVarHeaders(CString sVar[]) {
@@ -44337,10 +44347,10 @@ int CvPt_Object::GetVarValues(CString sVar[]) {
 }
 
 void CvPt_Object::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
-	Pt_Point->x = atof(sVar[0]);
-	Pt_Point->y = atof(sVar[1]);
-	Pt_Point->z = atof(sVar[2]);
-	w = atof(sVar[3]);
+	Pt_Point->x = _ttof(sVar[0]);
+	Pt_Point->y = _ttof(sVar[1]);
+	Pt_Point->z = _ttof(sVar[2]);
+	w = _ttof(sVar[3]);
 }
 
 IMPLEMENT_DYNAMIC(CvPt_ObjectW, CObject)
@@ -44478,11 +44488,11 @@ void NCurve::Info() {
 	sprintf_s(S1, "%s%i", "Curve Mesh Increment : ", iInc);
 	outtext1(S1);
 	sprintf_s(S1, "Order: %i", p);
-	outtext1(_T(S1));
+	outtext1(S1);
 	CString sO;
 	for (i = 0; i < iNoCPts; i++) {
 		sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f W: %f", iLabel, cPts[i]->Pt_Point->x, cPts[i]->Pt_Point->y, cPts[i]->Pt_Point->z, cPts[i]->w);
-		outtext1(_T(S1));
+		outtext1(S1);
 	}
 	outtext1("Knot Sequence:-");
 	for (i = 0; i < iNoCPts + p + 1; i++) {
@@ -45431,7 +45441,7 @@ void NCurve::EndPtChk01(NSurf* pSurf,
 }
 
 CString NCurve::GetName() {
-	return ("NCurve");
+	return (_T("NCurve"));
 }
 
 BOOL NCurve::IsClosed() {
@@ -45467,7 +45477,7 @@ int NCurve::GetVarValues(CString sVar[]) {
 	sprintf_s(S1, "%i", iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	CString sKnots = "";
+	CString sKnots = _T("");
 	for (i = 0; i < iNoCPts + p; i++) {
 		sprintf_s(S1, "%g,", knots[i]);
 		sKnots += S1;
@@ -45489,8 +45499,8 @@ int NCurve::GetVarValues(CString sVar[]) {
 void NCurve::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	int i = 0;
 	int index = 0;
-	iFile = atoi(sVar[0]);
-	CString line = _T(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	CString line = sVar[1];
 	CString field;
 	CArray<CString, CString> v;
 	while (AfxExtractSubString(field, line, index, _T(','))) {
@@ -45499,12 +45509,12 @@ void NCurve::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	}
 	if (index == iNoCPts + p + 1) {
 		for (i = 0; i < iNoCPts + p + 1; i++) {
-			knots[i] = atof(v[i]);
+			knots[i] = _ttof(v[i]);
 		}
 	}
 	double uS, uE;
-	uS = atof(sVar[2]);
-	uE = atof(sVar[3]);
+	uS = _ttof(sVar[2]);
+	uE = _ttof(sVar[3]);
 	if ((uS >= 0.0) && (uS <= 1.0) && (uS < uE))
 		ws = uS;
 	if ((uE >= 0.0) && (uE <= 1.0) && (uE > uS))
@@ -47288,7 +47298,7 @@ int NCircle::GetVarValues(CString sVar[]) {
 	sprintf_s(S1, "%i", iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	CString sKnots = "";
+	CString sKnots = _T("");
 	for (i = 0; i < iNoCPts + p; i++) {
 		sprintf_s(S1, "%g,", knots[i]);
 		sKnots += S1;
@@ -47313,8 +47323,8 @@ int NCircle::GetVarValues(CString sVar[]) {
 void NCircle::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	int i = 0;
 	int index = 0;
-	iFile = atoi(sVar[0]);
-	CString line = _T(sVar[1]);
+	iFile = _ttoi(sVar[0]);
+	CString line = sVar[1];
 	CString field;
 	CArray<CString, CString> v;
 
@@ -47324,17 +47334,17 @@ void NCircle::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	}
 	if (index == iNoCPts + p + 1) {
 		for (i = 0; i < iNoCPts + p + 1; i++) {
-			knots[i] = atof(v[i]);
+			knots[i] = _ttof(v[i]);
 		}
 	}
 	double uS, uE;
-	uS = atof(sVar[2]);
-	uE = atof(sVar[3]);
+	uS = _ttof(sVar[2]);
+	uE = _ttof(sVar[3]);
 	if ((uS >= 0.0) && (uS <= 1.0) && (uS < uE))
 		ws = uS;
 	if ((uE >= 0.0) && (uE <= 1.0) && (uE > uS))
 		we = uE;
-	dRadius = atof(sVar[4]);
+	dRadius = _ttof(sVar[4]);
 	Build();
 }
 
@@ -49908,7 +49918,7 @@ void NSurf::TrimLoop(double us, double ue, double vs, double ve) {
 }
 
 CString NSurf::GetName() {
-	return ("Surface");
+	return (_T("Surface"));
 }
 
 IMPLEMENT_DYNAMIC(NSurfR, CObject)
@@ -50208,7 +50218,7 @@ void IgesP::Add(CString inSt) {
 CString IgesP::getPLine(int pInd, int iNo) {
 	int i;
 	int iC;
-	CString sL = "";
+	CString sL = _T("");
 	for (i = 0; i < iNo; i++) {
 		sL += P[pInd - 1 + i];
 		if (i == iNo - 1) {
@@ -50251,9 +50261,9 @@ void CFilterDialog::ReSet() {
 	for (i = 0; i < pFilt->iNoOfType; i++) {
 		sprintf_s(OutT, "%i : %s", pFilt->iType[i], pFilt->sType[i]);
 		if (pFilt->isFilter(pFilt->iType[i]) == TRUE) {
-			pItemsNonSelectable->AddString(OutT);
+			pItemsNonSelectable->AddString(CA2T(OutT));
 		} else {
-			pItemsSelectable->AddString(OutT);
+			pItemsSelectable->AddString(CA2T(OutT));
 		}
 	}
 }
@@ -50275,9 +50285,9 @@ void CFilterDialog::OnLbnDblclkList1() {
 	pItemsSelectable->GetText(ind, cT);
 	int i1;
 	CString sR;
-	i1 = cT.Find(":");
+	i1 = cT.Find(_T(":"));
 	sR = cT.Left(i1 - 1);
-	ind = atoi(sR);
+	ind = _ttoi(sR);
 	pFilt->SetFilter(ind);
 	pItemsSelectable->ResetContent();
 	pItemsSelectable = (CListBox*) GetDlgItem(IDC_LIST2);
@@ -50293,9 +50303,9 @@ void CFilterDialog::OnLbnDblclkList2() {
 	pItemsSelectable->GetText(ind, cT);
 	int i1;
 	CString sR;
-	i1 = cT.Find(":");
+	i1 = cT.Find(_T(":"));
 	sR = cT.Left(i1 - 1);
-	ind = atoi(sR);
+	ind = _ttoi(sR);
 	pFilt->RemFilter(ind);
 	pItemsSelectable->ResetContent();
 	pItemsSelectable = (CListBox*) GetDlgItem(IDC_LIST1);
@@ -50338,16 +50348,16 @@ void CFilterDialog::OnBnClickedButton2() {
 	}
 	if (ind >= 0) {
 		pItemsSelectable->GetText(ind, cT);
-		i1 = cT.Find(":");
+		i1 = cT.Find(_T(":"));
 		sR = cT.Left(i1 - 1);
-		ind = atoi(sR);
+		ind = _ttoi(sR);
 		pFilt->SetFilter(ind);
 	}
 	if (ind2 >= 0) {
 		pItemsNonSelectable->GetText(ind2, cT);
-		i1 = cT.Find(":");
+		i1 = cT.Find(_T(":"));
 		sR = cT.Left(i1 - 1);
-		ind2 = atoi(sR);
+		ind2 = _ttoi(sR);
 		pFilt->SetFilter(ind2);
 	}
 	if ((ind >= 0) || (ind2 >= 0)) {
@@ -50375,7 +50385,7 @@ void CGroupDialog::RefreshGPS() {
 	pGroups->ResetContent();
 	for (i = 0; i < iNo; i++) {
 		sprintf_s(OutT, "%i : %s", i, Groups[i]);
-		pGroups->AddString(OutT);
+		pGroups->AddString(CA2T(OutT));
 	}
 	if (iGp != -1) {
 		pGroups->SetCurSel(iGp);
@@ -50450,7 +50460,7 @@ BOOL CRelToDialog::OnInitDialog() {
 	char OutT[80];
 	for (i = 0; i < pFilt->iNoOfType; i++) {
 		sprintf_s(OutT, "%i : %s", pFilt->iType[i], pFilt->sType[i]);
-		pTypes->AddString(OutT);
+		pTypes->AddString(CA2T(OutT));
 	}
 
 	return TRUE; // return TRUE unless you set the focus to a control
@@ -50470,9 +50480,9 @@ void CRelToDialog::OnLbnDblclkListRelto() {
 	iType = pTypes->GetCurSel();
 	CString cT;
 	pTypes->GetText(iType, cT);
-	i1 = cT.Find(":");
+	i1 = cT.Find(_T(":"));
 	sR = cT.Left(i1 - 1);
-	ind = atoi(sR);
+	ind = _ttoi(sR);
 	iType = ind;
 	OnOK();
 }
@@ -51207,7 +51217,7 @@ void CResSelDialog::Init() {
 	if (iNoRes > 0) {
 		for (i = 0; i < iNoRes; i++) {
 			sprintf_s(OutT, "%i: LC %i : %s", i, pRes[i]->LC, pRes[i]->sName.GetString());
-			pResList->AddString(OutT);
+			pResList->AddString(CA2T(OutT));
 		}
 	}
 }
@@ -51251,12 +51261,12 @@ BOOL CResSelDialog::OnInitDialog() {
 			{
 				for (i = 0; i < pRes[iCurResSet]->iNoResDef; i++) {
 					sprintf_s(OutT, "%i : %s", i, pRes[iCurResSet]->ResDefintion[i]->sResType);
-					pValList->AddString(OutT);
+					pValList->AddString(CA2T(OutT));
 				}
 			} else {
 				for (i = 0; i < pRes[iCurResSet]->iNoV; i++) {
 					sprintf_s(OutT, "%i : %s", i, pRes[iCurResSet]->lab[i]);
-					pValList->AddString(OutT);
+					pValList->AddString(CA2T(OutT));
 				}
 			}
 			// momo
@@ -51273,7 +51283,7 @@ BOOL CResSelDialog::OnInitDialog() {
 				iMaxSec = pRes[iCurResSet]->getMaxSecondaryID();
 				for (i = 0; i < iMaxSec; i++) {
 					sprintf_s(OutT, "%s : %i", pRes[iCurResSet]->sOpName, i + 1);
-					pSecList->AddString(OutT);
+					pSecList->AddString(CA2T(OutT));
 				}
 				pSecList->SetCurSel(iSecResID - 1);
 			}
@@ -51281,7 +51291,7 @@ BOOL CResSelDialog::OnInitDialog() {
 			if ((iResVal > -1) && (iCurResSet > -1)) {
 				for (i = 0; i < pRes[iCurResSet]->ResDefintion[iResVal]->iCompNo; i++) {
 					sprintf_s(OutT, "%i : %s", i, pRes[iCurResSet]->ResDefintion[iResVal]->Lab9[i]);
-					pSecList->AddString(OutT);
+					pSecList->AddString(CA2T(OutT));
 				}
 				pSecList->SetCurSel(iSecResID);
 			}
@@ -51319,18 +51329,18 @@ void CResSelDialog::OnLbnSelChangeListRes() {
 	int ind = pResList->GetCurSel();
 	pValList->ResetContent();
 	pSecList->ResetContent();
-	pLCTitle->SetWindowText("TITLE:- " + pRes[ind]->sTitle);
-	pLCSubTitle->SetWindowText("SUBTITLE:- " + pRes[ind]->sSubTitle);
+	pLCTitle->SetWindowText(_T("TITLE:- ") + pRes[ind]->sTitle);
+	pLCSubTitle->SetWindowText(_T("SUBTITLE:- ") + pRes[ind]->sSubTitle);
 	char OutT[80];
 	if (bIsVec) {
 		for (i = 0; i < pRes[ind]->iNoResDef; i++) {
 			sprintf_s(OutT, "%i : %s", i, pRes[ind]->ResDefintion[i]->sResType);
-			pValList->AddString(OutT);
+			pValList->AddString(CA2T(OutT));
 		}
 	} else {
 		for (i = 0; i < pRes[ind]->iNoV; i++) {
 			sprintf_s(OutT, "%i : %s", i, pRes[ind]->lab[i]);
-			pValList->AddString(OutT);
+			pValList->AddString(CA2T(OutT));
 		}
 		// momo
 		// if (pRes[ind]->iNoV == 6) {
@@ -51347,7 +51357,7 @@ void CResSelDialog::OnLbnSelChangeListRes() {
 			iMaxSec = pRes[ind]->getMaxSecondaryID();
 			for (i = 0; i < iMaxSec; i++) {
 				sprintf_s(OutT, "%s : %i", pRes[ind]->sOpName, i + 1);
-				pSecList->AddString(OutT);
+				pSecList->AddString(CA2T(OutT));
 			}
 		}
 	}
@@ -51383,7 +51393,7 @@ void CResSelDialog::OnSelChangeListVal() {
 		if (iV > -1) {
 			for (i = 0; i < pRes[ind]->ResDefintion[iV]->iCompNo; i++) {
 				sprintf_s(OutT, "%i : %s", i, pRes[ind]->ResDefintion[iV]->Lab9[i]);
-				pSecList->AddString(OutT);
+				pSecList->AddString(CA2T(OutT));
 			}
 		}
 	}
@@ -51451,7 +51461,7 @@ BOOL NasCard::isVoid(int iField) {
 }
 
 CString NasCard::GetField(int iField) {
-	CString sRet = "NULL";
+	CString sRet = _T("NULL");
 	if ((iField >= 0) && (iField < iNo))
 		sRet = Fields[iField];
 	return (sRet);
@@ -51466,12 +51476,12 @@ BOOL NasCard::AddLn(CString sStr) {
 	int iNum;
 	int i;
 	int iStart;
-	iStart = sStr.Find(",");
+	iStart = sStr.Find(_T(","));
 	if (iStart != -1) {
 		iStart = iStart;
 	}
 	if (iStart == -1) {
-		if (sStr.Find("*") > -1) {
+		if (sStr.Find(_T("*")) > -1) {
 			brc = TRUE;
 			iField = 16;
 			iNum = 4;
@@ -51487,7 +51497,7 @@ BOOL NasCard::AddLn(CString sStr) {
 	} else {
 		sStr = sStr.Right(sStr.GetLength() - iStart - 1);
 		while (iStart != -1) {
-			iStart = sStr.Find(",");
+			iStart = sStr.Find(_T(","));
 			sF1 = sStr.Left(iStart);
 			sStr = sStr.Right(sStr.GetLength() - iStart - 1);
 			if (iStart == -1)
@@ -51516,7 +51526,7 @@ BOOL isCont(CString S1, CString S2) {
 	C1 = S2.Mid(0, 1);
 	F1.Trim();
 	// Not a comment or blank line
-	if ((isClear(S2) == FALSE) && (S2.Find("$") == -1)) {
+	if ((isClear(S2) == FALSE) && (S2.Find(_T("$")) == -1)) {
 		if (f10.Find(F1) != -1)
 			brc = TRUE;
 		else if ((C1 == " ") || (C1 == "*") || (C1 == "+"))
@@ -51699,7 +51709,7 @@ void CColourPickDialog::OnLButtonUp(UINT nFlags, CPoint point) {
 	char S1[22];
 	sprintf_s(S1, "%s%i", "Colour Index: ", iSel);
 	CWnd* label = GetDlgItem(IDC_STATIC_COL);
-	label->SetWindowText(S1);
+	label->SetWindowText((LPCTSTR) S1);
 
 	this->Invalidate();
 	this->UpdateWindow();
@@ -51754,9 +51764,9 @@ void CSETSDialog::Refresh() {
 	}
 	CStatic* pSt = (CStatic*) GetDlgItem(IDC_CURSET);
 	if (*iNoS > 0)
-		pSt->SetWindowTextA(SETS[*iCurS]);
+		pSt->SetWindowText(SETS[*iCurS]);
 	else
-		pSt->SetWindowTextA("ERROR: No Sets Defined.");
+		pSt->SetWindowText(_T("ERROR: No Sets Defined."));
 }
 
 //****************************************************************************
@@ -51773,7 +51783,7 @@ void CSETSDialog::OnBnClickedCreate() {
 
 	// CListBox* pSets=(CListBox*) GetDlgItem(IDC_LIST1);
 	// pSets->AddString(cT);
-	iID = atoi(cI);
+	iID = _ttoi(cI);
 	if (iID > 0) {
 		int iNow = *iNoS - 1;
 		outtextMSG2(sSET);
@@ -51783,8 +51793,8 @@ void CSETSDialog::OnBnClickedCreate() {
 		CListBox* pSets = (CListBox*) GetDlgItem(IDC_LIST1);
 		sprintf_s(sNew, "%i : %s", iID, cT);
 		if (iNow == *iNoS - 2) {
-			AddSet(*iNoS - 1, sNew);
-			pSets->AddString(sNew);
+			AddSet(*iNoS - 1, CString(CA2T(sNew)));
+			pSets->AddString(CA2T(sNew));
 		}
 	} else {
 		outtext1("ERROR: Set ID Must be Greater than 0.");
@@ -51793,7 +51803,7 @@ void CSETSDialog::OnBnClickedCreate() {
 
 BOOL CSETSDialog::OnInitDialog() {
 	CDialog::OnInitDialog();
-	this->SetWindowTextA(sTitle);
+	this->SetWindowText(sTitle);
 	Refresh();
 	return TRUE; // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -51822,9 +51832,9 @@ void CSETSDialog::OnBnClickedCsetcur() {
 	CString sL;
 	CString sID;
 	pSets->GetText(iSet, sL);
-	int ipos = sL.Find(":");
+	int ipos = sL.Find(_T(":"));
 	sID = sL.Left(ipos);
-	sID.Trim(" ");
+	sID.Trim(_T(" "));
 	// char sStr[10];
 	// itoa (iSet,sStr,10);
 	outtextMSG2(sACT);
@@ -51861,43 +51871,43 @@ void CSOLDialog::Refresh() {
 	pSol->ResetContent();
 	for (i = 0; i < pSOL->iNo; i++) {
 		sprintf_s(OutT, "%i : %s", i, pSOL->pSols[i]->sTitle);
-		pSol->AddString(OutT);
+		pSol->AddString(CA2T(OutT));
 	}
 	if (pSOL->iCur != -1) {
 		sprintf_s(OutT, "%g", pSOL->pSols[pSOL->iCur]->dTol);
 		pSol->SetCurSel(pSOL->iCur);
 		CEdit* pTol = (CEdit*) GetDlgItem(IDC_TOL_TXT);
-		pTol->SetWindowTextA(OutT);
+		pTol->SetWindowText(CA2T(OutT));
 		CComboBox* pType = (CComboBox*) GetDlgItem(IDC_TYPE_CBO);
 		pType->SetCurSel(pSOL->pSols[pSOL->iCur]->iType);
 		CEdit* pTit = (CEdit*) GetDlgItem(IDC_TITLE_TXT);
-		pTit->SetWindowTextA(pSOL->pSols[pSOL->iCur]->sTitle);
+		pTit->SetWindowText(pSOL->pSols[pSOL->iCur]->sTitle);
 		CStatic* pSt = (CStatic*) GetDlgItem(IDC_STATIC_SOL_ACT);
 		sprintf_s(OutT, "%i : %s", pSOL->iCur, pSOL->pSols[pSOL->iCur]->sTitle);
 
 		ss = pSOL->pSols[pSOL->iCur]->GetSolutionTitleString();
-		pSt->SetWindowTextA(ss);
+		pSt->SetWindowText(ss);
 
 	} else {
 		CEdit* pTit = (CEdit*) GetDlgItem(IDC_TITLE_TXT);
-		pTit->SetWindowTextA("");
+		pTit->SetWindowText(_T(""));
 		CStatic* pSt = (CStatic*) GetDlgItem(IDC_STATIC_SOL_ACT);
-		pSt->SetWindowTextA("No Solution Active.");
+		pSt->SetWindowText(_T("No Solution Active."));
 	}
 }
 
 BOOL CSOLDialog::OnInitDialog() {
 	CDialog::OnInitDialog();
-	this->SetWindowTextA(sTitle);
+	this->SetWindowText(sTitle);
 	CComboBox* pT = (CComboBox*) GetDlgItem(IDC_TYPE_CBO);
 	pT->ResetContent();
-	pT->AddString("0: Lin Static");
-	pT->AddString("1: SS Heat");
-	pT->AddString("2: Sparse");
+	pT->AddString(CA2T("0: Lin Static"));
+	pT->AddString(CA2T("1: SS Heat"));
+	pT->AddString(CA2T("2: Sparse"));
 	CEdit* pTol = (CEdit*) GetDlgItem(IDC_TOL_TXT);
 	CString str;
 	str.Format(_T("%g"), gDEF_SOL_TOL);
-	pTol->SetWindowTextA(str);
+	pTol->SetWindowText(str);
 	Refresh();
 
 	return TRUE; // return TRUE unless you set the focus to a control
@@ -52039,10 +52049,10 @@ void CSTEPSDialog::Refresh() {
 	CStatic* pSolTit = (CStatic*) GetDlgItem(IDC_CURSOL_TXT);
 	CStatic* pSt = (CStatic*) GetDlgItem(IDC_STATIC_STEP_ACT);
 	if (pSOL->iCur == -1) {
-		pSolTit->SetWindowTextA("ERROR: No Active Solution Sequence!");
-		pSt->SetWindowTextA("ERROR.");
+		pSolTit->SetWindowText(_T("ERROR: No Active Solution Sequence!"));
+		pSt->SetWindowText(_T("ERROR."));
 	} else
-		pSolTit->SetWindowTextA(pSOL->pSols[pSOL->iCur]->sTitle);
+		pSolTit->SetWindowText(pSOL->pSols[pSOL->iCur]->sTitle);
 	CComboBox* pLC = (CComboBox*) GetDlgItem(IDC_LC_DD);
 	pLC->ResetContent();
 	for (i = 0; i < iNoLC; i++) {
@@ -52060,8 +52070,8 @@ void CSTEPSDialog::Refresh() {
 	}
 	CComboBox* pRS = (CComboBox*) GetDlgItem(IDC_RS_DD);
 	pRS->ResetContent();
-	pRS->AddString("NO");
-	pRS->AddString("YES");
+	pRS->AddString(CA2T("NO"));
+	pRS->AddString(CA2T("YES"));
 	// Sol seq
 	CListBox* pSol = (CListBox*) GetDlgItem(IDC_STEP_LBX);
 	pSol->ResetContent();
@@ -52072,7 +52082,7 @@ void CSTEPSDialog::Refresh() {
 			pS = pSOL->pSols[pSOL->iCur];
 			for (i = 0; i < pS->iNo; i++) {
 				// sprintf_s(S1,"STEP: %i LC: %i BC: %i TSET: %i RS: %i %s",i,pS->LS[i],pS->BS[i],pS->TS[i],pS->RS[i],pS->sStepTitle[i]);
-				pSol->AddString(pSOL->GetCurSolution()->GetStepTitleString(i));
+				pSol->AddString((LPCTSTR) pSOL->GetCurSolution()->GetStepTitleString(i));
 			}
 		}
 	}
@@ -52082,16 +52092,16 @@ void CSTEPSDialog::Refresh() {
 		iC = pSOL->GetCurStep();
 		if (iC > -1) {
 			pSol->SetCurSel(iC);
-			pSt->SetWindowTextA(pSOL->GetCurSolution()->GetStepTitleString(iC));
+			pSt->SetWindowText(pSOL->GetCurSolution()->GetStepTitleString(iC));
 		} else {
-			pSt->SetWindowTextA("ERROR: No Step Active.");
+			pSt->SetWindowText(_T("ERROR: No Step Active."));
 		}
 	}
 }
 
 BOOL CSTEPSDialog::OnInitDialog() {
 	CDialog::OnInitDialog();
-	this->SetWindowTextA(sTitle);
+	this->SetWindowText(sTitle);
 	Refresh();
 	return TRUE; // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -52279,7 +52289,7 @@ BOOL CEntEditDialog::OnInitDialog() {
 	// MoMo_Material_FormKeysBugV1_05_22_2025_Start
 	// MoMo// this->SetWindowText("Entity Editor");
 	if (FormCaption == "") {
-		this->SetWindowText("Entity Editor");
+		this->SetWindowText(_T("Entity Editor"));
 	} else {
 		this->SetWindowText(FormCaption);
 	}
@@ -52369,15 +52379,15 @@ void CEntEditDialog::Populate1() {
 	m_List.GetWindowRect(oSize);
 	int iW = oSize.Width();
 
-	m_List.InsertColumn(0, "Variable Name", LVCFMT_LEFT, iW - 250);
-	m_List.InsertColumn(1, "Value", LVCFMT_LEFT, 250);
+	m_List.InsertColumn(0, _T("Variable Name"), LVCFMT_LEFT, iW - 250);
+	m_List.InsertColumn(1, _T("Value"), LVCFMT_LEFT, 250);
 
-	Ed_Title.SetWindowTextA(pO->GetName());
+	Ed_Title.SetWindowText(pO->GetName());
 	char S1[80] = "";
 	sprintf_s(S1, "%i", pO->iLabel);
 	CString ss;
 	ss = S1;
-	Ed_ID.SetWindowTextA(ss);
+	Ed_ID.SetWindowText(ss);
 	;
 
 	iNo = pO->GetVarHeaders(sVName);
@@ -52399,15 +52409,15 @@ void CEntEditDialog::Populate2() {
 	m_List.GetWindowRect(oSize);
 	int iW = oSize.Width();
 
-	m_List.InsertColumn(0, "Variable Name", LVCFMT_LEFT, iW - 250);
-	m_List.InsertColumn(1, "Value", LVCFMT_LEFT, 250);
+	m_List.InsertColumn(0, _T("Variable Name"), LVCFMT_LEFT, iW - 250);
+	m_List.InsertColumn(1, _T("Value"), LVCFMT_LEFT, 250);
 
-	Ed_Title.SetWindowTextA(pEnt->sTitle);
+	Ed_Title.SetWindowText(pEnt->sTitle);
 	char S1[80] = "";
 	sprintf_s(S1, "%i", pEnt->iID);
 	CString ss;
 	ss = S1;
-	Ed_ID.SetWindowTextA(ss);
+	Ed_ID.SetWindowText(ss);
 	;
 
 	iNo = pEnt->GetVarHeaders(sVName);
@@ -52418,7 +52428,7 @@ void CEntEditDialog::Populate2() {
 	}
 	if (pEnt->iType == 2) {
 		for (i = 0; i < 100; i++) {
-			nItem = m_List.InsertItem(iNo, "");
+			nItem = m_List.InsertItem(iNo, _T(""));
 			iNo++;
 		}
 	}
@@ -52474,7 +52484,7 @@ void CEntEditDialog::Build(BOOL isPCOMPG) {
 
 void CEntEditDialog::Build2(BOOL isPCOMPG) {
 	char S1[80];
-	CString sTemp = "";
+	CString sTemp = _T("");
 	int i = 0;
 	double dTheta[100];
 	double dZ;
@@ -52490,13 +52500,13 @@ void CEntEditDialog::Build2(BOOL isPCOMPG) {
 	do {
 		sTemp = m_List.GetItemText(iC, 1);
 		if (isPCOMPG) {
-			iM[iLC] = atoi(ExtractSubString2(2, sTemp));
-			dT[iLC] = atof(ExtractSubString2(3, sTemp));
-			dTheta[iLC] = atof(ExtractSubString2(4, sTemp));
+			iM[iLC] = _ttoi(ExtractSubString2(2, sTemp));
+			dT[iLC] = _ttof(ExtractSubString2(3, sTemp));
+			dTheta[iLC] = _ttof(ExtractSubString2(4, sTemp));
 		} else {
-			iM[iLC] = atoi(ExtractSubString2(1, sTemp));
-			dT[iLC] = atof(ExtractSubString2(2, sTemp));
-			dTheta[iLC] = atof(ExtractSubString2(3, sTemp));
+			iM[iLC] = _ttoi(ExtractSubString2(1, sTemp));
+			dT[iLC] = _ttof(ExtractSubString2(2, sTemp));
+			dTheta[iLC] = _ttof(ExtractSubString2(3, sTemp));
 		}
 		if (iM[iLC] < 1) {
 			bExit = TRUE;
@@ -52517,7 +52527,7 @@ void CEntEditDialog::Build2(BOOL isPCOMPG) {
 	sTemp = S1;
 	m_List.SetItemText(9, 1, sTemp);
 	sTemp = m_List.GetItemText(1, 1);
-	dZ = atof(sTemp);
+	dZ = _ttof(sTemp);
 	// vMat.Rotate(-90, 0, 5);
 	dS = 1.0 / dThk;
 
@@ -52793,13 +52803,13 @@ void CEntEditDialog::OnBnClickedOk() {
 	CEdit* pI = (CEdit*) GetDlgItem(IDC_ENTID);
 	if ((pEnt != NULL) || (pO != NULL)) {
 		if (pEnt != NULL) {
-			pT->GetWindowTextA(pEnt->sTitle);
-			pI->GetWindowTextA(sID);
+			pT->GetWindowText(pEnt->sTitle);
+			pI->GetWindowText(sID);
 			// MoMo_Material_SaveBugV1_05_20_2025_Start
-			// MoMo// pEnt->iID = atoi(sID); //Need to check we can no id conflics
-			int textID = atoi(sID);
+			// MoMo// pEnt->iID = _ttoi(sID); //Need to check we can no id conflics
+			int textID = _ttoi(sID);
 			if (textID != pEnt->iID) {
-				int newID = MatT->OfferedID(atoi(sID), false, 0);
+				int newID = MatT->OfferedID(_ttoi(sID), false, 0);
 				if (textID > pEnt->iID) {
 					if (newID < pEnt->iID) {
 						newID = pEnt->iID;
@@ -52811,19 +52821,19 @@ void CEntEditDialog::OnBnClickedOk() {
 				}
 				pEnt->iID = newID;
 				if (!MatT->isTemp) {
-					outtextSprintf("\r\nMaterial ID changed to %i", pEnt->iID, 0.0, true, 1);
+					outtextSprintf(_T("\r\nMaterial ID changed to %i"), pEnt->iID, 0.0, true, 1);
 				}
-				if (pEnt->iID != atoi(sID)) {
+				if (pEnt->iID != _ttoi(sID)) {
 					sID = std::to_string(pEnt->iID).c_str();
-					pI->SetWindowTextA(sID);
+					pI->SetWindowText(sID);
 				}
 			}
 			// MoMo_Material_SaveBugV1_05_20_2025_End
 		} else if (pO != NULL) {
 			if (pO->iObjType == 12) // Coordsys
 			{
-				pI->GetWindowTextA(sID);
-				pO->iLabel = atoi(sID);
+				pI->GetWindowText(sID);
+				pO->iLabel = _ttoi(sID);
 			}
 		}
 
@@ -52838,7 +52848,7 @@ void CEntEditDialog::OnBnClickedOk() {
 			pO->PutVarValues(PT, iNo, sVVals);
 		// MoMo_Material_SaveBugV1_05_20_2025_Start
 		if (MatT->isTemp == true) {
-			outtextSprintf("\r\nMaterial ID %i Created.", MatT->pEnts[MatT->iNo - 1]->iID, 0.0, true, 1);
+			outtextSprintf(_T("\r\nMaterial ID %i Created."), MatT->pEnts[MatT->iNo - 1]->iID, 0.0, true, 1);
 			MatT->isTemp = false;
 		} else {
 			outtext1("Material Changes Applied.");
@@ -52855,9 +52865,9 @@ void CEntEditDialog::OnBnClickedEntlist() {
 	outtext1("Entity Data Listing:-");
 	CEdit* pT = (CEdit*) GetDlgItem(IDC_PTITLE);
 	CEdit* pID = (CEdit*) GetDlgItem(IDC_ENTID);
-	pT->GetWindowTextA(sTemp);
+	pT->GetWindowText(sTemp);
 	outtext1(sTemp);
-	pID->GetWindowTextA(sTemp);
+	pID->GetWindowText(sTemp);
 	outtext1(sTemp);
 	for (i = 0; i < iNo; i++) {
 		sTemp = m_List.GetItemText(i, 0);
@@ -53182,7 +53192,7 @@ BOOL CPcompEditor::OnInitDialog() {
 	CDialog::OnInitDialog();
 	// SIZE DIALOG BOX TO FIT COLOURS
 	CRect oSize;
-	this->SetWindowText("Laminate Stack Viewer");
+	this->SetWindowText(_T("Laminate Stack Viewer"));
 	this->GetWindowRect(&oSize);
 	oSize.right = oSize.left + 500;
 	oSize.bottom = oSize.top + 600;
@@ -53609,14 +53619,20 @@ void CGraphDialog::GDIDraw() {
 			sprintf_s(sLab, "%g", pow(10, i * fDivX));
 		else
 			sprintf_s(sLab, "%g", i * fDivX);
-		TextOut(hDC, X, fH - (fyoff - 5), sLab, static_cast<int>(strlen(sLab)));
+		//momo
+		//momo// TextOut(hDC, X, fH - (fyoff - 5), sLab, static_cast<int>(strlen(sLab)));
+		TextOut(hDC, X, fH - (fyoff - 5), CA2T(sLab), lstrlen(CA2T(sLab)));
+		//momo
 	}
 	for (i = 0; i <= iNoTicksY; i++) {
 		Y = fyoff + (fyspan) * (i * fDivY - minY) / (maxY - minY);
 		pDC->MoveTo(fxoff - 5, fH - Y);
 		pDC->LineTo(fxoff + fxspan, fH - Y);
 		sprintf_s(sLab, "%g", i * fDivY);
-		TextOut(hDC, fxoff - 40, fH - Y, sLab, static_cast<int>(strlen(sLab)));
+		//momo
+		//momo// TextOut(hDC, fxoff - 40, fH - Y, sLab, static_cast<int>(strlen(sLab)));
+		TextOut(hDC, fxoff - 40, fH - Y, CA2T(sLab), lstrlen(CA2T(sLab)));
+		//momo
 	}
 	RestorePen(pDC);
 	SetPen(pDC, 133, 1);
@@ -53637,16 +53653,25 @@ void CGraphDialog::GDIDraw() {
 	RestorePen(pDC);
 	CString sS;
 	CEdit* oEdit = (CEdit*) this->GetDlgItem(IDC_XTITLE);
-	oEdit->GetWindowTextA(sS);
-	TextOut(hDC, fW / 2, fH - 40, sS, static_cast<int>(strlen(sS)));
+	oEdit->GetWindowText(sS);
+	//momo
+	//momo// TextOut(hDC, fW / 2, fH - 40, sS, static_cast<int>(strlen(sS)));
+	TextOut(hDC, fW / 2, fH - 40, sS, sS.GetLength());
+	//momo
 	oEdit = (CEdit*) this->GetDlgItem(IDC_YTITLE);
-	oEdit->GetWindowTextA(sS);
-	TextOut(hDC, 5, fH / 2, sS, static_cast<int>(strlen(sS)));
+	oEdit->GetWindowText(sS);
+	//momo
+	//momo// TextOut(hDC, 5, fH / 2, sS, static_cast<int>(strlen(sS)));
+	TextOut(hDC, 5, fH / 2, sS, sS.GetLength());
+	//momo
 	oEdit = (CEdit*) this->GetDlgItem(IDC_TITLE);
-	oEdit->GetWindowTextA(sS);
-	hFont = CreateFont(30, 0, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 2, 0, "SYSTEM_FIXED_FONT");
+	oEdit->GetWindowText(sS);
+	hFont = CreateFont(30, 0, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 2, 0, _T("SYSTEM_FIXED_FONT"));
 	hTmp = (HFONT) SelectObject(hDC, hFont);
-	TextOut(hDC, fxoff, 10, sS, static_cast<int>(strlen(sS)));
+	//momo
+	//momo// TextOut(hDC, fxoff, 10, sS, static_cast<int>(strlen(sS)));
+	TextOut(hDC, fxoff, 10, sS, sS.GetLength());
+	//momo
 	DeleteObject(SelectObject(hDC, hTmp));
 	// Draw All Charts
 	for (j = 0; j < iNo; j++) {
@@ -53660,7 +53685,10 @@ void CGraphDialog::GDIDraw() {
 			// Lengend
 			SetTextCol(hDC, pG->iCol);
 			sprintf_s(buff, "%s %s %s", pG->sResType, pG->sEntID, pG->sVar);
-			TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), buff, static_cast<int>(strlen(buff)));
+			//momo
+			//momo// TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), buff, static_cast<int>(strlen(buff)));
+			TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), CA2T(buff), lstrlen(CA2T(buff)));
+			//momo
 			for (i = 0; i < pG->fx.size(); i++) {
 				if (bLOG)
 					X = fxoff + (fxspan) *log10(pG->fx[i] - minX) / (maxX - minX);
@@ -53698,7 +53726,7 @@ void CGraphDialog::popResVec() {
 		if ((iTCode == 1039) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
 			sprintf_s(buff, "%i_%s_%i_%s", iTCode, "LC", iLC, "MPCF");
-			oLB->AddString(buff);
+			oLB->AddString(CA2T(buff));
 			vTC.push_back(iTCode);
 			vLC.push_back(iLC);
 		}
@@ -53711,7 +53739,7 @@ void CGraphDialog::popResVec() {
 		if ((iTCode == 1011) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
 			sprintf_s(buff, "%i	%s %i %s", iTCode, "LC", iLC, "ACCEL");
-			oLB->AddString(buff);
+			oLB->AddString(CA2T(buff));
 			vTC.push_back(iTCode);
 			vLC.push_back(iLC);
 		}
@@ -53725,7 +53753,7 @@ void CGraphDialog::popResVec() {
 		if ((iTCode == 1004) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
 			sprintf_s(buff, "%i	%s %i %s", iTCode, "LC", iLC, "ELFORCE");
-			oLB->AddString(buff);
+			oLB->AddString(CA2T(buff));
 			vTC.push_back(iTCode);
 			vLC.push_back(iLC);
 		}
@@ -53757,14 +53785,14 @@ void CGraphDialog::popEnt(int inTC, int inLC) {
 			pR = pME->ResultsSets[i]->Head;
 			for (j = 0; j < pME->ResultsSets[i]->iCnt; j++) {
 				sprintf_s(buff, "%i", pR->ID);
-				oLBE->AddString(buff);
+				oLBE->AddString(CA2T(buff));
 				vE.push_back(pR->ID);
 				pR = pR->next;
 			}
 			oLBE->RedrawWindow();
 			oLBE->SetCurSel(0);
 			for (j = 0; j < pME->ResultsSets[i]->iNoV; j++) {
-				oLB->AddString(pME->ResultsSets[i]->lab[j]);
+				oLB->AddString((LPCTSTR) pME->ResultsSets[i]->lab[j]);
 			}
 			oLB->RedrawWindow();
 			oLB->SetCurSel(0);
@@ -53783,7 +53811,7 @@ BOOL CGraphDialog::OnInitDialog() {
 	CListBox* oLB;
 	vTC.clear();
 	vLC.clear();
-	this->SetWindowText("Graph");
+	this->SetWindowText(CA2T("Graph"));
 	this->GetWindowRect(&oSize);
 
 	oSize.right = oSize.left + 1500;
@@ -53891,7 +53919,7 @@ BOOL CGraphDialog::OnInitDialog() {
 	CEdit* oEdit = (CEdit*) this->GetDlgItem(IDC_TITLE);
 	if (oEdit != NULL) {
 		oEdit->MoveWindow(oSize2, 0);
-		oEdit->SetWindowTextA("Graph Title");
+		oEdit->SetWindowText(CA2T("Graph Title"));
 	}
 	oSize2.top = oS.bottom - 190 + 40;
 	oSize2.left = oS.left + 1100;
@@ -53900,7 +53928,7 @@ BOOL CGraphDialog::OnInitDialog() {
 	oEdit = (CEdit*) this->GetDlgItem(IDC_XTITLE);
 	if (oEdit != NULL) {
 		oEdit->MoveWindow(oSize2, 0);
-		oEdit->SetWindowTextA("Freq (Hz)");
+		oEdit->SetWindowText(CA2T("Freq (Hz)"));
 	}
 	oSize2.top = oS.bottom - 190 + 80;
 	oSize2.left = oS.left + 1100;
@@ -53909,7 +53937,7 @@ BOOL CGraphDialog::OnInitDialog() {
 	oEdit = (CEdit*) this->GetDlgItem(IDC_YTITLE);
 	if (oEdit != NULL) {
 		oEdit->MoveWindow(oSize2, 0);
-		oEdit->SetWindowTextA("Y Axis Title");
+		oEdit->SetWindowText(CA2T("Y Axis Title"));
 	}
 	oSize2.top = oS.bottom - 190 + 120;
 	oSize2.left = oS.left + 1100;
@@ -54010,7 +54038,7 @@ void CGraphDialog::GenGraph(CString sRT, CString sID, CString sVar, int iTC, int
 		pG->sVar = sVar;
 		CListBox* oLB = (CListBox*) this->GetDlgItem(IDC_PLOTS);
 		sprintf_s(buff, "%s_%s_%s", sRT, sID, sVar);
-		oLB->AddString(buff);
+		oLB->AddString(CA2T(buff));
 		for (i = 0; i < pME->iNoRes; i++) {
 			if ((pME->ResultsSets[i]->LC == iLC) && (iTC == pME->ResultsSets[i]->TCODE)) {
 				pRS = pME->ResultsSets[i];
@@ -54096,9 +54124,15 @@ void CGraphDialog::OnLButtonUp(UINT nFlags, CPoint point) {
 			X = fxoff + (fxspan) * (pG->fx[ind] - minX) / (maxX - minX);
 		Y = fyoff + (fyspan) * (pG->fy[ind] - minY) / (maxY - minY);
 		sprintf(s, "%g", pG->fy[ind]);
-		TextOut(pDC->m_hDC, X, fH - Y, s, static_cast<int>(strlen(s)));
+		//momo
+		//momo// TextOut(pDC->m_hDC, X, fH - Y, s, static_cast<int>(strlen(s)));
+		TextOut(pDC->m_hDC, X, fH - Y, CA2T(s), lstrlen(CA2T(s)));
+		//momo
 		sprintf(s, "%g", pG->fx[ind]);
-		TextOut(pDC->m_hDC, X, fH - (Y + 15), s, static_cast<int>(strlen(s)));
+		//momo
+		//momo// TextOut(pDC->m_hDC, X, fH - (Y + 15), s, static_cast<int>(strlen(s)));
+		TextOut(pDC->m_hDC, X, fH - (Y + 15), CA2T(s), lstrlen(CA2T(s)));
+		//momo
 		this->ReleaseDC(pDC);
 	}
 
@@ -54186,7 +54220,7 @@ void CGraphDialog::OnBnClickedLog() {
 IMPLEMENT_DYNAMIC(G_ObjectDUM, CObject)
 
 CString G_ObjectDUM::GetName() {
-	return ("Variables");
+	return (_T("Variables"));
 }
 
 int G_ObjectDUM::GetVarHeaders(CString sVar[]) {
@@ -54358,39 +54392,39 @@ int G_ObjectDUM::GetVarValues(CString sVar[]) {
 
 void G_ObjectDUM::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	int iC = 0;
-	gBACKGRD_COL = atoi(sVar[iC++]);
+	gBACKGRD_COL = _ttoi(sVar[iC++]);
 	if ((gBACKGRD_COL < 0) || (gBACKGRD_COL > 166))
 		gBACKGRD_COL = 0;
-	gZOOM_SCL = atof(sVar[iC++]);
-	gPT_SIZE = atof(sVar[iC++]);
-	gND_SIZE = atof(sVar[iC++]);
-	gLM_SIZE = atof(sVar[iC++]);
-	gEL_SIZE = atof(sVar[iC++]);
-	gED_SIZE = atof(sVar[iC++]);
-	gFC_SIZE = atof(sVar[iC++]);
-	gWP_SIZE = atof(sVar[iC++]);
-	gBM_SIZE = atof(sVar[iC++]);
-	gTXT_SIZE = atof(sVar[iC++]);
-	gDIM_SCALE = atof(sVar[iC++]);
-	gDIM_FILSZ = atof(sVar[iC++]);
-	gDIM_OFFSZ = atof(sVar[iC++]);
-	gTXT_HEIGHT = atof(sVar[iC++]);
-	gDIM_RADSZ = atof(sVar[iC++]);
-	gDIM_CVORD = atof(sVar[iC++]);
-	gDIM_PREC = atoi(sVar[iC++]);
-	gDIM_SIZE = atof(sVar[iC++]);
-	gCUR_RES = atoi(sVar[iC++]);
-	gDRILL_KS = atof(sVar[iC++]);
-	gRIGID_MULTIPLIER = atof(sVar[iC++]);
-	gVSTIFF_KS = atof(sVar[iC++]);
-	gDEF_E = atof(sVar[iC++]);
-	gDEF_V = atof(sVar[iC++]);
-	gDEF_DEN = atof(sVar[iC++]);
-	gDEF_COND = atof(sVar[iC++]);
-	gSTIFF_BDIA = atof(sVar[iC++]);
-	gDEF_CTE = atof(sVar[iC++]);
-	gDEF_THERM_LNK = atof(sVar[iC++]);
-	gDEF_SOL_TOL = atof(sVar[iC++]);
+	gZOOM_SCL = _ttof(sVar[iC++]);
+	gPT_SIZE = _ttof(sVar[iC++]);
+	gND_SIZE = _ttof(sVar[iC++]);
+	gLM_SIZE = _ttof(sVar[iC++]);
+	gEL_SIZE = _ttof(sVar[iC++]);
+	gED_SIZE = _ttof(sVar[iC++]);
+	gFC_SIZE = _ttof(sVar[iC++]);
+	gWP_SIZE = _ttof(sVar[iC++]);
+	gBM_SIZE = _ttof(sVar[iC++]);
+	gTXT_SIZE = _ttof(sVar[iC++]);
+	gDIM_SCALE = _ttof(sVar[iC++]);
+	gDIM_FILSZ = _ttof(sVar[iC++]);
+	gDIM_OFFSZ = _ttof(sVar[iC++]);
+	gTXT_HEIGHT = _ttof(sVar[iC++]);
+	gDIM_RADSZ = _ttof(sVar[iC++]);
+	gDIM_CVORD = _ttof(sVar[iC++]);
+	gDIM_PREC = _ttoi(sVar[iC++]);
+	gDIM_SIZE = _ttof(sVar[iC++]);
+	gCUR_RES = _ttoi(sVar[iC++]);
+	gDRILL_KS = _ttof(sVar[iC++]);
+	gRIGID_MULTIPLIER = _ttof(sVar[iC++]);
+	gVSTIFF_KS = _ttof(sVar[iC++]);
+	gDEF_E = _ttof(sVar[iC++]);
+	gDEF_V = _ttof(sVar[iC++]);
+	gDEF_DEN = _ttof(sVar[iC++]);
+	gDEF_COND = _ttof(sVar[iC++]);
+	gSTIFF_BDIA = _ttof(sVar[iC++]);
+	gDEF_CTE = _ttof(sVar[iC++]);
+	gDEF_THERM_LNK = _ttof(sVar[iC++]);
+	gDEF_SOL_TOL = _ttof(sVar[iC++]);
 }
 
 IDispatch* ME_Object::API_CreateNode2(DOUBLE x, DOUBLE y, DOUBLE z) {

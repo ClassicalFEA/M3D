@@ -41,7 +41,7 @@ void CMyEdit::OnEnChange() {
 	// with the ENM_CHANGE flag ORed into the mask.
 
 	// TODO:  Add your control notification handler code here
-	outtextMSG("AA");
+	outtextMSG(_T("AA"));
 	// momo change command box color
 	CheckCommandEditColor(false);
 	// momo change command box color

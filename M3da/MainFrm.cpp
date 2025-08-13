@@ -493,7 +493,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
 	m_MenuBar.EnableDocking(CBRS_ALIGN_TOP);
 
-	if (!p_Input.Create("Input Panel", this, CRect(0, 0, 100, 150), FALSE, IDD_INPUT, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_BOTTOM | CBRS_FLOAT_MULTI)) {
+	if (!p_Input.Create(_T("Input Panel"), this, CRect(0, 0, 100, 150), FALSE, IDD_INPUT, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_BOTTOM | CBRS_FLOAT_MULTI)) {
 		TRACE0("Failed to create input window\n");
 		return FALSE;
 	}
@@ -732,76 +732,141 @@ void SetFocus() {
 	Edit3->SetFocus();
 }
 
-void outtext2(CString AAA) {
-	CString strText, strNewText;
-	Edit1->GetWindowText(strText);
-	AAA.Remove(13);
-	strNewText.Format("%s\r\n", AAA);
-	strText += strNewText;
-	Edit1->SetWindowText(strText);
-	int NoOff = Edit1->GetLineCount();
-	Edit1->LineScroll(NoOff, 0);
+// momo
+// void outtext2(CString AAA) {
+//	CString strText, strNewText;
+//	Edit1->GetWindowText(strText);
+//	AAA.Remove(13);
+//	strNewText.Format("%s\r\n", AAA);
+//	strText += strNewText;
+//	Edit1->SetWindowText(strText);
+//	int NoOff = Edit1->GetLineCount();
+//	Edit1->LineScroll(NoOff, 0);
+//}
+
+void outtext2(const CString& AAA) {
+	if (!Edit1 || !::IsWindow(Edit1->GetSafeHwnd()))
+		return;
+
+	CString line = AAA;
+	line.Remove(_T('\r'));
+	line.Remove(_T('\n'));
+	line += _T("\r\n");
+
+	const int len = Edit1->GetWindowTextLength();
+	Edit1->SetSel(len, len);
+	Edit1->ReplaceSel(line, TRUE);
+	Edit1->LineScroll(Edit1->GetLineCount());
 }
 
-void outtext1(CString AAA) {
-	CString strText, strNewText;
-	Edit2->GetWindowText(strText);
-	// Esp_Mod_ExtraLine_Start: Added a new line before the text
-	strNewText.Format("%s\r\n", AAA); // revert to original
-	// strNewText.Format("%s\r\n\r\n", AAA); // with separate line, but its not "intelligent"
-	//  Esp_Mod_ExtraLine_End
-	strText += strNewText;
-	Edit2->SetWindowText(strText);
-	int NoOff = Edit2->GetLineCount();
-	Edit2->LineScroll(NoOff, 0);
+void outtext2(const char* AAA) {
+	if (!AAA)
+		return;
+#ifdef UNICODE
+	int wlen = ::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, nullptr, 0);
+	CStringW w;
+	LPWSTR buf = w.GetBuffer(wlen);
+	::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, buf, wlen);
+	w.ReleaseBuffer();
+	outtext2(CString(w));
+#else
+	outtext2(CString(AAA));
+#endif
 }
+// momo
+
+// momo
+// void outtext1(CString AAA) {
+//	CString strText, strNewText;
+//	Edit2->GetWindowText(strText);
+//	// Esp_Mod_ExtraLine_Start: Added a new line before the text
+//	strNewText.Format("%s\r\n", AAA); // revert to original
+//	// strNewText.Format("%s\r\n\r\n", AAA); // with separate line, but its not "intelligent"
+//	//  Esp_Mod_ExtraLine_End
+//	strText += strNewText;
+//	Edit2->SetWindowText(strText);
+//	int NoOff = Edit2->GetLineCount();
+//	Edit2->LineScroll(NoOff, 0);
+// }
+
+void outtext1(const CString& AAA) {
+	if (!Edit2 || !::IsWindow(Edit2->GetSafeHwnd()))
+		return;
+
+	CString line = AAA;
+	line.Remove(_T('\r'));
+	line.Remove(_T('\n'));
+	line += _T("\r\n");
+
+	const int len = Edit2->GetWindowTextLength();
+	Edit2->SetSel(len, len);
+	Edit2->ReplaceSel(line, TRUE);
+	Edit2->LineScroll(Edit2->GetLineCount());
+}
+
+void outtext1(const char* AAA) {
+	if (!AAA)
+		return;
+#ifdef UNICODE
+	int wlen = ::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, nullptr, 0);
+	CStringW w;
+	LPWSTR buf = w.GetBuffer(wlen);
+	::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, buf, wlen);
+	w.ReleaseBuffer();
+	outtext1(CString(w));
+#else
+	outtext1(CString(AAA));
+#endif
+}
+// momo
 
 // MoMo_Material_SaveBugV1_05_20_2025_Start
-void outtextSprintf(CString AAA, int intValue, double floatValue, bool IsInt, int nText) {
-	char StOut[100];
-	if (IsInt == 1) {
-		sprintf_s(StOut, AAA, intValue);
-	} else {
-		sprintf_s(StOut, AAA, floatValue);
-	}
+void outtextSprintf(const CString& formatString, int intValue, double floatValue, bool IsInt, int nText) {
+	CString StOut;
+	if (IsInt)
+		StOut.Format(formatString, intValue);
+	else
+		StOut.Format(formatString, floatValue);
 	outtextMultiLine(StOut, nText);
 }
 // MoMo_Material_SaveBugV1_05_20_2025_End
 
 // MoMo_Material_SaveBugV1_05_20_2025_Start
-void outtextMultiLine(CString AAA, int nText) {
-	std::vector<CString> breakByLines;
-	CString delimiter = "\r\n";
+void outtextMultiLine(const CString& AAA, int nText) {
+	CString s = AAA;
+
+	s.Replace(_T("\r\n"), _T("\n"));
+	s.Replace(_T("\r"), _T("\n"));
+
 	int start = 0;
+	while (true) {
+		int pos = s.Find(_T('\n'), start);
+		CString line = (pos == -1) ? s.Mid(start) : s.Mid(start, pos - start);
 
-	for (int i = 1; i <= 10; i++) {
-		int pos = AAA.Find(delimiter, start);
-		if (pos == -1) {
-			if (start < AAA.GetLength())
-				breakByLines.push_back(AAA.Mid(start));
+		if (nText == 1)
+			outtext1(line);
+		else
+			outtext2(line);
+
+		if (pos == -1)
 			break;
-		}
-		if (pos > start)
-			breakByLines.push_back(AAA.Mid(start, pos - start));
-		breakByLines.push_back(delimiter);
-		start = pos + delimiter.GetLength();
+		start = pos + 1;
 	}
+}
 
-	for (int i = 0; i <= breakByLines.size() - 1; i++) {
-		if (breakByLines[i] == delimiter) {
-			if (nText == 1) {
-				outtext1("");
-			} else {
-				outtext2("");
-			}
-		} else {
-			if (nText == 1) {
-				outtext1(breakByLines[i]);
-			} else {
-				outtext2(breakByLines[i]);
-			}
-		}
-	}
+void outtextMultiLine(const char* AAA, int nText) {
+	if (!AAA)
+		return;
+#ifdef UNICODE
+	int wlen = ::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, nullptr, 0);
+	CStringW w;
+	LPWSTR buf = w.GetBuffer(wlen);
+	::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, buf, wlen);
+	w.ReleaseBuffer();
+	outtextMultiLine(CString(w), nText);
+#else
+	outtextMultiLine(CString(AAA), nText);
+#endif
 }
 // MoMo_Material_SaveBugV1_05_20_2025_End
 
@@ -814,7 +879,7 @@ void outtextMSG(CString AAA) {
 		a = b.Left(iRetPos);
 		b = b.Right(b.GetLength() - iRetPos - 2);
 		// a.MakeUpper();
-		if (a.Find("//") == -1) {
+		if (a.Find(_T("//")) == -1) {
 			outtext2(a);
 			SendMsg(a);
 		}
@@ -826,15 +891,43 @@ void outtextMSG(CString AAA) {
 	a = "";
 }
 
-void outtextMSG2(CString AAA) {
-	CString strNewText;
-	strNewText.Format("%s\r", AAA);
-	outtext2(strNewText);
-	SendMsg(AAA);
+// momo
+// void outtextMSG2(CString AAA) {
+//	CString strNewText;
+//	strNewText.Format("%s\r", AAA);
+//	outtext2(strNewText);
+//	SendMsg(AAA);
+//	// momo change command box color
+//	CheckCommandEditColor(false);
+//	// momo change command box color
+// }
+void outtextMSG2(const CString& AAA) {
+	CString line = AAA;
+	line.Remove(_T('\r'));
+	line.Remove(_T('\n'));
+
+	outtext2(line);
+	SendMsg(line);
 	// momo change command box color
 	CheckCommandEditColor(false);
 	// momo change command box color
 }
+
+void outtextMSG2(const char* AAA) {
+	if (!AAA)
+		return;
+#ifdef UNICODE
+	int wlen = ::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, nullptr, 0);
+	CStringW w;
+	LPWSTR buf = w.GetBuffer(wlen);
+	::MultiByteToWideChar(CP_UTF8, 0, AAA, -1, buf, wlen);
+	w.ReleaseBuffer();
+	outtextMSG2(CString(w));
+#else
+	outtextMSG2(CString(AAA));
+#endif
+}
+// momo
 
 // momo change command box color
 void CheckCommandEditColor(bool bForceToCheck) {
@@ -858,7 +951,7 @@ void CheckCommandEditColor(bool bForceToCheck) {
 }
 // momo change command box color
 // momo on off button and menu
-void CheckPushedButtons(CString sMode) {
+void CheckPushedButtons(const char* sMode) {
 	if (sMode == "AllVisible") {
 		ButtonPush.Points = false;
 		ButtonPush.CurvesOn = false;

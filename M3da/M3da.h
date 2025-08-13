@@ -45,16 +45,27 @@ class CM3daApp: public CWinAppEx {
 		void LoadConfiguration();
 		// Esp_Mod_Config_File_Mod_End//
 };
-void outtext1(CString AAA);
-void outtext2(CString AAA);
+// momo
+// momo// void outtext1(CString AAA);
+// momo// void outtext2(CString AAA);
+void outtext1(const CString& AAA);
+void outtext1(const char* AAA);
+void outtext2(const CString& AAA);
+void outtext2(const char* AAA);
+// momo
 // MoMo_Material_SaveBugV1_05_20_2025_Start
-void outtextSprintf(CString AAA, int intValue, double floatValue, bool IsInt, int iText);
-void outtextMultiLine(CString AAA, int nText);
+void outtextSprintf(const CString& formatString, int intValue, double floatValue, bool IsInt, int nText);
+void outtextMultiLine(const CString& AAA, int nText);
+void outtextMultiLine(const char* AAA, int nText);
 // MoMo_Material_SaveBugV1_05_20_2025_End
 void SendMsg(CString AAA);
 void SetFocus();
 void outtextMSG(CString AAA);
-void outtextMSG2(CString AAA);
+// momo
+// momo// void outtextMSG2(CString AAA);
+void outtextMSG2(const CString& AAA);
+void outtextMSG2(const char* AAA);
+// momo
 //// momo ModernOpenGL_Start
 ////CString ReadText();
 ////void SetText(CString sIn);
@@ -63,7 +74,7 @@ void outtextMSG2(CString AAA);
 void CheckCommandEditColor(bool bForceToCheck);
 // momo change command box color
 // momo on off button and menu
-void CheckPushedButtons(CString sMode);
+void CheckPushedButtons(const char* sMode);
 // momo on off button and menu
 
 extern CM3daApp theApp;

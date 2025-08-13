@@ -361,7 +361,7 @@ void CM3daView::OnLButtonUp(UINT nFlags, CPoint point) {
 			pDC->SelectObject(OldPen);
 			delete (Pen);
 			ReleaseDC(pDC);
-			GetDocument()->DoMsg(1, point, point, "MouseInp");
+			GetDocument()->DoMsg(1, point, point, _T("MouseInp"));
 		}
 	}
 	m_iMouseButStat = 0;

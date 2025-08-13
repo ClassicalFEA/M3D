@@ -581,13 +581,13 @@ BOOL CM3daDoc::OnNewDocument() {
 	if (bOnFirst == FALSE) {
 		InitDoc();
 		// MoMo_Start
-		outtextSprintf("\r\n\r\nVersion of New File = %.2f", 0, abs(VERSION_NO / 10.0), false, 1);
+		outtextSprintf(_T("\r\n\r\nVersion of New File = %.2f"), 0, abs(VERSION_NO / 10.0), false, 1);
 		// MoMo_End
 	} else {
 		bOnFirst = FALSE;
 		// MoMo_Start
 		outtext1("If you experience display problems, change the BUFFER option in the VIEW menu.");
-		outtextSprintf("Version of Files = %.2f\r\n\r\n", 0, abs(VERSION_NO / 10.0), false, 1);
+		outtextSprintf(_T("Version of Files = %.2f\r\n\r\n"), 0, abs(VERSION_NO / 10.0), false, 1);
 		// MoMo_End
 	}
 	ReSet();
@@ -1073,12 +1073,12 @@ void CM3daDoc::OnImportUnv() {
 	outtext1("IMPORT UNIVERSAL FILE");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "unv", "*.unv", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("unv"), _T("*.unv"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			cDBase->S_Import(pFile, sFile, 1);
 		}
@@ -1090,7 +1090,7 @@ void CM3daDoc::OnImportDat() {
 	// TODO: Add your command handler code here
 	outtext1("IMPORT BDF FILE");
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "NASTRAN", "*.DAT;*.NAS;*.NID;*.D;*.BLK;*.BDF", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("NASTRAN"), _T("*.DAT;*.NAS;*.NID;*.D;*.BLK;*.BDF"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 
@@ -1110,12 +1110,12 @@ void CM3daDoc::OnImportIges() {
 	outtext1("IMPORT IGES FILE");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "IGS", "*.IGS", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("IGS"), _T("*.IGS"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			cDBase->S_ImportIges(pFile, sFile);
 		}
@@ -1127,7 +1127,7 @@ void CM3daDoc::OnImportLoadbmp() {
 	// TODO: Add your command handler code here
 	outtext1("IMPORT BMP FILE");
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "BMP", "*.BMP", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("BMP"), _T("*.BMP"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
@@ -1608,12 +1608,12 @@ void CM3daDoc::OnExportCurrentmeshto() {
 	// TODO: Add your command handler code here
 	outtext1("EXPORTING UNIVERSAL FILE");
 	FILE* pFile;
-	CFileDialog FDia(FALSE, "unv", "*.unv", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("unv"), _T("*.unv"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "w");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("w"));
 		if (pFile != NULL) {
 			cDBase->ExportMesh(pFile);
 			fclose(pFile);
@@ -2257,12 +2257,12 @@ void CM3daDoc::OnQwantaImportcatalogue() {
 
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "cat", "*.cat", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("cat"), _T("*.cat"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			cDBase->S_ImportCat(pFile, sFile);
 		}
@@ -2275,12 +2275,12 @@ void CM3daDoc::OnQwantaImportsectiontable() {
 	outtext1("IMPORT SEC TABLE");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "sec", "*.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("sec"), _T("*.txt"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			cDBase->LoadSecT(pFile);
 		}
@@ -2295,19 +2295,19 @@ void CM3daDoc::OnQwantaImportwaveguide() {
 	FILE* pFile;
 	int iErr = 0;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "txt", "*.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("txt"), _T("*.txt"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			iErr = cDBase->S_ImportWG(pFile, sFile);
 		}
 		fclose(pFile);
 	}
 	if (iErr == 3) {
-		int irc = AfxMessageBox("WG GENERATION FAILED", MB_OK, 0);
+		int irc = AfxMessageBox(_T("WG GENERATION FAILED"), MB_OK, 0);
 	}
 }
 
@@ -2386,7 +2386,7 @@ void CM3daDoc::API_ImportCat(LPCTSTR FileName) {
 	outtext1("IMPORT CATALOGUE FILE");
 	FILE* pFile;
 
-	pFile = fopen(FileName, "r");
+	pFile = _tfopen(FileName, _T("r"));
 	if (pFile != NULL) {
 		cDBase->S_ImportCat(pFile, FileName);
 		fclose(pFile);
@@ -2420,14 +2420,14 @@ void CM3daDoc::OnVisabilityAssemblies() {
 
 void CM3daDoc::OnQwantaBuildamdexport() {
 	outtext1("Starting final model generation");
-	cDBase->BuildAssembly("");
+	cDBase->BuildAssembly(_T(""));
 	outtext1("Finished final model generation");
 }
 
 void CM3daDoc::OnGroupDeleteallgroups() {
 	// TODO: Add your command handler code here
 	int iResult;
-	iResult = MessageBox(NULL, "Warning this will permanently delete all groups", NULL, MB_OKCANCEL | MB_ICONWARNING);
+	iResult = MessageBox(NULL, _T("Warning this will permanently delete all groups"), NULL, MB_OKCANCEL | MB_ICONWARNING);
 	if (iResult == 1)
 		cDBase->DelAll_Group();
 }
@@ -2438,7 +2438,7 @@ SHORT CM3daDoc::API_ImportWG(LPCTSTR sFName, LPCTSTR WGName) {
 	int iRC = 0;
 	outtext1("IMPORT WAVEGUIDE REPORT");
 	FILE* pFile;
-	pFile = fopen(sFName, "r");
+	pFile = _tfopen(sFName, _T("r"));
 	if (pFile != NULL) {
 		iRC = cDBase->S_ImportWG(pFile, WGName);
 		fclose(pFile);
@@ -2463,7 +2463,7 @@ BSTR CM3daDoc::API_GetName(LONG Index) {
 
 void CM3daDoc::API_ImpSecT(LPCTSTR sFName) {
 	AFX_MANAGE_STATE(AfxGetAppModuleState());
-	FILE* pFile = fopen(sFName, "r");
+	FILE* pFile = _tfopen(sFName, _T("r"));
 	if (pFile != NULL) {
 		cDBase->LoadSecT(pFile);
 	}
@@ -2546,7 +2546,7 @@ SHORT CM3daDoc::API_ImportWG2(LPCTSTR sFName, LPCTSTR sName) {
 	int iRC = 0;
 	outtext1("IMPORT WAVEGUIDE REPORT");
 	FILE* pFile;
-	pFile = fopen(sFName, "r");
+	pFile = _tfopen(sFName, _T("r"));
 	if (pFile != NULL) {
 		iRC = cDBase->S_ImportWG(pFile, sName);
 		fclose(pFile);
@@ -2588,7 +2588,7 @@ SHORT CM3daDoc::API_ExportUNV(LPCTSTR sFName) {
 	// TODO: Add your dispatch handler code here
 	outtext1("EXPORTING UNIVERSAL FILE");
 	outtext1(sFName);
-	pFile = fopen(sFName, "w");
+	pFile = _tfopen(sFName, _T("w"));
 	if (pFile != NULL) {
 		cDBase->ExportMesh(pFile);
 		outtext1("Export of Universal File Finished");
@@ -2786,7 +2786,7 @@ void CM3daDoc::OnPropertySolid() {
 		// outtextMSG2("PRSOLID");
 		// sLastcmd="PRSOLID"; RR
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrSolid("Solid Property", iNLab, -1);
+		cDBase->CreatePrSolid(_T("Solid Property"), iNLab, -1);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -2803,7 +2803,7 @@ void CM3daDoc::OnPropertyBeam() {
 		// outtextMSG2("PRBROD");
 		// sLastcmd="PRBROD";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrRod("ROD Beam Property", iNLab, -1, 0.015);
+		cDBase->CreatePrRod(_T("ROD Beam Property"), iNLab, -1, 0.015);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -2820,7 +2820,7 @@ void CM3daDoc::OnPropertyRod() {
 		// outtextMSG2("PRROD");
 		// sLastcmd="PRROD";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePRod("Rod Element", iNLab, -1, 0.0000785398, 4.90874e-10 + 4.90874e-10);
+		cDBase->CreatePRod(_T("Rod Element"), iNLab, -1, 0.0000785398, 4.90874e-10 + 4.90874e-10);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -2837,7 +2837,7 @@ void CM3daDoc::OnPropertyBeambar() {
 		// outtextMSG2("PRBBAR");
 		// sLastcmd="PRBBAR";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrBar("BAR Beam Property", iNLab, -1, 0.010, 0.015);
+		cDBase->CreatePrBar(_T("BAR Beam Property"), iNLab, -1, 0.010, 0.015);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -2854,7 +2854,7 @@ void CM3daDoc::OnPropertyBeamtube() {
 		outtextMSG2("PRBTUBE");
 		sLastcmd = "PRBTUBE";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrTube("TUBE Beam Property", iNLab, -1, 0.015, 0.01);
+		cDBase->CreatePrTube(_T("TUBE Beam Property"), iNLab, -1, 0.015, 0.01);
 		cDBase->EditProp(iNLab);
 
 	} else {
@@ -2872,7 +2872,7 @@ void CM3daDoc::OnPropertyBeambox() {
 		// outtextMSG2("PRBBOX");
 		// sLastcmd="PRBBOX";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrBox("BOX Beam Property", iNLab, -1, 0.01, 0.015, 0.005, 0.0025);
+		cDBase->CreatePrBox(_T("BOX Beam Property"), iNLab, -1, 0.01, 0.015, 0.005, 0.0025);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -2889,7 +2889,7 @@ void CM3daDoc::OnPropertyShell() {
 		// outtextMSG2("PRSHELL");
 		// sLastcmd="PRSHELL";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrShell("NAME", iNLab, -1, 1, 0);
+		cDBase->CreatePrShell(_T("NAME"), iNLab, -1, 1, 0);
 		cDBase->EditProp(iNLab);
 
 	} else {
@@ -2926,7 +2926,7 @@ void CM3daDoc::OnMaterialIsentropic() {
 		bool materialIDFound;
 		MatT->isTemp = true;
 		// MoMo_Material_SaveBugV1_05_20_2025_End
-		cDBase->CreateMat1("Al Material", iNLab, gDEF_E, gDEF_V, gDEF_DEN, gDEF_CTE, gDEF_COND);
+		cDBase->CreateMat1(_T("Al Material"), iNLab, gDEF_E, gDEF_V, gDEF_DEN, gDEF_CTE, gDEF_COND);
 		// MoMo_Material_SaveBugV1_05_20_2025_Start
 		// MoMo// cDBase->EditMat(iNLab,FALSE);
 		cDBase->EditMat(iNLab, FALSE, materialIDFound);
@@ -2959,7 +2959,7 @@ SHORT CM3daDoc::API_ExportNAS(LPCTSTR inName) {
 	// TODO: Add your dispatch handler code here
 	outtext1("EXPORTING NASTRAN DECK FILE");
 	outtext1(inName);
-	pFile = fopen(inName, "w");
+	pFile = _tfopen(inName, _T("w"));
 	if (pFile != NULL) {
 		cDBase->ExportMeshNAS(pFile, -1);
 		fclose(pFile);
@@ -2977,12 +2977,13 @@ void CM3daDoc::OnExportGroupstotxt() {
 	// TODO: Add your command handler code here
 	outtext1("Exporting groups to file");
 	FILE* pFile;
-	CFileDialog FDia(FALSE, "txt", "*.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("txt"), _T("*.txt"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "w");
+
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("w"));
 		if (pFile != NULL) {
 			cDBase->ExportPermGroupsTXT(pFile);
 			fclose(pFile);
@@ -3016,8 +3017,8 @@ void CM3daDoc::API_ExportGroups(LPCTSTR sFName) {
 	sFile = sFName;
 	FILE* pFile;
 	outtext1("Exporting groups to file");
-	if (sFile != "") {
-		pFile = fopen(sFile, "w");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sFile, _T("w"));
 		if (pFile != NULL) {
 			cDBase->ExportPermGroupsTXT(pFile);
 			fclose(pFile);
@@ -3043,7 +3044,7 @@ void CM3daDoc::OnChecksMergenodes() {
 void CM3daDoc::OnMeshBuildassemblymesh() {
 	// TODO: Add your command handler code here
 	outtext1("Starting to build assembly mesh");
-	cDBase->BuildAssembly("");
+	cDBase->BuildAssembly(_T(""));
 	outtext1("Finished final model generation");
 }
 
@@ -3262,12 +3263,12 @@ void CM3daDoc::OnImportOp2() {
 	outtext1("DATA BLOCKS:-");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "op2", "*.op2", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("op2"), _T("*.op2"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "rb");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("rb"));
 		if (pFile != NULL) {
 			cDBase->S_ImportOp2(pFile, sFile, 1);
 			fclose(pFile);
@@ -3421,12 +3422,12 @@ void CM3daDoc::OnPostExportresultstotextfile() {
 	// TODO: Add your command handler code here
 	outtext1("Exporting results to file");
 	FILE* pFile;
-	CFileDialog FDia(FALSE, "txt", "*.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("txt"), _T("*.txt"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "w");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("w"));
 		if (pFile != NULL) {
 			cDBase->ExportRes(pFile);
 			fclose(pFile);
@@ -3530,12 +3531,12 @@ void CM3daDoc::OnExportExporttotext() {
 	// TODO: Add your command handler code here
 	outtext1("EXPORTING TO TEXT");
 	FILE* pFile;
-	CFileDialog FDia(FALSE, "dat", "*.dat", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("dat"), _T("*.dat"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "w");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("w"));
 		if (pFile != NULL) {
 			cDBase->ExportToText(pFile);
 			fclose(pFile);
@@ -3575,12 +3576,12 @@ void CM3daDoc::OnImportTxttogroups() {
 	outtext1("IMPORT GROUPS TXT FILE");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "txt", "*.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("txt"), _T("*.txt"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			cDBase->S_ImportGroups(pFile);
 		}
@@ -3753,9 +3754,9 @@ void CM3daDoc::OnSelectionInvertselection() {
 
 void CM3daDoc::OnQwantaDebug() {
 	// TODO: Add your command handler code here
-	API_ImportCat("F:\\b\\WR51_2D_4x6_mid.cat");
-	API_ImpSecT("F:\\b\\CAT\\DB_SES10.txt");
-	API_ImportWG("F:\\b\\DP0943638_00_01_002_8932E.txt", "NULL");
+	API_ImportCat(_T("F:\\b\\WR51_2D_4x6_mid.cat"));
+	API_ImpSecT(_T("F:\\b\\CAT\\DB_SES10.txt"));
+	API_ImportWG(_T("F:\\b\\DP0943638_00_01_002_8932E.txt"), _T("NULL"));
 	API_GenMesh();
 }
 
@@ -3876,12 +3877,12 @@ void CM3daDoc::OnImportSymbolstable() {
 	outtext1("IMPORT SYMBOLS TABLE");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "symbols", "*.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("symbols"), _T("*.txt"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			cDBase->LoadSymbols(pFile);
 		}
@@ -4224,7 +4225,7 @@ void CM3daDoc::OnPropertyRotationalspring() {
 		// outtextMSG2("PRSPGR");
 		// sLastcmd="PRSPGR";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrSpringR("Rotational Spring", iNLab, 1.0e5, 1.0e5, 1.0e5, 1000);
+		cDBase->CreatePrSpringR(_T("Rotational Spring"), iNLab, 1.0e5, 1.0e5, 1.0e5, 1000);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -4240,7 +4241,7 @@ void CM3daDoc::OnPropertyTranslationalspring() {
 		// outtextMSG2("PRSPGT");
 		// sLastcmd="PRSPGT";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrSpringT("Translational Spring", iNLab, 1.0e7, 1.0e7, 1.0e7, 1000);
+		cDBase->CreatePrSpringT(_T("Translational Spring"), iNLab, 1.0e7, 1.0e7, 1.0e7, 1000);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -4304,7 +4305,7 @@ void CM3daDoc::OnPropertyLumpedmass() {
 		// outtextMSG2("PRMASS");
 		// sLastcmd = "PRMASS";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrLumpedMass("Lumped Mass Property", iNLab, 0.1);
+		cDBase->CreatePrLumpedMass(_T("Lumped Mass Property"), iNLab, 0.1);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -4450,7 +4451,7 @@ void CM3daDoc::OnPropertyBeamBasic() {
 		// outtextMSG2("PRBAR2");
 		// sLastcmd = "PRBAR2";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePRBar2("Bar Property", iNLab, -1, 0.0000785398, 4.90874e-10, 4.90874e-10, 4.90874e-10 + 4.90874e-10);
+		cDBase->CreatePRBar2(_T("Bar Property"), iNLab, -1, 0.0000785398, 4.90874e-10, 4.90874e-10, 4.90874e-10 + 4.90874e-10);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -4854,7 +4855,7 @@ void CM3daDoc::OnPropertyPcomp() {
 		int iNLab = PropsT->NextID();
 		CString sLay[50];
 		sLay[0] = "1,1,0";
-		cDBase->CreatePrPCOMP("NAME", iNLab, 0.0, 1, sLay);
+		cDBase->CreatePrPCOMP(_T("NAME"), iNLab, 0.0, 1, sLay);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -4875,7 +4876,7 @@ void CM3daDoc::OnMaterialOrthotropic() {
 		bool materialIDFound;
 		MatT->isTemp = true;
 		// MoMo_Material_FormKeysBugV1_05_22_2025_End
-		cDBase->CreateMat8("NASTRAN MAT8 Property", iNLab, 0, 0, 0,
+		cDBase->CreateMat8(_T("NASTRAN MAT8 Property"), iNLab, 0, 0, 0,
 		                   0, 0, 0, 0,
 		                   0, 0, 0);
 		// MoMo_Material_FormKeysBugV1_05_22_2025_Start
@@ -4909,7 +4910,7 @@ void CM3daDoc::OnPropertyPbush() {
 		// outtextMSG2("PRBUSH");
 		// sLastcmd="PRBUSH";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrBUSH("NASTRAN PBUSH Property", iNLab, 1.0e7, 1.0e7, 1.0e7, 1.0e4, 1.0e4, 1.0e4);
+		cDBase->CreatePrBUSH(_T("NASTRAN PBUSH Property"), iNLab, 1.0e7, 1.0e7, 1.0e7, 1.0e4, 1.0e4, 1.0e4);
 		cDBase->EditProp(iNLab);
 
 	} else {
@@ -4983,7 +4984,7 @@ void CM3daDoc::OnPropertyBeamT2() {
 		// outtextMSG2("PRBBAR");
 		// sLastcmd="PRBBAR";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrT2("T2 Beam Property", iNLab, -1, 1.0, 2.0, 0.5, 0.2);
+		cDBase->CreatePrT2(_T("T2 Beam Property"), iNLab, -1, 1.0, 2.0, 0.5, 0.2);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -4998,7 +4999,7 @@ void CM3daDoc::OnPropertyBeamChan2() {
 		// outtextMSG2("PRBBAR");
 		// sLastcmd="PRBBAR";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrCHAN2("CHAN2 Beam Property", iNLab, -1, 2, 1, 0.5, 0.2);
+		cDBase->CreatePrCHAN2(_T("CHAN2 Beam Property"), iNLab, -1, 2, 1, 0.5, 0.2);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -5014,7 +5015,7 @@ void CM3daDoc::OnPropertyBeamI2() {
 		// outtextMSG2("PRBBAR");
 		// sLastcmd="PRBBAR";
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrI2("I2 Beam Property", iNLab, -1, 0.6, 0.4, 0.2, 0.1, 0.05, 0.05);
+		cDBase->CreatePrI2(_T("I2 Beam Property"), iNLab, -1, 0.6, 0.4, 0.2, 0.1, 0.05, 0.05);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -5028,7 +5029,7 @@ void CM3daDoc::OnPropertyBeamL() {
 		CheckPoint();
 		bFinalChkPt = FALSE;
 		int iNLab = PropsT->NextID();
-		cDBase->CreatePrL("L Beam Property", iNLab, -1, 0.07, 0.07, 0.008, 0.008);
+		cDBase->CreatePrL(_T("L Beam Property"), iNLab, -1, 0.07, 0.07, 0.008, 0.008);
 		cDBase->EditProp(iNLab);
 	} else {
 		outtext1("Finish Current Operation.");
@@ -5066,11 +5067,11 @@ void CM3daDoc::OnToolsPlanet() {
 	// TODO: Add your command handler code here
 	outtext1("IMPORT EARTH BMP FILE");
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "BMP", "*.BMP", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("BMP"), _T("*.BMP"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
+	if (!sFile.IsEmpty()) {
 		if (cDBase->S_loadBMP(sPath, sFile))
 			cDBase->insPlanet();
 	}
@@ -5456,12 +5457,12 @@ void CM3daDoc::OnExportExportviewmatrix() {
 	// TODO: Add your command handler code here
 	outtext1("EXPORTING CURRENT VIEW MATRIX");
 	FILE* pFile;
-	CFileDialog FDia(FALSE, "MTX", "*.MTX", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("MTX"), _T("*.MTX"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "w");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("w"));
 		if (pFile != NULL) {
 			cDBase->ExportViewMat(pFile);
 			fclose(pFile);
@@ -5474,12 +5475,12 @@ void CM3daDoc::OnImportImportviewmatrix() {
 	outtext1("IMPORT VIEW MATRIX");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "VIEW MATRIX", "*.MTX", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("VIEW MATRIX"), _T("*.MTX"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			cDBase->ImportViewMat(pFile);
 		}
@@ -5741,12 +5742,12 @@ void CM3daDoc::OnExportExportdxf() {
 	// TODO: Add your command handler code here
 	outtext1("EXPORTING 2D DXF FILE");
 	FILE* pFile;
-	CFileDialog FDia(FALSE, "dxf", "*.dxf", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("dxf"), _T("*.dxf"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "w");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("w"));
 		if (pFile != NULL) {
 			cDBase->ExportDXF(pFile);
 			fclose(pFile);
@@ -5794,7 +5795,7 @@ void CM3daDoc::OnToolsInsertbitmapbackground() {
 	// TODO: Add your command handler code here
 	outtext1("IMPORT BMP BACKGROUND FILE");
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "BMP", "*.BMP", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("BMP"), _T("*.BMP"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
@@ -6027,7 +6028,7 @@ void CM3daDoc::OnLoadsbcCreategrav() {
 void CM3daDoc::OnExportCurrentStl() {
 	// TODO: Add your command handler code here
 	outtext1("EXPORTING TO STL");
-	CFileDialog FDia(FALSE, "stl", "*.stl", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("stl"), _T("*.stl"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
@@ -6039,7 +6040,7 @@ void CM3daDoc::OnExportCurrentStl() {
 void CM3daDoc::OnImportStltotrimesh() {
 	// TODO: Add your command handler code here
 	outtext1("IMPORTING STL TO TRI NESH");
-	CFileDialog FDia(FALSE, "stl", "*.stl", OFN_HIDEREADONLY, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("stl"), _T("*.stl"), OFN_HIDEREADONLY, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
@@ -6058,7 +6059,7 @@ void CM3daDoc::SendCommand(LPCTSTR sCmd) {
 void CM3daDoc::OnImportImportdxf() {
 	// TODO: Add your command handler code here
 	outtext1("IMPORTING DXF FILE");
-	CFileDialog FDia(FALSE, "dxf", "*.dxf", OFN_HIDEREADONLY, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("dxf"), _T("*.dxf"), OFN_HIDEREADONLY, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
@@ -6229,6 +6230,7 @@ void CM3daDoc::OnEXP01() {
 	CommIsActive.ChangeEdit1 = !CommIsActive.ChangeEdit1;
 	if (CommIsActive.ChangeEdit1) {
 		outtext1("\"Command Report Text Box\" Auto Color ON.");
+		outtext1(_T("اولین استفاده از یونیکد ➤"));
 	} else {
 		outtext1("\"Command Report Text Box\" Auto Color OFF.");
 	}

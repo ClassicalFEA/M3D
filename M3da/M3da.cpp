@@ -24,7 +24,7 @@
 
 // MoMo_Start
 SeedValues SeedVals;
-CString LastRequest = "";
+CString LastRequest = _T("");
 BOOL CurrentBufferResult = false;
 BOOL m_leftIsDragging = false;
 BOOL DeSelectAll = false;
@@ -269,6 +269,13 @@ BOOL CM3daApp::InitInstance() {
 	CommIsActive.NewState = false;
 	CommIsActive.ChangeEdit1 = false;
 	// momo change command box color
+	// momo
+	CAppSettings settings;
+	DeselectCadrMode = settings.ReadDeselectCadrMode();
+	SelectMode = settings.ReadSelectMode();
+	settings.ReadAxisMode(AxisOrigin, AxisCorner);
+	// momo
+
 	LoadStdProfileSettings(4); // Load standard INI file options (including MRU)
 
 	InitContextMenuManager();
@@ -354,20 +361,12 @@ BOOL CM3daApp::InitInstance() {
 		return FALSE;
 
 	// The one and only window has been initialized, so show and update it
-	// momo gdi to og
-	CAppSettings settings;
-	DeselectCadrMode = settings.ReadDeselectCadrMode();
-	SelectMode = settings.ReadSelectMode();
-	settings.ReadAxisMode(AxisOrigin, AxisCorner);
-	// momo gdi to og
 	// momo
 	bool windowMaximized = settings.ReadWindowState();
 	if (windowMaximized) {
 		m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
 	} else {
-		// momo
 		m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
-		// momo
 	}
 	// momo
 	m_pMainWnd->UpdateWindow();
@@ -452,12 +451,12 @@ void CM3daApp::OnFileRunscriptfile() {
 	outtext1("RUN SCRIPT FILE");
 	FILE* pFile;
 	// TODO: Add your command handler code here
-	CFileDialog FDia(TRUE, "txt", "*.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(TRUE, _T("txt"), _T("*.txt"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
-	if (sFile != "") {
-		pFile = fopen(sPath, "r");
+	if (!sFile.IsEmpty()) {
+		pFile = _tfopen(sPath, _T("r"));
 		if (pFile != NULL) {
 			while (!feof(pFile)) {
 				fgets(s1, 200, pFile);

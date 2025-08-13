@@ -17,6 +17,8 @@
 // MoMo_Start
 #include "AppSettings.h"
 #include "MainFrm.h"
+#include <tchar.h>
+#include <atlconv.h>
 // MoMo_End
 //// momo ModernOpenGL_Start
 ////#define WGL_CONTEXT_MAJOR_VERSION_ARB 0x2091
@@ -64,7 +66,7 @@ void InitFont(HDC hdc) {
 	    CLIP_DEFAULT_PRECIS,
 	    ANTIALIASED_QUALITY,
 	    FF_DONTCARE | DEFAULT_PITCH,
-	    LPCSTR("Arial") // <----------------- Font
+	    _T("Arial") // <----------------- Font
 	);
 	HFONT hOld = (HFONT) SelectObject(hdc, hFont);
 
@@ -114,10 +116,10 @@ int GetLastChar(CString FName, char sC) {
 // Post : Returns the path without the file name or "NULL"
 //************************************************************************************
 CString getPath(CString FName) {
-	CString src = "NULL";
+	CString src = _T("NULL");
 
 	int iP;
-	iP = FName.Find(":");
+	iP = FName.Find(_T(":"));
 	if (iP > 0) {
 		src = FName.Left(GetLastChar(FName, '\\'));
 	}
@@ -129,9 +131,9 @@ CString getPath(CString FName) {
 // Post : Returns the drive prefix or "NULL" if none valid
 //************************************************************************************
 CString getDrive(CString FName) {
-	CString src = "NULL";
+	CString src = _T("NULL");
 	int iP;
-	iP = FName.Find(":");
+	iP = FName.Find(_T(":"));
 	if (iP > 0)
 		src = FName.Mid(iP - 1, 2);
 
@@ -139,10 +141,10 @@ CString getDrive(CString FName) {
 }
 
 CString getName(CString FName) {
-	CString src = "NULL";
+	CString src = _T("NULL");
 	int iP;
 
-	iP = FName.Find(":");
+	iP = FName.Find(_T(":"));
 	if (iP > 0)
 		src = FName.Right(FName.GetLength() - GetLastChar(FName, '\\') - 1);
 
@@ -158,7 +160,7 @@ BOOL IsInclude(CString sIN) {
 	BOOL brc = FALSE;
 	CString St;
 	St = sIN.Left(7);
-	if ((St.Find("include") > -1) || (St.Find("INCLUDE") > -1))
+	if ((St.Find(_T("include")) > -1) || (St.Find(_T("INCLUDE")) > -1))
 		brc = TRUE;
 
 	return (brc);
@@ -172,14 +174,14 @@ CString GetIncName(CString sIN) {
 	CString S;
 	int iP;
 
-	iP = sIN.Find("'");
+	iP = sIN.Find(_T("'"));
 	if (iP == -1) {
-		S = "NULL";
+		S = _T("NULL");
 	} else {
 		S = sIN.Right(sIN.GetLength() - iP - 1);
-		iP = S.Find("'");
+		iP = S.Find(_T("'"));
 		if (iP == 0)
-			S = "NULL";
+			S = _T("NULL");
 		else
 			S = S.Left(iP);
 	}
@@ -253,9 +255,9 @@ double ae(CString sIn) {
 			sNew += sIn.Right(sIn.GetLength() - iPos);
 			sRet = sNew;
 		}
-		dRet = atof(sRet);
+		dRet = _tstof(sRet);
 	} else {
-		dRet = atof(sIn);
+		dRet = _tstof(sIn);
 	}
 	return (dRet);
 }
@@ -294,9 +296,9 @@ double aeB(CString sIn) {
 			sNew += sIn.Right(sIn.GetLength() - iPos);
 			sRet = sNew;
 		}
-		dRet = atof(sRet);
+		dRet = _tstof(sRet);
 	} else {
-		dRet = atof(sIn);
+		dRet = _tstof(sIn);
 	}
 	return (dRet);
 }
@@ -369,12 +371,12 @@ void DBase::PrintTime(CString cS) {
 void DBase::ExporttoNAS(int iFileNo) {
 	outtext1("EXPORTING NASTRAN DECK");
 	FILE* pFile;
-	CFileDialog FDia(FALSE, "dat", "*.dat", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
+	CFileDialog FDia(FALSE, _T("dat"), _T("*.dat"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, NULL, NULL);
 	FDia.DoModal();
 	CString sPath = FDia.GetPathName();
 	CString sFile = FDia.GetFileName();
 	if (sFile != "") {
-		pFile = fopen(sPath, "w");
+		pFile = _tfopen(sPath, _T("w"));
 		if (pFile != NULL) {
 			ExportMeshNAS(pFile, iFileNo);
 			fclose(pFile);
@@ -436,7 +438,7 @@ DBase::DBase(double WPS) {
 	Pen = NULL;
 	CreateWP(WPS);
 	iMeshCnt = 0;
-	DB_Obj[DB_ObjectCount] = CreateMesh("WORK");
+	DB_Obj[DB_ObjectCount] = CreateMesh(_T("WORK"));
 	pCurrentMesh = (ME_Object*) DB_Obj[DB_ObjectCount];
 	// MoMo_Start
 	DB_Obj[DB_ObjectCount]->Selectable = 1;
@@ -641,7 +643,7 @@ void DBase::DeleteTSET(int iSet) {
 void DBase::AnalysisLoadsets() {
 	int i;
 	CSETSDialog Dlg;
-	char OutT[80];
+	CString OutT;
 	Dlg.sTitle = "Load Sets";
 	Dlg.AttachSets(&pCurrentMesh->iNoLCs, &pCurrentMesh->iCurLC);
 	Dlg.sSET = "LSETCR";
@@ -650,7 +652,7 @@ void DBase::AnalysisLoadsets() {
 	Dlg.sLIST = "LSETLIST";
 	if (pCurrentMesh != NULL) {
 		for (i = 0; i < pCurrentMesh->iNoLCs; i++) {
-			sprintf_s(OutT, "%i : %s", pCurrentMesh->LCS[i]->iLabel, pCurrentMesh->LCS[i]->sTitle);
+			OutT.Format(_T("%i : %s"), pCurrentMesh->LCS[i]->iLabel, pCurrentMesh->LCS[i]->sTitle);
 			Dlg.AddSet(i, OutT);
 		}
 		Dlg.DoModal();
@@ -662,7 +664,7 @@ void DBase::AnalysisLoadsets() {
 void DBase::AnalysisBCsets() {
 	int i;
 	CSETSDialog Dlg;
-	char OutT[80];
+	CString OutT;
 	Dlg.sTitle = "Boundary Condition Sets";
 	Dlg.AttachSets(&pCurrentMesh->iNoBCs, &pCurrentMesh->iCurBC);
 	Dlg.sSET = "BSETCR";
@@ -671,7 +673,7 @@ void DBase::AnalysisBCsets() {
 	Dlg.sLIST = "BSETLIST";
 	if (pCurrentMesh != NULL) {
 		for (i = 0; i < pCurrentMesh->iNoBCs; i++) {
-			sprintf_s(OutT, "%i : %s", pCurrentMesh->BCS[i]->iLabel, pCurrentMesh->BCS[i]->sTitle);
+			OutT.Format(_T("%i : %s"), pCurrentMesh->BCS[i]->iLabel, pCurrentMesh->BCS[i]->sTitle);
 			Dlg.AddSet(i, OutT);
 		}
 		Dlg.DoModal();
@@ -683,7 +685,7 @@ void DBase::AnalysisBCsets() {
 void DBase::AnalysisTEMPsets() {
 	int i;
 	CSETSDialog Dlg;
-	char OutT[80];
+	CString OutT;
 	Dlg.sTitle = "Temperature Sets";
 	Dlg.AttachSets(&pCurrentMesh->iNoTSets, &pCurrentMesh->iCurTSet);
 	Dlg.sSET = "TSETCR";
@@ -692,7 +694,7 @@ void DBase::AnalysisTEMPsets() {
 	Dlg.sLIST = "TSETLIST";
 	if (pCurrentMesh != NULL) {
 		for (i = 0; i < pCurrentMesh->iNoTSets; i++) {
-			sprintf_s(OutT, "%i : %s", pCurrentMesh->TSETS[i]->iLabel, pCurrentMesh->TSETS[i]->sTitle);
+			OutT.Format(_T("%i : %s"), pCurrentMesh->TSETS[i]->iLabel, pCurrentMesh->TSETS[i]->sTitle);
 			Dlg.AddSet(i, OutT);
 		}
 		Dlg.DoModal();
@@ -772,7 +774,7 @@ void DBase::SetActSol(int iD) {
 				outtext1("ERROR: Invalid Solution ID.");
 			else {
 				CString sT = pCurrentMesh->pSOLS->GetTitleString(iD);
-				outtext1(_T(sT));
+				outtext1(sT);
 			}
 		}
 	}
@@ -789,7 +791,7 @@ void DBase::SetActStep(int iD) {
 				Solution* pS = pCurrentMesh->pSOLS->GetCurSolution();
 				pS->SetCurStep(iD);
 				CString sT = pS->GetStepTitleString(iD);
-				outtext1(_T(sT));
+				outtext1(sT);
 			}
 		}
 	}
@@ -798,7 +800,7 @@ void DBase::SetActStep(int iD) {
 void DBase::AnalysisLoadStep() {
 	int i;
 	CSTEPSDialog Dlg;
-	char OutT[80];
+	CString OutT;
 	Dlg.sTitle = "Solution Steps.";
 
 	// Dlg.AttachSets(&pCurrentMesh->iNoLCs,&pCurrentMesh->iCurLC);
@@ -809,15 +811,15 @@ void DBase::AnalysisLoadStep() {
 	if (pCurrentMesh != NULL) {
 		Dlg.pSOL = pCurrentMesh->pSOLS;
 		for (i = 0; i < pCurrentMesh->iNoLCs; i++) {
-			sprintf_s(OutT, "%i : %s", pCurrentMesh->LCS[i]->iLabel, pCurrentMesh->LCS[i]->sTitle);
+			OutT.Format(_T("%i : %s"), pCurrentMesh->LCS[i]->iLabel, pCurrentMesh->LCS[i]->sTitle);
 			Dlg.AddSet(pCurrentMesh->LCS[i]->iLabel, OutT, 0);
 		}
 		for (i = 0; i < pCurrentMesh->iNoBCs; i++) {
-			sprintf_s(OutT, "%i : %s", pCurrentMesh->BCS[i]->iLabel, pCurrentMesh->BCS[i]->sTitle);
+			OutT.Format(_T("%i : %s"), pCurrentMesh->BCS[i]->iLabel, pCurrentMesh->BCS[i]->sTitle);
 			Dlg.AddSet(pCurrentMesh->BCS[i]->iLabel, OutT, 1);
 		}
 		for (i = 0; i < pCurrentMesh->iNoTSets; i++) {
-			sprintf_s(OutT, "%i : %s", pCurrentMesh->TSETS[i]->iLabel, pCurrentMesh->TSETS[i]->sTitle);
+			OutT.Format(_T("%i : %s"), pCurrentMesh->TSETS[i]->iLabel, pCurrentMesh->TSETS[i]->sTitle);
 			Dlg.AddSet(pCurrentMesh->TSETS[i]->iLabel, OutT, 2);
 		}
 		Dlg.DoModal();
@@ -931,24 +933,24 @@ void DBase::LoadProps(CString sFile) {
 void DBase::LoadSecT(FILE* pFileA) {
 	int iStop = 0;
 	char s1[1000];
-	char s2[20];
-	char s3[20];
-	char s4[20];
-	char s5[20];
-	char s6[20];
-	char s7[20];
-	char s8[20];
-	char s9[20];
-	char s10[20];
-	char s11[20];
-	char s12[20];
-	char s13[20];
-	char s14[20];
-	char s15[20];
-	char s16[20];
-	char s17[20];
-	char s18[20];
-	char s19[20];
+	CString s2;//char s2[20];
+	CString s3;//char s3[20];
+	CString s4;//char s4[20];
+	CString s5;//char s5[20];
+	CString s6;//char s6[20];
+	CString s7;//char s7[20];
+	CString s8;//char s8[20];
+	CString s9;//char s9[20];
+	CString s10;//char s10[20];
+	CString s11;//char s11[20];
+	CString s12;//char s12[20];
+	CString s13;//char s13[20];
+	CString s14;//char s14[20];
+	CString s15;//char s15[20];
+	CString s16;//char s16[20];
+	CString s17;//char s17[20];
+	CString s18;//char s18[20];
+	CString s19;//char s19[20];
 
 	char sT[20];
 
@@ -992,24 +994,24 @@ void DBase::LoadSecT(FILE* pFileA) {
 				sscanf(s1, "%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
 				       sT, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14);
 
-				iWR = atoi(s2);
-				iWG = atoi(s3);
-				dTHK = atof(s4);
-				dW = atof(s5);
-				dH = atof(s6);
-				iCOL = atoi(s7);
-				iPID = atoi(s8);
-				iPID2 = atoi(s9);
-				iSecNo = atoi(s10);
-				iOpt = atoi(s11);
+				iWR = _ttoi(s2);
+				iWG = _ttoi(s3);
+				dTHK = _tstof(s4);
+				dW = _tstof(s5);
+				dH = _tstof(s6);
+				iCOL = _ttoi(s7);
+				iPID = _ttoi(s8);
+				iPID2 = _ttoi(s9);
+				iSecNo = _ttoi(s10);
+				iOpt = _ttoi(s11);
 				inF = FALSE;
 				dr = 0;
-				iM1 = atoi(s12);
+				iM1 = _ttoi(s12);
 				iM2 = -1;
 				dTHK2 = 0;
 				dLFR = 0;
-				dNSMS = atof(s13);
-				dNSMB = atof(s14);
+				dNSMS = _tstof(s13);
+				dNSMB = _tstof(s14);
 				iP1 = -1;
 				iP2 = -1;
 				iP3 = -1;
@@ -1025,31 +1027,31 @@ void DBase::LoadSecT(FILE* pFileA) {
 				outtext1(s1);
 				sscanf(s1, "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
 				       sT, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19);
-				iWR = atoi(s2);
-				iWG = atoi(s3);
-				dTHK = atof(s4);
-				dW = atof(s6);
-				dH = atof(s7);
-				iCOL = atoi(s10);
+				iWR = _ttoi(s2);
+				iWG = _ttoi(s3);
+				dTHK = _tstof(s4);
+				dW = _tstof(s6);
+				dH = _tstof(s7);
+				iCOL = _ttoi(s10);
 				iPID = -1;
 				iPID2 = -1;
 				iSecNo = -1;
-				iOpt = atoi(s13);
+				iOpt = _ttoi(s13);
 				inF = TRUE;
-				dr = atof(s9);
-				iM1 = atoi(s11);
-				iM2 = atoi(s12);
+				dr = _tstof(s9);
+				iM1 = _ttoi(s11);
+				iM2 = _ttoi(s12);
 				;
-				dTHK2 = atof(s5);
-				dLFR = atof(s8);
+				dTHK2 = _tstof(s5);
+				dLFR = _tstof(s8);
 				dNSMS = -1;
 				dNSMB = -1;
-				iP1 = atoi(s14);
-				iP2 = atoi(s15);
-				iP3 = atoi(s16);
-				iP4 = atoi(s17);
-				iP5 = atoi(s18);
-				iP6 = atoi(s19);
+				iP1 = _ttoi(s14);
+				iP2 = _ttoi(s15);
+				iP3 = _ttoi(s16);
+				iP4 = _ttoi(s17);
+				iP5 = _ttoi(s18);
+				iP6 = _ttoi(s19);
 				pSecs->add(iWR, iWG, dTHK, dW, dH, iCOL, iPID, iPID2, iSecNo, iOpt, inF, dr, iM1, iM2, dTHK2, dLFR, dNSMS, dNSMB,
 				           iP1, iP2, iP3, iP4, iP5, iP6);
 			}
@@ -1156,7 +1158,7 @@ void DBase::Serialize(CArchive& ar) {
 		ar >> iVER;
 		// MoMo_Start
 		char S1[200];
-		outtextSprintf("Version of Loaded File = %.2f", 0, abs(iVER / 10.0), false, 1);
+		outtextSprintf(_T("Version of Loaded File = %.2f"), 0, abs(iVER / 10.0), false, 1);
 		// MoMo_End
 		if (iVER <= -66) {
 			C3dMatrix mT;
@@ -1727,7 +1729,7 @@ void DBase::ToggleDoubleBuffering(int newMode) {
 	int currentMode = settings.ToggleDoubleBuffer(newMode);
 	currentModeString = settings.ModeName(currentMode);
 	sprintf_s(S1, "\r\nBuffering: Current = %s, Restart = %s\r\nPlease restart the application to apply changes.", currentModeString, onRestartModeString);
-	outtext1(_T(S1));
+	outtext1(S1);
 }
 
 void DBase::ListDoubleBuffering() {
@@ -1749,7 +1751,7 @@ void DBase::ListDoubleBuffering() {
 		}
 		sprintf_s(S1, "\r\nBuffering: Current = Auto, Result = %s, Restart = %s", resultModeString, onRestartModeString);
 	}
-	outtext1(_T(S1));
+	outtext1(S1);
 }
 // MoMo_End
 
@@ -4304,8 +4306,8 @@ void DBase::RESLISTEL(ObjList* Els) {
 	if (pCurrentMesh != NULL) {
 		if (pCurrentMesh->CResSet != NULL) {
 			outtext1(pCurrentMesh->CResSet->sName);
-			outtext1("TITLE:-" + pCurrentMesh->CResSet->sTitle);
-			outtext1("SUBTITLE:-" + pCurrentMesh->CResSet->sSubTitle);
+			outtext1(_T("TITLE:-") + pCurrentMesh->CResSet->sTitle);
+			outtext1(_T("SUBTITLE:-") + pCurrentMesh->CResSet->sSubTitle);
 			if (pCurrentMesh->iCVar != -1)
 				outtext1(pCurrentMesh->CResSet->lab[pCurrentMesh->iCVar]);
 			for (i = 0; i < Els->iNo; i++) {
@@ -4332,8 +4334,8 @@ void DBase::RESLISTND(ObjList* Nds) {
 	if (pCurrentMesh != NULL) {
 		if (pCurrentMesh->CResSet != NULL) {
 			outtext1(pCurrentMesh->CResSet->sName);
-			outtext1("TITLE:-" + pCurrentMesh->CResSet->sTitle);
-			outtext1("SUBTITLE:-" + pCurrentMesh->CResSet->sSubTitle);
+			outtext1(_T("TITLE:-") + pCurrentMesh->CResSet->sTitle);
+			outtext1(_T("SUBTITLE:-") + pCurrentMesh->CResSet->sSubTitle);
 			if (pCurrentMesh->iCVar != -1)
 				outtext1(pCurrentMesh->CResSet->lab[pCurrentMesh->iCVar]);
 			for (i = 0; i < Nds->iNo; i++) {
@@ -8087,7 +8089,7 @@ void DBase::ShellOffsets(ObjList* Items, double dOff) {
 		}
 	}
 	sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iNoC);
-	outtext1(_T(s1));
+	outtext1(s1);
 	if (bReGen == TRUE) {
 		InvalidateOGL();
 		ReDraw();
@@ -11554,7 +11556,7 @@ G_Object* DBase::S_Single(CPoint InPT, bool OnlyFind) {
 	G_Object pTarget;
 	G_ObjectD pO;
 	if (SeedVals.SelectLock) {
-		outtextMultiLine("\r\nWARNING > You can not select any shape. <!>", 2);
+		outtextMultiLine(_T("\r\nWARNING > You can not select any shape. <!>"), 2);
 		outtextMultiLine(LastRequest, 2);
 		SetFocus();
 	} else if (iDspLstCount > 0) {
@@ -12775,16 +12777,16 @@ void DBase::S_ImportGroups(FILE* pFile) {
 		while (iStop == 0) {
 			fgets(s1, 200, pFile);
 			sdl = s1;
-			if ((sdl.Find("GROUP") == 0) && (sdl.GetLength() == 6)) {
+			if ((sdl.Find(_T("GROUP")) == 0) && (sdl.GetLength() == 6)) {
 				fgets(s1, 200, pFile);
 				outtext1(s1);
 				sName = s1;
 				AddGp(sName);
-			} else if (sdl.Find("ELEM") == 0) {
+			} else if (sdl.Find(_T("ELEM")) == 0) {
 				s8 = sdl.Mid(10, 10);
-				iID = atoi(s8);
+				iID = _ttoi(s8);
 				s8 = sdl.Mid(20, 10);
-				iCol = atoi(s8);
+				iCol = _ttoi(s8);
 				pO = pCurrentMesh->GetObj(3, iID);
 				if (pO != NULL) {
 					pO->iColour = iCol;
@@ -12792,11 +12794,11 @@ void DBase::S_ImportGroups(FILE* pFile) {
 				}
 				// outtext1(s8);
 
-			} else if (sdl.Find("NODE") == 0) {
+			} else if (sdl.Find(_T("NODE")) == 0) {
 				s8 = sdl.Mid(10, 10);
-				iID = atoi(s8);
+				iID = _ttoi(s8);
 				s8 = sdl.Mid(20, 10);
-				iCol = atoi(s8);
+				iCol = _ttoi(s8);
 				pO = pCurrentMesh->GetObj(1, iID);
 				if (pO != NULL) {
 					pO->iColour = iCol;
@@ -12835,9 +12837,9 @@ void DBase::S_ImportCat(FILE* pFile, CString inName) {
 		SFileN = sFile;
 		// pFile2 = fopen(sFile,"r");
 
-		if ((SFileN.Find(".DAT") > -1) || (SFileN.Find(".dat") > -1) ||
-		    (SFileN.Find(".BDF") > -1) || (SFileN.Find(".bdf") > -1)) {
-			Mesh = ImportNASTRAN2(sFile, FALSE);
+		if ((SFileN.Find(_T(".DAT")) > -1) || (SFileN.Find(_T(".dat")) > -1) ||
+		    (SFileN.Find(_T(".BDF")) > -1) || (SFileN.Find(_T(".bdf")) > -1)) {
+			Mesh = ImportNASTRAN2(CString(sFile), FALSE);
 			Mesh->sName = sName;
 			MeshCat->Add(Mesh);
 		}
@@ -12933,8 +12935,8 @@ double ExtractDouble(CString inS, int iPos) {
 			iCnt++;
 			if (iCnt == iPos) {
 				S = inS.Mid(i1 + 1, i - i1 - 1);
-				S.Replace("D", "E");
-				d = atof(S);
+				S.Replace(_T("D"), _T("E"));
+				d = _tstof(S);
 				break;
 			}
 			i1 = i;
@@ -13108,24 +13110,24 @@ void DBase::S_ImportIges(FILE* pFile, CString inName) {
 			type = s1[72];
 			// outtext1(s1);
 			if (type == 'D') {
-				DirEnt[iDirCount].itype = atoi(S.Mid(0, 8));
-				DirEnt[iDirCount].pData = atoi(S.Mid(8, 8));
-				DirEnt[iDirCount].pStruct = atoi(S.Mid(16, 8));
-				DirEnt[iDirCount].pLFont = atoi(S.Mid(24, 8));
-				DirEnt[iDirCount].pLevel = atoi(S.Mid(32, 8));
-				DirEnt[iDirCount].pView = atoi(S.Mid(40, 8));
-				DirEnt[iDirCount].pTForm = atoi(S.Mid(48, 8));
-				DirEnt[iDirCount].pLabAss = atoi(S.Mid(56, 8));
-				DirEnt[iDirCount].iStat = atoi(S.Mid(64, 8));
-				DirEnt[iDirCount].iSeq = atoi(S.Mid(73, 7));
+				DirEnt[iDirCount].itype = _ttoi(S.Mid(0, 8));
+				DirEnt[iDirCount].pData = _ttoi(S.Mid(8, 8));
+				DirEnt[iDirCount].pStruct = _ttoi(S.Mid(16, 8));
+				DirEnt[iDirCount].pLFont = _ttoi(S.Mid(24, 8));
+				DirEnt[iDirCount].pLevel = _ttoi(S.Mid(32, 8));
+				DirEnt[iDirCount].pView = _ttoi(S.Mid(40, 8));
+				DirEnt[iDirCount].pTForm = _ttoi(S.Mid(48, 8));
+				DirEnt[iDirCount].pLabAss = _ttoi(S.Mid(56, 8));
+				DirEnt[iDirCount].iStat = _ttoi(S.Mid(64, 8));
+				DirEnt[iDirCount].iSeq = _ttoi(S.Mid(73, 7));
 				fgets(s1, 82, pFile);
 				S = s1;
-				DirEnt[iDirCount].iWght = atoi(S.Mid(8, 8));
-				DirEnt[iDirCount].iCol = atoi(S.Mid(16, 8));
-				DirEnt[iDirCount].iPLCnt = atoi(S.Mid(24, 8));
-				DirEnt[iDirCount].iFrmNo = atoi(S.Mid(32, 8));
-				DirEnt[iDirCount].iLab = atoi(S.Mid(56, 8));
-				DirEnt[iDirCount].iSubNo = atoi(S.Mid(64, 8));
+				DirEnt[iDirCount].iWght = _ttoi(S.Mid(8, 8));
+				DirEnt[iDirCount].iCol = _ttoi(S.Mid(16, 8));
+				DirEnt[iDirCount].iPLCnt = _ttoi(S.Mid(24, 8));
+				DirEnt[iDirCount].iFrmNo = _ttoi(S.Mid(32, 8));
+				DirEnt[iDirCount].iLab = _ttoi(S.Mid(56, 8));
+				DirEnt[iDirCount].iSubNo = _ttoi(S.Mid(64, 8));
 				iDirCount++;
 			} else if (type == 'P') {
 				// outtext1(S);
@@ -13149,7 +13151,7 @@ void DBase::S_ImportIges(FILE* pFile, CString inName) {
 	for (i = 0; i < iDirCount; i++) {
 		if (i % 100 == 0) {
 			sprintf_s(sDE, "DE : %i of %i", i, iDirCount);
-			outtext1(_T(sDE));
+			outtext1(sDE);
 		}
 		// These type left here require other DEs
 		// for there creation
@@ -13189,7 +13191,7 @@ void DBase::S_ImportIges(FILE* pFile, CString inName) {
 		// for there creation
 		if (i % 100 == 0) {
 			sprintf_s(sDE, "2nd PASS DE : %i of %i", i, iDirCount);
-			outtext1(_T(sDE));
+			outtext1(sDE);
 		}
 		if (DirEnt[i].itype == 144) // Trim Surface Curves are in Paremetric space
 		{
@@ -14900,6 +14902,7 @@ void DBase::ExportMeshNAS(FILE* pFile2, int iFile) {
 }
 
 void DBase::ExportToText(FILE* pFile2) {
+	USES_CONVERSION;
 	if (this->pCurrentMesh != NULL) {
 		COleDateTime timeStart;
 		timeStart = COleDateTime::GetCurrentTime();
@@ -14924,7 +14927,7 @@ void DBase::ExportToText(FILE* pFile2) {
 
 			for (iCO = 0; iCO < S_Count; iCO++) {
 				OutS = S_Buff[iCO]->ToString();
-				fprintf(pFile2, OutS);
+				fprintf(pFile2, "%s", (LPCSTR)CT2A(OutS));
 			}
 		} else {
 			outtext1("Export Expired.");
@@ -15982,18 +15985,18 @@ ME_Object* DBase::ImportUNV(FILE* pFile, CString inName) {
 	do {
 		d1 = 0;
 		fscanf(pFile, "%s", &s1);
-		d1 = atof(s1);
+		d1 = _tstof(CA2T(s1));
 		if (d1 == -1) {
 			fscanf(pFile, "%s", &s1);
 			fscanf(pFile, "%s", &s1);
-			iInVal = atoi(s1);
+			iInVal = _ttoi(CA2T(s1));
 			if (iInVal == 2411) {
 				do {
 					fscanf(pFile, "%i%i%i%i", &i1, &i2, &i3, &i4);
 					fscanf(pFile, "%s%s%s", &s1, &s2, &s3);
-					d1 = atof(s1);
-					d2 = atof(s2);
-					d3 = atof(s3);
+					d1 = _tstof(CA2T(s1));
+					d2 = _tstof(CA2T(s2));
+					d3 = _tstof(CA2T(s3));
 					vPtIn[0].x = d1;
 					vPtIn[0].y = d2;
 					vPtIn[0].z = d3;
@@ -16019,18 +16022,18 @@ ME_Object* DBase::ImportUNV(FILE* pFile, CString inName) {
 	do {
 		d1 = 0;
 		fscanf(pFile, "%s", &s1);
-		d1 = atof(s1);
+		d1 = _tstof(CA2T(s1));
 		if (d1 == -1) {
 			fscanf(pFile, "%s", &s1);
 			fscanf(pFile, "%s", &s1);
-			iInVal = atoi(s1);
+			iInVal = _ttoi(CA2T(s1));
 			if (iInVal == 2412) {
 				do {
 					fscanf(pFile, "%d %d %d %d %d %d", &i1, &i2, &i3, &i4, &i5, &i6);
 					if ((i2 == 91) || (i2 == 94) || (i2 == 115) || (i2 == 112) || (i2 == 111) || (i2 == 122) || (i2 == 121) || (i2 == 136) || (i2 == 137) || (i2 == 181) || (i2 == 161)) {
 						for (i = 0; i < i6; i++) {
 							fscanf(pFile, "%s", &s1);
-							iNlabs[i] = atoi(s1);
+							iNlabs[i] = _ttoi(CA2T(s1));
 						}
 						if (i2 == 121) {
 							i2 = i2;
@@ -16044,7 +16047,7 @@ ME_Object* DBase::ImportUNV(FILE* pFile, CString inName) {
 						fscanf(pFile, "%d %d %d", &iA, &iB, &iC);
 						for (i = 0; i < i6; i++) {
 							fscanf(pFile, "%s", &s1);
-							iNlabs[i] = atoi(s1);
+							iNlabs[i] = _ttoi(CA2T(s1));
 						}
 						cAddedEl = (E_Object*) RetMesh->AddEl2(iNlabs, i1, i5 + 150, i2, i3, i4, i6, iA, iB, iC, -1, 0);
 						cAddedEl->PIDunv = i3;
@@ -16092,7 +16095,7 @@ double atofNAS(CString SIN) {
 		}
 		SIN2 += SIN[i];
 	}
-	drc = atof(SIN2);
+	drc = _tstof(SIN2);
 	return (drc);
 }
 
@@ -16112,8 +16115,8 @@ CoordSys* NASReadCoord(ME_Object* pM,
 	C3dVector X;
 	C3dVector Y;
 	C3dVector Z;
-	iID = atoi(oC.GetField(0));
-	iRID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iRID = _ttoi(oC.GetField(1));
 	Org.x = atofNAS(oC.GetField(2));
 	Org.y = atofNAS(oC.GetField(3));
 	Org.z = atofNAS(oC.GetField(4));
@@ -16158,12 +16161,12 @@ void NASReadGRID(ME_Object* pM,
 	double d3;
 	Node* pRet;
 	C3dVector vPtIn;
-	iID = atoi(oC.GetField(0));
-	iDef = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iDef = _ttoi(oC.GetField(1));
 	d1 = atofNAS(oC.GetField(2));
 	d2 = atofNAS(oC.GetField(3));
 	d3 = atofNAS(oC.GetField(4));
-	iOut = atoi(oC.GetField(5));
+	iOut = _ttoi(oC.GetField(5));
 	vPtIn.x = d1;
 	vPtIn.y = d2;
 	vPtIn.z = d3;
@@ -16189,15 +16192,15 @@ void NASReadGRIDD(ME_Object* pM,
 	double d3;
 	char s1[200];
 	C3dVector vPtIn;
-	iID = atoi(L1->Mid(8, 8));
-	iDef = atoi(L1->Mid(16, 16));
+	iID = _ttoi(L1->Mid(8, 8));
+	iDef = _ttoi(L1->Mid(16, 16));
 	d1 = atofNAS(L1->Mid(32, 16));
 	d2 = atofNAS(L1->Mid(48, 16));
 	*L1 = *LNext;
 	fgets(s1, 200, pFile);
 	*LNext = s1;
 	d3 = atofNAS(L1->Mid(8, 16));
-	iOut = atoi(L1->Mid(24, 16));
+	iOut = _ttoi(L1->Mid(24, 16));
 	vPtIn.x = d1;
 	vPtIn.y = d2;
 	vPtIn.z = d3;
@@ -16213,18 +16216,18 @@ E_Object* NASReadCHEXA(NasCard& oC,
 	int iNlabs[MaxSelNodes];
 	int iID;
 	int iPID;
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
-	iNlabs[2] = atoi(oC.GetField(4));
-	iNlabs[3] = atoi(oC.GetField(5));
-	iNlabs[4] = atoi(oC.GetField(6));
-	iNlabs[5] = atoi(oC.GetField(7));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
+	iNlabs[2] = _ttoi(oC.GetField(4));
+	iNlabs[3] = _ttoi(oC.GetField(5));
+	iNlabs[4] = _ttoi(oC.GetField(6));
+	iNlabs[5] = _ttoi(oC.GetField(7));
 
-	iNlabs[6] = atoi(oC.GetField(8));
-	iNlabs[7] = atoi(oC.GetField(9));
+	iNlabs[6] = _ttoi(oC.GetField(8));
+	iNlabs[7] = _ttoi(oC.GetField(9));
 	E_Object* El = (E_Object*) pM->AddEl2(iNlabs, iID, 159, 115, iPID, 1, 8, 0, 0, 0, -1, 0);
 	El->PIDunv = iPID;
 	El->iFile = iF;
@@ -16239,10 +16242,10 @@ E_Object* NASReadCONM2(NasCard& oC,
 	int iNlabs[MaxSelNodes];
 	int iID;
 	E_Object1* pE;
-	iID = atoi(oC.GetField(0));
-	iNlabs[0] = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iNlabs[0] = _ttoi(oC.GetField(1));
 	pE = (E_Object1*) (pM->AddEl2(iNlabs, iID, 159, 161, -1, 1, 1, 0, 0, 0, -1, 0));
-	pE->iCID = atoi(oC.GetField(2));
+	pE->iCID = _ttoi(oC.GetField(2));
 	pE->dM = (ae(oC.GetField(3)));
 	pE->dX1 = (ae(oC.GetField(4)));
 	pE->dX2 = (ae(oC.GetField(5)));
@@ -16269,10 +16272,10 @@ E_Object* NASReadCONM1(NasCard& oC,
 	int iNlabs[MaxSelNodes];
 	int iID;
 	E_Object1* pE;
-	iID = atoi(oC.GetField(0));
-	iNlabs[0] = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iNlabs[0] = _ttoi(oC.GetField(1));
 	pE = (E_Object1*) (pM->AddEl2(iNlabs, iID, 159, 161, -1, 1, 1, 0, 0, 0, -1, 0));
-	pE->iCID = atoi(oC.GetField(2));
+	pE->iCID = _ttoi(oC.GetField(2));
 	pE->dM = (ae(oC.GetField(3)));
 	// pE->dX1 = (ae(oC.GetField(4)));
 	// pE->dX2 = (ae(oC.GetField(5)));
@@ -16303,20 +16306,20 @@ E_Object* NASReadCQUAD4(NasCard& oC,
 	double dAng;
 	CString sT;
 
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
-	iNlabs[2] = atoi(oC.GetField(4));
-	iNlabs[3] = atoi(oC.GetField(5));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
+	iNlabs[2] = _ttoi(oC.GetField(4));
+	iNlabs[3] = _ttoi(oC.GetField(5));
 	sT = oC.GetField(6);
-	if ((sT.Find('.') > -1) || (sT.Find("        ") > -1) || (sT == "\n")) {
+	if ((sT.Find('.') > -1) || (sT.Find(_T("        ")) > -1) || (sT == "\n")) {
 		dAng = atofNAS(sT);
 		MCID = -1;
 	} else {
 		dAng = 0;
-		MCID = atoi(sT);
+		MCID = _ttoi(sT);
 		;
 	}
 	double dZ;
@@ -16340,19 +16343,19 @@ E_Object* NASReadCTRIA3(NasCard& oC,
 	double dAng;
 	CString sT;
 
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
-	iNlabs[2] = atoi(oC.GetField(4));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
+	iNlabs[2] = _ttoi(oC.GetField(4));
 	sT = oC.GetField(5);
-	if ((sT.Find('.') > -1) || (sT.Find("        ") > -1) || (sT == "\n")) {
+	if ((sT.Find('.') > -1) || (sT.Find(_T("        ")) > -1) || (sT == "\n")) {
 		dAng = atofNAS(sT);
 		MCID = -1;
 	} else {
 		dAng = 0;
-		MCID = atoi(sT);
+		MCID = _ttoi(sT);
 		;
 	}
 	double dZ;
@@ -16379,23 +16382,23 @@ E_Object* NASReadCQUAD4D(ME_Object* pM,
 	double dAng;
 	CString sT;
 
-	iID = atoi(L1->Mid(8, 8));
-	iPID = atoi(L1->Mid(16, 16));
+	iID = _ttoi(L1->Mid(8, 8));
+	iPID = _ttoi(L1->Mid(16, 16));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(L1->Mid(32, 16));
-	iNlabs[1] = atoi(L1->Mid(48, 16));
+	iNlabs[0] = _ttoi(L1->Mid(32, 16));
+	iNlabs[1] = _ttoi(L1->Mid(48, 16));
 	*L1 = *LNext;
 	fgets(s1, 200, pFile);
 	*LNext = s1;
-	iNlabs[2] = atoi(L1->Mid(8, 16));
-	iNlabs[3] = atoi(L1->Mid(24, 16));
+	iNlabs[2] = _ttoi(L1->Mid(8, 16));
+	iNlabs[3] = _ttoi(L1->Mid(24, 16));
 	sT = L1->Mid(40, 16);
-	if ((sT.Find('.') > -1) || (sT.Find("        ") > -1) || (sT == "\n")) {
+	if ((sT.Find('.') > -1) || (sT.Find(_T("        ")) > -1) || (sT == "\n")) {
 		dAng = atofNAS(sT);
 		MCID = -1;
 	} else {
 		dAng = 0;
-		MCID = atoi(sT);
+		MCID = _ttoi(sT);
 		;
 	}
 
@@ -16414,15 +16417,15 @@ E_Object* NASReadCPENTA(NasCard& oC,
 	int iID;
 	int iPID;
 
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
-	iNlabs[2] = atoi(oC.GetField(4));
-	iNlabs[3] = atoi(oC.GetField(5));
-	iNlabs[4] = atoi(oC.GetField(6));
-	iNlabs[5] = atoi(oC.GetField(7));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
+	iNlabs[2] = _ttoi(oC.GetField(4));
+	iNlabs[3] = _ttoi(oC.GetField(5));
+	iNlabs[4] = _ttoi(oC.GetField(6));
+	iNlabs[5] = _ttoi(oC.GetField(7));
 	E_Object* pE = (E_Object*) pM->AddEl2(iNlabs, iID, 159, 112, iPID, 1, 6, 0, 0, 0, -1, 0);
 	pE->PIDunv = iPID;
 	pE->iFile = iF;
@@ -16441,11 +16444,11 @@ E_Object2* NASReadCBUSH(NasCard& oC,
 	int iPID;
 	CString sOmid;
 
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
 
 	pUp.x = (ae(oC.GetField(4)));
 	pUp.y = (ae(oC.GetField(5)));
@@ -16453,8 +16456,8 @@ E_Object2* NASReadCBUSH(NasCard& oC,
 
 	sOmid = oC.GetField(4);
 	iONID = -1;
-	if (sOmid.Find(".") == -1) {
-		iONID = atoi(oC.GetField(7));
+	if (sOmid.Find(_T(".")) == -1) {
+		iONID = _ttoi(oC.GetField(7));
 	}
 
 	E_Object2* pE = (E_Object2*) pM->AddEl2(iNlabs, iID, 7, 136, iPID, 1, 2, 0, 0, 0, iONID, 0);
@@ -16479,11 +16482,11 @@ E_Object2B* NASReadCBAR(NasCard& oC,
 
 	E_Object2B* pB;
 	E_Object* pE;
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
 
 	pUp.x = (ae(oC.GetField(4)));
 	pUp.y = (ae(oC.GetField(5)));
@@ -16491,11 +16494,11 @@ E_Object2B* NASReadCBAR(NasCard& oC,
 
 	sOmid = oC.GetField(4);
 	iONID = -1;
-	if (sOmid.Find(".") == -1) {
-		iONID = atoi(oC.GetField(4));
+	if (sOmid.Find(_T(".")) == -1) {
+		iONID = _ttoi(oC.GetField(4));
 	}
-	CString Pin1 = "";
-	CString Pin2 = "";
+	CString Pin1 = _T("");
+	CString Pin2 = _T("");
 	pE = pM->AddEl2(iNlabs, iID, 7, 21, iPID, 1, 2, 0, 0, 0, -1, 0);
 	pB = (E_Object2B*) pE;
 	OffA *= 0;
@@ -16533,14 +16536,14 @@ E_Object2B* NASReadCBEAM(NasCard& oC,
 
 	E_Object2B* pB;
 	E_Object* pE;
-	iID = atoi(oC.GetField(0));
+	iID = _ttoi(oC.GetField(0));
 	if (iID == 68700267)
 		iID = iID;
 
-	iPID = atoi(oC.GetField(1));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
 
 	pUp.x = (ae(oC.GetField(4)));
 	pUp.y = (ae(oC.GetField(5)));
@@ -16548,11 +16551,11 @@ E_Object2B* NASReadCBEAM(NasCard& oC,
 
 	sOmid = oC.GetField(4);
 	iONID = -1;
-	if (sOmid.Find(".") == -1) {
-		iONID = atoi(oC.GetField(4));
+	if (sOmid.Find(_T(".")) == -1) {
+		iONID = _ttoi(oC.GetField(4));
 	}
-	CString Pin1 = "";
-	CString Pin2 = "";
+	CString Pin1 = _T("");
+	CString Pin2 = _T("");
 	pE = pM->AddEl2(iNlabs, iID, 7, 22, iPID, 1, 2, 0, 0, 0, -1, 0);
 	pB = (E_Object2B*) pE;
 	OffA *= 0;
@@ -16583,19 +16586,19 @@ E_Object* NASReadCTETRA(NasCard& oC,
 	int iID;
 	int iPID;
 
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
 	iPID = newPids->Get(iPID);
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
-	iNlabs[2] = atoi(oC.GetField(4));
-	iNlabs[3] = atoi(oC.GetField(5));
-	iNlabs[4] = atoi(oC.GetField(6));
-	iNlabs[5] = atoi(oC.GetField(7));
-	iNlabs[6] = atoi(oC.GetField(8));
-	iNlabs[7] = atoi(oC.GetField(9));
-	iNlabs[8] = atoi(oC.GetField(10));
-	iNlabs[9] = atoi(oC.GetField(11));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
+	iNlabs[2] = _ttoi(oC.GetField(4));
+	iNlabs[3] = _ttoi(oC.GetField(5));
+	iNlabs[4] = _ttoi(oC.GetField(6));
+	iNlabs[5] = _ttoi(oC.GetField(7));
+	iNlabs[6] = _ttoi(oC.GetField(8));
+	iNlabs[7] = _ttoi(oC.GetField(9));
+	iNlabs[8] = _ttoi(oC.GetField(10));
+	iNlabs[9] = _ttoi(oC.GetField(11));
 	E_Object* pE;
 	if (iNlabs[5] == 0)
 		pE = (E_Object*) pM->AddEl2(iNlabs, iID, 162, 111, iPID, 1, 4, 0, 0, 0, -1, 0);
@@ -16620,22 +16623,22 @@ E_Object* NASReadRBE2(NasCard& oC,
 	double dCTE = 0.0;
 	CString sDof;
 	CString sF;
-	iID = atoi(oC.GetField(0));
-	iNlabs[0] = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iNlabs[0] = _ttoi(oC.GetField(1));
 	sDof = oC.GetField(2);
 	iFN = 4;
 	int iCnt = 1;
 	for (i = 3; i < oC.iNo; i++) {
 		sF = oC.GetField(i);
-		iNDID = atoi(sF);
-		if ((iNDID > 0) && (sF.Find(".") == -1)) {
+		iNDID = _ttoi(sF);
+		if ((iNDID > 0) && (sF.Find(_T(".")) == -1)) {
 			iNlabs[iCnt] = iNDID;
 			iCnt++;
 			if (iCnt > 199) {
 				outtext1("ERROR: Max Number of Nodes in RBE2 Reached.");
 				break;
 			}
-		} else if (sF.Find(".") != -1)
+		} else if (sF.Find(_T(".")) != -1)
 			dCTE = atofNAS(sF);
 	}
 	// sF = oC.GetField(oC.iNo-3);
@@ -16663,9 +16666,9 @@ E_Object* NASReadRBAR(NasCard& oC,
 	CString CMA;
 	CString CMB;
 
-	iID = atoi(oC.GetField(0));
-	iNlabs[0] = atoi(oC.GetField(1));
-	iNlabs[1] = atoi(oC.GetField(2));
+	iID = _ttoi(oC.GetField(0));
+	iNlabs[0] = _ttoi(oC.GetField(1));
+	iNlabs[1] = _ttoi(oC.GetField(2));
 	CNA = oC.GetField(3);
 	CNB = oC.GetField(4);
 	CMA = oC.GetField(5);
@@ -16673,7 +16676,7 @@ E_Object* NASReadRBAR(NasCard& oC,
 	ALPHA = atofNAS(oC.GetField(7));
 	// sDof=L1->Mid(24,8);
 
-	// iNDID= atoi(L1->Mid(iFN*8,8));
+	// iNDID= _ttoi(L1->Mid(iFN*8,8));
 
 	E_ObjectR2* pR = (E_ObjectR2*) pM->AddEl2(iNlabs, iID, 160, 121, iPID, 1, 2, 0, 0, 0, -1, 0);
 	pR->SetOther(CNA, CNB, CMA, CMA, ALPHA);
@@ -16691,10 +16694,10 @@ E_Object* NASReadCROD(NasCard& oC,
 	int iID;
 	int iPID = 0;
 
-	iID = atoi(oC.GetField(0));
-	iPID = atoi(oC.GetField(1));
-	iNlabs[0] = atoi(oC.GetField(2));
-	iNlabs[1] = atoi(oC.GetField(3));
+	iID = _ttoi(oC.GetField(0));
+	iPID = _ttoi(oC.GetField(1));
+	iNlabs[0] = _ttoi(oC.GetField(2));
+	iNlabs[1] = _ttoi(oC.GetField(3));
 
 	E_ObjectR2* pR = (E_ObjectR2*) pM->AddEl2(iNlabs, iID, 160, 11, iPID, 1, 2, 0, 0, 0, -1, 0);
 	pR->iFile = iF;
@@ -16720,8 +16723,8 @@ void NASReadSPC(NasCard& oC,
 	ryon = FALSE;
 	rzon = FALSE;
 
-	iID = atoi(oC.GetField(0));
-	iND = atoi(oC.GetField(1));
+	iID = _ttoi(oC.GetField(0));
+	iND = _ttoi(oC.GetField(1));
 	sDOF = oC.GetField(2);
 	dEnf = atofNAS(oC.GetField(3));
 
@@ -16729,22 +16732,22 @@ void NASReadSPC(NasCard& oC,
 	pBCSET = pM->GetBC(iID);
 	if (pBCSET == nullptr) {
 		sprintf_s(S1, "BC SET : %i", iID);
-		iSet = pM->CreateBC(iID, S1);
+		iSet = pM->CreateBC(iID, CString(CA2T(S1)));
 		pBCSET = pM->GetBC(iID);
 	}
 	pN = pM->GetNode(iND);
 	if ((pN != nullptr) && (pBCSET != nullptr)) {
-		if (sDOF.Find("1", 0) != -1)
+		if (sDOF.Find(_T("1"), 0) != -1)
 			xon = TRUE;
-		if (sDOF.Find("2", 0) != -1)
+		if (sDOF.Find(_T("2"), 0) != -1)
 			yon = TRUE;
-		if (sDOF.Find("3", 0) != -1)
+		if (sDOF.Find(_T("3"), 0) != -1)
 			zon = TRUE;
-		if (sDOF.Find("4", 0) != -1)
+		if (sDOF.Find(_T("4"), 0) != -1)
 			rxon = TRUE;
-		if (sDOF.Find("5", 0) != -1)
+		if (sDOF.Find(_T("5"), 0) != -1)
 			ryon = TRUE;
-		if (sDOF.Find("6", 0) != -1)
+		if (sDOF.Find(_T("6"), 0) != -1)
 			rzon = TRUE;
 		G_Object* cAddedR = pM->AddRestraint(pN, xon, yon, zon, rxon, ryon, rzon, iID);
 
@@ -16769,9 +16772,9 @@ void NASReadFORCE(NasCard& oC,
 	C3dVector F;
 	F.Set(0, 0, 0);
 	int iSet;
-	iID = atoi(oC.GetField(0));
-	iND = atoi(oC.GetField(1));
-	iCID = atoi(oC.GetField(2));
+	iID = _ttoi(oC.GetField(0));
+	iND = _ttoi(oC.GetField(1));
+	iCID = _ttoi(oC.GetField(2));
 	dS = atofNAS(oC.GetField(3));
 	F.x = atofNAS(oC.GetField(4));
 	F.y = atofNAS(oC.GetField(5));
@@ -16780,7 +16783,7 @@ void NASReadFORCE(NasCard& oC,
 	pLCSET = pM->GetLC(iID);
 	if (pLCSET == nullptr) {
 		sprintf_s(S1, "LC SET : %i", iID);
-		iSet = pM->CreateLC(iID, S1);
+		iSet = pM->CreateLC(iID, CString(CA2T(S1)));
 		pLCSET = pM->GetLC(iID);
 	}
 	pN = pM->GetNode(iND);
@@ -16810,9 +16813,9 @@ void NASReadMOMENT(NasCard& oC,
 	C3dVector F;
 	F.Set(0, 0, 0);
 	int iSet;
-	iID = atoi(oC.GetField(0));
-	iND = atoi(oC.GetField(1));
-	iCID = atoi(oC.GetField(2));
+	iID = _ttoi(oC.GetField(0));
+	iND = _ttoi(oC.GetField(1));
+	iCID = _ttoi(oC.GetField(2));
 	dS = atofNAS(oC.GetField(3));
 	F.x = atofNAS(oC.GetField(4));
 	F.y = atofNAS(oC.GetField(5));
@@ -16821,7 +16824,7 @@ void NASReadMOMENT(NasCard& oC,
 	pLCSET = pM->GetLC(iID);
 	if (pLCSET == nullptr) {
 		sprintf_s(S1, "LC SET : %i", iID);
-		iSet = pM->CreateLC(iID, S1);
+		iSet = pM->CreateLC(iID, CString(CA2T(S1)));
 		pLCSET = pM->GetLC(iID);
 	}
 	pN = pM->GetNode(iND);
@@ -16850,17 +16853,17 @@ void NASReadPLOAD(NasCard& oC,
 	int iSet;
 	double dPr = 0;
 	C3dVector vP;
-	iID = atoi(oC.GetField(0));
+	iID = _ttoi(oC.GetField(0));
 	dPr = atofNAS(oC.GetField(1));
-	iN1 = atoi(oC.GetField(2));
-	iN2 = atoi(oC.GetField(3));
-	iN3 = atoi(oC.GetField(4));
-	iN4 = atoi(oC.GetField(5));
+	iN1 = _ttoi(oC.GetField(2));
+	iN2 = _ttoi(oC.GetField(3));
+	iN3 = _ttoi(oC.GetField(4));
+	iN4 = _ttoi(oC.GetField(5));
 	// if it exists get the BC Set else create one
 	pLCSET = pM->GetLC(iID);
 	if (pLCSET == nullptr) {
 		sprintf_s(S1, "LC SET : %i", iID);
-		iSet = pM->CreateLC(iID, S1);
+		iSet = pM->CreateLC(iID, CString(CA2T(S1)));
 		pLCSET = pM->GetLC(iID);
 	}
 	// pE=pM->FindElement()
@@ -16888,15 +16891,15 @@ void NASReadTEMP(NasCard& oC,
 	int iSet = -1;
 	double dT = 0;
 	C3dVector vP;
-	iSID = atoi(oC.GetField(0));
-	iID = atoi(oC.GetField(1));
+	iSID = _ttoi(oC.GetField(0));
+	iID = _ttoi(oC.GetField(1));
 	dT = atofNAS(oC.GetField(2));
 
 	// if it exists get the BC Set else create one
 	pTSET = pM->GetTSET(iSID);
 	if (pTSET == nullptr) {
 		sprintf_s(S1, "TSET : %i", iSID);
-		iSet = pM->CreateTSET(iSID, S1);
+		iSet = pM->CreateTSET(iSID, CString(CA2T(S1)));
 		pTSET = pM->GetTSET(iSID);
 	}
 	// pE=pM->FindElement()
@@ -16919,7 +16922,7 @@ void NASReadTEMPD(NasCard& oC,
 	int iSet = -1;
 	// int iID = -1;
 	double dT = 0;
-	iSID = atoi(oC.GetField(0));
+	iSID = _ttoi(oC.GetField(0));
 
 	dT = atofNAS(oC.GetField(1));
 
@@ -16927,7 +16930,7 @@ void NASReadTEMPD(NasCard& oC,
 	pTSET = pM->GetTSET(iSID);
 	if (pTSET == nullptr) {
 		sprintf_s(S1, "TEMPD : %i", iSID);
-		iSet = pM->CreateTSET(iSID, S1);
+		iSet = pM->CreateTSET(iSID, CString(CA2T(S1)));
 		pTSET = pM->GetTSET(iSID);
 	}
 
@@ -16949,8 +16952,8 @@ void NASReadGRAV(NasCard& oC,
 	int iSet = -1;
 	double dScl = 0;
 	C3dVector vV;
-	iSID = atoi(oC.GetField(0));
-	iCID = atoi(oC.GetField(1));
+	iSID = _ttoi(oC.GetField(0));
+	iCID = _ttoi(oC.GetField(1));
 	dScl = atofNAS(oC.GetField(2));
 	vV.x = atofNAS(oC.GetField(3));
 	vV.y = atofNAS(oC.GetField(4));
@@ -16960,7 +16963,7 @@ void NASReadGRAV(NasCard& oC,
 	pLSET = pM->GetLC(iSID);
 	if (pLSET == nullptr) {
 		sprintf_s(S1, "GRAV : %i", iSID);
-		iSet = pM->CreateLC(iSID, S1);
+		iSet = pM->CreateLC(iSID, CString(CA2T(S1)));
 		pLSET = pM->GetLC(iSID);
 	}
 
@@ -16982,18 +16985,18 @@ void NASReadPSHELL(NasCard& oC,
 	CString sisNext;
 	pS->iType = 1;
 	pS->sTitle = "PSHELL CARD";
-	pS->iID = atoi(oC.GetField(0));
-	pS->iMID1 = atoi(oC.GetField(1));
+	pS->iID = _ttoi(oC.GetField(0));
+	pS->iMID1 = _ttoi(oC.GetField(1));
 	pS->dT = atofNAS(oC.GetField(2));
-	pS->iMID2 = atoi(oC.GetField(3));
+	pS->iMID2 = _ttoi(oC.GetField(3));
 	pS->d12IT3 = atofNAS(oC.GetField(4));
-	pS->iMID3 = atoi(oC.GetField(5));
+	pS->iMID3 = _ttoi(oC.GetField(5));
 	pS->dTST = atofNAS(oC.GetField(6));
 	pS->dNSM = atofNAS(oC.GetField(7));
 	if (oC.iNo > 8) {
 		pS->dZ1 = atofNAS(oC.GetField(8));
 		pS->dZ2 = atofNAS(oC.GetField(9));
-		pS->iMID4 = atoi(oC.GetField(10));
+		pS->iMID4 = _ttoi(oC.GetField(10));
 	}
 
 	int NextID;
@@ -17016,8 +17019,8 @@ void NASReadPBAR(NasCard& oC,
 	PBAR* pS = new PBAR();
 	pS->iType = 4;
 	pS->sTitle = "PBAR CARD";
-	pS->iID = atoi(oC.GetField(0));
-	pS->iMID = atoi(oC.GetField(1));
+	pS->iID = _ttoi(oC.GetField(0));
+	pS->iMID = _ttoi(oC.GetField(1));
 	pS->dA = (ae(oC.GetField(2)));
 	pS->dI1 = (ae(oC.GetField(3)));
 	pS->dI2 = (ae(oC.GetField(4)));
@@ -17059,8 +17062,8 @@ void NASReadPROD(NasCard& oC,
 	PROD* pS = new PROD();
 	pS->iType = 11;
 	pS->sTitle = "PROD CARD";
-	pS->iID = atoi(oC.GetField(0));
-	pS->iMID = atoi(oC.GetField(1));
+	pS->iID = _ttoi(oC.GetField(0));
+	pS->iMID = _ttoi(oC.GetField(1));
 	pS->A = (ae(oC.GetField(2)));
 	pS->J = (ae(oC.GetField(3)));
 
@@ -17086,7 +17089,7 @@ void NASReadPBUSH(NasCard& oC,
 	pS->iType = 138;
 	pS->sTitle = "PBUSH CARD";
 	pS->sFlg = "K";
-	pS->iID = atoi(oC.GetField(0));
+	pS->iID = _ttoi(oC.GetField(0));
 	pS->dK1 = (ae(oC.GetField(2)));
 	pS->dK2 = (ae(oC.GetField(3)));
 	pS->dK3 = (ae(oC.GetField(4)));
@@ -17114,11 +17117,11 @@ BOOL NASReadPBEAM_C2(FILE* pFile,
 	BOOL bRet = FALSE;
 	CString SONext;
 	SONext = LNext->Mid(8, 8);
-	if ((SONext.Find("YES") > -1) && (SONext.Find("YESA") == -1)) {
+	if ((SONext.Find(_T("YES")) > -1) && (SONext.Find(_T("YESA")) == -1)) {
 		bN = TRUE;
 	}
-	if ((SONext.Find("NO") > -1) ||
-	    (SONext.Find("YES") > -1)) {
+	if ((SONext.Find(_T("NO")) > -1) ||
+	    (SONext.Find(_T("YES")) > -1)) {
 		bRet = TRUE;
 		fgets(s1, 200, pFile);
 		*L1 = *LNext;
@@ -17160,10 +17163,10 @@ void NASReadPBEAM(NasCard& oC,
 	PBEAM* pS = new PBEAM();
 	pS->iType = 6;
 	pS->sTitle = "PBEAM CARD";
-	pS->iID = atoi(oC.GetField(0));
+	pS->iID = _ttoi(oC.GetField(0));
 	if (pS->iID == 68735132)
 		pS->iID = pS->iID;
-	pS->iMID = atoi(oC.GetField(1));
+	pS->iMID = _ttoi(oC.GetField(1));
 	pS->A[0] = (aeB(oC.GetField(2)));
 	pS->I1[0] = (aeB(oC.GetField(3)));
 	pS->I2[0] = (aeB(oC.GetField(4)));
@@ -17242,8 +17245,8 @@ void NASReadPBARL(NasCard& oC,
 	PBARL* pS = new PBARL();
 	pS->iType = 5;
 	pS->sTitle = "PBARL CARD";
-	pS->iID = atoi(oC.GetField(0));
-	pS->iMID = atoi(oC.GetField(1));
+	pS->iID = _ttoi(oC.GetField(0));
+	pS->iMID = _ttoi(oC.GetField(1));
 	pS->sGROUP = oC.GetField(2);
 	pS->sSecType = oC.GetField(3);
 	int iNoDims = pS->GetNoDims();
@@ -17278,9 +17281,9 @@ void NASReadPSOLID(NasCard& oC,
 	PSOLID* pS = new PSOLID();
 	pS->iType = 3;
 	pS->sTitle = "PSOLID CARD";
-	pS->iID = atoi(oC.GetField(0));
-	pS->iMID = atoi(oC.GetField(1));
-	pS->iCORDM = atoi(oC.GetField(2));
+	pS->iID = _ttoi(oC.GetField(0));
+	pS->iMID = _ttoi(oC.GetField(1));
+	pS->iCORDM = _ttoi(oC.GetField(2));
 	pS->sIN = oC.GetField(3);
 	pS->sSTRESS = oC.GetField(4);
 	pS->sISOP = oC.GetField(5);
@@ -17306,22 +17309,22 @@ void NASReadMAT1(NasCard& oC,
 	MAT1* pS = new MAT1();
 	pS->iType = 1;
 	pS->sTitle = "MAT1 CARD";
-	pS->iID = atoi(oC.GetField(0));
+	pS->iID = _ttoi(oC.GetField(0));
 	pS->dE = (ae(oC.GetField(1)));
 	if (oC.GetField(2) != "        ")
 		pS->dG = (aeB(oC.GetField(2)));
 	else
 		pS->dG = 0;
-	pS->dNU = atof(oC.GetField(3));
-	pS->dRHO = atof(oC.GetField(4));
+	pS->dNU = _tstof(oC.GetField(3));
+	pS->dRHO = _tstof(oC.GetField(4));
 	pS->dA = (ae(oC.GetField(5)));
-	pS->dTREF = atof(oC.GetField(6));
-	pS->dGE = atof(oC.GetField(7));
+	pS->dTREF = _tstof(oC.GetField(6));
+	pS->dGE = _tstof(oC.GetField(7));
 	//
-	// pS->dST=atof(L1->Mid(8,8));
-	// pS->dSC=atof(L1->Mid(16,8));
-	// pS->dSS=atof(L1->Mid(24,8));
-	// pS->iMCSID=atoi(L1->Mid(32,8));
+	// pS->dST=_tstof(L1->Mid(8,8));
+	// pS->dSC=_tstof(L1->Mid(16,8));
+	// pS->dSS=_tstof(L1->Mid(24,8));
+	// pS->iMCSID=_ttoi(L1->Mid(32,8));
 	int NextID;
 	if (Relab)
 		NextID = pM->NextID();
@@ -17342,7 +17345,7 @@ void NASReadMAT8(NasCard& oC,
 	MAT8* pS = new MAT8();
 	pS->iType = 8;
 	pS->sTitle = "MAT8 CARD";
-	pS->iID = atoi(oC.GetField(0));
+	pS->iID = _ttoi(oC.GetField(0));
 	pS->dE1 = (ae(oC.GetField(1)));
 	pS->dE2 = (ae(oC.GetField(2)));
 	pS->dNU12 = (ae(oC.GetField(3)));
@@ -17363,7 +17366,7 @@ void NASReadMAT8(NasCard& oC,
 	pS->dGE = (ae(oC.GetField(16)));
 	pS->F12 = (ae(oC.GetField(17)));
 	CString sT = oC.GetField(18);
-	if (sT.Find("STRN") >= 0)
+	if (sT.Find(_T("STRN")) >= 0)
 		pS->STRN = 1;
 
 	int NextID;
@@ -17394,26 +17397,26 @@ void NASReadPCOMP(NasCard& oC,
 	PCOMP* pS = new PCOMP();
 	pS->iType = 2;
 	pS->sTitle = "PCOMP CARD";
-	pS->iID = atoi(oC.GetField(0));
+	pS->iID = _ttoi(oC.GetField(0));
 
 	pS->dNSM = atofNAS(oC.GetField(2));
 	pS->dSB = atofNAS(oC.GetField(3));
 	sT = oC.GetField(4);
-	if (sT.Find("HILL") >= 0)
+	if (sT.Find(_T("HILL")) >= 0)
 		iFT = 1;
-	else if (sT.Find("HOFF") >= 0)
+	else if (sT.Find(_T("HOFF")) >= 0)
 		iFT = 2;
-	else if (sT.Find("TSAI") >= 0)
+	else if (sT.Find(_T("TSAI")) >= 0)
 		iFT = 3;
-	else if (sT.Find("STRESS") >= 0)
+	else if (sT.Find(_T("STRESS")) >= 0)
 		iFT = 4;
-	else if ((sT.Find("STRAIN") >= 0) || (sT.Find("STRN") >= 0))
+	else if ((sT.Find(_T("STRAIN")) >= 0) || (sT.Find(_T("STRN")) >= 0))
 		iFT = 5;
-	else if (sT.Find("LARCO2") >= 0)
+	else if (sT.Find(_T("LARCO2")) >= 0)
 		iFT = 6;
-	else if (sT.Find("PUCK") >= 0)
+	else if (sT.Find(_T("PUCK")) >= 0)
 		iFT = 7;
-	else if (sT.Find("MCT") >= 0)
+	else if (sT.Find(_T("MCT")) >= 0)
 		iFT = 8;
 	else
 		iFT = 0;
@@ -17421,19 +17424,19 @@ void NASReadPCOMP(NasCard& oC,
 	pS->dRefT = atofNAS(oC.GetField(5));
 	pS->dGE = atofNAS(oC.GetField(6));
 	sT = oC.GetField(7);
-	if (sT.Find("SYM") >= 0)
+	if (sT.Find(_T("SYM")) >= 0)
 		pS->bLAM = TRUE;
 	else
 		pS->bLAM = FALSE;
 	int iCnt = 8;
 	do {
-		iM = atoi(oC.GetField(iCnt));
+		iM = _ttoi(oC.GetField(iCnt));
 		dThk = atofNAS(oC.GetField(iCnt + 1));
 		dTh = atofNAS(oC.GetField(iCnt + 2));
 		sT = oC.GetField(iCnt + 3);
-		if (sT.Find("YES") >= 0)
+		if (sT.Find(_T("YES")) >= 0)
 			bOut = TRUE;
-		else if (sT.Find("NO") >= 0)
+		else if (sT.Find(_T("NO")) >= 0)
 			bOut = FALSE;
 		else
 			bOut = FALSE;
@@ -17475,26 +17478,26 @@ void NASReadPCOMPG(NasCard& oC,
 	PCOMPG* pS = new PCOMPG();
 	pS->iType = 222;
 	pS->sTitle = "PCOMPG CARD";
-	pS->iID = atoi(oC.GetField(0));
+	pS->iID = _ttoi(oC.GetField(0));
 
 	pS->dNSM = atofNAS(oC.GetField(2));
 	pS->dSB = atofNAS(oC.GetField(3));
 	sT = oC.GetField(4);
-	if (sT.Find("HILL") >= 0)
+	if (sT.Find(_T("HILL")) >= 0)
 		iFT = 1;
-	else if (sT.Find("HOFF") >= 0)
+	else if (sT.Find(_T("HOFF")) >= 0)
 		iFT = 2;
-	else if (sT.Find("TSAI") >= 0)
+	else if (sT.Find(_T("TSAI")) >= 0)
 		iFT = 3;
-	else if (sT.Find("STRESS") >= 0)
+	else if (sT.Find(_T("STRESS")) >= 0)
 		iFT = 4;
-	else if ((sT.Find("STRAIN") >= 0) || (sT.Find("STRN") >= 0))
+	else if ((sT.Find(_T("STRAIN")) >= 0) || (sT.Find(_T("STRN")) >= 0))
 		iFT = 5;
-	else if (sT.Find("LARCO2") >= 0)
+	else if (sT.Find(_T("LARCO2")) >= 0)
 		iFT = 6;
-	else if (sT.Find("PUCK") >= 0)
+	else if (sT.Find(_T("PUCK")) >= 0)
 		iFT = 7;
-	else if (sT.Find("MCT") >= 0)
+	else if (sT.Find(_T("MCT")) >= 0)
 		iFT = 8;
 	else
 		iFT = 0;
@@ -17502,20 +17505,20 @@ void NASReadPCOMPG(NasCard& oC,
 	pS->dRefT = atofNAS(oC.GetField(5));
 	pS->dGE = atofNAS(oC.GetField(6));
 	sT = oC.GetField(7);
-	if (sT.Find("SYM") >= 0)
+	if (sT.Find(_T("SYM")) >= 0)
 		pS->bLAM = TRUE;
 	else
 		pS->bLAM = FALSE;
 	int iCnt = 8;
 	do {
-		iPlyID = atoi(oC.GetField(iCnt));
-		iM = atoi(oC.GetField(iCnt + 1));
+		iPlyID = _ttoi(oC.GetField(iCnt));
+		iM = _ttoi(oC.GetField(iCnt + 1));
 		dThk = atofNAS(oC.GetField(iCnt + 2));
 		dTh = atofNAS(oC.GetField(iCnt + 3));
 		sT = oC.GetField(iCnt + 4);
-		if (sT.Find("YES") >= 0)
+		if (sT.Find(_T("YES")) >= 0)
 			bOut = TRUE;
-		else if (sT.Find("NO") >= 0)
+		else if (sT.Find(_T("NO")) >= 0)
 			bOut = FALSE;
 		else
 			bOut = FALSE;
@@ -17837,8 +17840,8 @@ void DBase::ImportNASTRAN_SOL(CString inName, ME_Object* pME) {
 	CString sTit;
 	NasCard oCard;
 	BOOL bDone = FALSE;
-	pFile = fopen(inName, "r");
 
+	pFile = _tfopen(inName, _T("r"));
 	if (pFile != NULL) {
 		iCurFileNo = GetFileByNo(inName);
 		if (iCurFileNo == -1) {
@@ -17872,15 +17875,15 @@ void DBase::ImportNASTRAN_SOL(CString inName, ME_Object* pME) {
 			}
 
 			sKeyWrd = "SOL";
-			if ((sLine.Find(sKeyWrd) > -1) && (sLine.Find("101") > -1) && hasNoCharactersBeforeKeyword(sLine, sKeyWrd)) {
+			if ((sLine.Find(sKeyWrd) > -1) && (sLine.Find(_T("101")) > -1) && hasNoCharactersBeforeKeyword(sLine, sKeyWrd)) {
 				// Linear static solve
 				bSOL101 = TRUE;
-				pME->pSOLS->AddSolution(0, "SOL 101 STATICS", gDEF_SOL_TOL);
+				pME->pSOLS->AddSolution(0, _T("SOL 101 STATICS"), gDEF_SOL_TOL);
 				outtext1("Solution Added and Set as Active.");
 			}
 
 			if (bSOL101) {
-				if ((sLine.Find("SUBCASE") > -1) && hasNoCharactersBeforeKeyword(sLine, "SUBCASE")) {
+				if ((sLine.Find(_T("SUBCASE")) > -1) && hasNoCharactersBeforeKeyword(sLine, _T("SUBCASE"))) {
 					iSUBID = ExtractIntegerFromCString(sLine);
 					iLC = iBC = iTS = -1; // Resetting the values
 					if (bSBUB) {
@@ -17889,11 +17892,11 @@ void DBase::ImportNASTRAN_SOL(CString inName, ME_Object* pME) {
 						bret = pME->pSOLS->SetCurStep(iSUBID - 1);
 					}
 					bSBUB = !bSBUB;
-				} else if ((sLine.Find("LOAD") > -1) && hasNoCharactersBeforeKeyword(sLine, "LOAD")) {
+				} else if ((sLine.Find(_T("LOAD")) > -1) && hasNoCharactersBeforeKeyword(sLine, _T("LOAD"))) {
 					iLC = ExtractIntegerFromCString(sLine);
-				} else if ((sLine.Find("SPC") > -1) && hasNoCharactersBeforeKeyword(sLine, "SPC")) {
+				} else if ((sLine.Find(_T("SPC")) > -1) && hasNoCharactersBeforeKeyword(sLine, _T("SPC"))) {
 					iBC = ExtractIntegerFromCString(sLine);
-				} else if ((sLine.Find("TEMP") > -1) && hasNoCharactersBeforeKeyword(sLine, "TEMP")) {
+				} else if ((sLine.Find(_T("TEMP")) > -1) && hasNoCharactersBeforeKeyword(sLine, _T("TEMP"))) {
 					iTS = ExtractIntegerFromCString(sLine);
 				}
 			}
@@ -17968,7 +17971,7 @@ void DBase::ImportNASTRAN_SOL(CString inName, ME_Object* pME) {
 //				}
 //			}
 //			sKeyWrd = "SOL";
-//			if ((sLine.Find(sKeyWrd) > -1) && (sLine.Find("101") > -1) &&
+//			if ((sLine.Find(sKeyWrd) > -1) && (sLine.Find(_T("101")) > -1) &&
 //				hasNoCharactersBeforeKeyword(sLine, sKeyWrd))
 //			{
 //				//Linear static solve
@@ -17978,7 +17981,7 @@ void DBase::ImportNASTRAN_SOL(CString inName, ME_Object* pME) {
 //			}
 //			if (bSOL101)  //look for subcases
 //			{
-//				if ((sLine.Find("SUBCASE") > -1)  &&
+//				if ((sLine.Find(_T("SUBCASE")) > -1)  &&
 //					hasNoCharactersBeforeKeyword(sLine, "SUBCASE"))
 //				{
 //					iSUBID = ExtractIntegerFromCString(sLine);
@@ -18000,17 +18003,17 @@ void DBase::ImportNASTRAN_SOL(CString inName, ME_Object* pME) {
 //						}
 //					}
 //				}
-//				else if ((sLine.Find("LOAD") > -1) &&
+//				else if ((sLine.Find(_T("LOAD")) > -1) &&
 //					      hasNoCharactersBeforeKeyword(sLine, "LOAD"))
 //				{
 //					iLC = ExtractIntegerFromCString(sLine);
 //				}
-//				else if ((sLine.Find("SPC") > -1) &&
+//				else if ((sLine.Find(_T("SPC")) > -1) &&
 //					      hasNoCharactersBeforeKeyword(sLine, "SPC"))
 //				{
 //					iBC = ExtractIntegerFromCString(sLine);
 //				}
-//				else if ((sLine.Find("TEMP") > -1) &&
+//				else if ((sLine.Find(_T("TEMP")) > -1) &&
 //					      hasNoCharactersBeforeKeyword(sLine, "TEMP"))
 //				{
 //					iTS = ExtractIntegerFromCString(sLine);
@@ -18036,7 +18039,7 @@ void DBase::ImportNASTRANFirstPass(CString inName, ME_Object* pME, NEList* PIDs,
 	NasCard oCard;
 	BOOL bDone = FALSE;
 	CoordSys* pRet;
-	pFile = fopen(inName, "r");
+	pFile = _tfopen(inName, _T("r"));
 	if (pFile != NULL) {
 		iCurFileNo = GetFileByNo(inName);
 		if (iCurFileNo == -1) {
@@ -18056,45 +18059,45 @@ void DBase::ImportNASTRANFirstPass(CString inName, ME_Object* pME, NEList* PIDs,
 				sInc = GetIncName(datline);
 				ImportNASTRANFirstPass(sInc, pME, PIDs, MATs);
 			}
-			int iIII = datline.Find(",", 0);
-			if (datline.Find(",", 0) == -1) {
+			int iIII = datline.Find(_T(","), 0);
+			if (datline.Find(_T(","), 0) == -1) {
 				sKwrd = datline.Left(8);
 			} else {
-				sKwrd = datline.Left(datline.Find(",", 0));
+				sKwrd = datline.Left(datline.Find(_T(","), 0));
 				sKwrd += "          ";
 				sKwrd = sKwrd.Left(8);
 			}
 			if (isSupportedNASCYS(sKwrd) == TRUE) {
 				oCard.Clear();
 				oCard.Read(pFile, datline, datlineNxt);
-				if ((sKwrd.Find("CORD2R") == 0) && (datline.Find(",") == -1)) {
+				if ((sKwrd.Find(_T("CORD2R")) == 0) && (datline.Find(_T(",")) == -1)) {
 					pRet = NASReadCoord(pME, oCard, 1, iCurFileNo);
-				} else if ((sKwrd.Find("CORD2C") == 0)) {
+				} else if ((sKwrd.Find(_T("CORD2C")) == 0)) {
 					pRet = NASReadCoord(pME, oCard, 2, iCurFileNo);
-				} else if ((sKwrd.Find("CORD2S") == 0)) {
+				} else if ((sKwrd.Find(_T("CORD2S")) == 0)) {
 					pRet = NASReadCoord(pME, oCard, 3, iCurFileNo);
-				} else if ((sKwrd.Find("PSHELL") == 0)) {
+				} else if ((sKwrd.Find(_T("PSHELL")) == 0)) {
 					NASReadPSHELL(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PCOMPG") == 0)) {
+				} else if ((sKwrd.Find(_T("PCOMPG")) == 0)) {
 					NASReadPCOMPG(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PCOMP") == 0)) {
+				} else if ((sKwrd.Find(_T("PCOMP")) == 0)) {
 					NASReadPCOMP(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PSOLID") == 0)) {
+				} else if ((sKwrd.Find(_T("PSOLID")) == 0)) {
 					NASReadPSOLID(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PBARL") == 0)) {
+				} else if ((sKwrd.Find(_T("PBARL")) == 0)) {
 					NASReadPBARL(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PBAR ") == 0)) {
+				} else if ((sKwrd.Find(_T("PBAR ")) == 0)) {
 					NASReadPBAR(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PROD ") == 0)) {
+				} else if ((sKwrd.Find(_T("PROD ")) == 0)) {
 					NASReadPROD(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PBUSH") == 0)) {
+				} else if ((sKwrd.Find(_T("PBUSH")) == 0)) {
 					NASReadPBUSH(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("PBEAM") == 0)) {
+				} else if ((sKwrd.Find(_T("PBEAM")) == 0)) {
 					NASReadPBEAM(oCard, PropsT, PIDs, 2, FALSE, iCurFileNo);
 				} // NOT DONE
-				else if ((sKwrd.Find("MAT1") == 0)) {
+				else if ((sKwrd.Find(_T("MAT1")) == 0)) {
 					NASReadMAT1(oCard, MatT, MATs, 2, FALSE, iCurFileNo);
-				} else if ((sKwrd.Find("MAT8") == 0)) {
+				} else if ((sKwrd.Find(_T("MAT8")) == 0)) {
 					NASReadMAT8(oCard, MatT, MATs, 2, FALSE, iCurFileNo);
 				}
 			}
@@ -18115,7 +18118,7 @@ void DBase::ImportNASTRANGRID(CString inName, ME_Object* pME) {
 	CString sKeyWrd;
 	NasCard oCard;
 	BOOL bDone = FALSE;
-	pFile = fopen(inName, "r");
+	pFile = _tfopen(inName, _T("r"));
 	if (pFile != NULL) {
 		iCurFileNo = GetFileByNo(inName);
 		if (iCurFileNo == -1) {
@@ -18135,17 +18138,17 @@ void DBase::ImportNASTRANGRID(CString inName, ME_Object* pME) {
 				sInc = GetIncName(datline);
 				ImportNASTRANGRID(sInc, pME);
 			}
-			if (datline.Find(",", 0) == -1) {
+			if (datline.Find(_T(","), 0) == -1) {
 				sKwrd = datline.Left(8);
 			} else {
-				sKwrd = datline.Left(datline.Find(",", 0));
+				sKwrd = datline.Left(datline.Find(_T(","), 0));
 				sKwrd += "          ";
 				sKwrd = sKwrd.Left(8);
 			}
 			if (isSupportedNASGRID(sKwrd) == TRUE) {
 				oCard.Clear();
 				oCard.Read(pFile, datline, datlineNxt);
-				if ((sKwrd.Find("GRID") == 0))
+				if ((sKwrd.Find(_T("GRID")) == 0))
 					NASReadGRID(pME, oCard, 1, iCurFileNo);
 			}
 			datline = datlineNxt;
@@ -18166,7 +18169,7 @@ void DBase::ImportNASTRANELEM(CString inName, ME_Object* pME, NEList* PIDs) {
 	CString sKeyWrd;
 	NasCard oCard;
 	BOOL bDone = FALSE;
-	pFile = fopen(inName, "r");
+	pFile = _tfopen(inName, _T("r"));
 	if (pFile != NULL) {
 		iCurFileNo = GetFileByNo(inName);
 		if (iCurFileNo == -1) {
@@ -18186,35 +18189,35 @@ void DBase::ImportNASTRANELEM(CString inName, ME_Object* pME, NEList* PIDs) {
 				sInc = GetIncName(datline);
 				ImportNASTRANELEM(sInc, pME, PIDs);
 			}
-			if (datline.Find(",", 0) == -1) {
+			if (datline.Find(_T(","), 0) == -1) {
 				sKwrd = datline.Left(8);
 			} else {
-				sKwrd = datline.Left(datline.Find(",", 0));
+				sKwrd = datline.Left(datline.Find(_T(","), 0));
 				sKwrd += "          ";
 				sKwrd = sKwrd.Left(8);
 			}
 			if (isSupportedNASELEM(sKwrd) == TRUE) {
 				oCard.Clear();
 				oCard.Read(pFile, datline, datlineNxt);
-				if ((sKwrd.Find("CQUAD4") == 0))
+				if ((sKwrd.Find(_T("CQUAD4")) == 0))
 					El = NASReadCQUAD4(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CONM2") == 0))
+				else if ((sKwrd.Find(_T("CONM2")) == 0))
 					El = NASReadCONM2(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CONM1") == 0))
+				else if ((sKwrd.Find(_T("CONM1")) == 0))
 					El = NASReadCONM1(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CHEXA") == 0))
+				else if ((sKwrd.Find(_T("CHEXA")) == 0))
 					El = NASReadCHEXA(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CPENTA") == 0))
+				else if ((sKwrd.Find(_T("CPENTA")) == 0))
 					El = NASReadCPENTA(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("RBE2") == 0))
+				else if ((sKwrd.Find(_T("RBE2")) == 0))
 					El = NASReadRBE2(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("RBAR") == 0))
+				else if ((sKwrd.Find(_T("RBAR")) == 0))
 					El = NASReadRBAR(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CROD") == 0))
+				else if ((sKwrd.Find(_T("CROD")) == 0))
 					El = NASReadCROD(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CTETRA") == 0))
+				else if ((sKwrd.Find(_T("CTETRA")) == 0))
 					El = NASReadCTETRA(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CBUSH ") == 0)) {
+				else if ((sKwrd.Find(_T("CBUSH ")) == 0)) {
 					E_Object2* EB;
 					C3dVector vUP;
 					C3dVector pUp;
@@ -18222,9 +18225,9 @@ void DBase::ImportNASTRANELEM(CString inName, ME_Object* pME, NEList* PIDs) {
 					EB = NASReadCBUSH(oCard, pME, PIDs, 2, iONID, pUp, iCurFileNo);
 					vUP = CalcBeamUpVec(EB, iONID, pUp);
 					EB->vUp = vUP;
-				} else if ((sKwrd.Find("CTRIA3") == 0))
+				} else if ((sKwrd.Find(_T("CTRIA3")) == 0))
 					El = NASReadCTRIA3(oCard, pME, PIDs, 2, iCurFileNo);
-				else if ((sKwrd.Find("CBAR ") == 0)) {
+				else if ((sKwrd.Find(_T("CBAR ")) == 0)) {
 					E_Object2B* EB;
 					int iONID;
 					C3dVector pUp;
@@ -18235,7 +18238,7 @@ void DBase::ImportNASTRANELEM(CString inName, ME_Object* pME, NEList* PIDs) {
 					vUP = CalcBeamUpVec(EB, iONID, pUp);
 					SetBeamOffs(EB, OffA, OffB);
 					EB->vUp = vUP;
-				} else if ((sKwrd.Find("CBEAM") == 0)) {
+				} else if ((sKwrd.Find(_T("CBEAM")) == 0)) {
 					E_Object2B* EB;
 					int iONID;
 					C3dVector pUp;
@@ -18247,19 +18250,19 @@ void DBase::ImportNASTRANELEM(CString inName, ME_Object* pME, NEList* PIDs) {
 					SetBeamOffs(EB, OffA, OffB);
 					EB->vUp = vUP;
 				} // LOADS AND BOUNDARY CONDITIONS
-				else if ((sKwrd.Find("SPC") == 0))
+				else if ((sKwrd.Find(_T("SPC")) == 0))
 					NASReadSPC(oCard, pME, iCurFileNo);
-				else if ((sKwrd.Find("FORCE") == 0))
+				else if ((sKwrd.Find(_T("FORCE")) == 0))
 					NASReadFORCE(oCard, pME, iCurFileNo);
-				else if ((sKwrd.Find("MOMENT") == 0))
+				else if ((sKwrd.Find(_T("MOMENT")) == 0))
 					NASReadMOMENT(oCard, pME, iCurFileNo);
-				else if ((sKwrd.Find("PLOAD") == 0))
+				else if ((sKwrd.Find(_T("PLOAD")) == 0))
 					NASReadPLOAD(oCard, pME, iCurFileNo);
-				else if ((sKwrd.Find("TEMP ") == 0))
+				else if ((sKwrd.Find(_T("TEMP ")) == 0))
 					NASReadTEMP(oCard, pME, iCurFileNo);
-				else if ((sKwrd.Find("TEMPD") == 0))
+				else if ((sKwrd.Find(_T("TEMPD")) == 0))
 					NASReadTEMPD(oCard, pME, iCurFileNo);
-				else if ((sKwrd.Find("GRAV") == 0))
+				else if ((sKwrd.Find(_T("GRAV")) == 0))
 					NASReadGRAV(oCard, pME, iCurFileNo);
 			}
 			datline = datlineNxt;
@@ -18363,30 +18366,30 @@ ME_Object* DBase::ImportNAS(FILE* pFile, CString inName, BOOL ReLab) {
 		fgets(s1, 200, pFile);
 		sKeyWrdNext = s1;
 		if (sKeyWrd != "") {
-			if ((sKeyWrd.Find("CORD2R") == 0) && (sKeyWrd.Find(",") == -1)) {
+			if ((sKeyWrd.Find(_T("CORD2R")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// CoordSys* pRet = NASReadCoord(RetMesh,pFile,&sKeyWrd,&sKeyWrdNext,1);
 				// outtext1("REC SYS FOUND");
-			} else if ((sKeyWrd.Find("CORD2C") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CORD2C")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// CoordSys* pRet = NASReadCoord(RetMesh,pFile,&sKeyWrd,&sKeyWrdNext,2);
 				// outtext1("CYL SYS FOUND");
-			} else if ((sKeyWrd.Find("CORD2S") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CORD2S")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// CoordSys* pRet = NASReadCoord(RetMesh,pFile,&sKeyWrd,&sKeyWrdNext,3);
 				// outtext1("SPH SYS FOUND");
-			} else if ((sKeyWrd.Find("PSHELL ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("PSHELL ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadPSHELL(PropsT,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2,ReLab);
-			} else if ((sKeyWrd.Find("PCOMP ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("PCOMP ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadPCOMP(PropsT,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("PSOLID") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("PSOLID")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadPSOLID(PropsT,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2,ReLab);
-			} else if ((sKeyWrd.Find("PBAR ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("PBAR ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadPBAR(PropsT,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2,ReLab);
-			} else if ((sKeyWrd.Find("PBEAM ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("PBEAM ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadPBEAM(PropsT,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2,ReLab);
-			} else if ((sKeyWrd.Find("PBARL") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("PBARL")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadPBARL(PropsT,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2,ReLab);
-			} else if ((sKeyWrd.Find("MAT1") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("MAT1")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadMAT1(MatT,newMats,pFile,&sKeyWrd,&sKeyWrdNext,2,ReLab);
-			} else if ((sKeyWrd.Find("MAT8") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("MAT8")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadMAT8(MatT,newMats,pFile,&sKeyWrd,&sKeyWrdNext,2,ReLab);
 			}
 		}
@@ -18404,9 +18407,9 @@ ME_Object* DBase::ImportNAS(FILE* pFile, CString inName, BOOL ReLab) {
 		fgets(s1, 200, pFile);
 		sKeyWrdNext = s1;
 		if (sKeyWrd != "") {
-			if ((sKeyWrd.Find("GRID ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			if ((sKeyWrd.Find(_T("GRID ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// NASReadGRID(RetMesh,pFile,&sKeyWrd,&sKeyWrdNext,1);
-			} else if (sKeyWrd.Find("GRID*") == 0) {
+			} else if (sKeyWrd.Find(_T("GRID*")) == 0) {
 				NASReadGRIDD(RetMesh, pFile, &sKeyWrd, &sKeyWrdNext, 1, iCurFileNo);
 			}
 		}
@@ -18423,31 +18426,31 @@ ME_Object* DBase::ImportNAS(FILE* pFile, CString inName, BOOL ReLab) {
 		fgets(s1, 200, pFile);
 		sKeyWrdNext = s1;
 		if (sKeyWrd != "") {
-			if ((sKeyWrd.Find("CONM2") == 0) && (sKeyWrd.Find(",") == -1)) {
+			if ((sKeyWrd.Find(_T("CONM2")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// El = NASReadCONM2(RetMesh,pFile,&sKeyWrd,&sKeyWrdNext,2);
 			}
-			if ((sKeyWrd.Find("CONM1") == 0) && (sKeyWrd.Find(",") == -1)) {
+			if ((sKeyWrd.Find(_T("CONM1")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// El = NASReadCONM2(RetMesh,pFile,&sKeyWrd,&sKeyWrdNext,2);
 			}
-			if ((sKeyWrd.Find("CHEXA") == 0) && (sKeyWrd.Find(",") == -1)) {
+			if ((sKeyWrd.Find(_T("CHEXA")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				//  El = NASReadCHEXA(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("CPENTA") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CPENTA")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				//   El = NASReadCPENTA(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("RBE2") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("RBE2")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// El = NASReadRBE2(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("RBAR") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("RBAR")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// El = NASReadRBAR(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("CTETRA") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CTETRA")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				//  El = NASReadCTETRA(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("CQUAD4 ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CQUAD4 ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				//    El = NASReadCQUAD4(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("CBUSH ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CBUSH ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// El = NASReadCBUSH(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("CQUAD4* ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CQUAD4* ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				El = NASReadCQUAD4D(RetMesh, newPids, pFile, &sKeyWrd, &sKeyWrdNext, 2, iCurFileNo);
-			} else if ((sKeyWrd.Find("CTRIA3") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CTRIA3")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				// El = NASReadCTRIA3(RetMesh,newPids,pFile,&sKeyWrd,&sKeyWrdNext,2);
-			} else if ((sKeyWrd.Find("CBAR ") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CBAR ")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				/*C3dVector vU;
 				C3dVector vUP;
 				C3dVector vOffA;
@@ -18470,7 +18473,7 @@ ME_Object* DBase::ImportNAS(FILE* pFile, CString inName, BOOL ReLab) {
 				vUP=CalcBeamUpVec(EB,iONID,vU);
 				SetBeamOffs(EB,vOffA,vOffB);
 				EB->vUp=vUP;*/
-			} else if ((sKeyWrd.Find("CBEAM") == 0) && (sKeyWrd.Find(",") == -1)) {
+			} else if ((sKeyWrd.Find(_T("CBEAM")) == 0) && (sKeyWrd.Find(_T(",")) == -1)) {
 				/*       C3dVector vU;
 				 C3dVector vUP;
 				 C3dVector vOffA;
@@ -19020,7 +19023,7 @@ void DBase::EditMat(int MID, BOOL bPID, bool& materialIDFound)
 		if (Dlg.bDel == TRUE || MatT->isTemp == true) {
 			MatT->Delete(M);
 			if (MatT->isTemp == false) {
-				outtextSprintf("\r\nMaterial ID %i Deleted!", iMID, 0.0, true, 1);
+				outtextSprintf(_T("\r\nMaterial ID %i Deleted!"), iMID, 0.0, true, 1);
 			}
 		}
 		materialIDFound = true;
@@ -19681,7 +19684,7 @@ void DBase::ModIncludeNo(int iF) {
 		}
 	}
 	sprintf_s(s1, "%s%i", "Number of Entities Modified : ", iNoC);
-	outtext1(_T(s1));
+	outtext1(s1);
 }
 
 void DBase::ModLayerNo(int iF) {
@@ -19695,7 +19698,7 @@ void DBase::ModLayerNo(int iF) {
 		}
 	}
 	sprintf_s(s1, "%s%i", "Number of Entities Modified : ", iNoC);
-	outtext1(_T(s1));
+	outtext1(s1);
 }
 
 void DBase::CountItems() {
@@ -19813,9 +19816,9 @@ void DBase::TetCircumSphere() {
 				v3 = pEtet->GetNodalCoords(3);
 				Circumsphere(&v0, &v1, &v2, &v3, &vC, &dR);
 				sprintf_s(s1, "%s%g", "Circum Radius : ", dR);
-				outtext1(_T(s1));
+				outtext1(s1);
 				sprintf_s(s1, "%s X: %g Y: %g Z: %g", "Circum Centre : ", vC.x, vC.y, vC.z);
-				outtext1(_T(s1));
+				outtext1(s1);
 			}
 		}
 	}
@@ -19842,7 +19845,7 @@ void DBase::ElemntMoPID(int iPID) {
 		}
 	}
 	sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iNoC);
-	outtext1(_T(s1));
+	outtext1(s1);
 	if (bReGen == TRUE) {
 		InvalidateOGL();
 		ReDraw();
@@ -19874,7 +19877,7 @@ void DBase::SelRBENode(ObjList* Items) {
 	}
 	// momo gdi to og
 	sprintf_s(s1, "%s%i", "Number of RBE Nodes Found : ", iNoC);
-	outtext1(_T(s1));
+	outtext1(s1);
 	Items->Clear();
 	ReDraw();
 }
@@ -19909,7 +19912,7 @@ void DBase::SpringMoCSys(int iSys) {
 			}
 		}
 		sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iCnt);
-		outtext1(_T(s1));
+		outtext1(s1);
 	} else {
 		outtext1("ERROR: Coordinate System Does Not Exist.");
 	}
@@ -19955,7 +19958,7 @@ void DBase::ShellMoCSys(int iSys) {
 			}
 		}
 		sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iCnt);
-		outtext1(_T(s1));
+		outtext1(s1);
 	} else {
 		outtext1("ERROR: Coordinate System Does Not Exist.");
 	}
@@ -19973,7 +19976,7 @@ void DBase::NodeMoOSys(int iSys) {
 		}
 	}
 	sprintf_s(s1, "%s%i", "Number of Nodes Modified : ", iNoC);
-	outtext1(_T(s1));
+	outtext1(s1);
 }
 
 void DBase::ElementMoLab(int iN) {
@@ -20097,7 +20100,7 @@ void DBase::NodeMoRSys(int iSys) {
 		}
 	}
 	sprintf_s(s1, "%s%i", "Number of Nodes Modified : ", iNoC);
-	outtext1(_T(s1));
+	outtext1(s1);
 }
 void DBase::Dsp_RemGP(G_Object* gIn) {
 	int i;
@@ -20194,7 +20197,7 @@ void DBase::CreatePrShell(CString sT, int iPID, int iMID, double dT, double dNSM
 
 // iP ith to extract
 CString ExtractSubString(int iP, CString sIn) {
-	sIn.Replace(",", " ");
+	sIn.Replace(_T(","), _T(" "));
 	int i;
 	int iS = 0;
 	int iLen = sIn.GetLength();
@@ -20231,9 +20234,9 @@ void DBase::CreatePrPCOMP(CString sT, int iPID, double dNSM, int iNoLay, CString
 	pC->iID = iPID;
 	pC->dNSM = dNSM;
 	for (i = 0; i < iNoLay; i++) {
-		iMID = atoi(ExtractSubString(1, sLay[i]));
-		dThk = atof(ExtractSubString(2, sLay[i]));
-		dTheta = atof(ExtractSubString(3, sLay[i]));
+		iMID = _ttoi(ExtractSubString(1, sLay[i]));
+		dThk = _tstof(ExtractSubString(2, sLay[i]));
+		dTheta = _tstof(ExtractSubString(3, sLay[i]));
 		pC->AddLayer(iMID, dThk, dTheta, 0);
 	}
 	PropsT->AddItem(pC);
@@ -20575,7 +20578,7 @@ void DBase::CreateMat1(CString sT, int iMID, double dE, double dV, double dDen, 
 	// MoMo_Material_SaveBugV1_05_20_2025_Start
 	// MoMo// outtext1("New Material Created.");
 	if (MatT->isTemp == false) {
-		outtextSprintf("\r\nMaterial ID %i Created.", MatT->pEnts[MatT->iNo - 1]->iID, 0.0, true, 1);
+		outtextSprintf(_T("\r\nMaterial ID %i Created."), MatT->pEnts[MatT->iNo - 1]->iID, 0.0, true, 1);
 	}
 	// MoMo_Material_SaveBugV1_05_20_2025_End
 }
@@ -20609,7 +20612,7 @@ void DBase::CreateMat8(CString sInTit,
 	// MoMo_Material_FormKeysBugV1_05_22_2025_Start
 	// MoMo// outtext1("New Material Created.");
 	if (MatT->isTemp == false) {
-		outtextSprintf("\r\nMaterial ID %i Created.", MatT->pEnts[MatT->iNo - 1]->iID, 0.0, true, 1);
+		outtextSprintf(_T("\r\nMaterial ID %i Created."), MatT->pEnts[MatT->iNo - 1]->iID, 0.0, true, 1);
 	}
 	// MoMo_Material_FormKeysBugV1_05_22_2025_End
 }
@@ -21635,8 +21638,8 @@ void DBase::ResSelect() {
 			pCurrentMesh->iSecID = Dlg.iSecResID;
 		else
 			pCurrentMesh->iResVal = -1;
-		char OutT[20];
-		sprintf_s(OutT, "%i,%i,%i", pCurrentMesh->iCurResSet, pCurrentMesh->iResVal, pCurrentMesh->iSecID);
+		CString OutT;
+		OutT.Format(_T("%i,%i,%i"), pCurrentMesh->iCurResSet, pCurrentMesh->iResVal, pCurrentMesh->iSecID);
 		outtextMSG2("RESSEL");
 		outtextMSG2(OutT);
 	} else {
@@ -21658,8 +21661,8 @@ void DBase::ResSelectVec() {
 			pCurrentMesh->iSecVecID = Dlg.iSecResID;
 		else
 			pCurrentMesh->iResVec = -1;
-		char OutT[20];
-		sprintf_s(OutT, "%i,%i,%i", pCurrentMesh->iCurResVecSet, pCurrentMesh->iResVec, pCurrentMesh->iSecVecID);
+		CString OutT;
+		OutT.Format(_T("%i,%i,%i"), pCurrentMesh->iCurResVecSet, pCurrentMesh->iResVec, pCurrentMesh->iSecVecID);
 		outtextMSG2("RESVEC");
 		outtextMSG2(OutT);
 	} else {
@@ -21678,8 +21681,8 @@ void DBase::ResSelectDef() {
 			pCurrentMesh->iResValDef = Dlg.iResVal;
 		else
 			pCurrentMesh->iResValDef = -1;
-		char OutT[20];
-		sprintf_s(OutT, "%i,%i", pCurrentMesh->iCurResSetDef, pCurrentMesh->iResValDef);
+		CString OutT;
+		OutT.Format(_T("%i,%i"), pCurrentMesh->iCurResSetDef, pCurrentMesh->iResValDef);
 		outtextMSG2("RESSELDEF");
 		outtextMSG2(OutT);
 	} else {
@@ -21795,18 +21798,18 @@ void DBase::LoadSymbols(FILE* pFileA) {
 				outtext1(s1);
 				pSym = new Symbol();
 				sscanf(s1, "%s%s", s2, s3);
-				iLab = atoi(s3);
+				iLab = _ttoi(CA2T(s3));
 				pSym->Create(iLab, vPt, NULL);
 				AddSymbol(pSym);
 			} else {
 				sscanf(s1, "%s%s", s2, s3);
-				vP1.x = atof(s2);
-				vP1.y = atof(s3);
+				vP1.x = _tstof(CA2T(s2));
+				vP1.y = _tstof(CA2T(s3));
 				vP1.z = 0;
 				fgets(s1, 1000, pFileA);
 				sscanf(s1, "%s%s", s2, s3);
-				vP2.x = atof(s2);
-				vP2.y = atof(s3);
+				vP2.x = _tstof(CA2T(s2));
+				vP2.y = _tstof(CA2T(s3));
 				vP2.z = 0;
 				pSym->addSeg(vP1, vP2);
 			}
@@ -21832,6 +21835,7 @@ void DBase::LoadSymbolsInternal() {
 
 	C3dVector vP1;
 	C3dVector vP2;
+	CStringA s1A;
 
 	int iLab;
 	int i = 0;
@@ -21846,20 +21850,32 @@ void DBase::LoadSymbolsInternal() {
 			iStop = 1;
 		} else if ((s1[0] == 'S') && (s1[1] == 'Y') && (s1[2] == 'M')) {
 			pSym = new Symbol();
-			sscanf(s1, "%s%s", s2, s3);
-			iLab = atoi(s3);
+			//momo
+			// momo// sscanf(s1, "%s%s", s2, s3);
+			s1A=CStringA(s1);
+			sscanf_s(s1A, "%19s%19s",s2, (unsigned)_countof(s2),s3, (unsigned)_countof(s3));
+			//momo
+			iLab = _ttoi(CA2T(s3));
 			pSym->Create(iLab, vPt, NULL);
 			AddSymbol(pSym);
 		} else {
-			sscanf(s1, "%s%s", s2, s3);
-			vP1.x = atof(s2);
-			vP1.y = atof(s3);
+			//momo
+			// momo// sscanf(s1, "%s%s", s2, s3);
+			s1A=CStringA(s1);
+			sscanf_s(s1A, "%19s%19s",s2, (unsigned)_countof(s2),s3, (unsigned)_countof(s3));
+			//momo
+			vP1.x = _tstof(CA2T(s2));
+			vP1.y = _tstof(CA2T(s3));
 			vP1.z = 0;
 			s1 = SymTableData[i];
 			i++;
-			sscanf(s1, "%s%s", s2, s3);
-			vP2.x = atof(s2);
-			vP2.y = atof(s3);
+			//momo
+			// momo// sscanf(s1, "%s%s", s2, s3);
+			s1A=CStringA(s1);
+			sscanf_s(s1A, "%19s%19s",s2, (unsigned)_countof(s2),s3, (unsigned)_countof(s3));
+			//momo
+			vP2.x = _tstof(CA2T(s2));
+			vP2.y = _tstof(CA2T(s3));
 			vP2.z = 0;
 			pSym->addSeg(vP1, vP2);
 		}
@@ -22420,7 +22436,7 @@ void DBase::MeshSurfSize(ObjList* pSurfs, double dS) {
 void DBase::MeshSurfAF(ObjList* pSurfs, double dSz) {
 	char S1[80];
 	outtext1("**** STARTING AFM GEN 2D ****");
-	PrintTime("START TIME: ");
+	PrintTime(_T("START TIME: "));
 	BOOL bNinT;
 	int iNoEls;
 	bool bExitFail = FALSE;
@@ -22613,7 +22629,7 @@ void DBase::MeshSurfAF(ObjList* pSurfs, double dSz) {
 	Dsp_Rem(Segs);
 	RemTempGraphics(Segs);
 	RemObj(Segs);
-	PrintTime("END TIME: ");
+	PrintTime(_T("END TIME: "));
 	outtext1("**** END AFM GEN 2D ****");
 
 	// Need to delete these too
@@ -23288,7 +23304,7 @@ void DBase::MeshSurfAF_EXP04() {
 	double dSz = SeedVals.InputedMeshElementSize;
 	// MoMo// char S1[80];
 	outtext1("**** STARTING AFM GEN 2D ****");
-	PrintTime("START TIME: ");
+	PrintTime(_T("START TIME: "));
 	BOOL bNinT;
 	int iNoEls;
 	bool bExitFail = FALSE;
@@ -23503,7 +23519,7 @@ void DBase::MeshSurfAF_EXP04() {
 	Dsp_Rem(Segs);
 	RemTempGraphics(Segs);
 	RemObj(Segs);
-	PrintTime("END TIME: ");
+	PrintTime(_T("END TIME: "));
 	outtext1("**** END AFM GEN 2D ****");
 
 	// Need to delete these too
@@ -23685,7 +23701,7 @@ void DBase::CreateBSegs_EXP04(ObjList* pP, cLinkedList* pS, double dS, NSurf* pS
 // MoMo_End
 
 // MoMo_Start
-void DBase::SaveOrResetTempSeeds_EXP04(CString sMode) {
+void DBase::SaveOrResetTempSeeds_EXP04(const char* sMode) {
 	int i, k, newTempSeedId = 0;
 	NSurf* checkSurface;
 	if (sMode == "Reset") {
@@ -23841,7 +23857,7 @@ void DBase::AddOrRemoveTempSeeds_EXP04() {
 // MoMo_End
 
 // MoMo_Start
-void DBase::ViewCurveSeeds(CString sMode, int tempSeedId, NCurve* curveIn) {
+void DBase::ViewCurveSeeds(const char* sMode, int tempSeedId, NCurve* curveIn) {
 	NCurveOnSurf* curveOnSurf = (NCurveOnSurf*) curveIn;
 	if (sMode == "Remove") {
 		int i = 0;

@@ -20,7 +20,7 @@
 
 void UpdateTriangleTranslationFromUI() {
 	//// CString allText = ReadText();
-	CString allText = ""; //note: change this line to upper line when active
+	CString allText = _T(""); //note: change this line to upper line when active
 	std::vector<float> values;
 
 	CT2A ascii(allText);

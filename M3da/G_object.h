@@ -1055,7 +1055,7 @@ class PSPRINGT: public Property {
 class PBUSH: public Property {
 		DECLARE_DYNAMIC(PBUSH)
 	public:
-		CString sFlg = "K";
+		CString sFlg = _T("K");
 		double dK1;
 		double dK2;
 		double dK3;
@@ -1419,7 +1419,7 @@ class CEntEditDialog: public CDialog {
 		// MoMo// int m_iItemBeingEdited;
 		int m_iItemBeingEdited = -1;
 		bool ShiftDown = false;
-		CString FormCaption = "";
+		CString FormCaption = _T("");
 		// MoMo_Material_FormKeysBugV1_05_22_2025_End
 		int iNo = 0;
 		int iNo2 = 0;
@@ -3450,7 +3450,7 @@ class E_Object1: public E_Object {
 		DECLARE_DYNAMIC(E_Object1)
 	public:
 		int iCID = 0;
-		CString sLab = "";
+		CString sLab = _T("");
 		double dM = 0;
 		double dX1 = 0;
 		double dX2 = 0;
