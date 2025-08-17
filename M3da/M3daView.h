@@ -79,6 +79,8 @@ class CM3daView: public CView {
 		afx_msg void OnUpdateViewLine(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateViewShaded(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateDisplayselected(CCmdUI* pCmdUI);
+		afx_msg void OnViewShadedWithoutEdges();
+		afx_msg void OnUpdateViewShadedWithoutEdges(CCmdUI* pCmdUI);
 		// momo on off button and menu
 		afx_msg void OnViewLocateeye();
 		afx_msg void OnViewResetview();

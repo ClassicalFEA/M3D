@@ -31,10 +31,10 @@ extern BOOL gDSP_CPTS;
 extern BOOL gDSP_CIRS;
 // MoMo_Start
 struct SeedValues {
-		BOOL IsSeedMode = FALSE;
-		BOOL SelectSurface = TRUE;
-		BOOL SelectSurfaceCurves = FALSE;
-		BOOL SelectLock = FALSE;
+		BOOL IsSeedMode;
+		BOOL SelectSurface;
+		BOOL SelectSurfaceCurves;
+		BOOL SelectLock;
 		double InputedMeshElementSize = 1.0;
 		int InputedSeedNumbers = 0;
 };
@@ -61,44 +61,48 @@ extern bool AxisCorner;
 // momo
 // momo change command box color
 struct CommandIsActive {
-	bool CurrentState;
-	bool NewState;
-	bool ChangeEdit1;
+		bool CurrentState;
+		bool NewState;
+		bool ChangeEdit1;
 };
 extern CommandIsActive CommIsActive;
 // momo change command box color
 // momo on off button and menu
 struct ButtonPushed {
-		bool Points = false;
-		bool WireFrame = true;
-		bool Shaded = false;
-		bool ControlPoint = false;
-		bool DisplayAll = true;
-		bool DisplaySelected = false;
-		bool CurvesOn = false;
-		bool SurfaceOn = false;
-		bool CoordsOn = false;
-		bool NodeOn = false;
-		bool ElementOn = false;
-		bool BoundaryConditionsOn = false;
-		bool ShellThicknessOn = false;
-		bool ElementCoordSysOn = false;
-		bool SurfaceDirectionMarkersOn = false;
-		bool WorkplaneOn = false;
-		bool LabelOn = false;
-		bool GeomOn = false;
-		bool FiniteOn = false;
-		bool QfilterNodesOn = false;
-		bool QfilterElementsOn = false;
-		bool QfilterPointsOn = false;
-		bool QfilterCurvesOn = false;
-		bool QfilterSurfacesOn = false;
-		bool SelectedOn = false;
-		bool FullBody = true;
-		bool PartOfBody = false;
-		bool CenterOfBody = true;
+		bool Points;
+		bool WireFrame;
+		bool Shaded;
+		bool ShadedWithoutEdges;
+		int DrawModeCurrent;
+		int DrawModeOut;
+		bool ControlPoint;
+		bool DisplayAll;
+		bool DisplaySelected;
+		bool CurvesOn;
+		bool SurfaceOn;
+		bool CoordsOn;
+		bool NodeOn;
+		bool ElementOn;
+		bool BoundaryConditionsOn;
+		bool ShellThicknessOn;
+		bool ElementCoordSysOn;
+		bool SurfaceDirectionMarkersOn;
+		bool WorkplaneOn;
+		bool LabelOn;
+		bool GeomOn;
+		bool FiniteOn;
+		bool QfilterNodesOn;
+		bool QfilterElementsOn;
+		bool QfilterPointsOn;
+		bool QfilterCurvesOn;
+		bool QfilterSurfacesOn;
+		bool SelectedOn;
+		bool FullBody;
+		bool PartOfBody;
+		bool CenterOfBody;
 };
 extern ButtonPushed ButtonPush;
+extern bool ShadedEdges;
 // momo on off button and menu
 extern BOOL gDSP_BACK;
 extern BOOL gORTHO;

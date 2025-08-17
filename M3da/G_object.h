@@ -254,7 +254,9 @@ const int DSP_ALL = 0xFFFFFFF;
 const int DSP_LINE = 0x00000001;
 const int DSP_NODES = 0x00000002;
 const int DSP_NODES_ASK = 0x00000004;
-const int DSP_SHADED_EDGES = 0x00000008;
+// momo
+// momo// const int DSP_SHADED_EDGES = 0x00000008;
+// momo
 const int DSP_ELEMENTS = 0x00000010;
 const int DSP_CURVES = 0x00000020;
 const int DSP_SURFACES = 0x00000040;
@@ -2525,7 +2527,7 @@ class NCurve: public G_Object {
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
-		//virtual void HighLight();
+		// virtual void HighLight();
 		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
@@ -2597,7 +2599,7 @@ class NCurveOnSurf: public NCurve {
 		virtual void OglDrawW(int iDspFlgs);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
-		//virtual void HighLight();
+		// virtual void HighLight();
 		// momo gdi to og
 		virtual void Translate(C3dVector vIn);
 		virtual void Transform(C3dMatrix TMat);
@@ -2777,7 +2779,7 @@ class NLine: public NCurve {
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
-		//virtual void HighLight();
+		// virtual void HighLight();
 		// momo gdi to og
 		virtual C3dVector MinPt(C3dVector inPt);
 		virtual G_Object* OffSet(C3dVector vN, C3dVector vDir, double Dist);

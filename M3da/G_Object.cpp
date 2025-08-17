@@ -201,10 +201,10 @@ void DrawCircle(C3dVector vC, double radius, double lineWidth, int segments) {
 //	return (CString(CA2W(sIn)));
 //}
 CString ncr(LPCTSTR sIn) {
-    CString s(sIn);
-    s.Replace(_T("\n"), _T(""));
-    s.Replace(_T(" "),  _T(""));
-    return s; 
+	CString s(sIn);
+	s.Replace(_T("\n"), _T(""));
+	s.Replace(_T(" "), _T(""));
+	return s;
 }
 // momo
 
@@ -53619,20 +53619,20 @@ void CGraphDialog::GDIDraw() {
 			sprintf_s(sLab, "%g", pow(10, i * fDivX));
 		else
 			sprintf_s(sLab, "%g", i * fDivX);
-		//momo
-		//momo// TextOut(hDC, X, fH - (fyoff - 5), sLab, static_cast<int>(strlen(sLab)));
+		// momo
+		// momo// TextOut(hDC, X, fH - (fyoff - 5), sLab, static_cast<int>(strlen(sLab)));
 		TextOut(hDC, X, fH - (fyoff - 5), CA2T(sLab), lstrlen(CA2T(sLab)));
-		//momo
+		// momo
 	}
 	for (i = 0; i <= iNoTicksY; i++) {
 		Y = fyoff + (fyspan) * (i * fDivY - minY) / (maxY - minY);
 		pDC->MoveTo(fxoff - 5, fH - Y);
 		pDC->LineTo(fxoff + fxspan, fH - Y);
 		sprintf_s(sLab, "%g", i * fDivY);
-		//momo
-		//momo// TextOut(hDC, fxoff - 40, fH - Y, sLab, static_cast<int>(strlen(sLab)));
+		// momo
+		// momo// TextOut(hDC, fxoff - 40, fH - Y, sLab, static_cast<int>(strlen(sLab)));
 		TextOut(hDC, fxoff - 40, fH - Y, CA2T(sLab), lstrlen(CA2T(sLab)));
-		//momo
+		// momo
 	}
 	RestorePen(pDC);
 	SetPen(pDC, 133, 1);
@@ -53654,24 +53654,24 @@ void CGraphDialog::GDIDraw() {
 	CString sS;
 	CEdit* oEdit = (CEdit*) this->GetDlgItem(IDC_XTITLE);
 	oEdit->GetWindowText(sS);
-	//momo
-	//momo// TextOut(hDC, fW / 2, fH - 40, sS, static_cast<int>(strlen(sS)));
+	// momo
+	// momo// TextOut(hDC, fW / 2, fH - 40, sS, static_cast<int>(strlen(sS)));
 	TextOut(hDC, fW / 2, fH - 40, sS, sS.GetLength());
-	//momo
+	// momo
 	oEdit = (CEdit*) this->GetDlgItem(IDC_YTITLE);
 	oEdit->GetWindowText(sS);
-	//momo
-	//momo// TextOut(hDC, 5, fH / 2, sS, static_cast<int>(strlen(sS)));
+	// momo
+	// momo// TextOut(hDC, 5, fH / 2, sS, static_cast<int>(strlen(sS)));
 	TextOut(hDC, 5, fH / 2, sS, sS.GetLength());
-	//momo
+	// momo
 	oEdit = (CEdit*) this->GetDlgItem(IDC_TITLE);
 	oEdit->GetWindowText(sS);
 	hFont = CreateFont(30, 0, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 2, 0, _T("SYSTEM_FIXED_FONT"));
 	hTmp = (HFONT) SelectObject(hDC, hFont);
-	//momo
-	//momo// TextOut(hDC, fxoff, 10, sS, static_cast<int>(strlen(sS)));
+	// momo
+	// momo// TextOut(hDC, fxoff, 10, sS, static_cast<int>(strlen(sS)));
 	TextOut(hDC, fxoff, 10, sS, sS.GetLength());
-	//momo
+	// momo
 	DeleteObject(SelectObject(hDC, hTmp));
 	// Draw All Charts
 	for (j = 0; j < iNo; j++) {
@@ -53685,10 +53685,10 @@ void CGraphDialog::GDIDraw() {
 			// Lengend
 			SetTextCol(hDC, pG->iCol);
 			sprintf_s(buff, "%s %s %s", pG->sResType, pG->sEntID, pG->sVar);
-			//momo
-			//momo// TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), buff, static_cast<int>(strlen(buff)));
+			// momo
+			// momo// TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), buff, static_cast<int>(strlen(buff)));
 			TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), CA2T(buff), lstrlen(CA2T(buff)));
-			//momo
+			// momo
 			for (i = 0; i < pG->fx.size(); i++) {
 				if (bLOG)
 					X = fxoff + (fxspan) *log10(pG->fx[i] - minX) / (maxX - minX);
@@ -54124,15 +54124,15 @@ void CGraphDialog::OnLButtonUp(UINT nFlags, CPoint point) {
 			X = fxoff + (fxspan) * (pG->fx[ind] - minX) / (maxX - minX);
 		Y = fyoff + (fyspan) * (pG->fy[ind] - minY) / (maxY - minY);
 		sprintf(s, "%g", pG->fy[ind]);
-		//momo
-		//momo// TextOut(pDC->m_hDC, X, fH - Y, s, static_cast<int>(strlen(s)));
+		// momo
+		// momo// TextOut(pDC->m_hDC, X, fH - Y, s, static_cast<int>(strlen(s)));
 		TextOut(pDC->m_hDC, X, fH - Y, CA2T(s), lstrlen(CA2T(s)));
-		//momo
+		// momo
 		sprintf(s, "%g", pG->fx[ind]);
-		//momo
-		//momo// TextOut(pDC->m_hDC, X, fH - (Y + 15), s, static_cast<int>(strlen(s)));
+		// momo
+		// momo// TextOut(pDC->m_hDC, X, fH - (Y + 15), s, static_cast<int>(strlen(s)));
 		TextOut(pDC->m_hDC, X, fH - (Y + 15), CA2T(s), lstrlen(CA2T(s)));
-		//momo
+		// momo
 		this->ReleaseDC(pDC);
 	}
 

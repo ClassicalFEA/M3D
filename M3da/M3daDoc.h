@@ -406,6 +406,7 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnUpdateSelectFullBody(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateSelectPartOfBody(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateSelectCenterOfBody(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateViewShadededges(CCmdUI* pCmdUI);
 		// momo on off button and menu
 		afx_msg void OnCircleCirclecenreradius();
 		afx_msg void OnCircleCircle3points();

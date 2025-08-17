@@ -933,24 +933,24 @@ void DBase::LoadProps(CString sFile) {
 void DBase::LoadSecT(FILE* pFileA) {
 	int iStop = 0;
 	char s1[1000];
-	CString s2;//char s2[20];
-	CString s3;//char s3[20];
-	CString s4;//char s4[20];
-	CString s5;//char s5[20];
-	CString s6;//char s6[20];
-	CString s7;//char s7[20];
-	CString s8;//char s8[20];
-	CString s9;//char s9[20];
-	CString s10;//char s10[20];
-	CString s11;//char s11[20];
-	CString s12;//char s12[20];
-	CString s13;//char s13[20];
-	CString s14;//char s14[20];
-	CString s15;//char s15[20];
-	CString s16;//char s16[20];
-	CString s17;//char s17[20];
-	CString s18;//char s18[20];
-	CString s19;//char s19[20];
+	CString s2; // char s2[20];
+	CString s3; // char s3[20];
+	CString s4; // char s4[20];
+	CString s5; // char s5[20];
+	CString s6; // char s6[20];
+	CString s7; // char s7[20];
+	CString s8; // char s8[20];
+	CString s9; // char s9[20];
+	CString s10; // char s10[20];
+	CString s11; // char s11[20];
+	CString s12; // char s12[20];
+	CString s13; // char s13[20];
+	CString s14; // char s14[20];
+	CString s15; // char s15[20];
+	CString s16; // char s16[20];
+	CString s17; // char s17[20];
+	CString s18; // char s18[20];
+	CString s19; // char s19[20];
 
 	char sT[20];
 
@@ -10381,7 +10381,10 @@ void DBase::GenAnimationFrameS(int iDspFlgs, int iFrameNo, double dF) {
 				if ((IsSurf && Dsp_List[iDB_I]->iObjType == 15) ||
 				    (!IsSurf && Dsp_List[iDB_I]->iObjType != 15)) {
 					Dsp_List[iDB_I]->OglDraw(iDspFlgs, dMFullScl, 0);
-					if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
+					// momo
+					// momo// if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
+					if (ShadedEdges) {
+						// momo
 						Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
 					}
 				}
@@ -10518,7 +10521,7 @@ void DBase::OglDrawW(int iDspFlgs) {
 // momo axis ======================================================
 
 void DBase::MakeAxisCorner(float dx, float dy) {
-    // Small viewport (bottom-left corner)
+	// Small viewport (bottom-left corner)
 	int smallViewportWidth = 150;
 	int smallViewportHeight = 150;
 	// Perspective projection settings
@@ -10550,8 +10553,8 @@ void DBase::MakeAxisCorner(float dx, float dy) {
 	// Step 1: Setup small viewport and camera aligned with main view
 	MakeAxis_CornerSettings1(smallViewportWidth, smallViewportHeight, perspectiveFovY, perspectiveZNear, perspectiveZFar, cameraEyeZ, dx, dy);
 	// Reset OpenGL settings before rendering axis to prevent conflicts
-	glPushAttrib(GL_ENABLE_BIT);   // Save current OpenGL state
-	glDisable(GL_LIGHTING);        // Disable lighting to avoid color change issues in wireframe mode
+	glPushAttrib(GL_ENABLE_BIT); // Save current OpenGL state
+	glDisable(GL_LIGHTING); // Disable lighting to avoid color change issues in wireframe mode
 	// Step 2: Draw X/Y/Z axes with arrowheads
 	MakeAxis_MakeAxisShapes(cylRad, cylHeight, coneRad, coneHeight, sphereRad, colorAxis, colorCore);
 	// Step 3: Load font if needed and compute GL size
@@ -10561,7 +10564,7 @@ void DBase::MakeAxisCorner(float dx, float dy) {
 	// Step 5: Restore full viewport and projection
 	MakeAxis_CornerSettings2();
 	// Restore OpenGL settings
-	glPopAttrib();   // Restore OpenGL state (enable lighting if needed)
+	glPopAttrib(); // Restore OpenGL state (enable lighting if needed)
 }
 
 void DBase::MakeAxis_CornerSettings1(int w, int h, double fovy, double zNear, double zFar, float camZ, float dx, float dy) {
@@ -10950,7 +10953,10 @@ void DBase::OglDraw(int iDspFlgs) {
 	glEnable(GL_COLOR_MATERIAL);
 
 	glMultMatrixf(mOGLmat.fMat);
-	if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
+	// momo
+	// momo// if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
+	if (ShadedEdges) {
+		// momo
 		glPolygonOffset(1.0, 2);
 	} else {
 		glPolygonOffset(0.0, 0);
@@ -10971,7 +10977,10 @@ void DBase::OglDraw(int iDspFlgs) {
 	glCallList(iOGLList);
 	for (i = 0; i < TmpOGLCnt; i++) {
 		TmpOGL[i]->OglDraw(iDspFlgs, dMFullScl, 0);
-		if ((DspFlags & DSP_SHADED_EDGES) > 0) {
+		// momo
+		// momo// if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
+		if (ShadedEdges) {
+			// momo
 			TmpOGL[i]->OglDrawW(iDspFlgs, dMFullScl, 0);
 		}
 	}
@@ -14927,7 +14936,7 @@ void DBase::ExportToText(FILE* pFile2) {
 
 			for (iCO = 0; iCO < S_Count; iCO++) {
 				OutS = S_Buff[iCO]->ToString();
-				fprintf(pFile2, "%s", (LPCSTR)CT2A(OutS));
+				fprintf(pFile2, "%s", (LPCSTR) CT2A(OutS));
 			}
 		} else {
 			outtext1("Export Expired.");
@@ -21850,30 +21859,30 @@ void DBase::LoadSymbolsInternal() {
 			iStop = 1;
 		} else if ((s1[0] == 'S') && (s1[1] == 'Y') && (s1[2] == 'M')) {
 			pSym = new Symbol();
-			//momo
-			// momo// sscanf(s1, "%s%s", s2, s3);
-			s1A=CStringA(s1);
-			sscanf_s(s1A, "%19s%19s",s2, (unsigned)_countof(s2),s3, (unsigned)_countof(s3));
-			//momo
+			// momo
+			//  momo// sscanf(s1, "%s%s", s2, s3);
+			s1A = CStringA(s1);
+			sscanf_s(s1A, "%19s%19s", s2, (unsigned) _countof(s2), s3, (unsigned) _countof(s3));
+			// momo
 			iLab = _ttoi(CA2T(s3));
 			pSym->Create(iLab, vPt, NULL);
 			AddSymbol(pSym);
 		} else {
-			//momo
-			// momo// sscanf(s1, "%s%s", s2, s3);
-			s1A=CStringA(s1);
-			sscanf_s(s1A, "%19s%19s",s2, (unsigned)_countof(s2),s3, (unsigned)_countof(s3));
-			//momo
+			// momo
+			//  momo// sscanf(s1, "%s%s", s2, s3);
+			s1A = CStringA(s1);
+			sscanf_s(s1A, "%19s%19s", s2, (unsigned) _countof(s2), s3, (unsigned) _countof(s3));
+			// momo
 			vP1.x = _tstof(CA2T(s2));
 			vP1.y = _tstof(CA2T(s3));
 			vP1.z = 0;
 			s1 = SymTableData[i];
 			i++;
-			//momo
-			// momo// sscanf(s1, "%s%s", s2, s3);
-			s1A=CStringA(s1);
-			sscanf_s(s1A, "%19s%19s",s2, (unsigned)_countof(s2),s3, (unsigned)_countof(s3));
-			//momo
+			// momo
+			//  momo// sscanf(s1, "%s%s", s2, s3);
+			s1A = CStringA(s1);
+			sscanf_s(s1A, "%19s%19s", s2, (unsigned) _countof(s2), s3, (unsigned) _countof(s3));
+			// momo
 			vP2.x = _tstof(CA2T(s2));
 			vP2.y = _tstof(CA2T(s3));
 			vP2.z = 0;

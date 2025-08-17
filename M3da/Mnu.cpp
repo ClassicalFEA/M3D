@@ -83,7 +83,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 			// momo change command box color
 			inputInOneCommand = 1;
 			// momo change command box color
-			if (CInMsg.CompareNoCase(_T("NDCR"))==0) {
+			if (CInMsg.CompareNoCase(_T("NDCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -91,7 +91,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SURTRIM"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SURTRIM")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -99,7 +99,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSURTRIM_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ELMOLAB"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ELMOLAB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -107,7 +107,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zELMOLAB_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("QWNODES"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("QWNODES")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -115,7 +115,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zQWNODES_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRROD"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRROD")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -123,7 +123,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRROD_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("NDMOLAB"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("NDMOLAB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -131,7 +131,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDMOLAB_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RESSEL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RESSEL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -139,7 +139,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRESSEL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPNEXT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPNEXT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -147,7 +147,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPNEXT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPPREV"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPPREV")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -155,7 +155,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPPREV_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MESHQND"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MESHQND")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -163,7 +163,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMESHQND_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RESSETFULLLIST"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RESSETFULLLIST")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -171,7 +171,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRESSETFULLLIST_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RESSETDEFSCL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RESSETDEFSCL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -179,7 +179,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRESSETDEFSCL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RESSETLIST"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RESSETLIST")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -187,7 +187,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRESSETLIST_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RESSELDEF"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RESSELDEF")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -195,7 +195,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRESSELDEF_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("WPCENT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WPCENT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -203,7 +203,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zWPCENT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MMAT1"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MMAT1")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -211,7 +211,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMMAT1_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRSOLID"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRSOLID")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -219,7 +219,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRSOLID_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRCMAT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRCMAT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -227,7 +227,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRCMAT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("WPONCV"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WPONCV")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -235,7 +235,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zWPONCV_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("WPONSURF"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WPONSURF")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -243,7 +243,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zWPONSURF_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SURSWEEP"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SURSWEEP")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -251,7 +251,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSURSWEEP_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ALIGN"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ALIGN")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -259,7 +259,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zALIGN_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("QANG"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("QANG")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -267,7 +267,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zQANGSIZE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRSHELL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRSHELL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -275,7 +275,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRSHELL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELPTSCOL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELPTSCOL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -283,7 +283,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELPTSCOL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELSURFCOL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELSURFCOL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -291,7 +291,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELSURFCOL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELCURCOL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELCURCOL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -299,7 +299,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELCURCOL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MERNODES"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MERNODES")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -307,7 +307,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMERNODES_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ARC3PT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ARC3PT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -315,7 +315,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zARC3PT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CIR3PT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CIR3PT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -323,7 +323,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCIR3PT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SOFF"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SOFF")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -331,7 +331,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSOFF_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRBBOX"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRBBOX")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -339,7 +339,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRBBOX_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRBTUBE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRBTUBE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -347,7 +347,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRBTUBE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRBROD"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRBROD")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -355,7 +355,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRBROD_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRBBAR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRBBAR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -363,7 +363,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRBBAR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("BUPVEC"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("BUPVEC")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -371,7 +371,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zBUPVEC_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("QSIZE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("QSIZE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -379,7 +379,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zQSIZE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("BOFF"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("BOFF")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -387,7 +387,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zBOFF_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELBYMID"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELBYMID")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -395,7 +395,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELBYMID_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("INSCAT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("INSCAT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -403,7 +403,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zINSCAT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("REFLECT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("REFLECT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -411,7 +411,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zREFLECT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRLISTALL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRLISTALL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -419,7 +419,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRLISTALL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MATLISTALL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MATLISTALL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -427,7 +427,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMATLISTALL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SCALE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SCALE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -435,7 +435,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSCALE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("COPYROT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("COPYROT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -443,7 +443,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCOPYROT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MMESHQ"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MMESHQ")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -451,7 +451,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMMESHQ_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MMESHT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MMESHT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -459,7 +459,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMMESHT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ROTANG"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ROTANG")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -467,7 +467,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zROTANG_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ROTABOUT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ROTABOUT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -475,7 +475,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zROTABOUT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ELSWEEP"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ELSWEEP")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -483,7 +483,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zELSWEEP_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ELSWEEPB"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ELSWEEPB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -491,7 +491,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zELSWEEPB_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LABENT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LABENT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -499,7 +499,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLABENT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PRLIST"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PRLIST")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -507,7 +507,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPRLIST_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ELMOPID"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ELMOPID")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -515,7 +515,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zELMOPID_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("NDMOOSYS"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("NDMOOSYS")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -523,7 +523,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDMOOSYS_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("NDMORSYS"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("NDMORSYS")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -531,7 +531,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDMORSYS_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELBYTYPE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELBYTYPE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -539,7 +539,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELBYTYPE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CNODES"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CNODES")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -547,7 +547,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCNODES_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LMEAS"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LMEAS")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -555,7 +555,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLMEAS_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ELAT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ELAT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -563,7 +563,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zELAT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("COLINE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("COLINE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -571,7 +571,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCOLINE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPBYPID"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPBYPID")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -579,7 +579,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPBYPID_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RELTO"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RELTO")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -587,7 +587,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRELTO_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELALL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELALL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -595,7 +595,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELALL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPBYCOL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPBYCOL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -603,7 +603,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPBYCOL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELBYCOL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELBYCOL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -611,7 +611,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELBYCOL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELNODESBYCOL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELNODESBYCOL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -619,7 +619,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELNODESBYCOL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("COORDCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("COORDCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -627,7 +627,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCOORDCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CVONSUR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CVONSUR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -635,7 +635,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCVONSUR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SURBOUND"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SURBOUND")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -643,7 +643,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSURBOUND_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELBYPID"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELBYPID")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -651,7 +651,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSELBYPID_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SURTRIMLOOP"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SURTRIMLOOP")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -659,7 +659,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSURTRIMLOOP_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("NDBET"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("NDBET")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -667,7 +667,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDBET_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CORNER"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CORNER")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -675,7 +675,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCORNER_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RECT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RECT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -683,7 +683,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRECT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("OFFSET"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("OFFSET")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -691,7 +691,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zOFFSET_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LNANG"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LNANG")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -699,7 +699,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLNANG_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("FIL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("FIL")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -707,7 +707,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zFIL_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CVFIT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CVFIT")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -715,7 +715,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCVFIT_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("DSPLAM"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("DSPLAM")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -723,7 +723,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zDSPLAM_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("FILET"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("FILET")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -731,7 +731,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zFILET_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("WPSIZE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WPSIZE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -739,7 +739,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zWPSIZE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("COPY"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("COPY")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -747,7 +747,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCOPY_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("FCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("FCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -755,7 +755,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zFCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -763,7 +763,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -771,7 +771,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CVMOW"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CVMOW")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -779,7 +779,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCVMOW_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("MOVE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("MOVE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -787,7 +787,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zMOVE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CVPTON"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CVPTON")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -795,7 +795,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCVPTON_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SUREX"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SUREX")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -803,7 +803,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSUREX_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SURRV"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SURRV")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -811,7 +811,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSURRV_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SURCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SURCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -819,7 +819,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zSURCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LAB"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LAB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -827,7 +827,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLAB_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -835,7 +835,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zRCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("NDMOVE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("NDMOVE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -843,7 +843,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDMOVE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("WPMODE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WPMODE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -851,7 +851,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zWPMODE_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("NDCO"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("NDCO")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -859,7 +859,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDCO_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CVCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CVCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -867,7 +867,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCVCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("NDONCV"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("NDONCV")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -875,7 +875,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zNDSONCV_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ELCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ELCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -883,7 +883,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zELCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ELTYPE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ELTYPE")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -891,7 +891,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zELTYPE_Mnu();
 				pNext->Init(cDBase, -1);
 				pNext->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PTCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PTCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -899,7 +899,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zPTCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LN"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LN")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -907,7 +907,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLN_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CIRCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CIRCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -915,7 +915,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCIRCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("CIRCR2"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("CIRCR2")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -923,7 +923,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zCIRCR2_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LNX"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LNX")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -931,7 +931,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLNX_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LNY"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LNY")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -939,7 +939,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLNY_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LNZ"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LNZ")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -947,7 +947,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zLNZ_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("WPALIGN"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WPALIGN")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -955,7 +955,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zWPALIGN_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("WPGLOB"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WPGLOB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -963,7 +963,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zWPGLOB_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPCR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -971,7 +971,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPCR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPLIST"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPLIST")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -979,7 +979,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPLIST_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPDSP"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPDSP")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -987,7 +987,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPDSP_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("FILCLR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("FILCLR")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -995,7 +995,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zFILCLR_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPADD"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPADD")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -1003,7 +1003,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPADD_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPREM"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPREM")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -1011,7 +1011,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPREM_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPSET"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPSET")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -1019,7 +1019,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				pNext = new zGPSET_Mnu();
 				pNext->Init(cDBase, -1);
 				this->DoMenu(CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("GPADDGP"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("GPADDGP")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				cDBase->DB_ActiveBuffSet(2);
@@ -1033,7 +1033,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 
 			if (bNextBlock) // SECOND IF BLOCK CONTINUATION
 			{
-				if (CInMsg.CompareNoCase(_T("FILALL"))==0) {
+				if (CInMsg.CompareNoCase(_T("FILALL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1042,7 +1042,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
 				}
-				if (CInMsg.CompareNoCase(_T("TEXTCR"))==0) {
+				if (CInMsg.CompareNoCase(_T("TEXTCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1050,7 +1050,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTEXTCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPREMGP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPREMGP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1058,7 +1058,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPREMGP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("COL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("COL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1066,7 +1066,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCOL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("FILSET"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("FILSET")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1074,7 +1074,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSETFIL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("NDMOLAB2"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("NDMOLAB2")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1082,7 +1082,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zNDMOLAB2_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DES"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DES")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1090,7 +1090,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDES_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MSHLIST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MSHLIST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1098,7 +1098,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMSHLIST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MSHCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MSHCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1106,7 +1106,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMSHCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MSHACT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MSHACT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1114,7 +1114,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMSHACT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MSHVIS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MSHVIS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1122,7 +1122,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMSHVIS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MSHDEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MSHDEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1130,7 +1130,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMSHDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SHOWALL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SHOWALL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1138,7 +1138,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSHOWALL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("HIDE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("HIDE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1146,7 +1146,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zHIDE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LSETLIST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LSETLIST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1154,7 +1154,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLSETLIST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BSETLIST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BSETLIST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1162,7 +1162,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBSETLIST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TSETLIST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TSETLIST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1170,7 +1170,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTSETLIST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("COPYROT2D"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("COPYROT2D")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1178,7 +1178,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCOPYROT2D_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LSETACT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LSETACT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1186,7 +1186,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLSETACT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BSETACT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BSETACT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1194,7 +1194,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBSETACT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TSETACT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TSETACT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1202,7 +1202,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTSETACT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LSETDEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LSETDEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1210,7 +1210,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLSETDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BSETDEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BSETDEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1218,7 +1218,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBSETDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TSETDEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TSETDEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1226,7 +1226,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTSETDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LSETCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LSETCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1234,7 +1234,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLSETCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BSETCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BSETCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1242,7 +1242,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBSETCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TSETCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TSETCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1250,7 +1250,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTSETCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DSPGP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DSPGP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1258,7 +1258,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDSPGP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DSPALL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DSPALL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1266,7 +1266,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDSPALL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SELINV"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SELINV")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1274,7 +1274,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSELINV_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DSPSEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DSPSEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1282,7 +1282,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDSPSEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPDEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPDEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1290,7 +1290,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DELAY"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DELAY")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1298,7 +1298,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDELAY_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ECHO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ECHO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1306,7 +1306,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zECHO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRBAR2"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRBAR2")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1314,7 +1314,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRBAR2_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESDISPOFF"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESDISPOFF")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1322,7 +1322,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESDISPOFF_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESDEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESDEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1330,7 +1330,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVMOLWT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVMOLWT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1338,7 +1338,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVMOLWT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVMOLWM"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVMOLWM")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1346,7 +1346,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVMOLWM_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVMOLWL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVMOLWL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1354,7 +1354,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVMOLWL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVMOSOL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVMOSOL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1362,7 +1362,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVMOSOL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVMODOT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVMODOT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1370,7 +1370,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVMODOT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVMODASH"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVMODASH")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1378,7 +1378,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVMODASH_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVMOCTR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVMOCTR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1386,7 +1386,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVMOCTR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESLISTEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESLISTEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1394,7 +1394,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESLISTEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESREVCOLBAR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESREVCOLBAR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1402,7 +1402,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESREVCOLBAR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("FMESHT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("FMESHT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1410,7 +1410,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zFMESHT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESSETCOLBAR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESSETCOLBAR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1418,7 +1418,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESCOLSETBAR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPBYTYPE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPBYTYPE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1426,7 +1426,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPBYTYPE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPBYMID"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPBYMID")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1434,7 +1434,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPBYMID_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPNDBYCOL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPNDBYCOL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1442,7 +1442,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPNDBYCOL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("FEDGE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("FEDGE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1450,7 +1450,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zFEDGE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SNORM"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SNORM")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1458,7 +1458,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSNORM_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MQUADTOTRI"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MQUADTOTRI")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1466,7 +1466,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMQUADTOTRI_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("FFACE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("FFACE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1474,7 +1474,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zFFACE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MSHELL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MSHELL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1482,7 +1482,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMSHELL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPNDBYOSYS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPNDBYOSYS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1490,7 +1490,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPNDBYOSYS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MATEDIT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MATEDIT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1498,7 +1498,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMATEDIT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PREDIT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PREDIT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1506,7 +1506,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPREDIT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("OEDIT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("OEDIT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1514,7 +1514,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zOEDIT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPNDBYDSYS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPNDBYDSYS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1522,7 +1522,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGPNDBYDSYS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("COPYTO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("COPYTO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1530,7 +1530,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCOPYTO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MOVETO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MOVETO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1538,7 +1538,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMOVETO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESLISTND"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESLISTND")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1546,7 +1546,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESLISTND_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CIRCPT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CIRCPT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1554,7 +1554,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCIRCPT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESSETVECSCL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESSETVECSCL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1562,7 +1562,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESSETVECSCL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("REFLECT2D"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("REFLECT2D")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1570,7 +1570,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zREFLECT2D_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SURFUNTRIM"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SURFUNTRIM")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1578,7 +1578,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSURFUNTRIM_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MATLIST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MATLIST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1586,7 +1586,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMATLIST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MMESHTET"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MMESHTET")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1594,7 +1594,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMMESHTET_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MMAT8"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MMAT8")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1602,7 +1602,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMMAT8_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1610,7 +1610,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TBCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TBCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1618,7 +1618,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTBCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SOLLIST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SOLLIST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1626,7 +1626,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSOLLIST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SOLCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SOLCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1634,7 +1634,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSOLCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SPGMOSYS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SPGMOSYS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1642,7 +1642,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSPGMOSYS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("AMEAS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("AMEAS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1650,7 +1650,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zAMEAS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LNC"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LNC")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1658,7 +1658,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLNC_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ACR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ACR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1666,7 +1666,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zACR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CHKJAC"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CHKJAC")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1674,7 +1674,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCHKJAC_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("STEPCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("STEPCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1682,7 +1682,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSTEPCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RACR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RACR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1690,7 +1690,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRACR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SOLVE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SOLVE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1698,7 +1698,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSOLVE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("FLUXCR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("FLUXCR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1706,7 +1706,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zFLUXCR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ELMASS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ELMASS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1714,7 +1714,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELMASS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("NODEX"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("NODEX")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1722,7 +1722,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zNODEX_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("NODEY"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("NODEY")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1730,7 +1730,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zNODEY_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("NODEZ"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("NODEZ")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1738,7 +1738,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zNODEZ_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CELM"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CELM")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1746,7 +1746,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCELM_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CHKSHELLASP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CHKSHELLASP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1754,7 +1754,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCHKSHELLASP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CHKTETCOL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CHKTETCOL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1762,7 +1762,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCHKTETCOL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CHKCIRCUMSPH"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CHKCIRCUMSPH")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1770,7 +1770,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCHKCIRCUMSPH_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BDOFA"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BDOFA")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1778,7 +1778,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBDOFA_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BDOFB"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BDOFB")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1786,7 +1786,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBDOFB_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("KNOTINS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("KNOTINS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1794,7 +1794,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zKNOTINS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("KNOTMOD"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("KNOTMOD")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1802,7 +1802,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zKNOTMOD_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRSPGT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRSPGT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1810,7 +1810,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRSPGT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ELMOSHELLMCYS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ELMOSHELLMCYS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1818,7 +1818,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELMOSHELLMCYS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRSPGR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRSPGR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1826,7 +1826,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRSPGR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CHK2D"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CHK2D")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1834,7 +1834,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCHK2D_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESDELAY"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESDELAY")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1842,7 +1842,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESDELAY_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESLSTRESP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESLSTRESP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1850,7 +1850,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESLSTRESP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESVECLIST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESVECLIST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1858,7 +1858,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESVECLIST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESVEC"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESVEC")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1866,7 +1866,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESVEC_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESVECDEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESVECDEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1874,7 +1874,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESVECDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESFRAMES"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESFRAMES")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1882,7 +1882,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESFRAMES_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SOLACT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SOLACT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1890,7 +1890,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSOLACT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("STEPACT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("STEPACT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1898,7 +1898,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSTEPACT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MMESHAF"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MMESHAF")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1906,7 +1906,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMMESHAF_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("EXTRACT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("EXTRACT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1914,7 +1914,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zEXTRACT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SDSEC"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SDSEC")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1922,7 +1922,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSDSEC_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MMESHSZ"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MMESHSZ")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1930,7 +1930,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMMESHSZ_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MMESHBZ"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MMESHBZ")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1938,7 +1938,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMMESHBZ_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("FINDNODE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("FINDNODE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1946,7 +1946,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zFINDNODE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRMASS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRMASS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1954,7 +1954,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRMASS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRPCOMP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRPCOMP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1969,7 +1969,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 			// THIRD IF BLOCK CONTINUATION
 			// INSERT NEW FUNCTIONS BLOWS R
 			if (bNextBlock2) {
-				if (CInMsg.CompareNoCase(_T("ELREV"))==0) {
+				if (CInMsg.CompareNoCase(_T("ELREV")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1977,7 +1977,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELREV_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRBUSH"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRBUSH")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1985,7 +1985,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRBUSH_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRBT2"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRBT2")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -1993,7 +1993,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRBT2_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TEMPD"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TEMPD")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2001,7 +2001,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTEMPD_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GRAV"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GRAV")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2009,7 +2009,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zGRAV_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TEST"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TEST")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2017,7 +2017,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTEST_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SELCURLAY"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SELCURLAY")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2025,7 +2025,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSELCURLAY_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMSCL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMSCL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2033,7 +2033,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMSCL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMA"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMA")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2041,7 +2041,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMA_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMANG"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMANG")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2049,7 +2049,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMANG_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMH"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMH")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2057,7 +2057,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMH_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMV"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMV")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2065,7 +2065,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMV_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIML"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIML")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2073,7 +2073,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIML_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2081,7 +2081,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMCL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMCL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2089,7 +2089,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMCL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMDRAG"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMDRAG")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2097,7 +2097,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMDRAG_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DIMD"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DIMD")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2105,7 +2105,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDIMD_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("DEL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("DEL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2113,7 +2113,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zDEL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ELINSSPG"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ELINSSPG")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2121,7 +2121,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELINSSPG_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MODINCNO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MODINCNO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2129,7 +2129,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMODINCNO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MODLAYNO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MODLAYNO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2137,7 +2137,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMODLAYNO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PTSONCIR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PTSONCIR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2145,7 +2145,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPTSONCIR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LNTANCIR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LNTANCIR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2153,7 +2153,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLNTANCIR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LNTAN2CIR"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LNTAN2CIR")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2161,7 +2161,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLNTAN2CIR_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LABGAP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LABGAP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2169,7 +2169,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLABGAP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LABGAPMP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LABGAPMP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2177,7 +2177,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLABGAPMP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESGRAPHRESP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESGRAPHRESP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2185,7 +2185,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESGRAPHRESP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CVSPLIT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CVSPLIT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2193,7 +2193,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCVSPLIT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TRIM"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TRIM")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2201,7 +2201,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTRIM_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("NDEQLAB"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("NDEQLAB")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2209,7 +2209,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zNDEQLAB_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("CHKCOUNT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("CHKCOUNT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2217,7 +2217,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCHKCOUNT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESLABRESP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESLABRESP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2225,7 +2225,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESLABRESP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BOFFY"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BOFFY")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2233,7 +2233,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBOFFY_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BOFFZ"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BOFFZ")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2241,7 +2241,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBOFFZ_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("COLINC"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("COLINC")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2249,7 +2249,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCOLINC_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRBCHAN2"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRBCHAN2")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2257,7 +2257,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRBCHAN2_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("SELRBENODE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("SELRBENODE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2265,7 +2265,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zSELRBENODE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRBL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRBL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2273,7 +2273,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRBL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PRBI2"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PRBI2")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2281,7 +2281,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPRBI2_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESENVMAX"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESENVMAX")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2289,7 +2289,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESENVMAX_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESENVMIN"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESENVMIN")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2297,7 +2297,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESENVMIN_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESSCALE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESSCALE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2305,7 +2305,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESSCALE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MESHINT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MESHINT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2313,7 +2313,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMESHINT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MESHINTWP"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MESHINTWP")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2321,7 +2321,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMESHINTWP_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESDIVINTO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESDIVINTO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2329,7 +2329,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESDIVINTO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ELSWEEPNDS"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ELSWEEPNDS")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2337,7 +2337,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELSWEEPNDS_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ELSWEEPNDB"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ELSWEEPNDB")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2345,7 +2345,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELSWEEPNDB_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ORTHO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ORTHO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2353,7 +2353,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zORTHO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ELMOLAB2"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ELMOLAB2")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2361,7 +2361,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELMOLAB2_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("QMORPH"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("QMORPH")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2369,7 +2369,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zQMORPH_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("COLPID"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("COLPID")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2377,7 +2377,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zCOLPID_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("RESLSTRESPFULL"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("RESLSTRESPFULL")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2385,7 +2385,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zRESLSTRESPFULL_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("HLIMIT"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("HLIMIT")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2393,7 +2393,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zHLIMIT_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("EXPINC"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("EXPINC")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2401,7 +2401,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zEXPINC_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("MODINCNO"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("MODINCNO")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2409,7 +2409,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zMODINCNO_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("PTSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("PTSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2417,7 +2417,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zPTSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("NDSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("NDSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2425,7 +2425,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zNDSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("TXTSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("TXTSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2433,7 +2433,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zTXTSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("BMSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("BMSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2441,7 +2441,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zBMSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("WPLSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("WPLSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2449,7 +2449,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zWPLSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("ELSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("ELSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2457,7 +2457,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zELSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("EDSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("EDSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2465,7 +2465,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zEDSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("FCSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("FCSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2473,7 +2473,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zFCSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("LMSIZE"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("LMSIZE")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2481,7 +2481,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zLMSIZE_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
-				} else if (CInMsg.CompareNoCase(_T("GPBYINC"))==0) {
+				} else if (CInMsg.CompareNoCase(_T("GPBYINC")) == 0) {
 					iResumePos = 0;
 					iCancelPos = 100;
 					cDBase->DB_ActiveBuffSet(2);
@@ -2602,19 +2602,11 @@ int zMnu::ExtractPt(CString mCInMsg, C3dVector* ReturnPt) {
 	// ReturnPt->x = _ttoi(CXtxt);
 	// ReturnPt->y = _ttoi(CYtxt);
 	// ReturnPt->z = _ttoi(CZtxt);
-	//momo
-	//ReturnPt->x = evaluate(CT2A(CXtxt.GetString()));
-	//ReturnPt->y = evaluate(CT2A(CYtxt.GetString()));
-	//ReturnPt->z = evaluate(CT2A(CZtxt.GetString()));
-	USES_CONVERSION;
-	LPCSTR p;
-	p = CT2A(CXtxt);
-	ReturnPt->x = evaluate(p);
-	p = CT2A(CYtxt);
-	ReturnPt->y = evaluate(p);
-	p = CT2A(CZtxt);
-	ReturnPt->z = evaluate(p);
-	//momo
+	// momo
+	ReturnPt->x = evaluate(std::string(CT2A(CXtxt.GetString())));
+	ReturnPt->y = evaluate(std::string(CT2A(CYtxt.GetString())));
+	ReturnPt->z = evaluate(std::string(CT2A(CZtxt.GetString())));
+	// momo
 	mCInMsg = "11";
 	//-------------------REMOVE------------
 
@@ -2905,7 +2897,7 @@ int zEXP05_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if ((CInMsg.CompareNoCase(_T("C"))==0) || (CInMsg.CompareNoCase(_T("D"))==0)) // Common Options
+		if ((CInMsg.CompareNoCase(_T("C")) == 0) || (CInMsg.CompareNoCase(_T("D")) == 0)) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -2923,43 +2915,43 @@ int zPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				cDBase->S_BuffChanged(cDBase->S_Count - 1, cDBase->S_Count - 1, false);
 				// momo
 				cDBase->S_Count--;
-			} else if (CInMsg.CompareNoCase(_T("BET"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("BET")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 0;
 				pNext = new zBET_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LAB"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LAB")) == 0) {
 				iResumePos = 1;
 				iCancelPos = 0;
 				pNext = new zLAB_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PROJ"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PROJ")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 0;
 				pNext = new zPROJ_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("TRAN"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("TRAN")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 0;
 				pNext = new zTRAN_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("PTRAN"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("PTRAN")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 0;
 				pNext = new zPTRAN_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("ONSCR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ONSCR")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 0;
 				pNext = new zONSCR_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("INT"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("INT")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 0;
 				pNext = new zINT_Mnu();
@@ -3015,20 +3007,20 @@ int zSEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			// MoMo_End
 			{
 				iStat = 2;
-			} else if (CInMsg.CompareNoCase(_T("LAB"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("LAB")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 100;
 				pNext = new zLAB_Mnu();
 				pNext->Init(cDBase, iT);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("RELTO"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RELTO")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 100;
 				cDBase->FILTER.SetAll();
 				pNext = new zRELTO_Mnu();
 				pNext->Init(cDBase, iT);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("SELALL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SELALL")) == 0) {
 				iResumePos = 2;
 				iCancelPos = 100;
 				pNext = new zSELALL_Mnu();
@@ -3118,7 +3110,7 @@ int zNDCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if ((CInMsg2.CompareNoCase(_T("C"))==0) || (CInMsg2.CompareNoCase(_T("D"))==0)) // Common Options
+		if ((CInMsg2.CompareNoCase(_T("C")) == 0) || (CInMsg2.CompareNoCase(_T("D")) == 0)) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3154,7 +3146,7 @@ MenuEnd:
 int zBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3212,15 +3204,15 @@ MenuEnd:
 int zTVEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
 		}
-		if (CInMsg.CompareNoCase(_T("KEY"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("KEY")) == 0) // Common Options
 		{
 			iStat = 4;
-		} else if (CInMsg.CompareNoCase(_T("PICK"))==0) {
+		} else if (CInMsg.CompareNoCase(_T("PICK")) == 0) {
 			iStat = 1;
 		} else if (iStat == 0) {
 			outtext2("// ENTER TRANSLATION METHOD (PICK or KEY)");
@@ -3280,7 +3272,7 @@ MenuEnd:
 int zTRAN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3328,7 +3320,7 @@ MenuEnd:
 int zPTRAN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3381,7 +3373,7 @@ MenuEnd:
 int zONSCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3422,7 +3414,7 @@ int zPTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if ((CInMsg2.CompareNoCase(_T("C"))==0) || (CInMsg2.CompareNoCase(_T("D"))==0)) // Common Options
+		if ((CInMsg2.CompareNoCase(_T("C")) == 0) || (CInMsg2.CompareNoCase(_T("D")) == 0)) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3473,7 +3465,7 @@ MenuEnd:
 int zFINDNODE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3506,7 +3498,7 @@ MenuEnd:
 int zLNANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3571,7 +3563,7 @@ MenuEnd:
 int zLNX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -3624,7 +3616,7 @@ MenuEnd:
 int zLN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -3689,7 +3681,7 @@ MenuEnd:
 int zDIMA_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -3757,7 +3749,7 @@ MenuEnd:
 int zDIMANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -3833,7 +3825,7 @@ MenuEnd:
 int zDIMH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -3901,7 +3893,7 @@ MenuEnd:
 int zDIMV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -3969,7 +3961,7 @@ MenuEnd:
 int zDIML_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -4036,7 +4028,7 @@ MenuEnd:
 int zDIMR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -4113,7 +4105,7 @@ MenuEnd:
 int zDIMCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -4176,7 +4168,7 @@ MenuEnd:
 int zDIMDRAG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -4256,7 +4248,7 @@ MenuEnd:
 int zDIMD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) { // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) { // Common Options
 			RetVal = 2;
 			goto MenuEnd;
 		}
@@ -4333,7 +4325,7 @@ MenuEnd:
 int zLNC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4406,7 +4398,7 @@ int zCIRCPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		C3dVector vN;
 		vN.Set(0, 0, 1);
 		vN = cDBase->GlobaltoWP3(vN);
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4468,7 +4460,7 @@ int zCIRCR2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		C3dVector vN;
 		vN.Set(0, 0, 1);
 		vN = cDBase->GlobaltoWP3(vN);
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4538,7 +4530,7 @@ int zLNTANCIR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		C3dVector vN;
 		vN.Set(0, 0, 1);
 		vN = cDBase->GlobaltoWP3(vN);
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
@@ -4604,7 +4596,7 @@ MenuEnd:
 int zLNTAN2CIR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
@@ -4649,7 +4641,7 @@ MenuEnd:
 int zTEXTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4712,7 +4704,7 @@ MenuEnd:
 int zDIMSCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4750,7 +4742,7 @@ MenuEnd:
 int zCIR3PT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4814,7 +4806,7 @@ MenuEnd:
 int zARC3PT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4878,7 +4870,7 @@ MenuEnd:
 int zRECT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4937,7 +4929,7 @@ MenuEnd:
 int zLNY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -4991,7 +4983,7 @@ MenuEnd:
 int zLNZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5179,7 +5171,7 @@ MenuEnd:
 int zWPALIGN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5237,7 +5229,7 @@ MenuEnd:
 int zWPONCV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -5308,7 +5300,7 @@ MenuEnd:
 int zWPONSURF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -5378,7 +5370,7 @@ MenuEnd:
 int zWPCENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5419,7 +5411,7 @@ MenuEnd:
 int zALIGN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5429,7 +5421,7 @@ int zALIGN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -5521,7 +5513,7 @@ MenuEnd:
 int zREFLECT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5531,7 +5523,7 @@ int zREFLECT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -5597,7 +5589,7 @@ MenuEnd:
 int zREFLECT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5607,7 +5599,7 @@ int zREFLECT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -5668,7 +5660,7 @@ MenuEnd:
 int zROTANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5678,7 +5670,7 @@ int zROTANG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -5738,7 +5730,7 @@ MenuEnd:
 int zROTABOUT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5748,7 +5740,7 @@ int zROTABOUT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -5815,7 +5807,7 @@ MenuEnd:
 int zCOPYROT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5825,7 +5817,7 @@ int zCOPYROT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -5903,7 +5895,7 @@ MenuEnd:
 int zCOPYROT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -5913,7 +5905,7 @@ int zCOPYROT2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -5985,7 +5977,7 @@ MenuEnd:
 int zINSCAT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6022,7 +6014,7 @@ MenuEnd:
 int zSCALE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6032,7 +6024,7 @@ int zSCALE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -6091,7 +6083,7 @@ MenuEnd:
 int zCOORDCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6196,7 +6188,7 @@ int zDEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zCIRCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6264,7 +6256,7 @@ MenuEnd:
 int zNDSONCV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6279,7 +6271,7 @@ int zNDSONCV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				iStat = 2;
 			}
 		}
@@ -6316,7 +6308,7 @@ MenuEnd:
 int zPTSONCIR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6331,7 +6323,7 @@ int zPTSONCIR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				iStat = 2;
 			}
 		}
@@ -6368,7 +6360,7 @@ MenuEnd:
 int zTEST_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6392,7 +6384,7 @@ MenuEnd:
 int zDSPLAM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6434,7 +6426,7 @@ MenuEnd:
 int zCVMOW_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6450,7 +6442,7 @@ int zCVMOW_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 		}
@@ -6487,7 +6479,7 @@ MenuEnd:
 int zCVPTON_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6504,7 +6496,7 @@ int zCVPTON_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 		if (iStat == 1) {
 			iStat = 1;
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 		}
@@ -6531,7 +6523,7 @@ MenuEnd:
 int zELTYPE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6541,45 +6533,45 @@ int zELTYPE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			SetFocus();
 			iStat = 1;
 		} else if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("BRICK"))==0) {
+			if (CInMsg.CompareNoCase(_T("BRICK")) == 0) {
 				// 115 //BRICK 8
 				cDBase->iCurElemType = 115;
 				outtext1("BRICK TYPE 115 SET.");
-			} else if (CInMsg.CompareNoCase(_T("WEDGE"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("WEDGE")) == 0) {
 				// iRC = 6; //WEDGE 6
 				cDBase->iCurElemType = 112;
 				outtext1("WEDGE TYPE 112 SET.");
-			} else if (CInMsg.CompareNoCase(_T("TET"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("TET")) == 0) {
 				cDBase->iCurElemType = 111;
 				outtext1("TET TYPE 111 SET.");
-			} else if (CInMsg.CompareNoCase(_T("QUAD"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("QUAD")) == 0) {
 				cDBase->iCurElemType = 94;
 				outtext1("QUAD TYPE 94 SET.");
-			} else if (CInMsg.CompareNoCase(_T("TRI"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("TRI")) == 0) {
 				cDBase->iCurElemType = 91;
 				outtext1("TRI TYPE 91 SET.");
-			} else if (CInMsg.CompareNoCase(_T("SCALAR"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SCALAR")) == 0) {
 				cDBase->iCurElemType = 161;
 				outtext1("SCALAR TYPE 161 SET.");
-			} else if (CInMsg.CompareNoCase(_T("BEAM"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("BEAM")) == 0) {
 				cDBase->iCurElemType = 21;
 				outtext1("BEAM TYPE 21 SET.");
-			} else if (CInMsg.CompareNoCase(_T("ROD"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("ROD")) == 0) {
 				cDBase->iCurElemType = 11;
 				outtext1("ROD TYPE 11 SET.");
-			} else if (CInMsg.CompareNoCase(_T("RIGID"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RIGID")) == 0) {
 				cDBase->iCurElemType = 122;
 				outtext1("RIGID TYPE 122 SET.");
-			} else if (CInMsg.CompareNoCase(_T("TSPRING"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("TSPRING")) == 0) {
 				cDBase->iCurElemType = 136;
 				outtext1("TRANSLATION SPRING TYPE 136 SET.");
-			} else if (CInMsg.CompareNoCase(_T("RSPRING"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("RSPRING")) == 0) {
 				cDBase->iCurElemType = 137;
 				outtext1("ROTATIONAL SPRING TYPE 137 SET.");
-			} else if (CInMsg.CompareNoCase(_T("BUSH"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("BUSH")) == 0) {
 				cDBase->iCurElemType = 138;
 				outtext1("BUSH SPRING TYPE 138 SET.");
-			} else if (CInMsg.CompareNoCase(_T("SCELL"))==0) {
+			} else if (CInMsg.CompareNoCase(_T("SCELL")) == 0) {
 				cDBase->iCurElemType = 1000;
 				outtext1("STAGGERED CELL TYPE 1000 SET.");
 			} else {
@@ -6608,7 +6600,7 @@ int zELCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	noNodes = cDBase->pCurrentMesh->GetNoNode(cDBase->iCurElemType);
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if ((CInMsg.CompareNoCase(_T("C"))==0)) // Common Options
+		if ((CInMsg.CompareNoCase(_T("C")) == 0)) // Common Options
 		{
 			RetVal = 2;
 			// momo
@@ -6628,22 +6620,22 @@ int zELCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			if (cDBase->S_Count == S_initCnt + noNodes) {
 				iStat = 2;
 			}
-			if ((cDBase->iCurElemType == 122) && (CInMsg.CompareNoCase(_T("D"))==0) && (cDBase->S_Count > S_initCnt + 1)) {
+			if ((cDBase->iCurElemType == 122) && (CInMsg.CompareNoCase(_T("D")) == 0) && (cDBase->S_Count > S_initCnt + 1)) {
 				iStat = 2;
 			}
 			// momo
-			if (CInMsg.CompareNoCase(_T("D"))==0 && (cDBase->S_Count == 0 || cDBase->S_Count % 2 == 1)) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0 && (cDBase->S_Count == 0 || cDBase->S_Count % 2 == 1)) {
 				iStat = 100;
 			}
 			// momo
-			if (CInMsg.CompareNoCase(_T("ELTYPE"))==0) // Common Options
+			if (CInMsg.CompareNoCase(_T("ELTYPE")) == 0) // Common Options
 			{
 				iResumePos = 0;
 				iCancelPos = 100;
 				pNext = new zELTYPE_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
-			} else if (CInMsg.CompareNoCase(_T("LAB"))==0) // Common Options
+			} else if (CInMsg.CompareNoCase(_T("LAB")) == 0) // Common Options
 			{
 				iResumePos = 0;
 				iCancelPos = 100;
@@ -6703,7 +6695,7 @@ int zELINSSPG_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	noNodes = cDBase->pCurrentMesh->GetNoNode(cDBase->iCurElemType);
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if ((CInMsg.CompareNoCase(_T("C"))==0)) // Common Options
+		if ((CInMsg.CompareNoCase(_T("C")) == 0)) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6748,7 +6740,7 @@ MenuEnd:
 int zLMEAS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6794,7 +6786,7 @@ MenuEnd:
 int zAMEAS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6852,7 +6844,7 @@ int zFILET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CPoint PNear2;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -6907,7 +6899,7 @@ int zCVCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -6973,7 +6965,7 @@ int zCVFIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -7037,7 +7029,7 @@ MenuEnd:
 int zSUREX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7051,13 +7043,13 @@ int zSUREX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("LAB"))==0) {
+			if (CInMsg.CompareNoCase(_T("LAB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				pNext = new zLAB_Mnu();
 				pNext->Init(cDBase, -1); //-1Comment out 1 do not
 				DoNext(&CInMsg, Pt);
-			} else if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			} else if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				CInMsg = "NULL";
 			}
@@ -7096,7 +7088,7 @@ MenuEnd:
 int zSURRV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7109,13 +7101,13 @@ int zSURRV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("LAB"))==0) {
+			if (CInMsg.CompareNoCase(_T("LAB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 100;
 				pNext = new zLAB_Mnu();
 				pNext->Init(cDBase, -1); //-1Comment out 1 do not
 				DoNext(&CInMsg, Pt);
-			} else if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			} else if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				CInMsg = "NULL";
 			}
@@ -7188,7 +7180,7 @@ MenuEnd:
 int zCVONSUR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7224,7 +7216,7 @@ int zCVONSUR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 3;
 		}
 		if (iStat == 3) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -7262,7 +7254,7 @@ MenuEnd:
 int zSURTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7298,7 +7290,7 @@ int zSURTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 3;
 		}
 		if (iStat == 3) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -7335,7 +7327,7 @@ MenuEnd:
 int zMMESHQ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -7348,7 +7340,7 @@ int zMMESHQ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -7388,7 +7380,7 @@ MenuEnd:
 int zSURFUNTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7402,7 +7394,7 @@ int zSURFUNTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -7430,7 +7422,7 @@ MenuEnd:
 int zMMESHT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7444,7 +7436,7 @@ int zMMESHT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -7484,7 +7476,7 @@ MenuEnd:
 int zMMESHAF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7498,7 +7490,7 @@ int zMMESHAF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 
@@ -7540,7 +7532,7 @@ MenuEnd:
 int zEXTRACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7554,7 +7546,7 @@ int zEXTRACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 
@@ -7585,7 +7577,7 @@ MenuEnd:
 int zMMESHSZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7599,7 +7591,7 @@ int zMMESHSZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 
@@ -7641,7 +7633,7 @@ MenuEnd:
 int zMMESHBZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7655,7 +7647,7 @@ int zMMESHBZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 
@@ -7697,7 +7689,7 @@ MenuEnd:
 int zFMESHT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7711,7 +7703,7 @@ int zFMESHT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -7750,7 +7742,7 @@ MenuEnd:
 int zSURTRIMLOOP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7787,7 +7779,7 @@ int zSURTRIMLOOP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 3;
 		}
 		if (iStat == 3) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -7824,7 +7816,7 @@ MenuEnd:
 int zSURCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -7838,14 +7830,14 @@ int zSURCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("LAB"))==0) {
+			if (CInMsg.CompareNoCase(_T("LAB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 0;
 				pNext = new zLAB_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
 			}
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->AddSurf();
@@ -7877,7 +7869,7 @@ MenuEnd:
 int zSURSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7891,7 +7883,7 @@ int zSURSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -7906,7 +7898,7 @@ int zSURSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 3;
 		}
 		if (iStat == 3) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -7944,7 +7936,7 @@ MenuEnd:
 int zSDSEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7957,7 +7949,7 @@ int zSDSEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->AddSolidSection();
@@ -7983,7 +7975,7 @@ MenuEnd:
 int zSURBOUND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -7997,14 +7989,14 @@ int zSURBOUND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("LAB"))==0) {
+			if (CInMsg.CompareNoCase(_T("LAB")) == 0) {
 				iResumePos = 0;
 				iCancelPos = 0;
 				pNext = new zLAB_Mnu();
 				pNext->Init(cDBase, -1);
 				DoNext(&CInMsg, Pt);
 			}
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->AddSurfBound();
@@ -8033,7 +8025,7 @@ MenuEnd:
 int zCVMOLWT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8048,7 +8040,7 @@ int zCVMOLWT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->CurveModLWT(2);
@@ -8074,7 +8066,7 @@ MenuEnd:
 int zCVMOLWM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8089,7 +8081,7 @@ int zCVMOLWM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->CurveModLWT(4);
@@ -8115,7 +8107,7 @@ MenuEnd:
 int zCVMOLWL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8130,7 +8122,7 @@ int zCVMOLWL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->CurveModLWT(10);
@@ -8156,7 +8148,7 @@ MenuEnd:
 int zCVMOSOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8170,7 +8162,7 @@ int zCVMOSOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->CurveModType(1);
@@ -8196,7 +8188,7 @@ MenuEnd:
 int zCVMODOT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8210,7 +8202,7 @@ int zCVMODOT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->CurveModType(2);
@@ -8236,7 +8228,7 @@ MenuEnd:
 int zCVMOCTR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8250,7 +8242,7 @@ int zCVMOCTR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->CurveModType(4);
@@ -8276,7 +8268,7 @@ MenuEnd:
 int zCVMODASH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8290,7 +8282,7 @@ int zCVMODASH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 				RetVal = 1;
 				cDBase->CurveModType(3);
@@ -8317,7 +8309,7 @@ int zFIL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8399,7 +8391,7 @@ MenuEnd:
 int zCORNER_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8448,7 +8440,7 @@ MenuEnd:
 int zTRIM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8495,7 +8487,7 @@ MenuEnd:
 int zPROJ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -8552,7 +8544,7 @@ int zKNOTINS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8607,7 +8599,7 @@ int zCVSPLIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8674,7 +8666,7 @@ int zKNOTMOD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8729,7 +8721,7 @@ MenuEnd:
 int zINT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -8776,7 +8768,7 @@ MenuEnd:
 int zNODEX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8790,7 +8782,7 @@ int zNODEX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -8835,7 +8827,7 @@ MenuEnd:
 int zNODEY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8849,7 +8841,7 @@ int zNODEY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -8894,7 +8886,7 @@ MenuEnd:
 int zNODEZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8908,7 +8900,7 @@ int zNODEZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -8953,7 +8945,7 @@ MenuEnd:
 int zFCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -8968,7 +8960,7 @@ int zFCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9013,7 +9005,7 @@ MenuEnd:
 int zACR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9028,7 +9020,7 @@ int zACR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9073,7 +9065,7 @@ MenuEnd:
 int zGRAV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9127,7 +9119,7 @@ MenuEnd:
 int zRACR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9141,7 +9133,7 @@ int zRACR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9208,7 +9200,7 @@ MenuEnd:
 int zTBCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9223,7 +9215,7 @@ int zTBCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9268,7 +9260,7 @@ MenuEnd:
 int zFLUXCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9283,7 +9275,7 @@ int zFLUXCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9328,7 +9320,7 @@ MenuEnd:
 int zTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9343,7 +9335,7 @@ int zTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9388,7 +9380,7 @@ MenuEnd:
 int zTEMPD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9426,7 +9418,7 @@ MenuEnd:
 int zMCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9441,7 +9433,7 @@ int zMCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9486,7 +9478,7 @@ MenuEnd:
 int zPCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9501,7 +9493,7 @@ int zPCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9546,7 +9538,7 @@ MenuEnd:
 int zRESLISTEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9560,10 +9552,10 @@ int zRESLISTEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				iStat = 2; // pParent menu step
 			}
-			if (CInMsg.CompareNoCase(_T("LAB"))==0) // Common Options
+			if (CInMsg.CompareNoCase(_T("LAB")) == 0) // Common Options
 			{
 				iResumePos = 2;
 				iCancelPos = 100;
@@ -9598,7 +9590,7 @@ MenuEnd:
 int zRESLISTND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9613,10 +9605,10 @@ int zRESLISTND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				iStat = 2; // pParent menu step
 			}
-			if (CInMsg.CompareNoCase(_T("LAB"))==0) // Common Options
+			if (CInMsg.CompareNoCase(_T("LAB")) == 0) // Common Options
 			{
 				iResumePos = 2;
 				iCancelPos = 100;
@@ -9651,7 +9643,7 @@ MenuEnd:
 int zCNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9666,7 +9658,7 @@ int zCNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				cDBase->S_Save(cDBase->OTemp);
 				cDBase->S_Des();
 				iStat = 2;
@@ -9720,7 +9712,7 @@ MenuEnd:
 int zRCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9734,7 +9726,7 @@ int zRCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9789,7 +9781,7 @@ MenuEnd:
 int zCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -9800,7 +9792,7 @@ int zCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9841,7 +9833,7 @@ MenuEnd:
 int zCHKCOUNT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -9852,7 +9844,7 @@ int zCHKCOUNT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9882,7 +9874,7 @@ MenuEnd:
 int zLABENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -9893,7 +9885,7 @@ int zLABENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 		}
@@ -9919,7 +9911,7 @@ int zELMOPID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9933,7 +9925,7 @@ int zELMOPID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -9976,7 +9968,7 @@ MenuEnd:
 int zSELRBENODE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -9990,7 +9982,7 @@ int zSELRBENODE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -10030,7 +10022,7 @@ int zELREV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -10045,7 +10037,7 @@ int zELREV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -10079,7 +10071,7 @@ int zCHKCIRCUMSPH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -10093,7 +10085,7 @@ int zCHKCIRCUMSPH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -10126,7 +10118,7 @@ int zPRBROD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -10222,7 +10214,7 @@ int zPRROD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -10333,7 +10325,7 @@ int zPRBAR2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -10474,7 +10466,7 @@ int zPRBBAR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -10586,7 +10578,7 @@ int zQWNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -10629,7 +10621,7 @@ int zMERNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -10642,7 +10634,7 @@ int zMERNODES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -10730,7 +10722,7 @@ int zNDEQLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -10743,7 +10735,7 @@ int zNDEQLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -10795,7 +10787,7 @@ int zCHKSHELLASP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -10809,7 +10801,7 @@ int zCHKSHELLASP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -10879,7 +10871,7 @@ int zCHKTETCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -10892,7 +10884,7 @@ int zCHKTETCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -10961,7 +10953,7 @@ int zPRCMAT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11038,7 +11030,7 @@ int zPRSOLID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11120,7 +11112,7 @@ int zPRSHELL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11232,7 +11224,7 @@ int zPRPCOMP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11294,7 +11286,7 @@ int zPRPCOMP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			goto MenuEnd;
 		}
 		if (iStat == 7) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				iStat = 8;
 			} else {
 				sLay[iNoLay] = CInMsg;
@@ -11329,7 +11321,7 @@ int zPRSPGT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11457,7 +11449,7 @@ int zPRBUSH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11615,7 +11607,7 @@ int zPRMASS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11695,7 +11687,7 @@ int zPRSPGR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11822,7 +11814,7 @@ int zPRBBOX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -11965,7 +11957,7 @@ int zPRBL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -12108,7 +12100,7 @@ int zPRBT2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -12251,7 +12243,7 @@ int zPRBCHAN2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -12394,7 +12386,7 @@ int zPRBI2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -12567,7 +12559,7 @@ int zMMAT8_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -12764,7 +12756,7 @@ int zMMAT1_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -12906,7 +12898,7 @@ int zPRBTUBE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -13018,7 +13010,7 @@ int zNDMOLAB2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -13032,7 +13024,7 @@ int zNDMOLAB2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13076,7 +13068,7 @@ int zELMOLAB2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13091,7 +13083,7 @@ int zELMOLAB2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13135,7 +13127,7 @@ int zNDMOLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13150,7 +13142,7 @@ int zNDMOLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13194,7 +13186,7 @@ int zELMOLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13209,7 +13201,7 @@ int zELMOLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13253,7 +13245,7 @@ int zNDMOOSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13268,7 +13260,7 @@ int zNDMOOSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13312,7 +13304,7 @@ int zELMOSHELLMCYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13325,7 +13317,7 @@ int zELMOSHELLMCYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13379,7 +13371,7 @@ int zSPGMOSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13393,7 +13385,7 @@ int zSPGMOSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13446,7 +13438,7 @@ int zNDMORSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -13460,7 +13452,7 @@ int zNDMORSYS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13503,7 +13495,7 @@ MenuEnd:
 int zWPSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -13540,7 +13532,7 @@ MenuEnd:
 int zRESCOLSETBAR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -13578,7 +13570,7 @@ int zBUPVEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13592,7 +13584,7 @@ int zBUPVEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13642,7 +13634,7 @@ int zBOFF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13656,7 +13648,7 @@ int zBOFF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13706,7 +13698,7 @@ int zBDOFA_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13720,7 +13712,7 @@ int zBDOFA_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13764,7 +13756,7 @@ int zBDOFB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13778,7 +13770,7 @@ int zBDOFB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13822,7 +13814,7 @@ int zSOFF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13836,7 +13828,7 @@ int zSOFF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13886,7 +13878,7 @@ int zBOFFY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13900,7 +13892,7 @@ int zBOFFY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -13950,7 +13942,7 @@ int zBOFFZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -13964,7 +13956,7 @@ int zBOFFZ_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14014,7 +14006,7 @@ int zNDCO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14028,7 +14020,7 @@ int zNDCO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14087,7 +14079,7 @@ MenuEnd:
 int zELSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14103,7 +14095,7 @@ int zELSWEEP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14163,7 +14155,7 @@ MenuEnd:
 int zELSWEEPNDS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14177,7 +14169,7 @@ int zELSWEEPNDS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14235,7 +14227,7 @@ MenuEnd:
 int zELSWEEPNDB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14249,7 +14241,7 @@ int zELSWEEPNDB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14307,7 +14299,7 @@ MenuEnd:
 int zELSWEEPB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14322,7 +14314,7 @@ int zELSWEEPB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14381,7 +14373,7 @@ MenuEnd:
 int zCOPY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -14392,7 +14384,7 @@ int zCOPY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14449,7 +14441,7 @@ MenuEnd:
 int zCOPYTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -14460,7 +14452,7 @@ int zCOPYTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14523,7 +14515,7 @@ MenuEnd:
 int zOFFSET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if ((CInMsg.CompareNoCase(_T("C"))==0) || (CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) // Common Options
+		if ((CInMsg.CompareNoCase(_T("C")) == 0) || (CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -14597,7 +14589,7 @@ MenuEnd:
 int zMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -14608,7 +14600,7 @@ int zMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14654,7 +14646,7 @@ MenuEnd:
 int zMOVETO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -14665,7 +14657,7 @@ int zMOVETO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14729,7 +14721,7 @@ int zNDMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	noNodes = cDBase->pCurrentMesh->GetNoNode(cDBase->iCurElemType);
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14743,7 +14735,7 @@ int zNDMOVE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -14803,7 +14795,7 @@ MenuEnd:
 int zWPMODE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -14830,7 +14822,7 @@ MenuEnd:
 int zORTHO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -14859,7 +14851,7 @@ int zNDBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	noNodes = cDBase->pCurrentMesh->GetNoNode(cDBase->iCurElemType);
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14873,7 +14865,7 @@ int zNDBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -14888,7 +14880,7 @@ int zNDBET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 3;
 		}
 		if (iStat == 3) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -14936,7 +14928,7 @@ int zMESHQND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	noNodes = cDBase->pCurrentMesh->GetNoNode(cDBase->iCurElemType);
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -14950,7 +14942,7 @@ int zMESHQND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -14965,7 +14957,7 @@ int zMESHQND_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 3;
 		}
 		if (iStat == 3) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp2);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -15011,7 +15003,7 @@ MenuEnd:
 int zMESHINT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15025,7 +15017,7 @@ int zMESHINT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -15061,7 +15053,7 @@ MenuEnd:
 int zMESHINTWP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15075,7 +15067,7 @@ int zMESHINTWP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				cDBase->S_Save(cDBase->OTemp);
 				// momo
 				cDBase->S_BuffChanged(-1000, -1000, false);
@@ -15110,7 +15102,7 @@ MenuEnd:
 
 int zGPCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -15136,7 +15128,7 @@ int zLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		CInMsg2 = CInMsg;
 		DoNext(&CInMsg, Pt);
 		if (pNext == NULL) {
-			if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+			if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 			{
 				RetVal = 2;
 				goto MenuEnd;
@@ -15162,7 +15154,10 @@ int zLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			}
 
 			if (iStat == 2) {
-				outtext2("// ENTER IDS (START - FININSH) (Key In)");
+				// momo
+				// momo// outtext2("// ENTER IDS (START - FININSH) (Key In)");
+				outtext2("// ENTER IDS (START FININSH) (Key In). Example: \"5 25\"");
+				// momo
 				iStat = 3;
 			}
 			if (iStat == 3) {
@@ -15173,7 +15168,7 @@ int zLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				DoNext(&CInMsg, Pt);
 			}
 			if (iStat == 4) {
-				if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+				if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 					RetVal = 1;
 				} else {
 					C3dVector ptVec;
@@ -15247,7 +15242,7 @@ int zSHOWALL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zHIDE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -15257,7 +15252,7 @@ int zHIDE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15311,7 +15306,7 @@ int zGPBYMID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zSELBYPID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15354,7 +15349,7 @@ MenuEnd:
 int zMATEDIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -15410,7 +15405,7 @@ MenuEnd:
 int zPREDIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15453,7 +15448,7 @@ MenuEnd:
 int zOEDIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -15484,7 +15479,7 @@ MenuEnd:
 int zMATLIST_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -15523,7 +15518,7 @@ MenuEnd:
 int zPRLIST_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -15562,7 +15557,7 @@ MenuEnd:
 int zMMESHTET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15577,7 +15572,7 @@ int zMMESHTET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15627,7 +15622,7 @@ MenuEnd:
 int zMSHELL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15642,7 +15637,7 @@ int zMSHELL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15688,7 +15683,7 @@ MenuEnd:
 int zFFACE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15702,7 +15697,7 @@ int zFFACE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15738,7 +15733,7 @@ MenuEnd:
 int zMQUADTOTRI_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15752,7 +15747,7 @@ int zMQUADTOTRI_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15787,7 +15782,7 @@ MenuEnd:
 int zCHK2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15801,7 +15796,7 @@ int zCHK2D_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15836,7 +15831,7 @@ MenuEnd:
 int zFEDGE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15850,7 +15845,7 @@ int zFEDGE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15885,7 +15880,7 @@ MenuEnd:
 int zQMORPH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15899,7 +15894,7 @@ int zQMORPH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15934,7 +15929,7 @@ MenuEnd:
 int zELMASS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15948,7 +15943,7 @@ int zELMASS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -15983,7 +15978,7 @@ MenuEnd:
 int zCELM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -15997,7 +15992,7 @@ int zCELM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -16032,7 +16027,7 @@ MenuEnd:
 int zSNORM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16046,7 +16041,7 @@ int zSNORM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -16094,7 +16089,7 @@ int zSOLCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16166,7 +16161,7 @@ int zSTEPCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16287,7 +16282,7 @@ int zRELTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg2.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg2.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16327,7 +16322,7 @@ int zRELTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			DoNext(&CInMsg, Pt);
 		}
 		if (iStat == 5) {
-			if ((CInMsg2.CompareNoCase(_T("D"))==0) || (CInMsg2 == "")) {
+			if ((CInMsg2.CompareNoCase(_T("D")) == 0) || (CInMsg2 == "")) {
 				iStat = 6;
 			}
 		}
@@ -16348,7 +16343,7 @@ MenuEnd:
 int zELAT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16361,7 +16356,7 @@ int zELAT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 		}
@@ -16392,7 +16387,7 @@ MenuEnd:
 int zCOLINE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16405,7 +16400,7 @@ int zCOLINE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -16430,7 +16425,7 @@ MenuEnd:
 int zSELNODESBYCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16473,7 +16468,7 @@ MenuEnd:
 int zRESDISPOFF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16515,7 +16510,7 @@ MenuEnd:
 int zSELSURFCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16558,7 +16553,7 @@ MenuEnd:
 int zSELPTSCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16601,7 +16596,7 @@ MenuEnd:
 int zSELCURCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16644,7 +16639,7 @@ MenuEnd:
 int zSELCURLAY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16695,7 +16690,7 @@ MenuEnd:
 int zSELBYCOL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16738,7 +16733,7 @@ MenuEnd:
 int zSELBYTYPE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -16781,7 +16776,7 @@ MenuEnd:
 int zSELALL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16824,7 +16819,7 @@ MenuEnd:
 int zSELINV_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16881,7 +16876,7 @@ int zGPBYTYPE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zSELBYMID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16914,7 +16909,7 @@ MenuEnd:
 int zGPSET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16948,7 +16943,7 @@ MenuEnd:
 int zGPDEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -16981,7 +16976,7 @@ MenuEnd:
 int zLSETDEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17014,7 +17009,7 @@ MenuEnd:
 int zBSETDEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17047,7 +17042,7 @@ MenuEnd:
 int zTSETDEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17080,7 +17075,7 @@ MenuEnd:
 int zDELAY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17113,7 +17108,7 @@ MenuEnd:
 int zHLIMIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17146,7 +17141,7 @@ MenuEnd:
 int zECHO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17175,7 +17170,7 @@ MenuEnd:
 int zRESDELAY_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17207,7 +17202,7 @@ MenuEnd:
 int zRESLSTRESP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17239,7 +17234,7 @@ MenuEnd:
 int zRESGRAPHRESP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17266,7 +17261,7 @@ int zRESLABRESP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zRESLSTRESPFULL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17298,7 +17293,7 @@ MenuEnd:
 int zRESFRAMES_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17330,7 +17325,7 @@ MenuEnd:
 int zRESVEC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17363,7 +17358,7 @@ MenuEnd:
 int zRESVECDEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17386,7 +17381,7 @@ MenuEnd:
 int zRESSEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17419,7 +17414,7 @@ MenuEnd:
 int zRESENVMAX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17431,7 +17426,7 @@ int zRESENVMAX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			goto MenuEnd;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				iStat = 2;
 			} else {
 				sSeq[iNo] = CInMsg;
@@ -17456,7 +17451,7 @@ MenuEnd:
 int zRESSCALE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17495,7 +17490,7 @@ MenuEnd:
 int zRESDIVINTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17534,7 +17529,7 @@ MenuEnd:
 int zRESENVMIN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17546,7 +17541,7 @@ int zRESENVMIN_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			goto MenuEnd;
 		}
 		if (iStat == 1) {
-			if (CInMsg.CompareNoCase(_T("D"))==0) {
+			if (CInMsg.CompareNoCase(_T("D")) == 0) {
 				iStat = 2;
 			} else {
 				sSeq[iNo] = CInMsg;
@@ -17571,7 +17566,7 @@ MenuEnd:
 int zRESSETDEFSCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17604,7 +17599,7 @@ MenuEnd:
 int zRESSETVECSCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17637,7 +17632,7 @@ MenuEnd:
 int zRESSELDEF_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17670,7 +17665,7 @@ MenuEnd:
 int zMSHLIST_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17691,7 +17686,7 @@ MenuEnd:
 
 int zMSHCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17714,7 +17709,7 @@ MenuEnd:
 int zMSHACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17748,7 +17743,7 @@ MenuEnd:
 int zLABGAP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17781,7 +17776,7 @@ MenuEnd:
 int zLABGAPMP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17814,7 +17809,7 @@ MenuEnd:
 int zMSHVIS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17848,7 +17843,7 @@ MenuEnd:
 int zMSHDEL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17882,7 +17877,7 @@ MenuEnd:
 int zLSETLIST_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17904,7 +17899,7 @@ MenuEnd:
 int zLSETACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17938,7 +17933,7 @@ MenuEnd:
 int zSTEPACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -17972,7 +17967,7 @@ MenuEnd:
 int zSOLACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18006,7 +18001,7 @@ MenuEnd:
 int zBSETACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18040,7 +18035,7 @@ MenuEnd:
 int zBSETLIST_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18062,7 +18057,7 @@ MenuEnd:
 int zTSETLIST_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18084,7 +18079,7 @@ MenuEnd:
 int zTSETACT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18118,7 +18113,7 @@ MenuEnd:
 int zLSETCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18154,7 +18149,7 @@ MenuEnd:
 int zBSETCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18190,7 +18185,7 @@ MenuEnd:
 int zTSETCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18226,7 +18221,7 @@ MenuEnd:
 int zSETFIL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			cDBase->FILTER.SetAll();
@@ -18259,7 +18254,7 @@ MenuEnd:
 int zGPREMGP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18291,7 +18286,7 @@ MenuEnd:
 int zGPADDGP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18323,7 +18318,7 @@ MenuEnd:
 int zQANGSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18354,7 +18349,7 @@ MenuEnd:
 int zQSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18385,7 +18380,7 @@ MenuEnd:
 int zPTSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18420,7 +18415,7 @@ MenuEnd:
 int zEDSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18455,7 +18450,7 @@ MenuEnd:
 int zFCSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18490,7 +18485,7 @@ MenuEnd:
 int zNDSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18525,7 +18520,7 @@ MenuEnd:
 int zTXTSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18560,7 +18555,7 @@ MenuEnd:
 int zBMSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18595,7 +18590,7 @@ MenuEnd:
 int zWPLSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18630,7 +18625,7 @@ MenuEnd:
 int zELSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18665,7 +18660,7 @@ MenuEnd:
 int zLMSIZE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18784,7 +18779,7 @@ int zGPREM_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zEXPINC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18816,7 +18811,7 @@ MenuEnd:
 int zGPBYINC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18848,7 +18843,7 @@ MenuEnd:
 int zMODINCNO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18859,7 +18854,7 @@ int zMODINCNO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;
@@ -18900,7 +18895,7 @@ MenuEnd:
 int zMODLAYNO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
-		if (CInMsg.CompareNoCase(_T("C"))==0) // Common Options
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
 		{
 			RetVal = 2;
 			goto MenuEnd;
@@ -18911,7 +18906,7 @@ int zMODLAYNO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 1;
 		}
 		if (iStat == 1) {
-			if ((CInMsg.CompareNoCase(_T("D"))==0) || (CInMsg == "")) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
 				iStat = 2;
 			}
 			iResumePos = 2;

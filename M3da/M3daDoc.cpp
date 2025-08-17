@@ -126,8 +126,8 @@ ON_COMMAND(ID_MESH_MAPPEDSURFACEMESH, &CM3daDoc::OnMeshMappedsurfacemesh)
 ON_COMMAND(ID_MESH_MAPPEDTRIMESH, &CM3daDoc::OnMeshMappedtrimesh)
 ON_COMMAND(ID_CHECKS_COINCIDENTNODES, &CM3daDoc::OnChecksCoincidentnodes)
 ON_COMMAND(ID_MESH_SWEEPELEMENTS, &CM3daDoc::OnMeshSweepelements)
-ON_COMMAND(ID_VIEW_SHADEDEDGES2, &CM3daDoc::OnViewShadededges)
-//  ON_COMMAND(ID_VIEW_LINE, &CM3daDoc::OnViewLine)
+ON_COMMAND(ID_VIEW_SHADEDEDGES_ONOFF, &CM3daDoc::OnViewShadededges)
+//  ON_COMMAND(ID_VIEW_WIREFRAME, &CM3daDoc::OnViewLine)
 ON_COMMAND(ID_VISABILITY_NODEON, &CM3daDoc::OnVisabilityNodeon)
 ON_COMMAND(ID_VISABILITY_ELEMENTON, &CM3daDoc::OnVisabilityElementon)
 ON_COMMAND(ID_VIEW_NODESASK, &CM3daDoc::OnViewNodesask)
@@ -233,6 +233,7 @@ ON_COMMAND(ID_PICKING_PARTOFBODY, &CM3daDoc::OnSelectPartOfBody)
 ON_UPDATE_COMMAND_UI(ID_PICKING_PARTOFBODY, &CM3daDoc::OnUpdateSelectPartOfBody)
 ON_COMMAND(ID_PICKING_CENTEROFBODY, &CM3daDoc::OnSelectCenterOfBody)
 ON_UPDATE_COMMAND_UI(ID_PICKING_CENTEROFBODY, &CM3daDoc::OnUpdateSelectCenterOfBody)
+ON_UPDATE_COMMAND_UI(ID_VIEW_SHADEDEDGES_ONOFF, &CM3daDoc::OnUpdateViewShadededges)
 //  momo on off button and menu
 ON_COMMAND(ID_CIRCLE_CIRCLECENRERADIUS, &CM3daDoc::OnCircleCirclecenreradius)
 ON_COMMAND(ID_CIRCLE_CIRCLE3POINTS, &CM3daDoc::OnCircleCircle3points)
@@ -1624,7 +1625,22 @@ void CM3daDoc::OnExportCurrentmeshto() {
 void CM3daDoc::OnViewShadededges() {
 	// TODO: Add your command handler code here
 
-	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_SHADED_EDGES);
+	// momo
+	// momo// cDBase->DspFlags = (cDBase->DspFlags ^ DSP_SHADED_EDGES);
+	ShadedEdges = !ShadedEdges;
+	if (ShadedEdges) {
+		outtext1("Shaded Edges ON.");
+	} else {
+		outtext1("Shaded Edges OFF.");
+	}
+	if (!ShadedEdges && ButtonPush.Shaded) {
+		ButtonPush.Shaded = false;
+		ButtonPush.ShadedWithoutEdges = true;
+	} else if (ShadedEdges && ButtonPush.ShadedWithoutEdges) {
+		ButtonPush.ShadedWithoutEdges = false;
+		ButtonPush.Shaded = true;
+	}
+	// momo
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
 }
@@ -2229,7 +2245,7 @@ void CM3daDoc::OnVisabilityAllvisable() {
 	ButtonPush.ControlPoint = gDSP_CPTS;
 	ButtonPush.SelectedOn = true;
 	cDBase->Dsp_All(true);
-	//outtextMSG2("DSPALL");
+	// outtextMSG2("DSPALL");
 	ButtonPush.SelectedOn = !ButtonPush.SelectedOn;
 	// momo
 	cDBase->DspFlags = (cDBase->DspFlags ^ DSP_GRAD);
@@ -5648,6 +5664,10 @@ void CM3daDoc::OnUpdateSelectPartOfBody(CCmdUI* pCmdUI) {
 void CM3daDoc::OnUpdateSelectCenterOfBody(CCmdUI* pCmdUI) {
 	pCmdUI->SetCheck(ButtonPush.CenterOfBody);
 }
+
+void CM3daDoc::OnUpdateViewShadededges(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ShadedEdges);
+}
 //  momo on off button and menu
 //  momo
 void CM3daDoc::OnVisabilityLabelOn() {
@@ -6230,7 +6250,7 @@ void CM3daDoc::OnEXP01() {
 	CommIsActive.ChangeEdit1 = !CommIsActive.ChangeEdit1;
 	if (CommIsActive.ChangeEdit1) {
 		outtext1("\"Command Report Text Box\" Auto Color ON.");
-		outtext1(_T("اولین استفاده از یونیکد ➤"));
+		// outtext1(_T("اولین استفاده از یونیکد ➤"));
 	} else {
 		outtext1("\"Command Report Text Box\" Auto Color OFF.");
 	}

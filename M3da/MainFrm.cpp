@@ -937,6 +937,7 @@ void CheckCommandEditColor(bool bForceToCheck) {
 		if (pMainFrame) {
 			if (CommIsActive.CurrentState) {
 				pMainFrame->p_Input.Edit3.SetBgColor(RGB(191, 242, 206));
+				SetFocus();
 				if (CommIsActive.ChangeEdit1) {
 					pMainFrame->p_Input.Edit1.SetBgColor(RGB(191, 242, 206));
 				} else {
