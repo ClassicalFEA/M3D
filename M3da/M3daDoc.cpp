@@ -1584,8 +1584,8 @@ void CM3daDoc::OnToolsColour() {
 		bFinalChkPt = FALSE;
 		outtextMSG2("COL");
 		outtextMSG2("D");
-		char S1[22];
-		sprintf_s(S1, "%i", iCol);
+		CString S1;
+		S1.Format(_T("%i"), iCol);
 		outtextMSG2(S1);
 		sLastcmd = "COL";
 	} else {

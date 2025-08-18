@@ -209,12 +209,12 @@ CString ncr(LPCTSTR sIn) {
 // momo
 
 CString f8(double dIn) {
-	char s80[80];
+	CString s80;
 	CString s8;
 	if (dIn == 0) {
 		s8 = "0.0";
 	} else {
-		sprintf_s(s80, "%-f", dIn);
+		s80.Format(_T("%-f"), dIn);
 		s8 = s80;
 		s8 = s8.Left(8);
 	}
@@ -222,10 +222,10 @@ CString f8(double dIn) {
 }
 
 CString f4(double dIn) {
-	char s80[80];
+	CString s80;
 	CString s8;
 
-	sprintf_s(s80, "%-f", dIn);
+	s80.Format(_T("%-f"), dIn);
 	s8 = s80;
 	s8 = s8.Left(5);
 	s8 += "   ";
@@ -233,8 +233,8 @@ CString f4(double dIn) {
 }
 
 CString e8(double dIn) {
-	char s80[80];
-	sprintf_s(s80, "%e", dIn);
+	CString s80;
+	s80.Format(_T("%e"), dIn);
 	CString s8;
 	CString sRet;
 	CString sExp;
@@ -329,9 +329,9 @@ int Factorial(int n) {
 };
 
 CString float8NAS(double d) {
-	char s1[80];
+	CString s1;
 	CString sRet;
-	sprintf_s(s1, "%8.7f", d);
+	s1.Format(_T("%8.7f"), d);
 	sRet = s1;
 	sRet = sRet.Left(8);
 	return (sRet);
@@ -361,12 +361,12 @@ cLinkedListB::cLinkedListB() {
 }
 
 void cLinkedListB::Info() {
-	char S1[200];
+	CString S1;
 	outtext1("**************************************");
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour);
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour);
 	outtext1("BOUNDARY SET");
 	outtext1(S1);
-	sprintf_s(S1, "ID: %i TITLE: %s", iLabel, sTitle);
+	S1.Format(_T("ID: %i TITLE: %s"), iLabel, sTitle);
 	outtext1(S1);
 	outtext1("**************************************");
 }
@@ -384,12 +384,12 @@ cLinkedListT::cLinkedListT() {
 }
 
 void cLinkedListT::Info() {
-	char S1[200];
+	CString S1;
 	outtext1("**************************************");
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour);
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour);
 	outtext1("TEMPERATURE SET");
 	outtext1(S1);
-	sprintf_s(S1, "ID: %i TITLE: %s", iLabel, sTitle);
+	S1.Format(_T("ID: %i TITLE: %s"), iLabel, sTitle);
 	outtext1(S1);
 	outtext1("**************************************");
 }
@@ -765,12 +765,12 @@ void cLinkedList::RelTo(G_Object* pThis, ObjList* pList, int iType) {
 }
 
 void cLinkedList::Info() {
-	char S1[200];
+	CString S1;
 	outtext1("**************************************");
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour);
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour);
 	outtext1("LOAD SET");
 	outtext1(S1);
-	sprintf_s(S1, "ID: %i TITLE: %s", iLabel, sTitle);
+	S1.Format(_T("ID: %i TITLE: %s"), iLabel, sTitle);
 	outtext1(S1);
 	outtext1("**************************************");
 }
@@ -919,15 +919,15 @@ int ResSet::getMaxSecondaryID() {
 }
 
 CString ResSet::ToStringDL(Res* pR) {
-	char S1[1000];
+	CString S1;
 	CString outT;
 	int j;
 	if (pR != NULL) {
 		outT = "";
-		sprintf_s(S1, "%i	", pR->ID);
+		S1.Format(_T("%i	"), pR->ID);
 		outT += S1;
 		for (j = 0; j < iNoV; j++) {
-			sprintf_s(S1, "%e	", *pR->GetAddress(j));
+			S1.Format(_T("%e	"), *pR->GetAddress(j));
 			outT += S1;
 		}
 	}
@@ -935,14 +935,14 @@ CString ResSet::ToStringDL(Res* pR) {
 }
 
 CString ResSet::ToStringHead() {
-	char S1[1000];
+	CString S1;
 	CString outT;
 	int i;
 	outT = "";
-	sprintf_s(S1, "%s	", "ID");
+	S1.Format(_T("%s	"), _T("ID"));
 	outT += S1;
 	for (i = 0; i < iNoV; i++) {
-		sprintf_s(S1, "%s	", lab[i]);
+		S1.Format(_T("%s	"), lab[i]);
 		outT += S1;
 	}
 	return (outT);
@@ -1446,12 +1446,12 @@ void ObjList::ReOrder(int iStart) {
 }
 
 void ObjList::ListIDs() {
-	char S1[200];
+	CString S1;
 	CString outT;
 	int i;
 	outtext1("LAB");
 	for (i = 0; i < iNo; i++) {
-		sprintf_s(S1, "%i,", Objs[i]->iLabel);
+		S1.Format(_T("%i,"), Objs[i]->iLabel);
 		// outtext1(S1);
 		outT += S1;
 	}
@@ -1784,8 +1784,8 @@ int G_Object::GetVarHeaders(CString sVar[]) {
 
 int G_Object::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", -1);
+	CString S1;
+	S1.Format(_T("%i"), -1);
 	sVar[0] = S1;
 	iNo++;
 	return (iNo);
@@ -1886,11 +1886,9 @@ void G_Object::Build() {
 }
 
 void G_Object::Info() {
-	char S1[80];
-	CString OutT;
-	sprintf_s(S1, "%s %i %s %i %s %i %s %i", "Type", iObjType, "FileNo", iFile, "Label", iLabel, "Col", iColour);
-	OutT += S1;
-	outtext1(OutT);
+	CString S1;
+	S1.Format(_T("%s %i %s %i %s %i %s %i"), _T("Type"), iObjType, _T("FileNo"), iFile, _T("Label"), iLabel, _T("Col"), iColour);
+	outtext1(S1);
 }
 
 void G_Object::ModLayNo(int iLay) {
@@ -2254,15 +2252,15 @@ void Node::Create(C3dVector InPt, int iLab, int i2, int i3, int iC, int iDef, in
 }
 
 void Node::Info() {
-	char S1[80];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "GRID %8i X %s Y %s Z %s DEFSYS %i OUTSYS %i", iLabel, float8NAS(Pt_Point->x), float8NAS(Pt_Point->y), float8NAS(Pt_Point->z), DefSys, OutSys);
+	S1.Format(_T("GRID %8i X %s Y %s Z %s DEFSYS %i OUTSYS %i"), iLabel, float8NAS(Pt_Point->x), float8NAS(Pt_Point->y), float8NAS(Pt_Point->z), DefSys, OutSys);
 	outtext1(S1);
 }
 
 CString Node::ToString() {
 	CString sRT;
-	char S1[80];
+	CString S1;
 	// New to handle the DEF system eventually
 	// ME_Object* ME = (ME_Object*) pParent;
 	C3dVector pt(Pt_Point->x, Pt_Point->y, Pt_Point->z);
@@ -2301,7 +2299,7 @@ CString Node::ToString() {
 		}
 		//}
 	}
-	sprintf_s(S1, "%8s%8i%8i%8s%8s%8s%8i\n", "GRID    ", iLabel, DefSys, e8(pt.x).GetString(), e8(pt.y).GetString(), e8(pt.z).GetString(), OutSys);
+	S1.Format(_T("%8s%8i%8i%8s%8s%8s%8i\n"), _T("GRID    "), iLabel, DefSys, e8(pt.x).GetString(), e8(pt.y).GetString(), e8(pt.z).GetString(), OutSys);
 	sRT = S1;
 	return (sRT);
 }
@@ -2442,7 +2440,7 @@ void Node::Draw(int iDrawmode) {
 GLubyte BmpND[22] = {0x04, 0x00, 0x44, 0x40, 0x24, 0x80, 0x15, 0x00, 0x0e, 0x00, 0xff, 0xe0, 0x0e, 0x00, 0x15, 0x00, 0x24, 0x80, 0x44, 0x40, 0x04, 0x00};
 
 void Node::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	double x;
 	double y;
 	double z;
@@ -2490,17 +2488,17 @@ void Node::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE)
 		// Esp_Mod_Labels_4_27_2025_End
 		{
-			sprintf_s(sLab, "N%i", iLabel);
-			OglString(iDspFlgs, (float) x, (float) y, (float) z, &sLab[0]);
+			sLab.Format(_T("N%i"), iLabel);
+			OglString(iDspFlgs, (float) x, (float) y, (float) z, CT2A(sLab));
 		}
 		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-			sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
+			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			// Esp_Mod_Label_Old: Offset Labels for Nodes
 			// float radius = gND_SIZE / 100;
 			// float offset = (radius / 2.0f + 0.15f) * (float)dS1;
-			// OglString(iDspFlgs, (float)x + offset, (float)y + offset, (float)z + offset, &sLab[0]);
+			// OglString(iDspFlgs, (float)x + offset, (float)y + offset, (float)z + offset, CT2A(sLab));
 			// Esp_Mod_Label_Old
-			OglString(iDspFlgs, (float) x, (float) y, (float) z, &sLab[0]);
+			OglString(iDspFlgs, (float) x, (float) y, (float) z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -2583,23 +2581,23 @@ int Node::GetVarHeaders(CString sVar[]) {
 
 int Node::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", DefSys);
+	S1.Format(_T("%i"), DefSys);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", OutSys);
+	S1.Format(_T("%i"), OutSys);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", Pt_Point->x);
+	S1.Format(_T("%g"), Pt_Point->x);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", Pt_Point->y);
+	S1.Format(_T("%g"), Pt_Point->y);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", Pt_Point->z);
+	S1.Format(_T("%g"), Pt_Point->z);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -2807,11 +2805,11 @@ BOOL eEdge::isSame(eEdge* inLink) {
 }
 
 void eEdge::Info() {
-	char S1[80];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f", pVertex[0]->iLabel, pVertex[0]->Pt_Point->x, pVertex[0]->Pt_Point->y, pVertex[0]->Pt_Point->z);
+	S1.Format(_T("LAB: %i X: %f Y: %f Z: %f"), pVertex[0]->iLabel, pVertex[0]->Pt_Point->x, pVertex[0]->Pt_Point->y, pVertex[0]->Pt_Point->z);
 	outtext1(S1);
-	sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f", pVertex[1]->iLabel, pVertex[1]->Pt_Point->x, pVertex[1]->Pt_Point->y, pVertex[1]->Pt_Point->z);
+	S1.Format(_T("LAB: %i X: %f Y: %f Z: %f"), pVertex[1]->iLabel, pVertex[1]->Pt_Point->x, pVertex[1]->Pt_Point->y, pVertex[1]->Pt_Point->z);
 	outtext1(S1);
 }
 
@@ -3562,9 +3560,9 @@ G_Object* Line_Object::Copy(G_Object* parrent) {
 }
 
 void Line_Object::Info() {
-	char S1[80];
+	CString S1;
 	CString OutT;
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour);
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour);
 	OutT += S1;
 	outtext1("LINE OBJECT");
 	outtext1(OutT);
@@ -3754,8 +3752,8 @@ int Curve::GetVarHeaders(CString sVar[]) {
 
 int Curve::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", 1);
+	CString S1;
+	S1.Format(_T("%i"), 1);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -4224,15 +4222,15 @@ void Circ1::Reverse() {
 }
 
 void Circ1::Info() {
-	char S1[80];
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour);
+	CString S1;
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour);
 	outtext1("CIRCLE OBJECT");
 	outtext1(S1);
-	sprintf_s(S1, "%s%f", "Radius : ", dRadius);
+	S1.Format(_T("%s%f"), _T("Radius : "), dRadius);
 	outtext1(S1);
-	sprintf_s(S1, "%s%f%s%f%s%f", "Centre : ", vCent->x, ",", vCent->y, ",", vCent->z);
+	S1.Format(_T("%s%f%s%f%s%f"), _T("Centre : "), vCent->x, _T(","), vCent->y, _T(","), vCent->z);
 	outtext1(S1);
-	sprintf_s(S1, "%s%f%s%f%s%f", "Normal : ", vNorm->x, ",", vNorm->y, ",", vNorm->z);
+	S1.Format(_T("%s%f%s%f%s%f"), _T("Normal : "), vNorm->x, _T(","), vNorm->y, _T(","), vNorm->z);
 	outtext1(S1);
 	outtext1("    ****");
 }
@@ -5091,11 +5089,11 @@ E_Object38::~E_Object38() {
 }
 
 void E_Object38::Info() {
-	char S1[80];
+	CString S1;
 	E_Object::Info();
-	sprintf_s(S1, "NODES %i %i %i %i", pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
+	S1.Format(_T("NODES %i %i %i %i"), pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
 	outtext1(S1);
-	sprintf_s(S1, "NODES %i %i %i %i", pVertex[4]->iLabel, pVertex[5]->iLabel, pVertex[6]->iLabel, pVertex[7]->iLabel);
+	S1.Format(_T("NODES %i %i %i %i"), pVertex[4]->iLabel, pVertex[5]->iLabel, pVertex[6]->iLabel, pVertex[7]->iLabel);
 	outtext1(S1);
 }
 
@@ -5439,7 +5437,7 @@ void E_Object38::Draw(CDC* pDC, int iDrawmode) {
 }
 
 void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector d[8];
 	int i;
 	int ind;
@@ -5513,12 +5511,12 @@ void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-			sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
 			C3dMatrix mS = GetElSys();
@@ -6218,39 +6216,39 @@ int E_Object38::GetVarHeaders(CString sVar[]) {
 
 int E_Object38::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMatID);
+	S1.Format(_T("%i"), iMatID);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[2]->iLabel);
+	S1.Format(_T("%i"), pVertex[2]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[3]->iLabel);
+	S1.Format(_T("%i"), pVertex[3]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[4]->iLabel);
+	S1.Format(_T("%i"), pVertex[4]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[5]->iLabel);
+	S1.Format(_T("%i"), pVertex[5]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[6]->iLabel);
+	S1.Format(_T("%i"), pVertex[6]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[7]->iLabel);
+	S1.Format(_T("%i"), pVertex[7]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -6826,7 +6824,7 @@ void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
 }
 
 void E_Object36::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector d[6];
 	int i;
 	int ind;
@@ -6892,12 +6890,12 @@ void E_Object36::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-			sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
 			C3dMatrix mS = GetElSys();
@@ -7326,33 +7324,33 @@ int E_Object36::GetVarHeaders(CString sVar[]) {
 
 int E_Object36::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMatID);
+	S1.Format(_T("%i"), iMatID);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[2]->iLabel);
+	S1.Format(_T("%i"), pVertex[2]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[3]->iLabel);
+	S1.Format(_T("%i"), pVertex[3]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[4]->iLabel);
+	S1.Format(_T("%i"), pVertex[4]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[5]->iLabel);
+	S1.Format(_T("%i"), pVertex[5]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -7430,9 +7428,9 @@ E_Object34::~E_Object34() {
 }
 
 void E_Object34::Info() {
-	char S1[80];
+	CString S1;
 	E_Object::Info();
-	sprintf_s(S1, "NODES %i %i %i %i", pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
+	S1.Format(_T("NODES %i %i %i %i"), pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
 	outtext1(S1);
 }
 
@@ -7849,7 +7847,7 @@ void E_Object34::Draw(CDC* pDC, int iDrawmode) {
 }
 
 void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector d[4];
 	int i;
 	int ind;
@@ -7909,12 +7907,12 @@ void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-			sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
 			C3dMatrix mS = GetElSys();
@@ -8472,27 +8470,27 @@ int E_Object34::GetVarHeaders(CString sVar[]) {
 
 int E_Object34::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMatID);
+	S1.Format(_T("%i"), iMatID);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[2]->iLabel);
+	S1.Format(_T("%i"), pVertex[2]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[3]->iLabel);
+	S1.Format(_T("%i"), pVertex[3]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -8563,9 +8561,9 @@ E_Object310::~E_Object310() {
 }
 
 void E_Object310::Info() {
-	char S1[80];
+	CString S1;
 	E_Object::Info();
-	sprintf_s(S1, "PRINARY NODES %i %i %i %i", pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
+	S1.Format(_T("PRINARY NODES %i %i %i %i"), pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
 	outtext1(S1);
 }
 
@@ -9027,7 +9025,7 @@ void E_Object310::Draw(CDC* pDC, int iDrawmode) {
 }
 
 void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector d[10];
 	int i;
 	int ind;
@@ -9111,12 +9109,12 @@ void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-			sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
 			C3dMatrix mS = GetElSys();
@@ -9872,27 +9870,27 @@ int E_Object310::GetVarHeaders(CString sVar[]) {
 
 int E_Object310::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMatID);
+	S1.Format(_T("%i"), iMatID);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[2]->iLabel);
+	S1.Format(_T("%i"), pVertex[2]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[3]->iLabel);
+	S1.Format(_T("%i"), pVertex[3]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -10492,7 +10490,7 @@ BOOL E_Object::SetProperty(Property* Pr) {
 }
 
 void E_Object::Info() {
-	// sprintf_s(S1,"%s%i%s%i%s%i%s%i%s%i","Type ",iObjType,"; Label ",iLabel," Col; ",iColour," PID; ",PID," ELTYPE; ",iType);
+	// S1.Format(_T("%s%i%s%i%s%i%s%i%s%i"),_T("Type "),iObjType,_T("; Label "),iLabel,_T(" Col; "),iColour,_T(" PID; "),PID,_T(" ELTYPE; "),iType);
 	// outtext1(S1);
 	G_Object::Info();
 }
@@ -10722,7 +10720,7 @@ Mat E_Object::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 	int MID = -1;
 	double dthk = 1.0;
 	double dRho = 1;
-	char S1[80];
+	CString S1;
 	Property* pS = NULL;
 	Material* pM = NULL;
 
@@ -10745,7 +10743,7 @@ Mat E_Object::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 			PSHELL* pSh = (PSHELL*) pS;
 			dthk = pSh->dT;
 		} else {
-			sprintf_s(S1, "ERROR: Property Not Found For EL %i", iLabel);
+			S1.Format(_T("ERROR: Property Not Found For EL %i"), iLabel);
 			outtext1(S1);
 		}
 	}
@@ -10830,7 +10828,7 @@ Mat E_Object::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& bE
 	int MID = -1;
 	double dE = 210e9;
 	double dv = 0.29;
-	char S1[80];
+	CString S1;
 	double dthk = 0.001;
 
 	Property* pS = PropsT->GetItem(PID);
@@ -10839,11 +10837,11 @@ Mat E_Object::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& bE
 	}
 	Material* pM = MatT->GetItem(MID);
 	if (pS == NULL) {
-		sprintf_s(S1, "PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if (pM == NULL) {
-		sprintf_s(S1, "MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	// Get Shell thickness
@@ -10938,7 +10936,7 @@ Mat E_Object::GetThermMat(PropTable* PropsT, MatTable* MatT) {
 	int iDof;
 	int MID = -1;
 	double dK = 200;
-	char S1[80];
+	CString S1;
 	double dthk = 0.001;
 	BOOL is2dEl = FALSE;
 	Property* pS = PropsT->GetItem(PID);
@@ -10947,11 +10945,11 @@ Mat E_Object::GetThermMat(PropTable* PropsT, MatTable* MatT) {
 	}
 	Material* pM = MatT->GetItem(MID);
 	if (pS == NULL) {
-		sprintf_s(S1, "PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if (pM == NULL) {
-		sprintf_s(S1, "MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	// Get Shell thickness
@@ -11291,9 +11289,9 @@ double E_Object2::getLen() {
 }
 
 void E_Object2::Info() {
-	char S1[80];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "%s%i%s%i", "ND1 ", pVertex[0]->iLabel, "ND2 ", pVertex[1]->iLabel);
+	S1.Format(_T("%s%i%s%i"), _T("ND1 "), pVertex[0]->iLabel, _T("ND2 "), pVertex[1]->iLabel);
 	outtext1(S1);
 }
 
@@ -11363,7 +11361,7 @@ Mat E_Object2::GetSpringTMat(CoordSys* pCSYS) {
 }
 
 Mat E_Object2::GetThermMat(PropTable* PropsT, MatTable* MatT) {
-	char S1[80];
+	CString S1;
 	double K = 0;
 	int iDof = 1;
 	Property* pS = PropsT->GetItem(this->PID);
@@ -11377,7 +11375,7 @@ Mat E_Object2::GetThermMat(PropTable* PropsT, MatTable* MatT) {
 		}
 
 	} else {
-		sprintf_s(S1, "%s%i", "ERROR: No Property Found for Spring Element ", iLabel);
+		S1.Format(_T("%s%i"), _T("ERROR: No Property Found for Spring Element "), iLabel);
 		outtext1(S1);
 	}
 
@@ -11401,7 +11399,7 @@ Mat E_Object2::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 	double kx = 1e3;
 	double ky = 1e3;
 	double kz = 1e3;
-	char S1[80];
+	CString S1;
 	C3dMatrix r;
 	BOOL bFail = FALSE;
 	Mat TMat;
@@ -11422,7 +11420,7 @@ Mat E_Object2::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 			kz = pSP->dkz;
 		}
 	} else {
-		sprintf_s(S1, "%s%i", "ERROR: No Property Found for Spring Element ", iLabel);
+		S1.Format(_T("%s%i"), _T("ERROR: No Property Found for Spring Element "), iLabel);
 		outtext1(S1);
 	}
 	Mat KM(6, 6);
@@ -11461,7 +11459,7 @@ Mat E_Object2::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 				TMat.clear();
 				TTMat.clear();
 			} else {
-				sprintf_s(S1, "%s%i", "ERROR: Coordinate System Not Found for Spring Element ", iLabel);
+				S1.Format(_T("%s%i"), _T("ERROR: Coordinate System Not Found for Spring Element "), iLabel);
 				outtext1(S1);
 				bFail = TRUE;
 			}
@@ -11733,7 +11731,7 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			fCols[1] = fCols[0];
 		}
 		C3dVector vCent;
-		char sLab[20];
+		CString sLab;
 		vCent = Get_Centroid();
 		if (((iDspFlgs & DSP_CONT) == 0) && (bD == TRUE)) {
 			// momo
@@ -11770,12 +11768,12 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_end
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-			sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
 			// C3dMatrix mS = GetElSys();
@@ -11893,7 +11891,7 @@ void E_Object2::ExportUNV(FILE* pFile) {
 }
 
 CString E_Object2::ToString() {
-	char S[80] = "";
+	CString S;
 	CString src = _T("");
 	C3dMatrix TMat;
 	int iCS;
@@ -11903,7 +11901,7 @@ CString E_Object2::ToString() {
 		iCS = iCSYS;
 
 	if (iType == 136) {
-		sprintf_s(S, "%8s%8i%8i%8i%8i%8s%8s%8s%8i\n", "CBUSH   ", iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel, "", "", "", iCS);
+		S.Format(_T("%8s%8i%8i%8i%8i%8s%8s%8s%8i\n"), _T("CBUSH   "), iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel, _T(""), _T(""), _T(""), iCS);
 		src = S;
 	}
 	return (src);
@@ -11994,21 +11992,21 @@ int E_Object2::GetVarHeaders(CString sVar[]) {
 
 int E_Object2::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iCSYS);
+	S1.Format(_T("%i"), iCSYS);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -12052,7 +12050,7 @@ Mat E_Object2BUSH::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOO
 	double rx = 1e6;
 	double ry = 1e6;
 	double rz = 1e6;
-	char S1[80];
+	CString S1;
 	C3dMatrix r;
 	Mat TMat;
 	Mat TTMat(6, 6);
@@ -12073,7 +12071,7 @@ Mat E_Object2BUSH::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOO
 			rz = pSP->dK6;
 		}
 	} else {
-		sprintf_s(S1, "%s%i", "ERROR: No Property Found for Spring Element ", iLabel);
+		S1.Format(_T("%s%i"), _T("ERROR: No Property Found for Spring Element "), iLabel);
 		outtext1(S1);
 	}
 	Mat KE(12, 12);
@@ -12120,7 +12118,7 @@ Mat E_Object2BUSH::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOO
 				KEdum = KE * t;
 				KE = tt * KEdum;
 			} else {
-				sprintf_s(S1, "%s%i", "ERROR: Coordinate System Not Found for Spring Element ", iLabel);
+				S1.Format(_T("%s%i"), _T("ERROR: Coordinate System Not Found for Spring Element "), iLabel);
 				outtext1(S1);
 				bErr = TRUE;
 			}
@@ -12423,24 +12421,24 @@ void E_Object2R::Draw(CDC* pDC, int iDrawmode) {
 }
 
 void E_Object2R::Info() {
-	char S1[80];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "%s%i%s%i%s%i%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour, " PID; ", PID, " ELTYPE; ", iType, " CSYS; ", iCSYS);
+	S1.Format(_T("%s%i%s%i%s%i%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour, _T(" PID; "), PID, _T(" ELTYPE; "), iType, _T(" CSYS; "), iCSYS);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i%s%i", "ND1 ", pVertex[0]->iLabel, "ND2 ", pVertex[1]->iLabel);
+	S1.Format(_T("%s%i%s%i"), _T("ND1 "), pVertex[0]->iLabel, _T("ND2 "), pVertex[1]->iLabel);
 	outtext1(S1);
-	sprintf_s(S1, "Beam Up Vector %g %g %g", vUp.x, vUp.y, vUp.z);
+	S1.Format(_T("Beam Up Vector %g %g %g"), vUp.x, vUp.y, vUp.z);
 	outtext1(S1);
 	CString sEndR;
 	sEndR = this->GetDOFString(iDOFA);
-	sprintf_s(S1, "End A Release %s ", sEndR);
+	S1.Format(_T("End A Release %s "), sEndR);
 	outtext1(S1);
 	sEndR = this->GetDOFString(iDOFB);
-	sprintf_s(S1, "End B Release %s ", sEndR);
+	S1.Format(_T("End B Release %s "), sEndR);
 	outtext1(S1);
-	sprintf_s(S1, "Beam End A Offset %g %g %g", OffA.x, OffA.y, OffA.z);
+	S1.Format(_T("Beam End A Offset %g %g %g"), OffA.x, OffA.y, OffA.z);
 	outtext1(S1);
-	sprintf_s(S1, "Beam End B Offset %g %g %g", OffB.x, OffB.y, OffB.z);
+	S1.Format(_T("Beam End B Offset %g %g %g"), OffB.x, OffB.y, OffB.z);
 	outtext1(S1);
 }
 
@@ -12557,7 +12555,7 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 }
 
 void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector d[2];
 	int i;
 	int ind;
@@ -12607,12 +12605,12 @@ void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-			sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 		if ((iDspFlgs & DSP_THK) > 0) {
 			if (pPr != NULL) {
@@ -12801,18 +12799,18 @@ Mat E_Object2R::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 	double Rho = 0;
 	double A = 0;
 	double L = 0;
-	char S1[80];
+	CString S1;
 	Property* pS = PropsT->GetItem(PID);
 	if (pS != NULL) {
 		MID = pS->GetDefMatID();
 	}
 	Material* pM = MatT->GetItem(MID);
 	if (pS == NULL) {
-		sprintf_s(S1, "ERROR PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if (pM == NULL) {
-		sprintf_s(S1, "ERROR MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if ((pS != NULL) && (pM != NULL)) {
@@ -12832,11 +12830,11 @@ Mat E_Object2R::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 			A = pB->dA;
 			Rho = pM1->dRHO;
 		} else {
-			sprintf_s(S1, "ERROR INVALID PROPERTY FOR EL %i", iLabel);
+			S1.Format(_T("ERROR INVALID PROPERTY FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 	} else {
-		sprintf_s(S1, "ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i", iLabel);
+		S1.Format(_T("ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	// Lenght
@@ -12860,18 +12858,18 @@ Mat E_Object2R::GetThermalStrainMat3d(PropTable* PropsT, MatTable* MatT, double 
 	double A = 0;
 	double L = 0;
 	double E = 0;
-	char S1[80];
+	CString S1;
 	Property* pS = PropsT->GetItem(PID);
 	if (pS != NULL) {
 		MID = pS->GetDefMatID();
 	}
 	Material* pM = MatT->GetItem(MID);
 	if (pS == NULL) {
-		sprintf_s(S1, "ERROR PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if (pM == NULL) {
-		sprintf_s(S1, "ERROR MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if ((pS != NULL) && (pM != NULL)) {
@@ -12894,11 +12892,11 @@ Mat E_Object2R::GetThermalStrainMat3d(PropTable* PropsT, MatTable* MatT, double 
 			E = pM1->dE;
 			CTE = pM1->GetCTE();
 		} else {
-			sprintf_s(S1, "ERROR INVALID PROPERTY FOR EL %i", iLabel);
+			S1.Format(_T("ERROR INVALID PROPERTY FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 	} else {
-		sprintf_s(S1, "ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i", iLabel);
+		S1.Format(_T("ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	double dF;
@@ -12916,7 +12914,7 @@ Mat E_Object2R::GetThermalStrainMat3d(PropTable* PropsT, MatTable* MatT, double 
 }
 
 Mat E_Object2R::GetThermMat(PropTable* PropsT, MatTable* MatT) {
-	char S1[80];
+	CString S1;
 	double A;
 	double K;
 	int MID;
@@ -12933,11 +12931,11 @@ Mat E_Object2R::GetThermMat(PropTable* PropsT, MatTable* MatT) {
 			A = pB->A;
 			K = pM1->dk;
 		} else {
-			sprintf_s(S1, "ERROR INVALID PROPERTY FOR EL %i", iLabel);
+			S1.Format(_T("ERROR INVALID PROPERTY FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 	} else {
-		sprintf_s(S1, "ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i", iLabel);
+		S1.Format(_T("ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 
@@ -12963,7 +12961,7 @@ Mat E_Object2R::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& 
 	double jg = 10000;
 	double jgl = 10000;
 	int MID = -1;
-	char S1[80];
+	CString S1;
 	Mat KE(12, 12);
 	Mat KEdum;
 	Mat t;
@@ -12977,11 +12975,11 @@ Mat E_Object2R::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& 
 	}
 	Material* pM = MatT->GetItem(MID);
 	if (pS == NULL) {
-		sprintf_s(S1, "ERROR PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if (pM == NULL) {
-		sprintf_s(S1, "ERROR MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if ((pS != NULL) && (pM != NULL)) {
@@ -12991,11 +12989,11 @@ Mat E_Object2R::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& 
 			ea = pB->A * pM1->dE;
 			jg = pB->J * pM1->dG;
 		} else {
-			sprintf_s(S1, "ERROR INVALID PROPERTY FOR EL %i", iLabel);
+			S1.Format(_T("ERROR INVALID PROPERTY FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 	} else {
-		sprintf_s(S1, "ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i", iLabel);
+		S1.Format(_T("ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 
@@ -13068,9 +13066,9 @@ void E_Object2R::ExportNAS(FILE* pFile) {
 
 CString E_Object2R::ToString() {
 	CString sRT = _T("");
-	char S1[80] = "";
+	CString S1;
 	if (iType == 11) {
-		sprintf_s(S1, "%8s%8i%8i%8i%8i\n", "CROD    ", iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel);
+		S1.Format(_T("%8s%8i%8i%8i%8i\n"), _T("CROD    "), iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel);
 	}
 	sRT = S1;
 	return (sRT);
@@ -13264,19 +13262,19 @@ G_Object* E_Object2B::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int
 }
 
 CString E_Object2B::ToString() {
-	char S[80] = "";
+	CString S;
 	CString src = _T("");
 	C3dMatrix TMat;
 
 	if (iType == 21) {
-		sprintf_s(S, "%8s%8i%8i%8i%8i", "CBAR    ", iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel);
+		S.Format(_T("%8s%8i%8i%8i%8i"), _T("CBAR    "), iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel);
 		src = S;
 	} else if (iType == 22) {
-		sprintf_s(S, "%8s%8i%8i%8i%8i", "CBEAM   ", iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel);
+		S.Format(_T("%8s%8i%8i%8i%8i"), _T("CBEAM   "), iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel);
 		src = S;
 	}
 	if (iONID > 0) {
-		sprintf_s(S, "%8i\n", iONID);
+		S.Format(_T("%8i\n"), iONID);
 		src += S;
 	} else {
 		TMat.MakeUnit();
@@ -13290,10 +13288,10 @@ CString E_Object2B::ToString() {
 		}
 		C3dVector vU;
 		vU = TMat * vUp;
-		sprintf_s(S, "%8s%8s%8s\n", e8(vU.x), e8(vU.y), e8(vU.z));
+		S.Format(_T("%8s%8s%8s\n"), e8(vU.x), e8(vU.y), e8(vU.z));
 		src += S;
 	}
-	sprintf_s(S, "%8s%8s%8s", "        ", GetDOFString(iDOFA), GetDOFString(iDOFB));
+	S.Format(_T("%8s%8s%8s"), _T("        "), GetDOFString(iDOFA), GetDOFString(iDOFB));
 	src += S;
 	TMat.MakeUnit();
 	if (pVertex[0]->OutSys > 0) {
@@ -13306,7 +13304,7 @@ CString E_Object2B::ToString() {
 	}
 	C3dVector vD1;
 	vD1 = TMat * OffA;
-	sprintf_s(S, "%8s%8s%8s", e8(vD1.x), e8(vD1.y), e8(vD1.z));
+	S.Format(_T("%8s%8s%8s"), e8(vD1.x), e8(vD1.y), e8(vD1.z));
 	src += S;
 	TMat.MakeUnit();
 	if (pVertex[0]->OutSys > 0) {
@@ -13319,7 +13317,7 @@ CString E_Object2B::ToString() {
 	}
 	C3dVector vD2;
 	vD2 = TMat * OffB;
-	sprintf_s(S, "%8s%8s%8s\n", e8(vD2.x), e8(vD2.y), e8(vD2.z));
+	S.Format(_T("%8s%8s%8s\n"), e8(vD2.x), e8(vD2.y), e8(vD2.z));
 	src += S;
 	return (src);
 }
@@ -13402,7 +13400,7 @@ BOOL E_Object2B::GetOffset(PropTable* PropsT, int iNode, C3dVector& vOff) {
 }
 
 Mat E_Object2B::GetThermMat(PropTable* PropsT, MatTable* MatT) {
-	char S1[80];
+	CString S1;
 	double A;
 	double K;
 	int MID;
@@ -13429,11 +13427,11 @@ Mat E_Object2B::GetThermMat(PropTable* PropsT, MatTable* MatT) {
 			A = pB->dA;
 			K = pM1->dk;
 		} else {
-			sprintf_s(S1, "ERROR INVALID PROPERTY FOR EL %i", iLabel);
+			S1.Format(_T("ERROR INVALID PROPERTY FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 	} else {
-		sprintf_s(S1, "ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i", iLabel);
+		S1.Format(_T("ERROR UNABLE TO CALCULATE PROPERTIES FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 
@@ -13470,7 +13468,7 @@ Mat E_Object2B::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& 
 	double a1, a2, a3, a4, a5, a6, a7, a8;
 	double ell;
 	int MID = -1;
-	char S1[80];
+	CString S1;
 	Property* pS = PropsT->GetItem(PID);
 	if (pS != NULL) {
 		MID = pS->GetDefMatID();
@@ -13481,11 +13479,11 @@ Mat E_Object2B::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& 
 		CalcDefStiffProps(ea, eiy, eiz, gj);
 	} else {
 		if (pS == NULL) {
-			sprintf_s(S1, "ERROR: PROPERTY NOT FOUND FOR EL %i", iLabel);
+			S1.Format(_T("ERROR: PROPERTY NOT FOUND FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 		if (pM == NULL) {
-			sprintf_s(S1, "ERROR: MATERIAL NOT FOUND FOR EL %i", iLabel);
+			S1.Format(_T("ERROR: MATERIAL NOT FOUND FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 		if ((pS != NULL) && (pM != NULL)) {
@@ -13508,11 +13506,11 @@ Mat E_Object2B::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& 
 				g = pM1->dE / (2 * (1 + pM1->dNU));
 				gj = g * pB->dJ;
 			} else {
-				sprintf_s(S1, "ERROR: INVALID PROPERTY FOR EL %i", iLabel);
+				S1.Format(_T("ERROR: INVALID PROPERTY FOR EL %i"), iLabel);
 				outtext1(S1);
 			}
 		} else {
-			sprintf_s(S1, "ERROR: UNABLE TO CALCULATE PROPERTIES FOR EL %i", iLabel);
+			S1.Format(_T("ERROR: UNABLE TO CALCULATE PROPERTIES FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 	}
@@ -13673,21 +13671,21 @@ int E_Object2B::GetVarHeaders(CString sVar[]) {
 
 int E_Object2B::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iCSYS);
+	S1.Format(_T("%i"), iCSYS);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	sVar[iNo] = GetDOFString(iDOFA);
@@ -13986,7 +13984,7 @@ G_Object* E_Object3::GetNode(int i) {
 }
 
 void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector d[3];
 	int i;
 	int ind;
@@ -14091,12 +14089,12 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 				bDrawLab = FALSE;
 			if (bDrawLab == TRUE) {
 				// Esp_Mod_Labels_4_27_2025_End
-				sprintf_s(sLab, "E%i", iLabel);
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+				sLab.Format(_T("E%i"), iLabel);
+				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
 			if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-				sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+				sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
 		}
 		if ((iDspFlgs & DSP_ELSYS) == 0) {
@@ -14555,27 +14553,27 @@ C3dVector E_Object3::GetTestPt() {
 }
 
 void E_Object3::Info() {
-	char S1[80];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "LAB: %i COL: %i PID: %i ELTP: %i MCID: %i ANG: %f ", iLabel, iColour, PID, iType, iMCys, MAng);
+	S1.Format(_T("LAB: %i COL: %i PID: %i ELTP: %i MCID: %i ANG: %f "), iLabel, iColour, PID, iType, iMCys, MAng);
 	outtext1(S1);
-	sprintf_s(S1, "NODES %i %i %i", pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel);
+	S1.Format(_T("NODES %i %i %i"), pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel);
 	outtext1(S1);
 }
 
 CString E_Object3::ToString() {
 	CString sRT;
-	char S1[80];
+	CString S1;
 	CString sDir;
 	if ((iMCys == -1) && (MAng != 0.0)) {
 		sDir = e8(MAng);
 	} else if (iMCys == -1) {
 		sDir = "        ";
 	} else {
-		sprintf_s(S1, "%8i", iMCys);
+		S1.Format(_T("%8i"), iMCys);
 		sDir = S1;
 	}
-	sprintf_s(S1, "%8s%8i%8i%8i%8i%8i%8s%8s\n", "CTRIA3  ", iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, sDir, e8(dZOFFS));
+	S1.Format(_T("%8s%8i%8i%8i%8i%8i%8s%8s\n"), _T("CTRIA3  "), iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, sDir, e8(dZOFFS));
 	sRT = S1;
 	return (sRT);
 }
@@ -15380,7 +15378,7 @@ Mat E_Object3::TPLT2_KE(int OPT, double AREA, double X2E, double X3E, double Y3E
 // by William Case see www.mystran.com
 // 06/01/2024 MIN3 IMPLEMENTATION
 Mat E_Object3::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& bErr) {
-	char S1[80];
+	CString S1;
 	Mat KE;
 	Mat KEP;
 	int iMID1 = -1; // Membrane
@@ -15412,7 +15410,7 @@ Mat E_Object3::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 	int i;
 	Property* pS = PropsT->GetItem(PID);
 	if (pS == NULL) {
-		sprintf_s(S1, "ERROR: PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR: PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 
@@ -15441,7 +15439,7 @@ Mat E_Object3::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 		SHELL_D = pM2->DeeBM();
 		SHELL_T = pM3->DeeSH();
 	} else {
-		sprintf_s(S1, "ERROR: MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR: MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 		bErr = TRUE;
 		return (KE);
@@ -15540,7 +15538,7 @@ Mat E_Object3::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 //	int MID = -1;
 //	double dE = 210e9;
 //	double dv = 0.29;
-//	char S1[80];
+//	CString S1;
 //	double dthk = 0.001;
 //
 //	Property* pS = PropsT->GetItem(PID);
@@ -15551,12 +15549,12 @@ Mat E_Object3::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 //	Material* pM = MatT->GetItem(MID);
 //	if (pS == NULL)
 //	{
-//		sprintf_s(S1, "ERROR: PROPERTY NOT FOUND FOR EL %i", iLabel);
+//		S1.Format(_T("ERROR: PROPERTY NOT FOUND FOR EL %i"), iLabel);
 //		outtext1(S1);
 //	}
 //	if (pM == NULL)
 //	{
-//		sprintf_s(S1, "ERROR: MATERIAL NOT FOUND FOR EL %i", iLabel);
+//		S1.Format(_T("ERROR: MATERIAL NOT FOUND FOR EL %i"), iLabel);
 //		outtext1(S1);
 //	}
 //	//Get Shell thick ness
@@ -15822,30 +15820,30 @@ int E_Object3::GetVarHeaders(CString sVar[]) {
 
 int E_Object3::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMCys);
+	S1.Format(_T("%i"), iMCys);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", MAng);
+	S1.Format(_T("%g"), MAng);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dZOFFS);
+	S1.Format(_T("%g"), dZOFFS);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[2]->iLabel);
+	S1.Format(_T("%i"), pVertex[2]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -15933,7 +15931,7 @@ Mat E_Object3::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 	double dTotthk = 0.0;
 	double dRho = 0;
 	double dNSM = 0;
-	char S1[80];
+	CString S1;
 	Property* pS = NULL;
 	Material* pM = NULL;
 
@@ -16001,12 +15999,12 @@ Mat E_Object3::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 				dthk = 0;
 			}
 		} else {
-			sprintf_s(S1, "ERROR: Invalid Property EL %i", iLabel);
+			S1.Format(_T("ERROR: Invalid Property EL %i"), iLabel);
 			outtext1(S1);
 		}
 
 	} else {
-		sprintf_s(S1, "ERROR: Property Not Found For EL %i", iLabel);
+		S1.Format(_T("ERROR: Property Not Found For EL %i"), iLabel);
 		outtext1(S1);
 	}
 
@@ -16116,7 +16114,7 @@ BOOL E_Object1::NodeInEl(Node* pN) {
 // needs replacing with mass property
 Mat E_Object1::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 	double M = 0;
-	char S1[80];
+	CString S1;
 	if (PID == -1) {
 		M = dM;
 	} else {
@@ -16126,11 +16124,11 @@ Mat E_Object1::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 				PMASS* pM = (PMASS*) pS;
 				M = pM->dM;
 			} else {
-				sprintf_s(S1, "ERROR INVALID PROPERTY FOR EL %i", iLabel);
+				S1.Format(_T("ERROR INVALID PROPERTY FOR EL %i"), iLabel);
 				outtext1(S1);
 			}
 		} else {
-			sprintf_s(S1, "ERROR INVALID NO VALID PROPERTY FOR EL %i", iLabel);
+			S1.Format(_T("ERROR INVALID NO VALID PROPERTY FOR EL %i"), iLabel);
 			outtext1(S1);
 		}
 	}
@@ -16210,13 +16208,13 @@ void E_Object1::ExportNAS(FILE* pFile) {
 }
 
 CString E_Object1::ToString() {
-	char S[80] = "";
+	CString S;
 	CString src = _T("");
-	sprintf_s(S, "$%s\n", sLab.GetString());
+	S.Format(_T("$%s\n"), sLab.GetString());
 	src = S;
-	sprintf_s(S, "%8s%8i%8i%8i%8s%8s%8s%8s\n", "CONM2   ", iLabel, pVertex->iLabel, iCID, e8(dM).GetString(), e8(dX1).GetString(), e8(dX2).GetString(), e8(dX3).GetString());
+	S.Format(_T("%8s%8i%8i%8i%8s%8s%8s%8s\n"), _T("CONM2   "), iLabel, pVertex->iLabel, iCID, e8(dM).GetString(), e8(dX1).GetString(), e8(dX2).GetString(), e8(dX3).GetString());
 	src += S;
-	sprintf_s(S, "%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(dI11).GetString(), e8(dI21).GetString(), e8(dI22).GetString(), e8(dI31).GetString(), e8(dI32).GetString(), e8(dI33).GetString());
+	S.Format(_T("%8s%8s%8s%8s%8s%8s%8s\n"), _T("        "), e8(dI11).GetString(), e8(dI21).GetString(), e8(dI22).GetString(), e8(dI31).GetString(), e8(dI32).GetString(), e8(dI33).GetString());
 	src += S;
 	return (src);
 }
@@ -16362,7 +16360,7 @@ void E_Object1::Draw(CDC* pDC, int iDrawmode) {
 }
 
 void E_Object1::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector d;
 	C3dVector vCent;
 	double dS = 0;
@@ -16402,8 +16400,8 @@ void E_Object1::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		bDrawLab = FALSE;
 	if (bDrawLab == TRUE) {
 		// Esp_Mod_Labels_4_27_2025_End
-		sprintf_s(sLab, "N%i", iLabel);
-		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+		sLab.Format(_T("N%i"), iLabel);
+		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 	}
 }
 
@@ -16460,49 +16458,49 @@ CString E_Object1::GetName() {
 
 int E_Object1::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	iNo++;
 	sVar[iNo] = sLab;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iCID);
+	S1.Format(_T("%i"), iCID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dM);
+	S1.Format(_T("%g"), dM);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dX1);
+	S1.Format(_T("%g"), dX1);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dX2);
+	S1.Format(_T("%g"), dX2);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dX3);
+	S1.Format(_T("%g"), dX3);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI11);
+	S1.Format(_T("%g"), dI11);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI21);
+	S1.Format(_T("%g"), dI21);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI22);
+	S1.Format(_T("%g"), dI22);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI31);
+	S1.Format(_T("%g"), dI31);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI32);
+	S1.Format(_T("%g"), dI32);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI33);
+	S1.Format(_T("%g"), dI33);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex->iLabel);
+	S1.Format(_T("%i"), pVertex->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -16545,9 +16543,9 @@ void E_Object1::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 }
 
 void E_Object1::Info() {
-	char S1[200];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "%sEID,%i,COL,%i,GRID,%i,MASS,%f,XYZ, %f,%f,%f ", sLab.GetString(), iLabel, iColour, pVertex->iLabel, dM, pVertex->Pt_Point->x, pVertex->Pt_Point->y, pVertex->Pt_Point->z);
+	S1.Format(_T("%sEID,%i,COL,%i,GRID,%i,MASS,%f,XYZ, %f,%f,%f "), sLab.GetString(), iLabel, iColour, pVertex->iLabel, dM, pVertex->Pt_Point->x, pVertex->Pt_Point->y, pVertex->Pt_Point->z);
 	outtext1(S1);
 }
 
@@ -16722,7 +16720,7 @@ C3dVector E_CellS::Get_Centroid() {
 }
 
 void E_CellS::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
 		Selectable = 1;
 		glEnable(GL_LINE_STIPPLE);
@@ -16749,8 +16747,8 @@ void E_CellS::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -17077,7 +17075,7 @@ Mat E_Object4::GetStiffMat_Ex(PropTable* PropsT, MatTable* MatT) {
 	int MID = -1;
 	double dE = 210e9;
 	double dv = 0.29;
-	char S1[80];
+	CString S1;
 	double dthk = 0.001;
 
 	Property* pS = PropsT->GetItem(PID);
@@ -17086,11 +17084,11 @@ Mat E_Object4::GetStiffMat_Ex(PropTable* PropsT, MatTable* MatT) {
 	}
 	Material* pM = MatT->GetItem(MID);
 	if (pS == NULL) {
-		sprintf_s(S1, "ERROR: PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR: PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	if (pM == NULL) {
-		sprintf_s(S1, "ERROR: MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR: MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	// Get Shell thickness
@@ -17801,7 +17799,7 @@ Mat E_Object4::BEE_TS_Recovery() {
 }
 
 Mat E_Object4::QPLT2_KE(int OPT, double AREA, Vec<double> XSD, Vec<double> YSD, Mat SHELL_D, Mat SHELL_T) {
-	char S1[80];
+	CString S1;
 	double BENSUM = 0;
 	double SHRSUM = 0;
 	Mat bee; // strain displacement matrix
@@ -17889,7 +17887,7 @@ Mat E_Object4::QPLT2_KE(int OPT, double AREA, Vec<double> XSD, Vec<double> YSD, 
 	// Add all diagonal terms from KS for rotational DOF's to get SHRSUM
 	SHRSUM = *KS.mn(2, 2) + *KS.mn(3, 3) + *KS.mn(5, 5) + *KS.mn(6, 6) + *KS.mn(8, 8) + *KS.mn(9, 9) + *KS.mn(11, 11) + *KS.mn(12, 12);
 	if (abs(SHRSUM) < 0.00001) {
-		sprintf_s(S1, "ERROR: SHRSUM TOO SMALL %g", SHRSUM);
+		S1.Format(_T("ERROR: SHRSUM TOO SMALL %g"), SHRSUM);
 		outtext1(S1);
 	}
 
@@ -17955,7 +17953,7 @@ Mat E_Object4::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 	Material* pM2 = nullptr;
 	Material* pM3 = nullptr;
 	Material* pM4 = nullptr;
-	char S1[80];
+	CString S1;
 	double dthk = 0.001;
 	double dBRatio = 1;
 	double dSHRatio = 1;
@@ -17965,7 +17963,7 @@ Mat E_Object4::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 	Mat SHELL_T;
 	Property* pS = PropsT->GetItem(PID);
 	if (pS == NULL) {
-		sprintf_s(S1, "ERROR: PROPERTY NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR: PROPERTY NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 
@@ -17994,7 +17992,7 @@ Mat E_Object4::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 		SHELL_D = pM2->DeeBM();
 		SHELL_T = pM3->DeeSH();
 	} else {
-		sprintf_s(S1, "ERROR: MATERIAL NOT FOUND FOR EL %i", iLabel);
+		S1.Format(_T("ERROR: MATERIAL NOT FOUND FOR EL %i"), iLabel);
 		outtext1(S1);
 	}
 	// This part calculates the 2d membraine stiffness
@@ -18099,7 +18097,7 @@ Mat E_Object4::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 //	int MID = -1;
 //	double dE = 210e9;
 //	double dv = 0.29;
-//	char S1[80];
+//	CString S1;
 //	double dthk = 0.001;
 //
 //	Property* pS = PropsT->GetItem(PID);
@@ -18110,12 +18108,12 @@ Mat E_Object4::GetStiffMat(PropTable* PropsT, MatTable* MatT, BOOL bOpt, BOOL& b
 //	Material* pM = MatT->GetItem(MID);
 //	if (pS == NULL)
 //	{
-//		sprintf_s(S1, "ERROR: PROPERTY NOT FOUND FOR EL %i", iLabel);
+//		S1.Format(_T("ERROR: PROPERTY NOT FOUND FOR EL %i"), iLabel);
 //		outtext1(S1);
 //	}
 //	if (pM == NULL)
 //	{
-//		sprintf_s(S1, "ERROR: MATERIAL NOT FOUND FOR EL %i", iLabel);
+//		S1.Format(_T("ERROR: MATERIAL NOT FOUND FOR EL %i"), iLabel);
 //		outtext1(S1);
 //	}
 //	//Get Shell thickness
@@ -18575,7 +18573,7 @@ int E_Object4::GetLinkList(eEdge* Links[200]) {
 
 void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	double dFS;
-	char sLab[20];
+	CString sLab;
 	C3dVector d[4];
 	int i;
 	int ind;
@@ -18688,12 +18686,12 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 				bDrawLab = FALSE;
 			if (bDrawLab == TRUE) {
 				// Esp_Mod_Labels_4_27_2025_End
-				sprintf_s(sLab, "E%i", iLabel);
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+				sLab.Format(_T("E%i"), iLabel);
+				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
 			if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
-				sprintf_s(sLab, "%f", *pResV->GetAddress(ind));
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+				sLab.Format(_T("%f"), *pResV->GetAddress(ind));
+				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
 
 			// Results Label
@@ -19030,17 +19028,17 @@ C3dVector E_Object4::Get_Centroid() {
 }
 
 void E_Object4::Info() {
-	char S1[200] = "";
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "LAB: %i COL: %i PID: %i ELTP: %i MCID: %i ANG: %f OFF: %f ", iLabel, iColour, PID, iType, iMCys, MAng, dZOFFS);
+	S1.Format(_T("LAB: %i COL: %i PID: %i ELTP: %i MCID: %i ANG: %f OFF: %f "), iLabel, iColour, PID, iType, iMCys, MAng, dZOFFS);
 	outtext1(S1);
-	sprintf_s(S1, "NODES %i %i %i %i", pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
+	S1.Format(_T("NODES %i %i %i %i"), pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel);
 	outtext1(S1);
 }
 
 CString E_Object4::ToString() {
 	CString sRT;
-	char S1[80];
+	CString S1;
 	CString sDir;
 	if (iLabel == 28839)
 		iLabel = iLabel;
@@ -19050,10 +19048,10 @@ CString E_Object4::ToString() {
 	} else if (iMCys == -1) {
 		sDir = "        ";
 	} else {
-		sprintf_s(S1, "%8i", iMCys);
+		S1.Format(_T("%8i"), iMCys);
 		sDir = S1;
 	}
-	sprintf_s(S1, "%8s%8i%8i%8i%8i%8i%8i%8s%8s\n", "CQUAD4  ", iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel, sDir, e8(dZOFFS));
+	S1.Format(_T("%8s%8i%8i%8i%8i%8i%8i%8s%8s\n"), _T("CQUAD4  "), iLabel, PID, pVertex[0]->iLabel, pVertex[1]->iLabel, pVertex[2]->iLabel, pVertex[3]->iLabel, sDir, e8(dZOFFS));
 	sRT = S1;
 	return (sRT);
 }
@@ -19265,33 +19263,33 @@ int E_Object4::GetVarHeaders(CString sVar[]) {
 
 int E_Object4::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", PID);
+	S1.Format(_T("%i"), PID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMCys);
+	S1.Format(_T("%i"), iMCys);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", MAng);
+	S1.Format(_T("%g"), MAng);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dZOFFS);
+	S1.Format(_T("%g"), dZOFFS);
 	sVar[iNo] = S1;
 	iNo++;
 
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[1]->iLabel);
+	S1.Format(_T("%i"), pVertex[1]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[2]->iLabel);
+	S1.Format(_T("%i"), pVertex[2]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[3]->iLabel);
+	S1.Format(_T("%i"), pVertex[3]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -19391,7 +19389,7 @@ Mat E_Object4::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 	double dTotthk = 0.0;
 	double dRho = 0;
 	double dNSM = 0;
-	char S1[80];
+	CString S1;
 	Property* pS = NULL;
 	Material* pM = NULL;
 
@@ -19459,12 +19457,12 @@ Mat E_Object4::GetElNodalMass(PropTable* PropsT, MatTable* MatT) {
 				dthk = 0;
 			}
 		} else {
-			sprintf_s(S1, "ERROR: Invalid Property EL %i", iLabel);
+			S1.Format(_T("ERROR: Invalid Property EL %i"), iLabel);
 			outtext1(S1);
 		}
 
 	} else {
-		sprintf_s(S1, "ERROR: Property Not Found For EL %i", iLabel);
+		S1.Format(_T("ERROR: Property Not Found For EL %i"), iLabel);
 		outtext1(S1);
 	}
 
@@ -19708,27 +19706,27 @@ void E_ObjectR::ExportUNV(FILE* pFile) {
 }
 
 CString E_ObjectR::ToString() {
-	char S[200] = "";
+	CString S;
 	CString src = _T("");
 
 	int i;
 	int iFN;
 	CString sDof;
 	sDof = GetDOFString(iDOF);
-	sprintf_s(S, "%8s%8i%8i%8s", "RBE2    ", iLabel, pVertex[0]->iLabel, sDof);
+	S.Format(_T("%8s%8i%8i%8s"), _T("RBE2    "), iLabel, pVertex[0]->iLabel, sDof);
 	iFN = 5;
 	src += S;
 	for (i = 1; i < iNoNodes; i++) {
-		sprintf_s(S, "%8i", pVertex[i]->iLabel);
+		S.Format(_T("%8i"), pVertex[i]->iLabel);
 		src += S;
 		iFN++;
 		if (iFN > 9) {
 			iFN = 2;
-			sprintf_s(S, "\n%8s", "        ");
+			S.Format(_T("\n%8s"), _T("        "));
 			src += S;
 		}
 	}
-	sprintf_s(S, "%8s\n", e8(dALPHA));
+	S.Format(_T("%8s\n"), e8(dALPHA));
 	src += S;
 	return (src);
 }
@@ -19775,11 +19773,11 @@ void E_ObjectR::SetDOFString(CString sDOF) {
 }
 
 void E_ObjectR::Info() {
-	char S1[80];
+	CString S1;
 	G_Object::Info();
 	CString sDOF;
 	sDOF = GetDOFString(iDOF);
-	sprintf_s(S1, "LAB: %i COL: %i PID: %i ELTP: %i", iLabel, iColour, PID, iType);
+	S1.Format(_T("LAB: %i COL: %i PID: %i ELTP: %i"), iLabel, iColour, PID, iType);
 	outtext1(S1);
 	outtext1(sDOF);
 }
@@ -19803,16 +19801,16 @@ int E_ObjectR::GetVarHeaders(CString sVar[]) {
 
 int E_ObjectR::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", pVertex[0]->iLabel);
+	S1.Format(_T("%i"), pVertex[0]->iLabel);
 	sVar[iNo] = S1;
 	iNo++;
 	sVar[iNo] = GetDOFString(iDOF);
 	iNo++;
-	sprintf_s(S1, "%g", dALPHA);
+	S1.Format(_T("%g"), dALPHA);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -19835,7 +19833,7 @@ void E_ObjectR::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 
 void E_ObjectR::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	int i;
-	char sLab[20];
+	CString sLab;
 	BOOL bD = FALSE;
 	C3dVector d[MaxSelNodes];
 	double S = 1.0;
@@ -19877,11 +19875,11 @@ void E_ObjectR::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		glEnd();
 		vCent = Get_Centroid();
 		if (bDrawLab == TRUE) {
-			sprintf_s(sLab, " R%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T(" R%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		} else {
-			sprintf_s(sLab, "%s", " R");
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("%s"), _T(" R"));
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -20318,7 +20316,7 @@ void E_ObjectR2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 }
 
 void E_ObjectR2::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector vCent;
 	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
 		Selectable = 1;
@@ -20337,8 +20335,8 @@ void E_ObjectR2::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "E%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("E%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -20941,8 +20939,8 @@ Solution::Solution() {
 
 CString Solution::GetSolutionTitleString() {
 	CString src = _T("ERROR.");
-	char S1[80] = "";
-	sprintf_s(S1, "%s TP: %i TOL: %g", sTitle, iType, dTol);
+	CString S1;
+	S1.Format(_T("%s TP: %i TOL: %g"), sTitle, iType, dTol);
 	src = S1;
 	return (src);
 }
@@ -21037,9 +21035,9 @@ int Solution::GetCurStep() {
 
 CString Solution::GetStepTitleString(int iC) {
 	CString src;
-	char S1[80] = "";
+	CString S1;
 	if ((iC > -1) && (iC < iNo)) {
-		sprintf_s(S1, "STEP: %i LC: %i BC: %i TSET: %i RS: %i %s", iC, LS[iC], BS[iC], TS[iC], RS[iC], sStepTitle[iC]);
+		S1.Format(_T("STEP: %i LC: %i BC: %i TSET: %i RS: %i %s"), iC, LS[iC], BS[iC], TS[iC], RS[iC], sStepTitle[iC]);
 		src = S1;
 	} else {
 		src = "ERROR.";
@@ -21049,9 +21047,9 @@ CString Solution::GetStepTitleString(int iC) {
 
 void Solution::Info(int iD) {
 	int i;
-	char S1[200] = "";
+	CString S1;
 	CString sT;
-	sprintf_s(S1, "ID: %i TITLE: %s", iD, sTitle);
+	S1.Format(_T("ID: %i TITLE: %s"), iD, sTitle);
 	outtext1(S1);
 
 	if (iType == 0)
@@ -21063,7 +21061,7 @@ void Solution::Info(int iD) {
 	outtext1(sT);
 
 	for (i = 0; i < iNo; i++) {
-		sprintf_s(S1, "STEP: %i LC: %i BC: %i TSET: %i RS: %i %s", i, LS[i], BS[i], TS[i], RS[i], sStepTitle[i]);
+		S1.Format(_T("STEP: %i LC: %i BC: %i TSET: %i RS: %i %s"), i, LS[i], BS[i], TS[i], RS[i], sStepTitle[i]);
 		outtext1(S1);
 	}
 }
@@ -21192,10 +21190,10 @@ int SolSets::GetCurStep() {
 
 CString SolSets::GetTitleString(int iC) {
 	CString src;
-	char S1[80] = "";
+	CString S1;
 
 	if (iC > -1) {
-		sprintf_s(S1, "SOL %i ", iC);
+		S1.Format(_T("SOL %i "), iC);
 		src = S1;
 		src += " ";
 		src += pSols[iC]->GetSolutionTitleString();
@@ -21206,12 +21204,12 @@ CString SolSets::GetTitleString(int iC) {
 
 void SolSets::Info() {
 	int i;
-	char S1[200] = "";
+	CString S1;
 	outtext1("S O L U T I O N    S E Q E N C E S");
 	for (i = 0; i < iNo; i++) {
 		pSols[i]->Info(i);
 	}
-	sprintf_s(S1, "CURRENT SOL SEQ: %i", iCur);
+	S1.Format(_T("CURRENT SOL SEQ: %i"), iCur);
 	outtext1(S1);
 }
 
@@ -21635,46 +21633,46 @@ void ME_Object::Create(CString inName, G_Object* Parrent, int iLab) {
 
 void ME_Object::Info() {
 	int i;
-	char S1[200];
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour);
+	CString S1;
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour);
 	outtext1("MESH OBJECT");
 	outtext1(S1);
 	outtext1("FILES:-");
 	outtext1(S1);
 	for (i = 0; i < iFileNo; i++) {
-		sprintf_s(S1, "File No %i %s", i, sFiles[i]);
+		S1.Format(_T("File No %i %s"), i, sFiles[i]);
 		outtext1(S1);
 	}
-	sprintf_s(S1, "%s%i%s%X", "ID : ", iLabel, " Internal ID : ", iIntID);
+	S1.Format(_T("%s%i%s%X"), _T("ID : "), iLabel, _T(" Internal ID : "), iIntID);
 	outtext1(S1);
-	sprintf_s(S1, "%s%s", "Name : ", sName.GetString());
+	S1.Format(_T("%s%s"), _T("Name : "), sName.GetString());
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Number of Nodes : ", iNdNo);
+	S1.Format(_T("%s%i"), _T("Number of Nodes : "), iNdNo);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Number of Elements : ", iElNo);
+	S1.Format(_T("%s%i"), _T("Number of Elements : "), iElNo);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Min Node Label : ", iNodeMinLab);
+	S1.Format(_T("%s%i"), _T("Min Node Label : "), iNodeMinLab);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Min Elem Label : ", iElementMinLab);
+	S1.Format(_T("%s%i"), _T("Min Elem Label : "), iElementMinLab);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Min CSYS Label : ", iCYSMinLab);
+	S1.Format(_T("%s%i"), _T("Min CSYS Label : "), iCYSMinLab);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Max Node Label : ", iNodeLab - 1);
+	S1.Format(_T("%s%i"), _T("Max Node Label : "), iNodeLab - 1);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Max Elem Label : ", iElementLab - 1);
+	S1.Format(_T("%s%i"), _T("Max Elem Label : "), iElementLab - 1);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Max CSYS Label : ", iCYSLab - 1);
+	S1.Format(_T("%s%i"), _T("Max CSYS Label : "), iCYSLab - 1);
 	outtext1(S1);
 	outtext1("LOAD / BOUNDARY SETS:-");
 	int iS;
 	iS = GetLCID(iCurLC);
-	sprintf_s(S1, "%s%i", "Current Load Set : ", iS);
+	S1.Format(_T("%s%i"), _T("Current Load Set : "), iS);
 	outtext1(S1);
 	iS = GetBCID(iCurBC);
-	sprintf_s(S1, "%s%i", "Current BC Set   : ", iS);
+	S1.Format(_T("%s%i"), _T("Current BC Set   : "), iS);
 	outtext1(S1);
 	iS = GetTSETID(iCurTSet);
-	sprintf_s(S1, "%s%i", "Current Temp Set : ", iS);
+	S1.Format(_T("%s%i"), _T("Current Temp Set : "), iS);
 	outtext1(S1);
 
 	outtext1("    ****");
@@ -21752,14 +21750,14 @@ int ME_Object::NestTSetID() {
 }
 
 void ME_Object::LabGaps(int iGap) {
-	char buff[200];
+	CString buff;
 	int i = 0;
 	int iCur;
 	int iS;
 	vector<int> iLabs;
 	vector<int> iSt;
 	vector<int> iEnd;
-	sprintf_s(buff, "%s %i", "Finding Node Labeling Gaps > ", iGap);
+	buff.Format(_T("%s %i"), _T("Finding Node Labeling Gaps > "), iGap);
 	outtext1(buff);
 	// Node label sparsity
 	if ((iNdNo > 2) && iGap > 0) {
@@ -21772,7 +21770,7 @@ void ME_Object::LabGaps(int iGap) {
 			iS = iLabs.at(i) - iCur;
 			if (iS > iGap) {
 				iEnd.push_back(iCur);
-				sprintf_s(buff, "%s %i to %i size %i", "Gap Found at:  ", iCur + 1, iLabs.at(i) - 1, iS - 1);
+				buff.Format(_T("%s %i to %i size %i"), _T("Gap Found at:  "), iCur + 1, iLabs.at(i) - 1, iS - 1);
 				outtext1(buff);
 				iCur = iLabs.at(i);
 				iSt.push_back(iCur);
@@ -21781,7 +21779,7 @@ void ME_Object::LabGaps(int iGap) {
 		iEnd.push_back(iLabs.back());
 		outtext1("Blocks of Nodes");
 		for (i = 0; i < iSt.size(); i++) {
-			sprintf_s(buff, "%i %i", iSt.at(i), iEnd.at(i));
+			buff.Format(_T("%i %i"), iSt.at(i), iEnd.at(i));
 			outtext1(buff);
 		}
 	} else {
@@ -21790,7 +21788,7 @@ void ME_Object::LabGaps(int iGap) {
 	iLabs.clear();
 	iSt.clear();
 	iEnd.clear();
-	sprintf_s(buff, "%s %i", "Finding Element Labeling Gaps > ", iGap);
+	buff.Format(_T("%s %i"), _T("Finding Element Labeling Gaps > "), iGap);
 	outtext1(buff);
 	if ((iElNo > 2) && (iGap > 0)) {
 		for (i = 0; i < iElNo; i++)
@@ -21802,7 +21800,7 @@ void ME_Object::LabGaps(int iGap) {
 			iS = iLabs.at(i) - iCur;
 			if (iS > iGap) {
 				iEnd.push_back(iCur);
-				sprintf_s(buff, "%s %i to %i size %i", "Gap Found at:  ", iCur + 1, iLabs.at(i) - 1, iS - 1);
+				buff.Format(_T("%s %i to %i size %i"), _T("Gap Found at:  "), iCur + 1, iLabs.at(i) - 1, iS - 1);
 				outtext1(buff);
 				iCur = iLabs.at(i);
 				iSt.push_back(iCur);
@@ -21811,7 +21809,7 @@ void ME_Object::LabGaps(int iGap) {
 		iEnd.push_back(iLabs.back());
 		outtext1("Blocks of Elements");
 		for (i = 0; i < iSt.size(); i++) {
-			sprintf_s(buff, "%i %i", iSt.at(i), iEnd.at(i));
+			buff.Format(_T("%i %i"), iSt.at(i), iEnd.at(i));
 			outtext1(buff);
 		}
 	} else {
@@ -21914,12 +21912,12 @@ cLinkedListT* ME_Object::GetTSET(int iSet) {
 }
 
 void ME_Object::SetCurLC(int iSet) {
-	char buff[200];
+	CString buff;
 	int iSInd;
 	iSInd = GetLCind(iSet);
 	if ((iSInd > -1) && (iSInd < iNoLCs)) {
 		iCurLC = iSInd;
-		sprintf_s(buff, "%3i%s ID%i %s", iCurLC, " : ", LCS[iCurLC]->iLabel, LCS[iCurLC]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), iCurLC, _T(" : "), LCS[iCurLC]->iLabel, LCS[iCurLC]->sTitle);
 		outtext1(buff);
 	} else {
 		outtext1("ERROR: Invalid Set ID.");
@@ -21928,12 +21926,12 @@ void ME_Object::SetCurLC(int iSet) {
 }
 
 void ME_Object::SetCurBC(int iSet) {
-	char buff[200];
+	CString buff;
 	int iSInd;
 	iSInd = GetBCind(iSet);
 	if ((iSInd > -1) && (iSInd < iNoBCs)) {
 		iCurBC = iSInd;
-		sprintf_s(buff, "%3i%s ID%i %s", iCurBC, " : ", BCS[iCurBC]->iLabel, BCS[iCurBC]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), iCurBC, _T(" : "), BCS[iCurBC]->iLabel, BCS[iCurBC]->sTitle);
 		outtext1(buff);
 	} else {
 		outtext1("ERROR: Invalid Set ID.");
@@ -21942,12 +21940,12 @@ void ME_Object::SetCurBC(int iSet) {
 }
 
 void ME_Object::SetCurTSET(int iSet) {
-	char buff[200];
+	CString buff;
 	int iSInd;
 	iSInd = GetTSETind(iSet);
 	if ((iSInd > -1) && (iSInd < iNoTSets)) {
 		iCurTSet = iSInd;
-		sprintf_s(buff, "%3i%s ID%i %s", iCurTSet, " : ", TSETS[iCurTSet]->iLabel, TSETS[iCurTSet]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), iCurTSet, _T(" : "), TSETS[iCurTSet]->iLabel, TSETS[iCurTSet]->sTitle);
 		outtext1(buff);
 	} else {
 		outtext1("ERROR: Invalid Set ID.");
@@ -21957,18 +21955,18 @@ void ME_Object::SetCurTSET(int iSet) {
 
 void ME_Object::ListLC() {
 	int i;
-	char buff[200];
+	CString buff;
 	CString iGp;
 	CString oLine;
 	outtext1("LOAD SET LISTING:-");
 
 	for (i = 0; i < iNoLCs; i++) {
-		sprintf_s(buff, "%3i%s ID%i %s", i, " : ", LCS[i]->iLabel, LCS[i]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), i, _T(" : "), LCS[i]->iLabel, LCS[i]->sTitle);
 		outtext1(buff);
 	}
 	if ((iNoLCs > 0) && (iCurLC < iNoLCs)) {
 		outtext1("Active Load Set:-");
-		sprintf_s(buff, "%3i%s ID%i %s", iCurLC, " : ", LCS[iCurLC]->iLabel, LCS[iCurLC]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), iCurLC, _T(" : "), LCS[iCurLC]->iLabel, LCS[iCurLC]->sTitle);
 		outtext1(buff);
 	} else {
 		outtext1("ERROR: No Active Load Set.");
@@ -21977,18 +21975,18 @@ void ME_Object::ListLC() {
 
 void ME_Object::ListBC() {
 	int i;
-	char buff[200];
+	CString buff;
 	CString iGp;
 	CString oLine;
 	outtext1("BOUNDARY SET LISTING:-");
 
 	for (i = 0; i < iNoBCs; i++) {
-		sprintf_s(buff, "%3i%s ID%i %s", i, " : ", BCS[i]->iLabel, BCS[i]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), i, _T(" : "), BCS[i]->iLabel, BCS[i]->sTitle);
 		outtext1(buff);
 	}
 	if ((iNoBCs > 0) && (iCurBC < iNoBCs)) {
 		outtext1("Active Boundary Set:-");
-		sprintf_s(buff, "%3i%s ID%i %s", iCurBC, " : ", BCS[iCurBC]->iLabel, BCS[iCurBC]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), iCurBC, _T(" : "), BCS[iCurBC]->iLabel, BCS[iCurBC]->sTitle);
 		outtext1(buff);
 	} else {
 		outtext1("ERROR: No Active Boundary Set.");
@@ -21997,18 +21995,18 @@ void ME_Object::ListBC() {
 
 void ME_Object::ListTSET() {
 	int i;
-	char buff[200];
+	CString buff;
 	CString iGp;
 	CString oLine;
 	outtext1("TEMPERATURE SET LISTING:-");
 
 	for (i = 0; i < iNoTSets; i++) {
-		sprintf_s(buff, "%3i%s ID%i %s", i, " : ", TSETS[i]->iLabel, TSETS[i]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), i, _T(" : "), TSETS[i]->iLabel, TSETS[i]->sTitle);
 		outtext1(buff);
 	}
 	if ((iNoTSets > 0) && (iCurTSet < iNoTSets)) {
 		outtext1("Active Temperature Set:-");
-		sprintf_s(buff, "%3i%s ID%i %s", iCurTSet, " : ", TSETS[iCurTSet]->iLabel, TSETS[iCurTSet]->sTitle);
+		buff.Format(_T("%3i%s ID%i %s"), iCurTSet, _T(" : "), TSETS[iCurTSet]->iLabel, TSETS[iCurTSet]->sTitle);
 		outtext1(buff);
 	} else {
 		outtext1("ERROR: No Active Temperature Set.");
@@ -22017,10 +22015,10 @@ void ME_Object::ListTSET() {
 
 void ME_Object::DeleteLC(int iSet) {
 	int i;
-	char buff[80];
+	CString buff;
 
 	if ((iSet > -1) && (iSet < iNoLCs)) {
-		sprintf_s(buff, "%s%s", "Deleting Load Set:- ", LCS[iSet]->sTitle);
+		buff.Format(_T("%s%s"), _T("Deleting Load Set:- "), LCS[iSet]->sTitle);
 		LCS[iSet]->DeleteAll();
 		delete (LCS[iSet]);
 		outtext1(buff);
@@ -22039,10 +22037,10 @@ void ME_Object::DeleteLC(int iSet) {
 
 void ME_Object::DeleteBC(int iSet) {
 	int i;
-	char buff[80];
+	CString buff;
 
 	if ((iSet > -1) && (iSet < iNoBCs)) {
-		sprintf_s(buff, "%s%s", "Deleting Boundary Set:-", BCS[iSet]->sTitle);
+		buff.Format(_T("%s%s"), _T("Deleting Boundary Set:-"), BCS[iSet]->sTitle);
 		BCS[iSet]->DeleteAll();
 		delete (BCS[iSet]);
 		outtext1(buff);
@@ -22060,10 +22058,10 @@ void ME_Object::DeleteBC(int iSet) {
 
 void ME_Object::DeleteTSET(int iSet) {
 	int i;
-	char buff[80];
+	CString buff;
 
 	if ((iSet > -1) && (iSet < iNoTSets)) {
-		sprintf_s(buff, "%s%s", "Deleting Temperature Set:-", TSETS[iSet]->sTitle);
+		buff.Format(_T("%s%s"), _T("Deleting Temperature Set:-"), TSETS[iSet]->sTitle);
 		TSETS[iSet]->DeleteAll();
 		delete (TSETS[iSet]);
 		outtext1(buff);
@@ -23855,7 +23853,7 @@ void ME_Object::Test(PropTable* PropsT, MatTable* MatT) {
 	int Hour = timeStart.GetHour();
 	int Min = timeStart.GetMinute();
 	int Sec = timeStart.GetSecond();
-	char s1[80];
+	CString s1;
 	int iLC = -1;
 	CString sSol("");
 	CString sStep("");
@@ -23866,7 +23864,7 @@ void ME_Object::Test(PropTable* PropsT, MatTable* MatT) {
 	cLinkedList* pLC = NULL;
 	cLinkedListB* pBC = NULL;
 	cLinkedListT* pTC = NULL;
-	sprintf_s(s1, "%s %i:%i:%i\n", "START TIME", Hour, Min, Sec);
+	s1.Format(_T("%s %i:%i:%i\n"), _T("START TIME"), Hour, Min, Sec);
 	outtext1(s1);
 	bGo = GetStepCasesLinStat(iStep, sSol, sStep, AA, pLC, pBC, pTC, bRS);
 	if (iStep == -1) {
@@ -23957,7 +23955,7 @@ void ME_Object::Test(PropTable* PropsT, MatTable* MatT) {
 		Hour = timeStart.GetHour();
 		Min = timeStart.GetMinute();
 		Sec = timeStart.GetSecond();
-		sprintf_s(s1, "%s %i:%i:%i\n", "END TIME", Hour, Min, Sec);
+		s1.Format(_T("%s %i:%i:%i\n"), _T("END TIME"), Hour, Min, Sec);
 	} else
 		outtext1("FATAL ERROR");
 }
@@ -24049,11 +24047,11 @@ BOOL ME_Object::GetStepCasesLinStat(int& iStep, CString& sSol, CString& sStep, d
 	int iLC = -1;
 	int iBC = -1;
 	int iTC = -1;
-	char S1[200];
+	CString S1;
 	sSol = "NULL";
 	sStep = "NULL";
 	if (pSOLS->iCur != -1) {
-		sprintf_s(S1, "SOLUTION: %s", pSOLS->pSols[pSOLS->iCur]->sTitle);
+		S1.Format(_T("SOLUTION: %s"), pSOLS->pSols[pSOLS->iCur]->sTitle);
 		outtext1(S1);
 		pCSol = pSOLS->pSols[pSOLS->iCur];
 
@@ -24088,7 +24086,7 @@ void ME_Object::IterSol3dLin(PropTable* PropsT, MatTable* MatT) {
 	CString sSol;
 	CString sStep;
 	int i, j, neq;
-	char s1[80];
+	CString s1;
 	double dErr;
 	int iELCnt;
 	int m;
@@ -24119,7 +24117,7 @@ void ME_Object::IterSol3dLin(PropTable* PropsT, MatTable* MatT) {
 		// THIS NEED TO BE REPERFORMED ONLY IF BC CHANGE THEN NEED TO RESTART ALL
 		this->ApplyRes(pBC); // APply Restraints (not local ones
 		neq = GenDofs(); // Gen DOFS numbers
-		sprintf_s(s1, "%s %i\n", "NO OF EQUATIONS:-", neq);
+		s1.Format(_T("%s %i\n"), _T("NO OF EQUATIONS:-"), neq);
 		outtext1(s1);
 		if (neq != 0) {
 			ZeroThermalStrains(0.0);
@@ -24210,13 +24208,13 @@ void ME_Object::IterSol3dLin(PropTable* PropsT, MatTable* MatT) {
 				dErr = IterConv(x, xnew);
 				x = xnew;
 				if (i % 100 == 0) {
-					sprintf_s(s1, "%s: %i %s: %1.16f\n", "ITER", i, "Err", dErr);
+					s1.Format(_T("%s: %i %s: %1.16f\n"), _T("ITER"), i, _T("Err"), dErr);
 					outtext1(s1);
 				}
 				u.clear();
 				i++;
 			} while (dErr > dTol);
-			sprintf_s(s1, "%s: %i %s: %1.16f\n", "FINAL ERROR ITER", i, "Err", dErr);
+			s1.Format(_T("%s: %i %s: %1.16f\n"), _T("FINAL ERROR ITER"), i, _T("Err"), dErr);
 			outtext1(s1);
 			for (i = 0; i < iELCnt; i++) {
 				KM[i].clear();
@@ -24304,7 +24302,7 @@ void ME_Object::FtoGlobal_E(Mat* LForce, C3dMatrix TMAT, Vec<int>& Steer, Vec<do
 }
 
 void ME_Object::ExplicitSolTest(PropTable* PropsT, MatTable* MatT) {
-	char s1[80];
+	CString s1;
 	double dT = 0.000001; // Time Step
 	double t = 0;
 	double dMass = 0.1;
@@ -24461,7 +24459,7 @@ void ME_Object::ExplicitSolTest(PropTable* PropsT, MatTable* MatT) {
 				LForce = bee * eStress;
 				// LForce.diag();
 				if (k % 100 == 0) {
-					// sprintf_s(s1, "%s: %i %s: %1.16f %s: %1.16f %s: %g\n", "ITER", k, "X", *Ldisp.mn(1,1), "Y", *Ldisp.mn(2, 1),"F" , *LForce.mn(1,1));
+					// s1.Format(_T("%s: %i %s: %1.16f %s: %1.16f %s: %g\n"), _T("ITER"), k, _T("X"), *Ldisp.mn(1,1), _T("Y"), *Ldisp.mn(2, 1),_T("F") , *LForce.mn(1,1));
 					// outtext1(s1);
 				}
 
@@ -24494,13 +24492,13 @@ void ME_Object::ExplicitSolTest(PropTable* PropsT, MatTable* MatT) {
 			*xd.nn(pN->dof[2]) += (*xdd.nn(pN->dof[2]) + acctdt) * dT * 0.5;
 			*xdd.nn(pN->dof[2]) = acctdt;
 		}
-		// sprintf_s(s1, "%s: %i %s: %1.16f %s: %1.16f\n", "ITER", k, "FI", *FI.nn(4), "x", *x.nn(4));
+		// s1.Format(_T("%s: %i %s: %1.16f %s: %1.16f\n"), _T("ITER"), k, _T("FI"), *FI.nn(4), _T("x"), *x.nn(4));
 		// outtext1(s1);
 		// x.diag();
 		t += dT;
 		if (k % 2000 == 0) {
-			sprintf_s(s1, "%s: %g %s: %g %s: %g %s: %g\n", "T ", t, "X ", *x.nn(130), "Y ", *x.nn(131), "Z ", *x.nn(132));
-			// sprintf_s(s1, "%s: %i %s: %g %s: %g %s: %g\n", "ITER", k, "X1 ", TMat.m_00, "X2 ", TMat.m_01, "X3 ", TMat.m_02);
+			s1.Format(_T("%s: %g %s: %g %s: %g %s: %g\n"), _T("T "), t, _T("X "), *x.nn(130), _T("Y "), *x.nn(131), _T("Z "), *x.nn(132));
+			// s1.Format(_T("%s: %i %s: %g %s: %g %s: %g\n"), _T("ITER"), k, _T("X1 "), TMat.m_00, _T("X2 "), TMat.m_01, _T("X3 "), TMat.m_02);
 			outtext1(s1);
 			Displacements(k, _T("T"), _T("A"), Steer, x);
 		}
@@ -24512,7 +24510,7 @@ void ME_Object::ExplicitSolTest(PropTable* PropsT, MatTable* MatT) {
 //*********************************************************************************
 void ME_Object::IterSol1dSS(PropTable* PropsT, MatTable* MatT) {
 	int i, j, neq;
-	char s1[80];
+	CString s1;
 	double dErr;
 	int iELCnt;
 	int m;
@@ -24558,7 +24556,7 @@ void ME_Object::IterSol1dSS(PropTable* PropsT, MatTable* MatT) {
 		ZeroDOF(); // Zero the DOFS                                //THIS NEED TO BE REPORFED ONLY IF BC CHANGE THEN NEED TO RESTART ALL
 		int iDof = ApplyResSS(pBC); // APply Restraints (not local ones
 		neq = GenDofs1D(iDof); // Gen DOFS numbers
-		sprintf_s(s1, "%s %i\n", "NO OF EQUATIONS:-", neq);
+		s1.Format(_T("%s %i\n"), _T("NO OF EQUATIONS:-"), neq);
 		outtext1(s1);
 		if (neq != 0) {
 			TVec = GetTempVec(pBC, neq);
@@ -24669,7 +24667,7 @@ void ME_Object::IterSol1dSS(PropTable* PropsT, MatTable* MatT) {
 				dErr = IterConv(x, xnew);
 				x = xnew;
 				if (i % 100 == 0) {
-					sprintf_s(s1, "%s: %i %s: %1.16f\n", "ITER", i, "Err", dErr);
+					s1.Format(_T("%s: %i %s: %1.16f\n"), _T("ITER"), i, _T("Err"), dErr);
 					outtext1(s1);
 					// inner thermal loop temporarylly here
 					// RadiationLoss(Steer, xnew, QVec);
@@ -24677,7 +24675,7 @@ void ME_Object::IterSol1dSS(PropTable* PropsT, MatTable* MatT) {
 				u.clear();
 				i++;
 			} while (dErr > dTol);
-			sprintf_s(s1, "%s: %i %s: %1.16f\n", "FINAL ERROR ITER", i, "Err", dErr);
+			s1.Format(_T("%s: %i %s: %1.16f\n"), _T("FINAL ERROR ITER"), i, _T("Err"), dErr);
 			outtext1(s1);
 			for (i = 0; i < iELCnt; i++) {
 				KM[i].clear();
@@ -24705,13 +24703,13 @@ void ME_Object::PrintTime(CString cS) {
 	int Hour;
 	int Min;
 	int Sec;
-	char s1[80];
+	CString s1;
 	COleDateTime timeStart;
 	timeStart = COleDateTime::GetCurrentTime();
 	Hour = timeStart.GetHour();
 	Min = timeStart.GetMinute();
 	Sec = timeStart.GetSecond();
-	sprintf_s(s1, "%s %i:%i:%i\n", cS, Hour, Min, Sec);
+	s1.Format(_T("%s %i:%i:%i\n"), cS, Hour, Min, Sec);
 	outtext1(s1);
 }
 
@@ -24995,7 +24993,7 @@ void ME_Object::BuildForceVector(PropTable* PropsT, MatTable* MatT, cLinkedList*
 
 void ME_Object::ReportFResultant(Vec<double>& FVec) {
 	int i;
-	char s1[80];
+	CString s1;
 	double FXTot = 0;
 	double FYTot = 0;
 	double FZTot = 0;
@@ -25006,7 +25004,7 @@ void ME_Object::ReportFResultant(Vec<double>& FVec) {
 	C3dVector vC;
 	C3dVector vF;
 	C3dVector vM;
-	// sprintf_s(s1,"%s: %i %s: %1.16f\n","ITER",i,"Err",dErr);
+	// s1.Format(_T("%s: %i %s: %1.16f\n"),_T("ITER"),i,_T("Err"),dErr);
 	outtext1("GLOBAL LOADS RESULTANT:-");
 	for (i = 0; i < iNdNo; i++) {
 		pN = pNodes[i];
@@ -25040,29 +25038,29 @@ void ME_Object::ReportFResultant(Vec<double>& FVec) {
 			MZTot += *FVec.nn(pN->dof[5]);
 		}
 	}
-	sprintf_s(s1, "%s: %1.16f\n", "FX", FXTot);
+	s1.Format(_T("%s: %1.16f\n"), _T("FX"), FXTot);
 	outtext1(s1);
-	sprintf_s(s1, "%s: %1.16f\n", "FY", FYTot);
+	s1.Format(_T("%s: %1.16f\n"), _T("FY"), FYTot);
 	outtext1(s1);
-	sprintf_s(s1, "%s: %1.16f\n", "FZ", FZTot);
+	s1.Format(_T("%s: %1.16f\n"), _T("FZ"), FZTot);
 	outtext1(s1);
 
-	sprintf_s(s1, "%s: %1.16f\n", "MX", MXTot);
+	s1.Format(_T("%s: %1.16f\n"), _T("MX"), MXTot);
 	outtext1(s1);
-	sprintf_s(s1, "%s: %1.16f\n", "MY", MYTot);
+	s1.Format(_T("%s: %1.16f\n"), _T("MY"), MYTot);
 	outtext1(s1);
-	sprintf_s(s1, "%s: %1.16f\n", "MZ", MZTot);
+	s1.Format(_T("%s: %1.16f\n"), _T("MZ"), MZTot);
 	outtext1(s1);
 }
 
 void ME_Object::ReportQResultant(Vec<double>& QVec) {
 	int i;
-	char s1[80];
+	CString s1;
 	double Q = 0;
 
 	Node* pN;
 
-	// sprintf_s(s1,"%s: %i %s: %1.16f\n","ITER",i,"Err",dErr);
+	// s1.Format(_T("%s: %i %s: %1.16f\n"),_T("ITER"),i,_T("Err"),dErr);
 	outtext1("GLOBAL FLUX RESULTANT:-");
 	for (i = 0; i < iNdNo; i++) {
 		pN = pNodes[i];
@@ -25070,7 +25068,7 @@ void ME_Object::ReportQResultant(Vec<double>& QVec) {
 			Q += *QVec.nn(pN->dof[0]);
 		}
 	}
-	sprintf_s(s1, "%s: %f\n", "Q", Q);
+	s1.Format(_T("%s: %f\n"), _T("Q"), Q);
 	outtext1(s1);
 }
 
@@ -26401,7 +26399,7 @@ void ME_Object::UpdatePropRef(PropTable* pT) {
 		if (p != NULL) {
 			pElems[i]->SetProperty(p);
 		} else {
-			// sprintf_s(S1,"%s%i","Property not found PID",pElems[i]->PID);
+			// S1.Format(_T("%s%i"),_T("Property not found PID"),pElems[i]->PID);
 			// outtext1(S1);
 		}
 	}
@@ -26962,10 +26960,10 @@ void DrawColBar(int iDspFlgs, double dW, double dH) {
 		glEnd();
 	}
 	glDisable(GL_TEXTURE_1D);
-	char sLab[80];
+	CString sLab;
 	for (i = 0; i < iNoCols + 1; i++) {
-		sprintf_s(sLab, "%g", VOrd[i]);
-		OglString(iDspFlgs, dW - 0.95 * dWInc, YOrd[i], 100, &sLab[0]);
+		sLab.Format(_T("%g"), VOrd[i]);
+		OglString(iDspFlgs, dW - 0.95 * dWInc, YOrd[i], 100, CT2A(sLab));
 	}
 }
 
@@ -27004,7 +27002,7 @@ void ME_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 
 void ME_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	int i;
-	char sLab[80];
+	CString sLab;
 	if (pResVectors != NULL)
 		pResVectors->OglDrawW(iDspFlgs, dS1, dS2);
 	if (iElNo > 0) {
@@ -27048,8 +27046,8 @@ void ME_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		bDrawLab = FALSE;
 	if (bDrawLab == TRUE) {
 		// Esp_Mod_Labels_4_27_2025_End
-		sprintf_s(sLab, "ME: %s", sName);
-		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, sLab);
+		sLab.Format(_T("ME: %s"), sName);
+		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 	}
 }
 
@@ -28869,7 +28867,7 @@ C3dVector ME_Object::EigenVector3d(int iEID, C3dVector rX, C3dVector rY, C3dVect
 	rX.x -= lambda;
 	rY.y -= lambda;
 	rZ.z -= lambda;
-	char s80[80];
+	CString s80;
 	double dS1;
 	// Assume trail X=1 for eigen vetoy
 	if (rX.z != 0) {
@@ -28882,7 +28880,7 @@ C3dVector ME_Object::EigenVector3d(int iEID, C3dVector rX, C3dVector rY, C3dVect
 		res.z = -(rX.x + res.y * rX.y) / rX.z;
 
 	} else {
-		sprintf_s(s80, "%s %i", "Eigenvector undetermined for EID ", iEID);
+		s80.Format(_T("%s %i"), _T("Eigenvector undetermined for EID "), iEID);
 		outtext1(s80);
 	}
 	res.Normalize();
@@ -28894,7 +28892,7 @@ C3dVector ME_Object::EigenVector2d(int iEID, C3dVector rX, C3dVector rY, double 
 	C3dVector res;
 	rX.x -= lambda;
 	rY.y -= lambda;
-	char s80[80];
+	CString s80;
 	// Assume trail X=1 for eigen vector
 	if (rX.y != 0) {
 		res.x = 1;
@@ -28902,7 +28900,7 @@ C3dVector ME_Object::EigenVector2d(int iEID, C3dVector rX, C3dVector rY, double 
 		res.z = 0;
 
 	} else {
-		sprintf_s(s80, "%s %i", "Eigenvector undetermined for EID ", iEID);
+		s80.Format(_T("%s %i"), _T("Eigenvector undetermined for EID "), iEID);
 		outtext1(s80);
 	}
 	res.Normalize();
@@ -29371,7 +29369,7 @@ void ME_Object::AddOEFRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 
 void ME_Object::AddOEFResF(int Vals[], int iCnt, CString sTitle, CString sSubTitle, CString inName, double dF) {
 	int i;
-	char s80[80];
+	CString s80;
 	ResultsSets[iNoRes] = new ResSet();
 	ResultsSets[iNoRes]->sFile = inName;
 	ResultsSets[iNoRes]->sTitle = sTitle;
@@ -29410,7 +29408,7 @@ void ME_Object::AddOEFResF(int Vals[], int iCnt, CString sTitle, CString sSubTit
 	}
 
 	if ((iCnt > 5) && (ResultsSets[iNoRes]->TYPE == 102)) {
-		sprintf_s(s80, "%s %g %s", sEL, dF, "Hz");
+		s80.Format(_T("%s %g %s"), sEL, dF, _T("Hz"));
 		ResultsSets[iNoRes]->sName = s80;
 		ResultsSets[iNoRes]->iNoV = 13;
 		if (ResultsSets[iNoRes]->FCODE == 3) { // MAG / PHASE
@@ -29474,7 +29472,7 @@ void ME_Object::AddOEFResF(int Vals[], int iCnt, CString sTitle, CString sSubTit
 			ResultsSets[iNoRes]->Add(pRes);
 		}
 	} else if ((iCnt > 5) && ((ResultsSets[iNoRes]->TYPE == 33) || (ResultsSets[iNoRes]->TYPE == 74))) { // QUAD4 FEQUENCY RESULTS
-		sprintf_s(s80, "%s %g %s", sEL, dF, "Hz");
+		s80.Format(_T("%s %g %s"), sEL, dF, _T("Hz"));
 		ResultsSets[iNoRes]->sName = s80;
 		ResultsSets[iNoRes]->iNoV = iWID - 1;
 		if (ResultsSets[iNoRes]->FCODE == 3) { // MAG / PHASE
@@ -29950,7 +29948,7 @@ void ME_Object::AddOES1Res(int Vals[], int iCnt, CString sTitle, CString sSubTit
 }
 
 void ME_Object::AddOES1ResF(int Vals[], int iCnt, CString sTitle, CString sSubTitle, CString inName, double dF) {
-	char s80[80];
+	CString s80;
 	int i;
 	int iWID = -1;
 	int iFC = -1;
@@ -29980,7 +29978,7 @@ void ME_Object::AddOES1ResF(int Vals[], int iCnt, CString sTitle, CString sSubTi
 		isGood = FALSE;
 	}
 	if ((iCnt > 10) && (isGood)) {
-		sprintf_s(s80, "%s %g %s", sEL, dF, "Hz");
+		s80.Format(_T("%s %g %s"), sEL, dF, _T("Hz"));
 		ResultsSets[iNoRes]->sName = s80;
 		ResultsSets[iNoRes]->iNoV = iWID - 1;
 		if (iFC == 2) // Real and Imaginary
@@ -30040,7 +30038,7 @@ void ME_Object::AddOES1ResF(int Vals[], int iCnt, CString sTitle, CString sSubTi
 }
 
 void ME_Object::AddOSTRResF(int Vals[], int iCnt, CString sTitle, CString sSubTitle, CString inName, double dF) {
-	char s80[80];
+	CString s80;
 	int i;
 	int iWID = -1;
 	int iFC = -1;
@@ -30070,7 +30068,7 @@ void ME_Object::AddOSTRResF(int Vals[], int iCnt, CString sTitle, CString sSubTi
 		isGood = FALSE;
 	}
 	if ((iCnt > 10) && (isGood)) {
-		sprintf_s(s80, "%s %g %s", sEL, dF, "Hz");
+		s80.Format(_T("%s %g %s"), sEL, dF, _T("Hz"));
 		ResultsSets[iNoRes]->sName = s80;
 		ResultsSets[iNoRes]->iNoV = iWID - 1;
 		if (iFC == 2) // Real and Imaginary
@@ -30888,7 +30886,7 @@ void ME_Object::AddOSTRFCPXRes(int Vals[], int iCnt, CString sTitle, CString sSu
 		ResultsSets[iNoRes]->FCODE = Vals[7];
 		ResultsSets[iNoRes]->SCODE = Vals[8];
 		CString sEL;
-		char s30[30];
+		CString s30;
 		BOOL isGood = FALSE;
 		// FCODE = 2  Real/imaginary
 		// FCODE = 3  Magnitude/phase
@@ -30896,7 +30894,7 @@ void ME_Object::AddOSTRFCPXRes(int Vals[], int iCnt, CString sTitle, CString sSu
 			isGood = TRUE;
 			if (Vals[0] / 10 == 5) // It's a frequency results
 			{
-				sprintf_s(s30, "%g %s", dFreq, "Hz STRAIN CQUAD4");
+				s30.Format(_T("%g %s"), dFreq, _T("Hz STRAIN CQUAD4"));
 				sEL = s30;
 			} else {
 				sEL = "STRAIN GRMS CQUAD4";
@@ -30946,7 +30944,7 @@ void ME_Object::AddOSTRFCPXRes(int Vals[], int iCnt, CString sTitle, CString sSu
 
 void ME_Object::AddOAG1Res(int Vals[], int iCnt, CString sTitle, CString sSubTitle, CString inName, double dF) {
 	int i;
-	char s30[30];
+	CString s30;
 	// BuildNodeList();
 	C3dVector vT;
 	C3dVector vR;
@@ -30971,7 +30969,7 @@ void ME_Object::AddOAG1Res(int Vals[], int iCnt, CString sTitle, CString sSubTit
 	ResultsSets[iNoRes]->WID = Vals[6];
 
 	if (iCnt > 10) {
-		sprintf_s(s30, "%s %g %s", "ACCEL", dF, "Hz");
+		s30.Format(_T("%s %g %s"), _T("ACCEL"), dF, _T("Hz"));
 		ResultsSets[iNoRes]->sName = s30;
 		ResultsSets[iNoRes]->iNoV = 13;
 		if (ResultsSets[iNoRes]->FCODE == 3) { // MAG / PHASE
@@ -31041,7 +31039,7 @@ void ME_Object::AddOAG1Res(int Vals[], int iCnt, CString sTitle, CString sSubTit
 
 void ME_Object::AddOQMRes(int Vals[], int iCnt, CString sTitle, CString sSubTitle, CString inName, double dF) {
 	int i;
-	char s30[30];
+	CString s30;
 	// BuildNodeList();
 	C3dVector vT;
 	C3dVector vR;
@@ -31068,7 +31066,7 @@ void ME_Object::AddOQMRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 	if (iCnt > 10) {
 		if (ResultsSets[iNoRes]->ACODE / 10 == 5) // Frequency
 		{
-			sprintf_s(s30, "%s %g %s", "MPCF", dF, "Hz");
+			s30.Format(_T("%s %g %s"), _T("MPCF"), dF, _T("Hz"));
 			ResultsSets[iNoRes]->sName = s30;
 			ResultsSets[iNoRes]->iNoV = 13;
 			if (ResultsSets[iNoRes]->FCODE == 3) { // MAG / PHASE
@@ -31133,7 +31131,7 @@ void ME_Object::AddOQMRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 			}
 		} else if (ResultsSets[iNoRes]->ACODE / 10 == 1) // Static
 		{
-			sprintf_s(s30, "%s", "MPCF");
+			s30.Format(_T("%s"), _T("MPCF"));
 			ResultsSets[iNoRes]->sName = s30;
 			// momo
 			// momo// ResultsSets[iNoRes]->iNoV = 6;
@@ -31167,7 +31165,7 @@ void ME_Object::AddOQMRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 
 void ME_Object::AddOUGRes(int Vals[], int iCnt, CString sTitle, CString sSubTitle, CString inName) {
 	int i;
-	char s30[30];
+	CString s30;
 	int ModeNo;
 	float ModeFreq;
 	BuildNodeList();
@@ -31219,9 +31217,9 @@ void ME_Object::AddOUGRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 
 	if (iCnt > 10) {
 		if (ResultsSets[iNoRes]->ACODE == 22) // Modes
-			sprintf_s(s30, "DISP MODE %g", ResultsSets[iNoRes]->d1);
+			s30.Format(_T("DISP MODE %g"), ResultsSets[iNoRes]->d1);
 		else
-			sprintf_s(s30, "%s", "DISPLACEMENT");
+			s30.Format(_T("%s"), _T("DISPLACEMENT"));
 		ResultsSets[iNoRes]->sName = s30;
 		// momo
 		// momo // ResultsSets[iNoRes]->iNoV = 6;
@@ -31281,10 +31279,10 @@ void ME_Object::AddOUGRes(int Vals[], int iCnt, CString sTitle, CString sSubTitl
 
 void ME_Object::ListResSets() {
 	int i;
-	char buff[80];
+	CString buff;
 	outtext1("RESULTS LISTING:-");
 	for (i = 0; i < iNoRes; i++) {
-		sprintf_s(buff, "%3i%s%8i%s%s", i, " : LC ", ResultsSets[i]->LC, " ", ResultsSets[i]->sName);
+		buff.Format(_T("%3i%s%8i%s%s"), i, _T(" : LC "), ResultsSets[i]->LC, _T(" "), ResultsSets[i]->sName);
 		outtext1(buff);
 	}
 }
@@ -31292,14 +31290,14 @@ void ME_Object::ListResSets() {
 void ME_Object::ListVecSets() {
 	int i;
 	int j;
-	char buff[80];
+	CString buff;
 	outtext1("AVAILABLE RESULTS VECTOR:-");
 	for (i = 0; i < iNoRes; i++) {
-		sprintf_s(buff, "%s%8i%s%8i%s%s", "RES SET ", i, " LC ", ResultsSets[i]->LC, " ", ResultsSets[i]->sName);
+		buff.Format(_T("%s%8i%s%8i%s%s"), _T("RES SET "), i, _T(" LC "), ResultsSets[i]->LC, _T(" "), ResultsSets[i]->sName);
 		outtext1(buff);
 		if (ResultsSets[i]->iNoResDef > 0) {
 			for (j = 0; j < ResultsSets[i]->iNoResDef; j++) {
-				sprintf_s(buff, "   %i,%i : %s", i, j, ResultsSets[i]->ResDefintion[j]->sResType);
+				buff.Format(_T("   %i,%i : %s"), i, j, ResultsSets[i]->ResDefintion[j]->sResType);
 				outtext1(buff);
 			}
 		}
@@ -31308,21 +31306,21 @@ void ME_Object::ListVecSets() {
 
 void ME_Object::ListResSet() {
 	int i;
-	char buff[80];
+	CString buff;
 	outtext1("CURRENT RESULTS LISTING:-");
 	if ((iCurResSet < iNoRes) && (iCurResSet >= 0)) {
-		sprintf(buff, "%3i%s%8i%s%s", iCurResSet, " : LC ", ResultsSets[iCurResSet]->LC, " ", ResultsSets[iCurResSet]->sName);
+		buff.Format(_T("%3i%s%8i%s%s"), iCurResSet, _T(" : LC "), ResultsSets[iCurResSet]->LC, _T(" "), ResultsSets[iCurResSet]->sName);
 		outtext1(buff);
 		outtext1("Variable:-");
 		for (i = 0; i < ResultsSets[iCurResSet]->iNoV; i++) {
-			sprintf_s(buff, "%3i%s%s", i, " : ", ResultsSets[iCurResSet]->lab[i]);
+			buff.Format(_T("%3i%s%s"), i, _T(" : "), ResultsSets[iCurResSet]->lab[i]);
 			outtext1(buff);
 		}
-		sprintf_s(buff, "%s%s", "Current variable : ", ResultsSets[iCurResSet]->lab[iResVal]);
+		buff.Format(_T("%s%s"), _T("Current variable : "), ResultsSets[iCurResSet]->lab[iResVal]);
 		outtext1(buff);
-		sprintf_s(buff, "%s%f", "Max Value : ", fMaxRes);
+		buff.Format(_T("%s%f"), _T("Max Value : "), fMaxRes);
 		outtext1(buff);
-		sprintf_s(buff, "%s%f", "Min Value : ", fMinRes);
+		buff.Format(_T("%s%f"), _T("Min Value : "), fMinRes);
 		outtext1(buff);
 	} else {
 		outtext1("WARNING: No Results Selected.");
@@ -31348,23 +31346,23 @@ void ME_Object::SetCurrentResSet(int iRS, int iRV, int iOPT) {
 }
 
 void ME_Object::WriteResHead(int iDspFlgs, float dW, float dH) {
-	char sLab[200];
+	CString sLab;
 	if ((iCurResSet > -1) && (CResSet != NULL)) {
-		sprintf_s(sLab, "%s", ResultsSets[iCurResSet]->sName);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.1 * dH, 100, &sLab[0]);
-		sprintf_s(sLab, "%s %i %s", "Solution :", ResultsSets[iCurResSet]->LC, ResultsSets[iCurResSet]->sTitle);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.2 * dH, 100, &sLab[0]);
+		sLab.Format(_T("%s"), ResultsSets[iCurResSet]->sName);
+		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.1 * dH, 100, CT2A(sLab));
+		sLab.Format(_T("%s %i %s"), _T("Solution :"), ResultsSets[iCurResSet]->LC, ResultsSets[iCurResSet]->sTitle);
+		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.2 * dH, 100, CT2A(sLab));
 		if (ResultsSets[iCurResSet]->ACODE == 22)
-			sprintf_s(sLab, "%s %i %g Hz", "MODE :", ResultsSets[iCurResSet]->i1, ResultsSets[iCurResSet]->d1);
+			sLab.Format(_T("%s %i %g Hz"), _T("MODE :"), ResultsSets[iCurResSet]->i1, ResultsSets[iCurResSet]->d1);
 		else
-			sprintf_s(sLab, "%s %i %s", "Step :", ResultsSets[iCurResSet]->LC, ResultsSets[iCurResSet]->sSubTitle);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.3 * dH, 100, &sLab[0]);
-		sprintf_s(sLab, "%s %s %s %i", "Variable  :", ResultsSets[iCurResSet]->lab[iResVal], ResultsSets[iCurResSet]->sOpName, iPostOpt);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.4 * dH, 100, &sLab[0]);
-		sprintf_s(sLab, "%s %f", "Max Value :", ResultsSets[iCurResSet]->fMaxV);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.5 * dH, 100, &sLab[0]);
-		sprintf_s(sLab, "%s %f", "Min Value :", ResultsSets[iCurResSet]->fMinV);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.6 * dH, 100, &sLab[0]);
+			sLab.Format(_T("%s %i %s"), _T("Step :"), ResultsSets[iCurResSet]->LC, ResultsSets[iCurResSet]->sSubTitle);
+		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.3 * dH, 100, CT2A(sLab));
+		sLab.Format(_T("%s %s %s %i"), _T("Variable  :"), ResultsSets[iCurResSet]->lab[iResVal], ResultsSets[iCurResSet]->sOpName, iPostOpt);
+		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.4 * dH, 100, CT2A(sLab));
+		sLab.Format(_T("%s %f"), _T("Max Value :"), ResultsSets[iCurResSet]->fMaxV);
+		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.5 * dH, 100, CT2A(sLab));
+		sLab.Format(_T("%s %f"), _T("Min Value :"), ResultsSets[iCurResSet]->fMinV);
+		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.6 * dH, 100, CT2A(sLab));
 	}
 }
 
@@ -31375,7 +31373,7 @@ void ME_Object::WriteResHead(int iDspFlgs, float dW, float dH) {
 void ME_Object::ResListRespData(int iEnt) {
 	int i;
 	int j;
-	char buff[200];
+	CString buff;
 	ResSet* pRS;
 	Res* pR;
 	CString sDL;
@@ -31393,10 +31391,10 @@ void ME_Object::ResListRespData(int iEnt) {
 				if (bFirst) {
 					outtext1(pRS->sTitle);
 					outtext1(pRS->sSubTitle);
-					sprintf_s(buff, "%s%i	%s%i", "LC", pRS->LC, "ID", iEnt);
+					buff.Format(_T("%s%i	%s%i"), _T("LC"), pRS->LC, _T("ID"), iEnt);
 					outtext1(buff);
 					// sDL = pRS->ToStringHead();
-					sprintf_s(buff, "%s	%s", pRS->lab[0], pRS->lab[iResVal]);
+					buff.Format(_T("%s	%s"), pRS->lab[0], pRS->lab[iResVal]);
 					outtext1(buff);
 					bFirst = FALSE;
 				}
@@ -31405,7 +31403,7 @@ void ME_Object::ResListRespData(int iEnt) {
 				for (j = 0; j < pRS->iCnt; j++) {
 					if (pR->ID == iEnt) {
 						// sDL = pRS->ToStringDL(pR);
-						sprintf_s(buff, "%g	%g", *pR->GetAddress(0), *pR->GetAddress(iResVal));
+						buff.Format(_T("%g	%g"), *pR->GetAddress(0), *pR->GetAddress(iResVal));
 						outtext1(buff);
 						break;
 					}
@@ -31422,7 +31420,7 @@ void ME_Object::ResListRespData(int iEnt) {
 void ME_Object::ResLabRespItems() {
 	int i;
 	int j;
-	char buff[200];
+	CString buff;
 	ResSet* pRS = NULL;
 	Res* pR = NULL;
 	int iTCode = -1;
@@ -31438,7 +31436,7 @@ void ME_Object::ResLabRespItems() {
 		// TCODE 1039 Node MPC
 		if ((iTCode == 1039) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
-			sprintf_s(buff, "%s %i %s", "CHECKING LC", iLC, "MPC FORCE FOR RESPONSE NODES");
+			buff.Format(_T("%s %i %s"), _T("CHECKING LC"), iLC, _T("MPC FORCE FOR RESPONSE NODES"));
 			outtext1(buff);
 			pRS = ResultsSets[i];
 			pR = pRS->Head;
@@ -31457,7 +31455,7 @@ void ME_Object::ResLabRespItems() {
 		// TCODE 1039 Node MPC
 		if ((iTCode == 1011) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
-			sprintf_s(buff, "%s %i %s", "CHECKING LC", iLC, "ACCEL FOR RESPONSE NODES");
+			buff.Format(_T("%s %i %s"), _T("CHECKING LC"), iLC, _T("ACCEL FOR RESPONSE NODES"));
 			outtext1(buff);
 			pRS = ResultsSets[i];
 			pR = pRS->Head;
@@ -31472,7 +31470,7 @@ void ME_Object::ResLabRespItems() {
 	outtext1("Available Response Nodes:-");
 	for (i = 0; i < oIDS->iNo; i++) {
 		if (oIDS->iNo < 50) {
-			sprintf_s(buff, "NODE	%i", oIDS->ids[i]);
+			buff.Format(_T("NODE	%i"), oIDS->ids[i]);
 			outtext1(buff);
 		}
 		oND = this->GetNode(oIDS->ids[i]);
@@ -31488,7 +31486,7 @@ void ME_Object::ResLabRespItems() {
 		// TCODE 1039 Node MPC
 		if ((iTCode == 1004) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
-			sprintf_s(buff, "%s %i %s", "CHECKING LC", iLC, "FORCES FOR RESPONSE ELEMENTS");
+			buff.Format(_T("%s %i %s"), _T("CHECKING LC"), iLC, _T("FORCES FOR RESPONSE ELEMENTS"));
 			outtext1(buff);
 			pRS = ResultsSets[i];
 			pR = pRS->Head;
@@ -31502,7 +31500,7 @@ void ME_Object::ResLabRespItems() {
 	outtext1("Available Response Elements:-");
 	for (i = 0; i < oIDS->iNo; i++) {
 		if (oIDS->iNo < 50) {
-			sprintf_s(buff, "ELEMENT	%i", oIDS->ids[i]);
+			buff.Format(_T("ELEMENT	%i"), oIDS->ids[i]);
 			outtext1(buff);
 		}
 		oEl = this->GetElement(oIDS->ids[i]);
@@ -31521,7 +31519,7 @@ void ME_Object::ResLabRespItems() {
 void ME_Object::ResListRespDataFull(int iEnt) {
 	int i;
 	int j;
-	char buff[200];
+	CString buff;
 	ResSet* pRS;
 	Res* pR;
 	CString sDL;
@@ -31539,7 +31537,7 @@ void ME_Object::ResListRespDataFull(int iEnt) {
 				if (bFirst) {
 					outtext1(pRS->sTitle);
 					outtext1(pRS->sSubTitle);
-					sprintf_s(buff, "%s	%i	%s	%i	", "LC", pRS->LC, "ID", iEnt);
+					buff.Format(_T("%s	%i	%s	%i	"), _T("LC"), pRS->LC, _T("ID"), iEnt);
 					outtext1(buff);
 					sDL = pRS->ToStringHead();
 					outtext1(sDL);
@@ -33660,9 +33658,9 @@ void PartsCat::Serialize(CArchive& ar, int iV) {
 }
 
 void PartsCat::Info() {
-	char S1[80];
+	CString S1;
 	CString OutT;
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", iLabel, " Col; ", iColour);
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), iLabel, _T(" Col; "), iColour);
 	OutT += S1;
 	outtext1("PARTS CAT");
 	outtext1(OutT);
@@ -33682,26 +33680,26 @@ void PartsCat::Draw(CDC* pDC, int iDrawmode) {
 }
 
 void PartsCat::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	char sLab[200];
+	CString sLab;
 	C3dVector pCent;
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
-			sprintf_s(sLab, "%s", P_Obj[iCurDsp]->sName);
+			sLab.Format(_T("%s"), P_Obj[iCurDsp]->sName);
 			pCent = P_Obj[iCurDsp]->Get_Centroid();
-			OglString(iDspFlgs, pCent.x, pCent.y, pCent.z, &sLab[0]);
+			OglString(iDspFlgs, pCent.x, pCent.y, pCent.z, CT2A(sLab));
 			P_Obj[iCurDsp]->OglDraw(iDspFlgs, dS1, dS2);
 		}
 	}
 }
 
 void PartsCat::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[200];
+	CString sLab;
 	C3dVector pCent;
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
-			sprintf_s(sLab, "%s", P_Obj[iCurDsp]->sName);
+			sLab.Format(_T("%s"), P_Obj[iCurDsp]->sName);
 			pCent = P_Obj[iCurDsp]->Get_Centroid();
-			OglString(iDspFlgs, pCent.x, pCent.y, pCent.z, &sLab[0]);
+			OglString(iDspFlgs, pCent.x, pCent.y, pCent.z, CT2A(sLab));
 			P_Obj[iCurDsp]->OglDrawW(iDspFlgs, dS1, dS2);
 		}
 	}
@@ -33949,9 +33947,9 @@ void Entity::Create(CString inTitle,
 }
 
 void Entity::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
-	sprintf_s(S1, "%s %i %s %i", "ID", iID, "TYPE", iType);
+	S1.Format(_T("%s %i %s %i"), _T("ID"), iID, _T("TYPE"), iType);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -33961,10 +33959,10 @@ void Entity::List() {
 void Entity::ListShort(int iRow)
 // MoMo_Material_SaveBugV1_05_20_2025_End
 {
-	char S1[200];
+	CString S1;
 	// MoMo_Material_SaveBugV1_05_20_2025_Start
-	// MoMo// sprintf_s(S1, "%s %i %s %i %s %i  %s", "FNO", iFile, "ID", iID, "TYPE", iType, this->sTitle);
-	sprintf_s(S1, "%i >> %s %i %s %i %s %i  %s", iRow, "FNO", iFile, "Material ID", iID, "TYPE", iType, this->sTitle);
+	// MoMo// S1.Format(_T("%s %i %s %i %s %i  %s"), _T("FNO"), iFile, _T("ID"), iID, _T("TYPE"), iType, this->sTitle);
+	S1.Format(_T("%i >> %s %i %s %i %s %i  %s"), iRow, _T("FNO"), iFile, _T("Material ID"), iID, _T("TYPE"), iType, this->sTitle);
 	// MoMo_Material_SaveBugV1_05_20_2025_End
 	outtext1(S1);
 }
@@ -34103,16 +34101,16 @@ void PMASS::Serialize(CArchive& ar, int iV) {
 }
 
 void PMASS::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "LUMPED MASS");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("LUMPED MASS"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s"), _T("TITLE : "), sTitle);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "M    : ", dM);
+	S1.Format(_T("%s %f"), _T("M    : "), dM);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -34125,10 +34123,10 @@ int PMASS::GetVarHeaders(CString sVar[]) {
 
 int PMASS::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
+	CString S1;
 	sVar[iNo] = "";
 	iNo++;
-	sprintf_s(S1, "%g", dM);
+	S1.Format(_T("%g"), dM);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -34179,25 +34177,25 @@ void PSPRINGT::Serialize(CArchive& ar, int iV) {
 }
 
 void PSPRINGT::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "TRANSLATION SPRING");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("TRANSLATION SPRING"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s"), _T("TITLE : "), sTitle);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "kx    : ", dkx);
+	S1.Format(_T("%s %f"), _T("kx    : "), dkx);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "ky    : ", dky);
+	S1.Format(_T("%s %f"), _T("ky    : "), dky);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "kz    : ", dkz);
+	S1.Format(_T("%s %f"), _T("kz    : "), dkz);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "kCoeff: ", dkcoeff);
+	S1.Format(_T("%s %f"), _T("kCoeff: "), dkcoeff);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -34213,20 +34211,20 @@ int PSPRINGT::GetVarHeaders(CString sVar[]) {
 
 int PSPRINGT::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = "";
 	iNo++;
-	sprintf_s(S1, "%g", dkx);
+	S1.Format(_T("%g"), dkx);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dky);
+	S1.Format(_T("%g"), dky);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dkz);
+	S1.Format(_T("%g"), dkz);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dkcoeff);
+	S1.Format(_T("%g"), dkcoeff);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -34242,7 +34240,7 @@ void PSPRINGT::PutVarValues(int iNo, CString sVar[]) {
 
 void PSPRINGT::ExportNAS(FILE* pFile) {
 	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8s%8s%8s%8s\n", "PBUSH   ", iID, "       K", e8(dkx), e8(dky), e8(dkz));
+	fprintf(pFile, "%8s%8i%8s%8s%8s%8s\n", _T("PBUSH   "), iID, _T("       K"), e8(dkx), e8(dky), e8(dkz));
 }
 
 IMPLEMENT_DYNAMIC(PSPRINGR, CObject)
@@ -34258,25 +34256,25 @@ PSPRINGR::PSPRINGR() {
 }
 
 void PSPRINGR::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "ROTATION SPRING");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("ROTATION SPRING"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s_T("), ")TITLE : ", sTitle);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "kx    : ", dkx);
+	S1.Format(_T("%s %f"), _T("kx    : "), dkx);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "ky    : ", dky);
+	S1.Format(_T("%s %f"), _T("ky    : "), dky);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "kz    : ", dkz);
+	S1.Format(_T("%s %f"), _T("kz    : "), dkz);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "kCoeff: ", dkcoeff);
+	S1.Format(_T("%s %f"), _T("kCoeff: "), dkcoeff);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -34292,7 +34290,7 @@ int PSPRINGR::GetVarHeaders(CString sVar[]) {
 
 void PSPRINGR::ExportNAS(FILE* pFile) {
 	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", "PBUSH   ", iID, "       K", "        ", "       K", "       K", e8(dkx), e8(dky), e8(dkz));
+	fprintf(pFile, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", _T("PBUSH   "), iID, _T("       K"), _T("        "), _T("       K"), _T("       K"), e8(dkx), e8(dky), e8(dkz));
 }
 
 //***************************************************************************
@@ -34354,31 +34352,31 @@ void PBUSH::Serialize(CArchive& ar, int iV) {
 }
 
 void PBUSH::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "CBUSH SPRING");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("CBUSH SPRING"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s"), _T("TITLE : "), sTitle);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "Kx    : ", dK1);
+	S1.Format(_T("%s %f"), _T("Kx    : "), dK1);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "Ky    : ", dK2);
+	S1.Format(_T("%s %f"), _T("Ky    : "), dK2);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "Kz    : ", dK3);
+	S1.Format(_T("%s %f"), _T("Kz    : "), dK3);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "Krx    : ", dK4);
+	S1.Format(_T("%s %f"), _T("Krx    : "), dK4);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "Kry    : ", dK5);
+	S1.Format(_T("%s %f"), _T("Kry    : "), dK5);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "Krz    : ", dK6);
+	S1.Format(_T("%s %f"), _T("Krz    : "), dK6);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -34398,31 +34396,31 @@ int PBUSH::GetVarHeaders(CString sVar[]) {
 
 int PBUSH::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
 	sVar[iNo] = sFlg;
 	iNo++;
-	sprintf_s(S1, "%g", dK1);
+	S1.Format(_T("%g"), dK1);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dK2);
+	S1.Format(_T("%g"), dK2);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dK3);
+	S1.Format(_T("%g"), dK3);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dK4);
+	S1.Format(_T("%g"), dK4);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dK5);
+	S1.Format(_T("%g"), dK5);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dK6);
+	S1.Format(_T("%g"), dK6);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dkcoeff);
+	S1.Format(_T("%g"), dkcoeff);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -34442,7 +34440,7 @@ void PBUSH::PutVarValues(int iNo, CString sVar[]) {
 
 void PBUSH::ExportNAS(FILE* pFile) {
 	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", "PBUSH   ", iID, sFlg, e8(dK1).GetString(), e8(dK2).GetString(), e8(dK3).GetString(), e8(dK4).GetString(), e8(dK5).GetString(), e8(dK6).GetString());
+	fprintf(pFile, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", _T("PBUSH   "), iID, sFlg, e8(dK1).GetString(), e8(dK2).GetString(), e8(dK3).GetString(), e8(dK4).GetString(), e8(dK5).GetString(), e8(dK6).GetString());
 }
 
 IMPLEMENT_DYNAMIC(PSOLID, CObject)
@@ -34480,17 +34478,17 @@ void PSOLID::Serialize(CArchive& ar, int iV) {
 }
 
 void PSOLID::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "SOLID");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("SOLID"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s"), _T("TITLE : "), sTitle);
 	outtext1(S1);
-	sprintf_s(S1, "%s %i", "MAT1  : ", iMID);
+	S1.Format(_T("%s %i"), _T("MAT1  : "), iMID);
 	outtext1(S1);
-	sprintf_s(S1, "%s %i", "CSYS  : ", iCORDM);
+	S1.Format(_T("%s %i"), _T("CSYS  : "), iCORDM);
 	outtext1(S1);
 }
 
@@ -34521,7 +34519,7 @@ int PSOLID::GetDefMatID() {
 
 void PSOLID::ExportNAS(FILE* pFile) {
 	fprintf(pFile, "$%s\n", sTitle.GetString());
-	fprintf(pFile, "%8s%8i%8i%8i\n", "PSOLID  ", iID, iMID, iCORDM);
+	fprintf(pFile, "%8s%8i%8i%8i\n", _T("PSOLID  "), iID, iMID, iCORDM);
 }
 
 PSOLID* PSOLID::Copy() {
@@ -34547,14 +34545,14 @@ int PSOLID::GetVarHeaders(CString sVar[]) {
 
 int PSOLID::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[0] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMID);
+	S1.Format(_T("%i"), iMID);
 	sVar[1] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iCORDM);
+	S1.Format(_T("%i"), iCORDM);
 	sVar[2] = S1;
 	iNo++;
 	return (iNo);
@@ -34658,25 +34656,25 @@ int PBAR::GetVarHeaders(CString sVar[]) {
 
 int PBAR::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
+	CString S1;
 	sVar[iNo] = "";
 	iNo++;
-	sprintf_s(S1, "%i", iMID);
+	S1.Format(_T("%i"), iMID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dA);
+	S1.Format(_T("%g"), dA);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI1);
+	S1.Format(_T("%g"), dI1);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dI2);
+	S1.Format(_T("%g"), dI2);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dJ);
+	S1.Format(_T("%g"), dJ);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dNSM);
+	S1.Format(_T("%g"), dNSM);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -35019,7 +35017,7 @@ PBARL::PBARL() {
 int PBARL::GetVarHeaders(CString sVar[]) {
 	int iNo = 0;
 	int i;
-	char S1[8] = "";
+	CString S1;
 	sVar[iNo] = "File No";
 	iNo++;
 	sVar[iNo] = "Material ID (MID)";
@@ -35027,7 +35025,7 @@ int PBARL::GetVarHeaders(CString sVar[]) {
 	sVar[iNo] = "Section";
 	iNo++;
 	for (i = 0; i < iNoDims; i++) {
-		sprintf_s(S1, "DIM %i", i + 1);
+		S1.Format(_T("DIM %i"), i + 1);
 		sVar[iNo] = S1;
 		iNo++;
 	}
@@ -35040,21 +35038,21 @@ int PBARL::GetVarHeaders(CString sVar[]) {
 int PBARL::GetVarValues(CString sVar[]) {
 	int iNo = 0;
 	int i;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMID);
+	S1.Format(_T("%i"), iMID);
 	sVar[iNo] = S1;
 	iNo++;
 	sVar[iNo] = sSecType;
 	iNo++;
 	for (i = 0; i < iNoDims; i++) {
-		sprintf_s(S1, "%g", dDIMs[i]);
+		S1.Format(_T("%g"), dDIMs[i]);
 		sVar[iNo] = S1;
 		iNo++;
 	}
-	sprintf_s(S1, "%g", dNSM);
+	S1.Format(_T("%g"), dNSM);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -35105,39 +35103,39 @@ void PBARL::Serialize(CArchive& ar, int iV) {
 }
 
 void PBARL::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "BEAM");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("BEAM"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s"), _T("TITLE : "), sTitle);
 	outtext1(S1);
-	sprintf_s(S1, "%s %s", "TYPE  : ", sSecType);
+	S1.Format(_T("%s %s"), _T("TYPE  : "), sSecType);
 	outtext1(S1);
-	sprintf_s(S1, "%s %s", "GRP   : ", sGROUP);
+	S1.Format(_T("%s %s"), _T("GRP   : "), sGROUP);
 	outtext1(S1);
-	sprintf_s(S1, "%s %i", "MAT1  : ", iMID);
+	S1.Format(_T("%s %i"), _T("MAT1  : "), iMID);
 	outtext1(S1);
-	sprintf_s(S1, "%s %g", "A     : ", A);
+	S1.Format(_T("%s %g"), _T("A     : "), A);
 	outtext1(S1);
-	sprintf_s(S1, "%s %g", "Iyy   : ", Iyy);
+	S1.Format(_T("%s %g"), _T("Iyy   : "), Iyy);
 	outtext1(S1);
-	sprintf_s(S1, "%s %g", "Izz   : ", Izz);
+	S1.Format(_T("%s %g"), _T("Izz   : "), Izz);
 	outtext1(S1);
-	sprintf_s(S1, "%s %g", "J     : ", J);
+	S1.Format(_T("%s %g"), _T("J     : "), J);
 	outtext1(S1);
-	sprintf_s(S1, "%s %f", "yBar     : ", ybar);
+	S1.Format(_T("%s %f"), _T("yBar     : "), ybar);
 	outtext1(S1);
-	sprintf_s(S1, "%s %f", "zBar     : ", zbar);
+	S1.Format(_T("%s %f"), _T("zBar     : "), zbar);
 	outtext1(S1);
-	sprintf_s(S1, "%s %f", "NSM   : ", dNSM);
+	S1.Format(_T("%s %f"), _T("NSM   : "), dNSM);
 	outtext1(S1);
-	sprintf_s(S1, "%s %i", "IDIMS : ", iNoDims);
+	S1.Format(_T("%s %i"), _T("IDIMS : "), iNoDims);
 	outtext1(S1);
 	int i;
 	for (i = 0; i < iNoDims; i++) {
-		sprintf_s(S1, "DIM: %i : %f", i, dDIMs[i]);
+		S1.Format(_T("DIM: %i : %f"), i, dDIMs[i]);
 		outtext1(S1);
 	}
 }
@@ -35449,23 +35447,23 @@ PROD* PROD::Copy() {
 }
 
 void PROD::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "ROD");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("ROD"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s"), _T("TITLE : "), sTitle);
 	outtext1(S1);
-	sprintf_s(S1, "%s %s", "TYPE  : ", sSecType);
+	S1.Format(_T("%s %s"), _T("TYPE  : "), sSecType);
 	outtext1(S1);
-	sprintf_s(S1, "%s %s", "GRP   : ", sGROUP);
+	S1.Format(_T("%s %s"), _T("GRP   : "), sGROUP);
 	outtext1(S1);
-	sprintf_s(S1, "%s %i", "MAT1  : ", iMID);
+	S1.Format(_T("%s %i"), _T("MAT1  : "), iMID);
 	outtext1(S1);
-	sprintf_s(S1, "%s %f", "A     : ", A);
+	S1.Format(_T("%s %f"), _T("A     : "), A);
 	outtext1(S1);
-	sprintf_s(S1, "%s %f", "J     : ", J);
+	S1.Format(_T("%s %f"), _T("J     : "), J);
 	outtext1(S1);
 }
 
@@ -35508,17 +35506,17 @@ int PROD::GetVarHeaders(CString sVar[]) {
 
 int PROD::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMID);
+	S1.Format(_T("%i"), iMID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", A);
+	S1.Format(_T("%g"), A);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", J);
+	S1.Format(_T("%g"), J);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -35575,41 +35573,41 @@ BOOL PSHELL::HasMat(int inMID) {
 }
 
 void PSHELL::List() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PROPERTY LISTING:-");
-	sprintf_s(S1, "%s %i %s %s", "PID", iID, "TYPE ", "SHELL");
+	S1.Format(_T("%s %i %s %s"), _T("PID"), iID, _T("TYPE "), _T("SHELL"));
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %s", "TITLE : ", sTitle);
+	S1.Format(_T("%s %s"), _T("TITLE : "), sTitle);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %i", "MAT1  : ", iMID1);
+	S1.Format(_T("%s %i"), _T("MAT1  : "), iMID1);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "THK   : ", dT);
+	S1.Format(_T("%s %f"), _T("THK   : "), dT);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %i", "MAT2  : ", iMID2);
+	S1.Format(_T("%s %i"), _T("MAT2  : "), iMID2);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "12IT3 : ", d12IT3);
+	S1.Format(_T("%s %f"), _T("12IT3 : "), d12IT3);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %i", "MAT3  : ", iMID3);
+	S1.Format(_T("%s %i"), _T("MAT3  : "), iMID3);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "TST   : ", dTST);
+	S1.Format(_T("%s %f"), _T("TST   : "), dTST);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s %f", "NSM   : ", dNSM);
+	S1.Format(_T("%s %f"), _T("NSM   : "), dNSM);
 	OutT = S1;
 	outtext1(OutT);
 	if ((dZ1 != DBL_MAX) || (dZ2 != DBL_MAX) || (iMID4 > 0)) {
-		sprintf_s(S1, "%s %f", "Z1    : ", dZ1);
+		S1.Format(_T("%s %f"), _T("Z1    : "), dZ1);
 		OutT = S1;
 		outtext1(OutT);
-		sprintf_s(S1, "%s %f", "Z2    : ", dZ2);
+		S1.Format(_T("%s %f"), _T("Z2    : "), dZ2);
 		OutT = S1;
 		outtext1(OutT);
 	}
@@ -35665,43 +35663,43 @@ void PSHELL::ExportNAS(FILE* pFile) {
 }
 
 CString PSHELL::ToString() {
-	char S[200] = "";
+	CString S;
 	CString src = _T("");
-	sprintf_s(S, "%8s%8i%8i%8s%8i", "PSHELL  ", iID, iMID1, e8(dT), iMID2);
+	S.Format(_T("%8s%8i%8i%8s%8i"), _T("PSHELL  "), iID, iMID1, e8(dT), iMID2);
 	src = S;
 	if (d12IT3 == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(d12IT3));
+		S.Format(_T("%8s"), e8(d12IT3));
 	src += S;
 	if (iMID3 == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8i", iMID3);
+		S.Format(_T("%8i"), iMID3);
 	src += S;
 	if (dTST == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(dTST));
+		S.Format(_T("%8s"), e8(dTST));
 	src += S;
-	sprintf_s(S, "%8s\n", e8(dNSM));
+	S.Format(_T("%8s\n"), e8(dNSM));
 	src += S;
 	if ((dZ1 != 0) || (dZ2 != 0) || (iMID4 != 0)) {
 		src += "        ";
 		if (dZ1 == 0)
-			sprintf_s(S, "%8s", "        ");
+			S.Format(_T("%8s"), _T("        "));
 		else
-			sprintf_s(S, "%8s", e8(dZ1));
+			S.Format(_T("%8s"), e8(dZ1));
 		src += S;
 		if (dZ2 == 0)
-			sprintf_s(S, "%8s", "        ");
+			S.Format(_T("%8s"), _T("        "));
 		else
-			sprintf_s(S, "%8s", e8(dZ2));
+			S.Format(_T("%8s"), e8(dZ2));
 		src += S;
 		if (iMID4 == 0)
-			sprintf_s(S, "%8s\n", "        ");
+			S.Format(_T("%8s\n"), _T("        "));
 		else
-			sprintf_s(S, "%8i\n", iMID4);
+			S.Format(_T("%8i\n"), iMID4);
 		src += S;
 	}
 	return (src);
@@ -35740,38 +35738,38 @@ int PSHELL::GetVarHeaders(CString sVar[]) {
 
 int PSHELL::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMID1);
+	S1.Format(_T("%i"), iMID1);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dT);
+	S1.Format(_T("%g"), dT);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMID2);
+	S1.Format(_T("%i"), iMID2);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", d12IT3);
+	S1.Format(_T("%g"), d12IT3);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMID3);
+	S1.Format(_T("%i"), iMID3);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dTST);
+	S1.Format(_T("%g"), dTST);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dNSM);
+	S1.Format(_T("%g"), dNSM);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dZ1);
+	S1.Format(_T("%g"), dZ1);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dZ2);
+	S1.Format(_T("%g"), dZ2);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMID4);
+	S1.Format(_T("%i"), iMID4);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -35830,29 +35828,29 @@ double MAT1::GetV() {
 }
 
 void MAT1::Info() {
-	char S1[200] = "";
+	CString S1;
 	// MoMo_Material_SaveBugV1_05_20_2025_Start
 	// MoMo// outtext1("MATERIAL LISTING:-");
 	outtext1("MATERIAL LISTING:");
 	// MoMo_Material_SaveBugV1_05_20_2025_End
-	sprintf_s(S1, "LAB: %i TITLE: %s", iID, sTitle);
+	S1.Format(_T("LAB: %i TITLE: %s"), iID, sTitle);
 	outtext1(S1);
-	sprintf_s(S1, "E    : %f", dE);
+	S1.Format(_T("E    : %f"), dE);
 	outtext1(S1);
 	if (dG != DBL_MAX)
-		sprintf_s(S1, "G    : %s", float8NAS(dG));
+		S1.Format(_T("G    : %s"), float8NAS(dG));
 	else
-		sprintf_s(S1, "G    : %s", "");
+		S1.Format(_T("G    : %s"), _T(""));
 	outtext1(S1);
-	sprintf_s(S1, "NU   : %s", float8NAS(dNU));
+	S1.Format(_T("NU   : %s"), float8NAS(dNU));
 	outtext1(S1);
-	sprintf_s(S1, "RHO  : %s", float8NAS(dRHO));
+	S1.Format(_T("RHO  : %s"), float8NAS(dRHO));
 	outtext1(S1);
-	sprintf_s(S1, "CTE  : %s", float8NAS(dA));
+	S1.Format(_T("CTE  : %s"), float8NAS(dA));
 	outtext1(S1);
-	sprintf_s(S1, "MCID : %i", iMCSID);
+	S1.Format(_T("MCID : %i"), iMCSID);
 	outtext1(S1);
-	sprintf_s(S1, "k    : %s", float8NAS(dk));
+	S1.Format(_T("k    : %s"), float8NAS(dk));
 	outtext1(S1);
 }
 
@@ -35871,32 +35869,32 @@ int MAT1::GetVarHeaders(CString sVar[]) {
 
 int MAT1::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dE);
+	S1.Format(_T("%g"), dE);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dG);
+	S1.Format(_T("%g"), dG);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dNU);
+	S1.Format(_T("%g"), dNU);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dRHO);
+	S1.Format(_T("%g"), dRHO);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dA);
+	S1.Format(_T("%g"), dA);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dTREF);
+	S1.Format(_T("%g"), dTREF);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iMCSID);
+	S1.Format(_T("%i"), iMCSID);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dk);
+	S1.Format(_T("%g"), dk);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -36125,56 +36123,56 @@ void MAT8::ExportNAS(FILE* pFile) {
 }
 
 CString MAT8::ToString() {
-	char S[200] = "";
+	CString S;
 	CString src = _T("");
-	sprintf_s(S, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", "MAT8    ", iID, e8(dE1).GetString(), e8(dE2).GetString(), e8(dNU12).GetString(), e8(dG12).GetString(), e8(dG1Z).GetString(), e8(dG2Z).GetString(), e8(dRHO).GetString());
+	S.Format(_T("%8s%8i%8s%8s%8s%8s%8s%8s%8s\n"), _T("MAT8    "), iID, e8(dE1).GetString(), e8(dE2).GetString(), e8(dNU12).GetString(), e8(dG12).GetString(), e8(dG1Z).GetString(), e8(dG2Z).GetString(), e8(dRHO).GetString());
 	src = S;
-	sprintf_s(S, "        %8s%8s", e8(dA1).GetString(), e8(dA2).GetString());
+	S.Format(_T("        %8s%8s"), e8(dA1).GetString(), e8(dA2).GetString());
 	src += S;
 	if (dTREF == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(dTREF).GetString());
+		S.Format(_T("%8s"), e8(dTREF).GetString());
 	src += S;
 	if (dXt == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(dXt).GetString());
+		S.Format(_T("%8s"), e8(dXt).GetString());
 	src += S;
 	if (dXc == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(dXc).GetString());
+		S.Format(_T("%8s"), e8(dXc).GetString());
 	src += S;
 	if (dYt == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(dYt).GetString());
+		S.Format(_T("%8s"), e8(dYt).GetString());
 	src += S;
 	if (dYc == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(dYc).GetString());
+		S.Format(_T("%8s"), e8(dYc).GetString());
 	src += S;
 	if (dS == 0)
-		sprintf_s(S, "%8s\n", "        ");
+		S.Format(_T("%8s\n"), _T("        "));
 	else
-		sprintf_s(S, "%8s\n", e8(dS).GetString());
+		S.Format(_T("%8s\n"), e8(dS).GetString());
 	src += S;
 	if (dGE == 0)
-		sprintf_s(S, "        %8s", "        ");
+		S.Format(_T("        %8s"), _T("        "));
 	else
-		sprintf_s(S, "        %8s", e8(dGE).GetString());
+		S.Format(_T("        %8s"), e8(dGE).GetString());
 	src += S;
 	if (F12 == 0)
-		sprintf_s(S, "%8s", "        ");
+		S.Format(_T("%8s"), _T("        "));
 	else
-		sprintf_s(S, "%8s", e8(F12).GetString());
+		S.Format(_T("%8s"), e8(F12).GetString());
 	src += S;
 	if (STRN == 0)
-		sprintf_s(S, "%8s\n", "        ");
+		S.Format(_T("%8s\n"), _T("        "));
 	else
-		sprintf_s(S, "%8s\n", e8(STRN).GetString());
+		S.Format(_T("%8s\n"), e8(STRN).GetString());
 	src += S;
 	return (src);
 }
@@ -36231,65 +36229,65 @@ int MAT8::GetVarHeaders(CString sVar[]) {
 
 int MAT8::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dE1);
+	S1.Format(_T("%g"), dE1);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dE2);
+	S1.Format(_T("%g"), dE2);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dNU12);
+	S1.Format(_T("%g"), dNU12);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dG12);
+	S1.Format(_T("%g"), dG12);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dG1Z);
+	S1.Format(_T("%g"), dG1Z);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dG2Z);
+	S1.Format(_T("%g"), dG2Z);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dRHO);
+	S1.Format(_T("%g"), dRHO);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dA1);
+	S1.Format(_T("%g"), dA1);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dA2);
+	S1.Format(_T("%g"), dA2);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dTREF);
+	S1.Format(_T("%g"), dTREF);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dXt);
+	S1.Format(_T("%g"), dXt);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dXc);
+	S1.Format(_T("%g"), dXc);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dYt);
+	S1.Format(_T("%g"), dYt);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dYc);
+	S1.Format(_T("%g"), dYc);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dS);
+	S1.Format(_T("%g"), dS);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dGE);
+	S1.Format(_T("%g"), dGE);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", F12);
+	S1.Format(_T("%g"), F12);
 	sVar[iNo] = S1;
 	iNo++;
 	if (STRN == 0)
-		sprintf_s(S1, "%s", "        ");
+		S1.Format(_T("%s"), _T("        "));
 	else
-		sprintf_s(S1, "%g", STRN);
+		S1.Format(_T("%g"), STRN);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -36404,7 +36402,7 @@ double PCOMPG::GetThk() {
 int PCOMPG::GetVarHeaders(CString sVar[]) {
 	int iNo = 0;
 	int i;
-	char S1[80] = "";
+	CString S1;
 	sVar[iNo] = "File No";
 	iNo++;
 	sVar[iNo] = "Dist to bottom surf (Z0)";
@@ -36426,7 +36424,7 @@ int PCOMPG::GetVarHeaders(CString sVar[]) {
 	sVar[iNo] = "Total Thickness ";
 	iNo++;
 	for (i = 0; i < iNoLays; i++) {
-		sprintf_s(S1, "Layer %i", i + 1);
+		S1.Format(_T("Layer %i"), i + 1);
 		sVar[iNo] = S1;
 		iNo++;
 	}
@@ -36435,40 +36433,40 @@ int PCOMPG::GetVarHeaders(CString sVar[]) {
 
 int PCOMPG::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dZ0);
+	S1.Format(_T("%g"), dZ0);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dNSM);
+	S1.Format(_T("%g"), dNSM);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dSB);
+	S1.Format(_T("%g"), dSB);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", FT);
+	S1.Format(_T("%i"), FT);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dRefT);
+	S1.Format(_T("%g"), dRefT);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dGE);
+	S1.Format(_T("%g"), dGE);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", bLAM);
+	S1.Format(_T("%i"), bLAM);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iNoLays);
+	S1.Format(_T("%i"), iNoLays);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", GetThk());
+	S1.Format(_T("%g"), GetThk());
 	sVar[iNo] = S1;
 	iNo++;
 	int i;
 	for (i = 0; i < iNoLays; i++) {
-		sprintf_s(S1, "%i %i,%g,%g,%i", GPLYID[i], MID[i], T[i], Theta[i], sOut[i]);
+		S1.Format(_T("%i %i,%g,%g,%i"), GPLYID[i], MID[i], T[i], Theta[i], sOut[i]);
 		sVar[iNo] = S1;
 		iNo++;
 	}
@@ -36575,23 +36573,23 @@ void PCOMP::Serialize(CArchive& ar, int iV) {
 
 void PCOMP::List() {
 	int i;
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("PCOMP LISTING:-");
 	Property::List();
 	outtext1("Mat,Thk,Theta");
 	for (i = 0; i < iNoLays; i++) {
-		sprintf_s(S1, "%i,%f,%f", MID[i], T[i], Theta[i]);
+		S1.Format(_T("%i,%f,%f"), MID[i], T[i], Theta[i]);
 		OutT = S1;
 		outtext1(OutT);
 	}
 	if (bLAM == TRUE)
 		outtext1("- - - - - - - - -S Y M E T R I C- - - - - - - - -");
 	double dthk = GetThk();
-	sprintf_s(S1, "%s,%f", "Total thickness= ", dthk);
+	S1.Format(_T("%s,%f"), _T("Total thickness= "), dthk);
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "%s,%f", "Z0= ", dZ0);
+	S1.Format(_T("%s,%f"), _T("Z0= "), dZ0);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -36637,7 +36635,7 @@ BOOL PCOMP::HasMat(int inMID) {
 
 CString PCOMP::ToString() {
 	int i;
-	char S[200] = "";
+	CString S;
 	CString src = _T("");
 	CString sSB;
 	if (dSB != 0)
@@ -36666,7 +36664,7 @@ CString PCOMP::ToString() {
 	CString sLAM = _T("        ");
 	if (bLAM)
 		sLAM = "SYM     ";
-	sprintf_s(S, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", "PCOMP   ", iID, e8(dZ0).GetString(), e8(dNSM).GetString(), sSB.GetString(), sFT.GetString(), e8(dRefT).GetString(), e8(dGE), sLAM.GetString());
+	S.Format(_T("%8s%8i%8s%8s%8s%8s%8s%8s%8s\n"), _T("PCOMP   "), iID, e8(dZ0).GetString(), e8(dNSM).GetString(), sSB.GetString(), sFT.GetString(), e8(dRefT).GetString(), e8(dGE), sLAM.GetString());
 	src = S;
 	int iLcnt = 0;
 	for (i = 0; i < iNoLays; i++) {
@@ -36676,11 +36674,11 @@ CString PCOMP::ToString() {
 		if (sOut[i] == TRUE)
 			sO = "     YES";
 		if (iLcnt == 0) {
-			sprintf_s(S, "%8i%8s%8s%8s", MID[i], e8(T[i]).GetString(), e8(Theta[i]).GetString(), sO);
+			S.Format(_T("%8i%8s%8s%8s"), MID[i], e8(T[i]).GetString(), e8(Theta[i]).GetString(), sO);
 			src += S;
 			iLcnt = 1;
 		} else {
-			sprintf_s(S, "%8i%8s%8s%8s\n", MID[i], e8(T[i]), e8(Theta[i]), sO);
+			S.Format(_T("%8i%8s%8s%8s\n"), MID[i], e8(T[i]), e8(Theta[i]), sO);
 			src += S;
 			iLcnt = 0;
 		}
@@ -36750,7 +36748,7 @@ PCOMP::PCOMP() {
 int PCOMP::GetVarHeaders(CString sVar[]) {
 	int iNo = 0;
 	int i;
-	char S1[80] = "";
+	CString S1;
 	sVar[iNo] = "File No";
 	iNo++;
 	sVar[iNo] = "Dist to bottom surf (Z0)";
@@ -36772,7 +36770,7 @@ int PCOMP::GetVarHeaders(CString sVar[]) {
 	sVar[iNo] = "Total Thickness ";
 	iNo++;
 	for (i = 0; i < iNoLays; i++) {
-		sprintf_s(S1, "Layer %i", i + 1);
+		S1.Format(_T("Layer %i"), i + 1);
 		sVar[iNo] = S1;
 		iNo++;
 	}
@@ -36781,17 +36779,17 @@ int PCOMP::GetVarHeaders(CString sVar[]) {
 
 int PCOMP::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dZ0);
+	S1.Format(_T("%g"), dZ0);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dNSM);
+	S1.Format(_T("%g"), dNSM);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dSB);
+	S1.Format(_T("%g"), dSB);
 	sVar[iNo] = S1;
 	iNo++;
 	if (FT == 0)
@@ -36813,27 +36811,27 @@ int PCOMP::GetVarValues(CString sVar[]) {
 	else if (FT == 8)
 		sVar[iNo] = "MCT";
 	iNo++;
-	sprintf_s(S1, "%g", dRefT);
+	S1.Format(_T("%g"), dRefT);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dGE);
+	S1.Format(_T("%g"), dGE);
 	sVar[iNo] = S1;
 	iNo++;
 	if (bLAM)
-		sprintf_s(S1, "%s", "SYM");
+		S1.Format(_T("%s"), _T("SYM"));
 	else
-		sprintf_s(S1, "%s", "");
+		S1.Format(_T("%s"), _T(""));
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iNoLays);
+	S1.Format(_T("%i"), iNoLays);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", GetThk());
+	S1.Format(_T("%g"), GetThk());
 	sVar[iNo] = S1;
 	iNo++;
 	int i;
 	for (i = 0; i < iNoLays; i++) {
-		sprintf_s(S1, "%i,%g,%g,%i", MID[i], T[i], Theta[i], sOut[i]);
+		S1.Format(_T("%i,%g,%g,%i"), MID[i], T[i], Theta[i], sOut[i]);
 		sVar[iNo] = S1;
 		iNo++;
 	}
@@ -37031,9 +37029,9 @@ void Moment::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Pts[1].x + X, (float) Pts[1].y + Y, (float) Pts[1].z + Z);
 		glVertex3f((float) Pts[6].x + X, (float) Pts[6].y + Y, (float) Pts[6].z + Z);
 		glEnd();
-		char sLab[20];
-		sprintf_s(sLab, "%3.0f", F.Mag());
-		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%3.0f"), F.Mag());
+		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -37141,9 +37139,9 @@ void Pressure::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Pts[1].x + X, (float) Pts[1].y + Y, (float) Pts[1].z + Z);
 		glVertex3f((float) Pts[6].x + X, (float) Pts[6].y + Y, (float) Pts[6].z + Z);
 		glEnd();
-		char sLab[20];
-		sprintf_s(sLab, "%3.0f", F.Mag());
-		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%3.0f"), F.Mag());
+		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -37229,8 +37227,8 @@ int Pressure::GetVarHeaders(CString sVar[]) {
 
 int Pressure::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%g", F.x);
+	CString S1;
+	S1.Format(_T("%g"), F.x);
 	sVar[iNo] = S1;
 	iNo++;
 
@@ -37370,20 +37368,20 @@ void Temperature::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y - 0.2 * dS1, (float) Point.z);
 		glEnd();
 		glLineWidth(2.0);
-		char sLab[20];
-		sprintf_s(sLab, "%3.0f", dV);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%3.0f"), dV);
+		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
 }
 
 void Temperature::Info() {
-	char S1[80];
+	CString S1;
 	CString OutT;
 
 	G_Object::Info();
-	sprintf_s(S1, "%s%i%s%i%s%f", "SETID ", iObjType, "; NODE ", pObj->iLabel, " Val; ", dV);
+	S1.Format(_T("%s%i%s%i%s%f"), _T("SETID "), iObjType, _T("; NODE "), pObj->iLabel, _T(" Val; "), dV);
 	OutT += S1;
 }
 
@@ -37512,18 +37510,18 @@ void AccelLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Point.x - 0.15 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
 		glEnd();
 		glLineWidth(2.0);
-		// sprintf_s(sLab,"%3.0f",dV);
-		// OglString(iDspFlgs,Point.x,Point.y,Point.z,&sLab[0]);
+		// sLab.Format(_T("%3.0f"),dV);
+		// OglString(iDspFlgs,Point.x,Point.y,Point.z,CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
 }
 
 void AccelLoad::Info() {
-	char S1[80];
+	CString S1;
 	CString OutT;
 	G_Object::Info();
-	sprintf_s(S1, "ACCEL VECTOR %8i X %s Y %s Z %s", iLabel, float8NAS(vA.x), float8NAS(vA.y), float8NAS(vA.z));
+	S1.Format(_T("ACCEL VECTOR %8i X %s Y %s Z %s"), iLabel, float8NAS(vA.x), float8NAS(vA.y), float8NAS(vA.z));
 	outtext1(S1);
 }
 
@@ -37651,20 +37649,20 @@ void RotationLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		// glVertex3f((float)Point.x - 0.15*dS1, (float)Point.y + 0.2*dS1, (float)Point.z);
 		glEnd();
 		glLineWidth(2.0);
-		// sprintf_s(sLab,"%3.0f",dV);
-		// OglString(iDspFlgs,Point.x,Point.y,Point.z,&sLab[0]);
+		// sLab.Format(_T("%3.0f"),dV);
+		// OglString(iDspFlgs,Point.x,Point.y,Point.z,CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
 }
 
 void RotationLoad::Info() {
-	char S1[80];
+	CString S1;
 	CString OutT;
 	G_Object::Info();
-	sprintf_s(S1, "AXIS CENTRE %8i X %s Y %s Z %s", iLabel, float8NAS(vAxisC.x), float8NAS(vAxisC.y), float8NAS(vAxisC.z));
+	S1.Format(_T("AXIS CENTRE %8i X %s Y %s Z %s"), iLabel, float8NAS(vAxisC.x), float8NAS(vAxisC.y), float8NAS(vAxisC.z));
 	outtext1(S1);
-	sprintf_s(S1, "AXIS VECTOR %8i X %s Y %s Z %s w %f", iLabel, float8NAS(vAxisD.x), float8NAS(vAxisD.y), float8NAS(vAxisD.z), w);
+	S1.Format(_T("AXIS VECTOR %8i X %s Y %s Z %s w %f"), iLabel, float8NAS(vAxisD.x), float8NAS(vAxisD.y), float8NAS(vAxisD.z), w);
 	outtext1(S1);
 }
 
@@ -37732,9 +37730,9 @@ void TemperatureBC::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
 		glEnd();
 		glLineWidth(2.0);
-		char sLab[20];
-		sprintf_s(sLab, "%g", dV);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%g"), dV);
+		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -37821,9 +37819,9 @@ void FluxLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
 		glEnd();
 		glLineWidth(2.0);
-		char sLab[20];
-		sprintf_s(sLab, "%3.0f", dV);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%3.0f"), dV);
+		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38038,9 +38036,9 @@ void Force::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Pts[1].x + X, (float) Pts[1].y + Y, (float) Pts[1].z + Z);
 		glVertex3f((float) Pts[6].x + X, (float) Pts[6].y + Y, (float) Pts[6].z + Z);
 		glEnd();
-		char sLab[20];
-		sprintf_s(sLab, "%3.0f", F.Mag());
-		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%3.0f"), F.Mag());
+		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38063,11 +38061,11 @@ G_ObjectD Force::SelDist(CPoint InPT, Filter FIL) {
 }
 
 void Force::Info() {
-	char S1[80];
+	CString S1;
 	CString OutT;
 	G_Object::Info();
 	outtext1("FORCE VECTOR");
-	sprintf_s(S1, "%s%8.5f,%8.5f,%8.5f", "FORCE: ", F.x, F.y, F.z);
+	S1.Format(_T("%s%8.5f,%8.5f,%8.5f"), _T("FORCE: "), F.x, F.y, F.z);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -38090,15 +38088,15 @@ int Force::GetVarHeaders(CString sVar[]) {
 
 int Force::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
+	CString S1;
 
-	sprintf_s(S1, "%g", F.x);
+	S1.Format(_T("%g"), F.x);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", F.y);
+	S1.Format(_T("%g"), F.y);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", F.z);
+	S1.Format(_T("%g"), F.z);
 	sVar[iNo] = S1;
 	iNo++;
 
@@ -38177,9 +38175,9 @@ void TEMPD::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Point.x - 0.2 * dS1, (float) Point.y - 0.2 * dS1, (float) Point.z);
 		glEnd();
 		glLineWidth(2.0);
-		char sLab[20];
-		sprintf_s(sLab, "TEMPD %3.0f", dTempD);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("TEMPD %3.0f"), dTempD);
+		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38197,9 +38195,9 @@ int TEMPD::GetVarHeaders(CString sVar[]) {
 
 int TEMPD::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
+	CString S1;
 
-	sprintf_s(S1, "%g", dTempD);
+	S1.Format(_T("%g"), dTempD);
 	sVar[iNo++] = S1;
 	return (iNo);
 }
@@ -38283,9 +38281,9 @@ void GRAV::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Point.x - 0.15 * dS1, (float) Point.y + 0.2 * dS1, (float) Point.z);
 		glEnd();
 		glLineWidth(2.0);
-		char sLab[20];
-		sprintf_s(sLab, "GRAV %3.0f", vV.Mag() * dScl);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("GRAV %3.0f"), vV.Mag() * dScl);
+		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38307,16 +38305,16 @@ int GRAV::GetVarHeaders(CString sVar[]) {
 
 int GRAV::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iCID);
+	CString S1;
+	S1.Format(_T("%i"), iCID);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", dScl);
+	S1.Format(_T("%g"), dScl);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", vV.x);
+	S1.Format(_T("%g"), vV.x);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", vV.y);
+	S1.Format(_T("%g"), vV.y);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", vV.z);
+	S1.Format(_T("%g"), vV.z);
 	sVar[iNo++] = S1;
 	return (iNo);
 }
@@ -38400,8 +38398,8 @@ void Restraint::ExportUNV(FILE* pFile) {
 void Restraint::ExportNAS(FILE* pFile) {
 	C3dVector vCent;
 	vCent = Get_Centroid();
-	char S1[7];
-	sprintf_s(S1, "%s", GetDofStr());
+	CString S1;
+	S1.Format(_T("%s"), GetDofStr());
 
 	fprintf(pFile, "%8s%8i%8i%8s%8s\n", "SPC     ", SetID, pObj->iLabel, GetDofStr(), "     0.0");
 }
@@ -38493,9 +38491,9 @@ void Restraint::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		vCent = pObj->Get_Centroid();
 		glRasterPos3f((float) vCent.x, (float) vCent.y, (float) vCent.z);
 		glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, BMPR);
-		char S1[7];
-		sprintf_s(S1, "%s", GetDofStr());
-		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &S1[0]);
+		CString S1;
+		S1.Format(_T("%s"), GetDofStr());
+		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(S1));
 	} else {
 		Selectable = 0;
 	}
@@ -38518,14 +38516,14 @@ void Restraint::OglDraw(int iDspFlgs, double dS1, double dS2) {
 // }
 
 void Restraint::Info() {
-	char S1[80];
+	CString S1;
 	CString OutT;
 	G_Object::Info();
-	sprintf_s(S1, "%s%i%s%i%s%i", "Type ", iObjType, "; Label ", pObj->iLabel, " Col; ", iColour);
+	S1.Format(_T("%s%i%s%i%s%i"), _T("Type "), iObjType, _T("; Label "), pObj->iLabel, _T(" Col; "), iColour);
 	OutT += S1;
 	outtext1("RESTRAINT");
 	outtext1(OutT);
-	sprintf_s(S1, "%s%s,", "DOF STR: ", GetDofStr());
+	S1.Format(_T("%s%s,"), _T("DOF STR: "), GetDofStr());
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -38553,7 +38551,6 @@ int Restraint::GetVarHeaders(CString sVar[]) {
 
 int Restraint::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
 	sVar[iNo] = "0";
 	if (REST[0])
 		sVar[iNo] = "1";
@@ -38739,9 +38736,9 @@ void ResultsVec::DrawVector(int iDspFlgs, double dS1, double dS2, double dS, dou
 	glDisable(GL_TEXTURE_1D);
 	glLineWidth(2);
 	if (((iDspFlgs & DSP_RESLAB) == 0)) {
-		char sLab[20];
-		sprintf_s(sLab, "%g", iSign * Vector.Mag());
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%g"), iSign * Vector.Mag());
+		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
 	}
 }
 
@@ -38905,9 +38902,9 @@ void ResultsVec::DrawTenVector(int iDspFlgs, double dS1, double dS2, double dS, 
 	glDisable(GL_TEXTURE_1D);
 	glLineWidth(2);
 	if (((iDspFlgs & DSP_RESLAB) == 0)) {
-		char sLab[20];
-		sprintf_s(sLab, "%g", iSign * Vector.Mag());
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, &sLab[0]);
+		CString sLab;
+		sLab.Format(_T("%g"), iSign * Vector.Mag());
+		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
 	}
 }
 
@@ -38931,8 +38928,8 @@ void ResultsVec::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 }
 
 void ResultsVec::Info() {
-	char S1[80];
-	sprintf_s(S1, "LABEL %8i MAG %g", iLabel, Vector.Mag());
+	CString S1;
+	S1.Format(_T("LABEL %8i MAG %g"), iLabel, Vector.Mag());
 	outtext1(S1);
 }
 
@@ -39002,13 +38999,13 @@ void Graph::genMaxMin() {
 
 void Graph::List() {
 	int i;
-	char buff[200];
+	CString buff;
 	outtext1(sTitle);
 	outtext1(sSubTitle);
-	sprintf_s(buff, "%s_%s_%s", sResType, sEntID, sVar);
+	buff.Format(_T("%s_%s_%s"), sResType, sEntID, sVar);
 	outtext1(buff);
 	for (i = 0; i < fx.size(); i++) {
-		sprintf_s(buff, "%g	%g", fx[i], fy[i]);
+		buff.Format(_T("%g	%g"), fx[i], fy[i]);
 		outtext1(buff);
 	}
 }
@@ -39125,20 +39122,20 @@ CString CoordSys::ToString() {
 		iRID = 0;
 	}
 
-	char S1[200];
+	CString S1;
 	CString OutT;
-	sprintf_s(S1, "%8s%8i%8i%8s%8s%8s%8s%8s%8s\n%8s%8s%8s%8s\n", sType, iLabel, iRID, e8(Origin.x), e8(Origin.y), e8(Origin.z), e8(pB.x), e8(pB.y), e8(pB.z), "        ", e8(pC.x), e8(pC.y), e8(pC.z));
-	// sprintf_s(S1,"%8s%8s%8s%8s\n","        ",e8(pC.x),e8(pC.y),e8(pC.z));
+	S1.Format(_T("%8s%8i%8i%8s%8s%8s%8s%8s%8s\n%8s%8s%8s%8s\n"), sType, iLabel, iRID, e8(Origin.x), e8(Origin.y), e8(Origin.z), e8(pB.x), e8(pB.y), e8(pB.z), _T("        "), e8(pC.x), e8(pC.y), e8(pC.z));
+	// S1.Format(_T("%8s%8s%8s%8s\n"),_T("        "),e8(pC.x),e8(pC.y),e8(pC.z));
 	OutT = S1;
 	return (OutT);
 }
 
 void CoordSys::Info() {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	G_Object::Info();
 	// G_Object::Info();
-	sprintf_s(S1, "%i,%8.5f,%8.5f,%8.5f,,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f",
+	S1.Format(_T("%i,%8.5f,%8.5f,%8.5f,,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f,%8.5f"),
 	          iLabel, Origin.x, Origin.y, Origin.z,
 	          mOrientMat.m_00, mOrientMat.m_10, mOrientMat.m_20,
 	          mOrientMat.m_01, mOrientMat.m_11, mOrientMat.m_21,
@@ -39159,11 +39156,11 @@ int CoordSys::GetVarHeaders(CString sVar[]) {
 
 int CoordSys::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", CysType);
+	CString S1;
+	S1.Format(_T("%i"), CysType);
 	sVar[0] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", RID);
+	S1.Format(_T("%i"), RID);
 	sVar[1] = S1;
 	iNo++;
 	return (iNo);
@@ -39307,7 +39304,7 @@ void CoordSys::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			glRasterPos3f((float) Z.x, (float) Z.y, (float) Z.z);
 			glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, BMPZ);
 		}
-		char sLab[20];
+		CString sLab;
 		// C3dVector vCent;
 		// vCent=Get_Centroid();
 		// Esp_Mod_Labels_4_27_2025_Start: Added global label variable for label display
@@ -39315,8 +39312,8 @@ void CoordSys::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "Cys%i", iLabel);
-			OglString(iDspFlgs, O.x, O.y, O.z, &sLab[0]);
+			sLab.Format(_T("Cys%i"), iLabel);
+			OglString(iDspFlgs, O.x, O.y, O.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -39487,7 +39484,7 @@ void Text::OglDraw(int iDspFlgs, double dS1, double dS2) {
 }
 
 void Text::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	C3dVector vC;
 	Symbol* pS = NULL;
 	if ((iDspFlgs & DSP_CURVES) > 0) {
@@ -39510,8 +39507,8 @@ void Text::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			vC = this->Get_Centroid();
-			sprintf_s(sLab, "Txt%i", iLabel);
-			OglString(iDspFlgs, (float) vC.x, (float) vC.y, (float) vC.z, &sLab[0]);
+			sLab.Format(_T("Txt%i"), iLabel);
+			OglString(iDspFlgs, (float) vC.x, (float) vC.y, (float) vC.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -39732,22 +39729,22 @@ int Text::GetVarHeaders(CString sVar[]) {
 
 int Text::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
 	sVar[iNo] = sText;
 	iNo++;
-	sprintf_s(S1, "%g", dTextHeight);
+	S1.Format(_T("%g"), dTextHeight);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g,%g,%g", vInsPt.x, vInsPt.y, vInsPt.z);
+	S1.Format(_T("%g,%g,%g"), vInsPt.x, vInsPt.y, vInsPt.z);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g,%g,%g", vDir.x, vDir.y, vDir.z);
+	S1.Format(_T("%g,%g,%g"), vDir.x, vDir.y, vDir.z);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g,%g,%g", vNorm.x, vNorm.y, vNorm.z);
+	S1.Format(_T("%g,%g,%g"), vNorm.x, vNorm.y, vNorm.z);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -39805,9 +39802,9 @@ void Text::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 }
 
 void Text::Info() {
-	char S1[200];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "Text:- %s ", sText);
+	S1.Format(_T("Text:- %s "), sText);
 	outtext1(S1);
 }
 
@@ -40046,26 +40043,26 @@ int DIM::GetVarHeaders(CString sVar[]) {
 
 int DIM::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%s", sTextPre);
+	CString S1;
+	S1.Format(_T("%s"), sTextPre);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%s", sText);
+	S1.Format(_T("%s"), sText);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%s", sTextPost);
+	S1.Format(_T("%s"), sTextPost);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dDimScl);
+	S1.Format(_T("%g"), dDimScl);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dDrgScl);
+	S1.Format(_T("%g"), dDrgScl);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", bTextOverRide);
+	S1.Format(_T("%i"), bTextOverRide);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iDimOpt);
+	S1.Format(_T("%i"), iDimOpt);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -40246,9 +40243,9 @@ void DIMA::Build() {
 	vPP2 += vOrig;
 	dDIM = vPP1.Dist(vPP2);
 	dDist = dDIM / dDrgScl;
-	char buff[200];
+	CString buff;
 	if (!bTextOverRide) {
-		sprintf_s(buff, "%.*f", gDIM_PREC, dDist);
+		buff.Format(_T("%.*f"), gDIM_PREC, dDist);
 		sText = buff;
 	}
 	vPP1D = vPP1;
@@ -40740,10 +40737,10 @@ void DIMANG::Build() {
 	dA = v1.AngSigned(v2, vNorm);
 	dDIM = dA;
 	dDist = dDIM;
-	char buff[200];
+	CString buff;
 	if (!bTextOverRide) {
 		char newCharacter = 1; // Assuming the character 8960 is a TCHAR
-		sprintf_s(buff, "%.*f", gDIM_PREC, dDist);
+		buff.Format(_T("%.*f"), gDIM_PREC, dDist);
 		sText = buff;
 		sText += newCharacter;
 	}
@@ -41024,9 +41021,9 @@ void DIMH::Build() {
 	dDist = dDIM / dDrgScl;
 
 	// dDist = vPP1D.Dist(vPP2D) / dDrgScl;
-	char buff[200];
+	CString buff;
 	if (!bTextOverRide) {
-		sprintf_s(buff, "%.*f", gDIM_PREC, dDist);
+		buff.Format(_T("%.*f"), gDIM_PREC, dDist);
 		sText = buff;
 	}
 	vDY = vNorm.Cross(vDX);
@@ -41334,9 +41331,9 @@ void DIMV::Build() {
 	dDIM = abs(vDDD.Dot(vDX));
 	dDist = dDIM / dDrgScl;
 	// dDist = vPP1D.Dist(vPP2D) / dDrgScl;
-	char buff[200];
+	CString buff;
 	if (!bTextOverRide) {
-		sprintf_s(buff, "%.*f", gDIM_PREC, dDist);
+		buff.Format(_T("%.*f"), gDIM_PREC, dDist);
 		sText = buff;
 	}
 	vDY = vNorm.Cross(vDX);
@@ -41846,9 +41843,9 @@ void DIMR::Build() {
 
 	dDist = dDIM / dDrgScl;
 	// dDist = vPP1D.Dist(vPP2D) / dDrgScl;
-	char buff[200];
+	CString buff;
 	if (!bTextOverRide) {
-		sprintf_s(buff, "%.*f", gDIM_PREC, dDist);
+		buff.Format(_T("%.*f"), gDIM_PREC, dDist);
 		sText = buff;
 	}
 
@@ -42079,9 +42076,9 @@ void DIMD::Build() {
 
 	dDist = 2 * dDIM / dDrgScl;
 	// dDist = vPP1D.Dist(vPP2D) / dDrgScl;
-	char buff[200];
+	CString buff;
 	if (!bTextOverRide) {
-		sprintf_s(buff, "%.*f", gDIM_PREC, dDist);
+		buff.Format(_T("%.*f"), gDIM_PREC, dDist);
 		sText = buff;
 	}
 
@@ -42299,7 +42296,7 @@ void Symbol::OglDraw(int iDspFlgs, double dS1, double dS2) {
 }
 
 void Symbol::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[80];
+	CString sLab;
 	if ((iDspFlgs & DSP_CURVES) > 0) {
 		Selectable = 1;
 		Link* pCL;
@@ -42331,8 +42328,8 @@ void Symbol::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "C%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("C%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -42473,18 +42470,18 @@ G_ObjectD Symbol::SelDist(CPoint InPT, Filter FIL) {
 
 void Symbol::Info() {
 	Link* pCL = pL;
-	char S1[80];
-	sprintf_s(S1, "SYM %8i", iLabel);
+	CString S1;
+	S1.Format(_T("SYM %8i"), iLabel);
 	outtext1(S1);
-	sprintf_s(S1, "NSEGS %8i W %s H %s", iSegs, float8NAS(w), float8NAS(h));
+	S1.Format(_T("NSEGS %8i W %s H %s"), iSegs, float8NAS(w), float8NAS(h));
 	outtext1(S1);
 	while (pCL != NULL) // Evaluate  each link coord to screen pixel coords
 	{
-		sprintf_s(S1, "%s %s %s", float8NAS(pCL->p1->Pt_Point->x),
+		S1.Format(_T("%s %s %s"), float8NAS(pCL->p1->Pt_Point->x),
 		          float8NAS(pCL->p1->Pt_Point->y),
 		          float8NAS(pCL->p1->Pt_Point->z));
 		outtext1(S1);
-		sprintf_s(S1, "%s %s %s", float8NAS(pCL->p2->Pt_Point->x),
+		S1.Format(_T("%s %s %s"), float8NAS(pCL->p2->Pt_Point->x),
 		          float8NAS(pCL->p2->Pt_Point->y),
 		          float8NAS(pCL->p2->Pt_Point->z));
 		outtext1(S1);
@@ -42684,8 +42681,8 @@ void Face::Serialize(CArchive& ar, int iV) {
 }
 
 void Face::Info() {
-	char S1[80];
-	sprintf_s(S1, "FACE ID: %i ORIENT: %i", iLabel, bOrient);
+	CString S1;
+	S1.Format(_T("FACE ID: %i ORIENT: %i"), iLabel, bOrient);
 	outtext1(S1);
 }
 
@@ -42865,27 +42862,27 @@ void Shell::RelTo(G_Object* pThis, ObjList* pList, int iType) {
 }
 
 void Shell::Info() {
-	char S1[80];
+	CString S1;
 	USE* pU;
 	Face* pF;
 	pF = (Face*) pFaces.Head;
 	outtext1("************ FACES IN SHELL **************");
 	while (pF != NULL) {
-		sprintf_s(S1, "TYPE: %i LAB: %i", pF->iObjType, pF->iLabel);
+		S1.Format(_T("TYPE: %i LAB: %i"), pF->iObjType, pF->iLabel);
 		outtext1(S1);
 		pF = (Face*) pF->next;
 	}
 	outtext1("************* POINT USES ****************");
 	pU = (USE*) PtUSES.Head;
 	while (pU != NULL) {
-		sprintf_s(S1, "TYPE: %i LAB: %i USES %i", pU->pObj->iObjType, pU->pObj->iLabel, pU->iNo);
+		S1.Format(_T("TYPE: %i LAB: %i USES %i"), pU->pObj->iObjType, pU->pObj->iLabel, pU->iNo);
 		outtext1(S1);
 		pU = (USE*) pU->next;
 	}
 	outtext1("************* CURVE USES ****************");
 	pU = (USE*) CurveUSES.Head;
 	while (pU != NULL) {
-		sprintf_s(S1, "TYPE: %i LAB: %i USES %i", pU->pObj->iObjType, pU->pObj->iLabel, pU->iNo);
+		S1.Format(_T("TYPE: %i LAB: %i USES %i"), pU->pObj->iObjType, pU->pObj->iLabel, pU->iNo);
 		outtext1(S1);
 		pU = (USE*) pU->next;
 	}
@@ -43633,8 +43630,6 @@ void Part::HighLight() {
 }
 
 G_ObjectD Part::SelDist(CPoint InPT, Filter FIL) {
-	char S1[80] = "";
-
 	G_ObjectD Ret;
 	G_ObjectD D;
 	Ret.Dist = 1e36;
@@ -43655,7 +43650,7 @@ G_ObjectD Part::SelDist(CPoint InPT, Filter FIL) {
 		}
 		pShell = (Shell*) pShell->next;
 	}
-	// sprintf_s(S1, "%s %i", "Z:", Ret.Z);
+	// S1.Format(_T("%s %i"), _T("Z:"), Ret.Z);
 	// outtext1(S1);
 
 	if (FIL.isFilter(0)) {
@@ -43712,14 +43707,14 @@ int Part::GetVarHeaders(CString sVar[]) {
 
 int Part::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%s", sName);
+	CString S1;
+	S1.Format(_T("%s"), sName);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%i", iColour);
+	S1.Format(_T("%i"), iColour);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", Alpha);
+	S1.Format(_T("%g"), Alpha);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -43804,12 +43799,12 @@ void Part::RelTo(G_Object* pThis, ObjList* pList, int iType) {
 }
 
 void Part::Info() {
-	char S1[80];
+	CString S1;
 	outtext1("******* Vertices *******");
 	CvPt_Object* pNext;
 	pNext = (CvPt_Object*) pPartV.Head;
 	while (pNext != NULL) {
-		sprintf_s(S1, "TYPE: %i LAB: %i %g %g %g", pNext->iObjType, pNext->iLabel, pNext->Pt_Point->x, pNext->Pt_Point->y, pNext->Pt_Point->z);
+		S1.Format(_T("TYPE: %i LAB: %i %g %g %g"), pNext->iObjType, pNext->iLabel, pNext->Pt_Point->x, pNext->Pt_Point->y, pNext->Pt_Point->z);
 		outtext1(S1);
 		pNext = (CvPt_Object*) pNext->next;
 	}
@@ -43818,14 +43813,14 @@ void Part::Info() {
 	NCurve* pC;
 	pC = (NCurve*) pPartC.Head;
 	while (pC != NULL) {
-		sprintf_s(S1, "TYPE: %i LAB: %i PT1: %i PT2: %i", pC->iObjType, pC->iLabel, pC->pS->iLabel, pC->pE->iLabel);
+		S1.Format(_T("TYPE: %i LAB: %i PT1: %i PT2: %i"), pC->iObjType, pC->iLabel, pC->pS->iLabel, pC->pE->iLabel);
 		outtext1(S1);
 		pC = (NCurve*) pC->next;
 	}
 	outtext1("******* Surfaces *******");
 	G_Object* pN = pPartS.Head;
 	while (pN != NULL) {
-		sprintf_s(S1, "TYPE: %i LAB: %i", pN->iObjType, pN->iLabel);
+		S1.Format(_T("TYPE: %i LAB: %i"), pN->iObjType, pN->iLabel);
 		outtext1(S1);
 		pN = pN->next;
 	}
@@ -44089,9 +44084,9 @@ void CvPt_Object::Create(C3dVector InPt, double Inw, int iLab, int i2, int i3, i
 }
 
 void CvPt_Object::Info() {
-	char S1[80];
+	CString S1;
 	G_Object::Info();
-	sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f W: %f LAYER: %i", iLabel, Pt_Point->x, Pt_Point->y, Pt_Point->z, w, iFile);
+	S1.Format(_T("LAB: %i X: %f Y: %f Z: %f W: %f LAYER: %i"), iLabel, Pt_Point->x, Pt_Point->y, Pt_Point->z, w, iFile);
 	outtext1(S1);
 }
 
@@ -44176,7 +44171,7 @@ void CvPt_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 
 // void CvPt_Object::OglDrawW(int iDspFlgs, double dS1, double dS2)
 // {
-// 	char sLab[20];
+// 	CString sLab;
 // 	if ((iDspFlgs & DSP_POINTS) > 0)
 // 	{
 // 		Selectable = 1;
@@ -44187,8 +44182,8 @@ void CvPt_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 // 		glEnd();
 // 		if (bDrawLab == TRUE || gLBL_DSP)
 // 		{
-// 			sprintf_s(sLab, "Pt%i", iLabel);
-// 			OglString(iDspFlgs, (float)Pt_Point->x, (float)Pt_Point->y, (float)Pt_Point->z, &sLab[0]);
+// 			sLab.Format(_T("Pt%i"), iLabel);
+// 			OglString(iDspFlgs, (float)Pt_Point->x, (float)Pt_Point->y, (float)Pt_Point->z, CT2A(sLab));
 // 		}
 // 	}
 // 	else
@@ -44198,7 +44193,7 @@ void CvPt_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 // }
 
 void CvPt_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	if ((iDspFlgs & DSP_POINTS) > 0) {
 		Selectable = 1;
 		// momo
@@ -44218,8 +44213,8 @@ void CvPt_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "Pt%i", iLabel);
-			OglString(iDspFlgs, (float) Pt_Point->x, (float) Pt_Point->y, (float) Pt_Point->z, &sLab[0]);
+			sLab.Format(_T("Pt%i"), iLabel);
+			OglString(iDspFlgs, (float) Pt_Point->x, (float) Pt_Point->y, (float) Pt_Point->z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -44330,17 +44325,17 @@ int CvPt_Object::GetVarHeaders(CString sVar[]) {
 
 int CvPt_Object::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%g", Pt_Point->x);
+	CString S1;
+	S1.Format(_T("%g"), Pt_Point->x);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", Pt_Point->y);
+	S1.Format(_T("%g"), Pt_Point->y);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", Pt_Point->z);
+	S1.Format(_T("%g"), Pt_Point->z);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", w);
+	S1.Format(_T("%g"), w);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -44468,10 +44463,10 @@ void NCurve::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 CString NCurve::GetKnotString() {
 	CString sK;
 	int i;
-	char S1[80];
+	CString S1;
 
 	for (i = 0; i < iNoCPts + p + 1; i++) {
-		sprintf_s(S1, "%g,", knots[i]);
+		S1.Format(_T("%g,"), knots[i]);
 		sK += S1;
 	}
 	return (sK);
@@ -44479,24 +44474,24 @@ CString NCurve::GetKnotString() {
 
 void NCurve::Info() {
 	int i;
-	char S1[80];
-	sprintf_s(S1, "%s", "CURVE OBJECT");
+	CString S1;
+	S1.Format(_T("%s"), _T("CURVE OBJECT"));
 	outtext1(S1);
 	G_Object::Info();
-	sprintf_s(S1, "Curve Type: %i LAYER:: %i", iType, iFile);
+	S1.Format(_T("Curve Type: %i LAYER:: %i"), iType, iFile);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Curve Mesh Increment : ", iInc);
+	S1.Format(_T("%s%i"), _T("Curve Mesh Increment : "), iInc);
 	outtext1(S1);
-	sprintf_s(S1, "Order: %i", p);
+	S1.Format(_T("Order: %i"), p);
 	outtext1(S1);
 	CString sO;
 	for (i = 0; i < iNoCPts; i++) {
-		sprintf_s(S1, "LAB: %i X: %f Y: %f Z: %f W: %f", iLabel, cPts[i]->Pt_Point->x, cPts[i]->Pt_Point->y, cPts[i]->Pt_Point->z, cPts[i]->w);
+		S1.Format(_T("LAB: %i X: %f Y: %f Z: %f W: %f"), iLabel, cPts[i]->Pt_Point->x, cPts[i]->Pt_Point->y, cPts[i]->Pt_Point->z, cPts[i]->w);
 		outtext1(S1);
 	}
 	outtext1("Knot Sequence:-");
 	for (i = 0; i < iNoCPts + p + 1; i++) {
-		sprintf_s(S1, "%g,", knots[i]);
+		S1.Format(_T("%g,"), knots[i]);
 		sO += S1;
 	}
 	outtext1(sO);
@@ -45301,9 +45296,9 @@ C3dVector NCurve::MinPt(C3dVector inPt) {
 		i++;
 	} while ((dWStp > dTol) && (i < 100));
 	vRet = GetPt(dW);
-	// char S1[200];
+	// CString S1;
 	// CString OutT;
-	// sprintf_s(S1, "MIN PT INT: ,%i %f", i, dWStp);
+	// S1.Format(_T("MIN PT INT: ,%i %f"), i, dWStp);
 	// outtext1(S1);
 	return (vRet);
 }
@@ -45473,24 +45468,24 @@ int NCurve::GetVarHeaders(CString sVar[]) {
 int NCurve::GetVarValues(CString sVar[]) {
 	int i;
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
 	CString sKnots = _T("");
 	for (i = 0; i < iNoCPts + p; i++) {
-		sprintf_s(S1, "%g,", knots[i]);
+		S1.Format(_T("%g,"), knots[i]);
 		sKnots += S1;
 	}
-	sprintf_s(S1, "%g", knots[iNoCPts + p]);
+	S1.Format(_T("%g"), knots[iNoCPts + p]);
 	sKnots += S1;
 	// CString str = str(3.1);
 	sVar[iNo] = sKnots;
 	iNo++;
-	sprintf_s(S1, "%g", ws);
+	S1.Format(_T("%g"), ws);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", we);
+	S1.Format(_T("%g"), we);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -45854,7 +45849,7 @@ void NCurve::OglDrawCtrlPts() {
 }
 
 void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[80];
+	CString sLab;
 	int i = 0;
 	double dt;
 	if ((iDspFlgs & DSP_CURVES) > 0) {
@@ -45868,8 +45863,8 @@ void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		}
 		if (gDSP_CIRS) // put a s at start of circle helps woth trimming
 		{
-			sprintf_s(sLab, " S");
-			OglString(iDspFlgs, cPts[0]->Pt_Point->x, cPts[0]->Pt_Point->y, cPts[0]->Pt_Point->z, &sLab[0]);
+			sLab = " S";
+			OglString(iDspFlgs, cPts[0]->Pt_Point->x, cPts[0]->Pt_Point->y, cPts[0]->Pt_Point->z, CT2A(sLab));
 		}
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -45919,8 +45914,8 @@ void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "C%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("C%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -47261,17 +47256,17 @@ void NCircle::Transform(C3dMatrix TMat) {
 }
 
 void NCircle::Info() {
-	char S1[80];
-	sprintf_s(S1, "%s", "CIRCLE OBJECT");
+	CString S1;
+	S1.Format(_T("%s"), _T("CIRCLE OBJECT"));
 	outtext1(S1);
 	G_Object::Info();
-	sprintf_s(S1, "Curve Type: %i LAYER:: %i", iType, iFile);
+	S1.Format(_T("Curve Type: %i LAYER:: %i"), iType, iFile);
 	outtext1(S1);
-	sprintf_s(S1, "%s%f", "Radius : ", dRadius);
+	S1.Format(_T("%s%f"), _T("Radius : "), dRadius);
 	outtext1(S1);
-	sprintf_s(S1, "%s%f%s%f%s%f", "Centre : ", vCent.x, ",", vCent.y, ",", vCent.z);
+	S1.Format(_T("%s%f%s%f%s%f"), _T("Centre : "), vCent.x, _T(","), vCent.y, _T(","), vCent.z);
 	outtext1(S1);
-	sprintf_s(S1, "%s%f%s%f%s%f", "Normal : ", vNorm.x, ",", vNorm.y, ",", vNorm.z);
+	S1.Format(_T("%s%f%s%f%s%f"), _T("Normal : "), vNorm.x, _T(","), vNorm.y, _T(","), vNorm.z);
 	outtext1(S1);
 	outtext1("    ****");
 }
@@ -47294,27 +47289,27 @@ int NCircle::GetVarHeaders(CString sVar[]) {
 int NCircle::GetVarValues(CString sVar[]) {
 	int i;
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", iFile);
+	CString S1;
+	S1.Format(_T("%i"), iFile);
 	sVar[iNo] = S1;
 	iNo++;
 	CString sKnots = _T("");
 	for (i = 0; i < iNoCPts + p; i++) {
-		sprintf_s(S1, "%g,", knots[i]);
+		S1.Format(_T("%g,"), knots[i]);
 		sKnots += S1;
 	}
-	sprintf_s(S1, "%g", knots[iNoCPts + p]);
+	S1.Format(_T("%g"), knots[iNoCPts + p]);
 	sKnots += S1;
 	// CString str = str(3.1);
 	sVar[iNo] = sKnots;
 	iNo++;
-	sprintf_s(S1, "%g", ws);
+	S1.Format(_T("%g"), ws);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", we);
+	S1.Format(_T("%g"), we);
 	sVar[iNo] = S1;
 	iNo++;
-	sprintf_s(S1, "%g", dRadius);
+	S1.Format(_T("%g"), dRadius);
 	sVar[iNo] = S1;
 	iNo++;
 	return (iNo);
@@ -47473,7 +47468,7 @@ void NLine::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 
 void NLine::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	int i;
-	char sLab[20];
+	CString sLab;
 	C3dVector vC;
 
 	if ((iDspFlgs & DSP_CURVES) > 0) {
@@ -47514,8 +47509,8 @@ void NLine::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "Ln%i", iLabel);
-			OglString(iDspFlgs, (float) vC.x, (float) vC.y, (float) vC.z, &sLab[0]);
+			sLab.Format(_T("Ln%i"), iLabel);
+			OglString(iDspFlgs, (float) vC.x, (float) vC.y, (float) vC.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -47590,16 +47585,16 @@ C3dVector NLine::MinPt(C3dVector inPt) {
 }
 
 void NLine::Info() {
-	char S1[80];
-	sprintf_s(S1, "%s", "LINE OBJECT");
+	CString S1;
+	S1.Format(_T("%s"), _T("LINE OBJECT"));
 	outtext1(S1);
 	G_Object::Info();
-	sprintf_s(S1, "Curve Type: %i LAYER:: %i", iType, iFile);
+	S1.Format(_T("Curve Type: %i LAYER:: %i"), iType, iFile);
 	outtext1(S1);
 	// Set like this temporaly for generating symbols table
-	sprintf_s(S1, "Pt1: %f %f %f", cPts[0]->Pt_Point->x, cPts[0]->Pt_Point->y, cPts[0]->Pt_Point->z);
+	S1.Format(_T("Pt1: %f %f %f"), cPts[0]->Pt_Point->x, cPts[0]->Pt_Point->y, cPts[0]->Pt_Point->z);
 	outtext1(S1);
-	sprintf_s(S1, "Pt2: %f %f %f", cPts[1]->Pt_Point->x, cPts[1]->Pt_Point->y, cPts[1]->Pt_Point->z);
+	S1.Format(_T("Pt2: %f %f %f"), cPts[1]->Pt_Point->x, cPts[1]->Pt_Point->y, cPts[1]->Pt_Point->z);
 	outtext1(S1);
 }
 
@@ -47838,13 +47833,13 @@ G_Object* NSurf::Copy(G_Object* Parrent) {
 }
 
 void NSurf::Info() {
-	char S1[80];
-	sprintf_s(S1, "%s", "SURFACE OBJECT");
+	CString S1;
+	S1.Format(_T("%s"), _T("SURFACE OBJECT"));
 	outtext1(S1);
 	G_Object::Info();
-	sprintf_s(S1, "%s%i", "Surface Type : ", iType);
+	S1.Format(_T("%s%i"), _T("Surface Type : "), iType);
 	outtext1(S1);
-	sprintf_s(S1, "%s%f", "Surface Mesh Size : ", dSSize);
+	S1.Format(_T("%s%f"), _T("Surface Mesh Size : "), dSSize);
 	outtext1(S1);
 	int i;
 	int j;
@@ -47852,7 +47847,7 @@ void NSurf::Info() {
 		pExtLoop[i]->Info();
 	outtext1("********** INTERNAL LOOPS**********");
 	for (i = 0; i < iNoIntLoops; i++) {
-		sprintf_s(S1, "%s%i", "LOOP : ", i);
+		S1.Format(_T("%s%i"), _T("LOOP : "), i);
 		outtext1(S1);
 		for (j = 0; j < iNoIntCvs[i]; j++) {
 			pIntLoop[i][j]->Info();
@@ -48105,7 +48100,7 @@ void NSurf::RelTo(G_Object* pThis, ObjList* pList, int iType) {
 }
 
 void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	char sLab[20];
+	CString sLab;
 	double dUi;
 	double dVi;
 	double dSpanU;
@@ -48405,8 +48400,8 @@ void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			bDrawLab = FALSE;
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
-			sprintf_s(sLab, "S%i", iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, &sLab[0]);
+			sLab.Format(_T("S%i"), iLabel);
+			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -50256,14 +50251,14 @@ void CFilterDialog::ReSet() {
 	int i;
 	CListBox* pItemsSelectable = (CListBox*) GetDlgItem(IDC_LIST1);
 	CListBox* pItemsNonSelectable = (CListBox*) GetDlgItem(IDC_LIST2);
-	char OutT[80];
+	CString OutT;
 
 	for (i = 0; i < pFilt->iNoOfType; i++) {
-		sprintf_s(OutT, "%i : %s", pFilt->iType[i], pFilt->sType[i]);
+		OutT.Format(_T("%i : %s"), pFilt->iType[i], pFilt->sType[i]);
 		if (pFilt->isFilter(pFilt->iType[i]) == TRUE) {
-			pItemsNonSelectable->AddString(CA2T(OutT));
+			pItemsNonSelectable->AddString(OutT);
 		} else {
-			pItemsSelectable->AddString(CA2T(OutT));
+			pItemsSelectable->AddString(OutT);
 		}
 	}
 }
@@ -50380,12 +50375,12 @@ void CGroupDialog::AddGroup(CString sName) {
 
 void CGroupDialog::RefreshGPS() {
 	int i;
-	char OutT[80];
+	CString OutT;
 	CListBox* pGroups = (CListBox*) GetDlgItem(IDC_GROUP_SEL);
 	pGroups->ResetContent();
 	for (i = 0; i < iNo; i++) {
-		sprintf_s(OutT, "%i : %s", i, Groups[i]);
-		pGroups->AddString(CA2T(OutT));
+		OutT.Format(_T("%i : %s"), i, Groups[i]);
+		pGroups->AddString(OutT);
 	}
 	if (iGp != -1) {
 		pGroups->SetCurSel(iGp);
@@ -50457,10 +50452,10 @@ BOOL CRelToDialog::OnInitDialog() {
 
 	int i;
 	CListBox* pTypes = (CListBox*) GetDlgItem(IDC_LIST_RELTO);
-	char OutT[80];
+	CString OutT;
 	for (i = 0; i < pFilt->iNoOfType; i++) {
-		sprintf_s(OutT, "%i : %s", pFilt->iType[i], pFilt->sType[i]);
-		pTypes->AddString(CA2T(OutT));
+		OutT.Format(_T("%i : %s"), pFilt->iType[i], pFilt->sType[i]);
+		pTypes->AddString(OutT);
 	}
 
 	return TRUE; // return TRUE unless you set the focus to a control
@@ -51036,8 +51031,8 @@ void Table::AddItem(Entity* pIn) {
 			outtext1("ERROR: Max No in Table Exceeded.");
 		}
 	} else {
-		char S1[80];
-		sprintf_s(S1, "%s%i", "WARNING: Property Conflict. ", pIn->iID);
+		CString S1;
+		S1.Format(_T("%s%i"), _T("WARNING: Property Conflict. "), pIn->iID);
 		outtext1(S1);
 	}
 }
@@ -51213,11 +51208,11 @@ void CResSelDialog::SetData(BOOL isVec, ResSet* pInRes[], int iInNoRes, int iInC
 void CResSelDialog::Init() {
 	int i;
 	CListBox* pResList = (CListBox*) GetDlgItem(IDC_LIST_RES);
-	char OutT[80];
+	CString OutT;
 	if (iNoRes > 0) {
 		for (i = 0; i < iNoRes; i++) {
-			sprintf_s(OutT, "%i: LC %i : %s", i, pRes[i]->LC, pRes[i]->sName.GetString());
-			pResList->AddString(CA2T(OutT));
+			OutT.Format(_T("%i: LC %i : %s"), i, pRes[i]->LC, pRes[i]->sName.GetString());
+			pResList->AddString(OutT);
 		}
 	}
 }
@@ -51255,23 +51250,23 @@ BOOL CResSelDialog::OnInitDialog() {
 	// momo// pResList->SetCurSel(iCurResSet);
 	// momo
 	if (iResVal != -1) {
-		char OutT[80];
+		CString OutT;
 		if (pRes[iCurResSet] != NULL) {
 			if (bIsVec) // Is a vector plot find all valid vectors
 			{
 				for (i = 0; i < pRes[iCurResSet]->iNoResDef; i++) {
-					sprintf_s(OutT, "%i : %s", i, pRes[iCurResSet]->ResDefintion[i]->sResType);
-					pValList->AddString(CA2T(OutT));
+					OutT.Format(_T("%i : %s"), i, pRes[iCurResSet]->ResDefintion[i]->sResType);
+					pValList->AddString(OutT);
 				}
 			} else {
 				for (i = 0; i < pRes[iCurResSet]->iNoV; i++) {
-					sprintf_s(OutT, "%i : %s", i, pRes[iCurResSet]->lab[i]);
-					pValList->AddString(CA2T(OutT));
+					OutT.Format(_T("%i : %s"), i, pRes[iCurResSet]->lab[i]);
+					pValList->AddString(OutT);
 				}
 			}
 			// momo
 			// if (pRes[iCurResSet]->iNoV == 6) {
-			//	sprintf_s(OutT, "%i : RSS-Total", 6);
+			//	OutT.Format(_T("%i : RSS-Total"), 6);
 			//	pValList->AddString(OutT);
 			//	pRes[iCurResSet]->iNoV = 7;
 			//}
@@ -51282,16 +51277,16 @@ BOOL CResSelDialog::OnInitDialog() {
 			if (pRes[iCurResSet]->iSecondaryID != -1) {
 				iMaxSec = pRes[iCurResSet]->getMaxSecondaryID();
 				for (i = 0; i < iMaxSec; i++) {
-					sprintf_s(OutT, "%s : %i", pRes[iCurResSet]->sOpName, i + 1);
-					pSecList->AddString(CA2T(OutT));
+					OutT.Format(_T("%s : %i"), pRes[iCurResSet]->sOpName, i + 1);
+					pSecList->AddString(OutT);
 				}
 				pSecList->SetCurSel(iSecResID - 1);
 			}
 		} else {
 			if ((iResVal > -1) && (iCurResSet > -1)) {
 				for (i = 0; i < pRes[iCurResSet]->ResDefintion[iResVal]->iCompNo; i++) {
-					sprintf_s(OutT, "%i : %s", i, pRes[iCurResSet]->ResDefintion[iResVal]->Lab9[i]);
-					pSecList->AddString(CA2T(OutT));
+					OutT.Format(_T("%i : %s"), i, pRes[iCurResSet]->ResDefintion[iResVal]->Lab9[i]);
+					pSecList->AddString(OutT);
 				}
 				pSecList->SetCurSel(iSecResID);
 			}
@@ -51331,20 +51326,20 @@ void CResSelDialog::OnLbnSelChangeListRes() {
 	pSecList->ResetContent();
 	pLCTitle->SetWindowText(_T("TITLE:- ") + pRes[ind]->sTitle);
 	pLCSubTitle->SetWindowText(_T("SUBTITLE:- ") + pRes[ind]->sSubTitle);
-	char OutT[80];
+	CString OutT;
 	if (bIsVec) {
 		for (i = 0; i < pRes[ind]->iNoResDef; i++) {
-			sprintf_s(OutT, "%i : %s", i, pRes[ind]->ResDefintion[i]->sResType);
-			pValList->AddString(CA2T(OutT));
+			OutT.Format(_T("%i : %s"), i, pRes[ind]->ResDefintion[i]->sResType);
+			pValList->AddString(OutT);
 		}
 	} else {
 		for (i = 0; i < pRes[ind]->iNoV; i++) {
-			sprintf_s(OutT, "%i : %s", i, pRes[ind]->lab[i]);
-			pValList->AddString(CA2T(OutT));
+			OutT.Format(_T("%i : %s"), i, pRes[ind]->lab[i]);
+			pValList->AddString(OutT);
 		}
 		// momo
 		// if (pRes[ind]->iNoV == 6) {
-		//	sprintf_s(OutT, "%i : RSS-Total", 6);
+		//	OutT.Format(_T("%i : RSS-Total"), 6);
 		//	pValList->AddString(OutT);
 		//	pRes[ind]->iNoV = 7;
 		//}
@@ -51356,8 +51351,8 @@ void CResSelDialog::OnLbnSelChangeListRes() {
 		{
 			iMaxSec = pRes[ind]->getMaxSecondaryID();
 			for (i = 0; i < iMaxSec; i++) {
-				sprintf_s(OutT, "%s : %i", pRes[ind]->sOpName, i + 1);
-				pSecList->AddString(CA2T(OutT));
+				OutT.Format(_T("%s : %i"), pRes[ind]->sOpName, i + 1);
+				pSecList->AddString(OutT);
 			}
 		}
 	}
@@ -51376,7 +51371,7 @@ void CResSelDialog::OnLbnSelChangeListRes() {
 }
 
 void CResSelDialog::OnSelChangeListVal() {
-	char OutT[80];
+	CString OutT;
 	CListBox* pResList = (CListBox*) GetDlgItem(IDC_LIST_RES);
 	CListBox* pValList = (CListBox*) GetDlgItem(IDC_LIST_VAL);
 	CListBox* pSecList = (CListBox*) GetDlgItem(IDC_LIST_VAL2);
@@ -51392,8 +51387,8 @@ void CResSelDialog::OnSelChangeListVal() {
 		int iV = pValList->GetCurSel();
 		if (iV > -1) {
 			for (i = 0; i < pRes[ind]->ResDefintion[iV]->iCompNo; i++) {
-				sprintf_s(OutT, "%i : %s", i, pRes[ind]->ResDefintion[iV]->Lab9[i]);
-				pSecList->AddString(CA2T(OutT));
+				OutT.Format(_T("%i : %s"), i, pRes[ind]->ResDefintion[iV]->Lab9[i]);
+				pSecList->AddString(OutT);
 			}
 		}
 	}
@@ -51706,8 +51701,8 @@ void CColourPickDialog::OnLButtonUp(UINT nFlags, CPoint point) {
 		}
 	}
 	// get the system to repaint dialog
-	char S1[22];
-	sprintf_s(S1, "%s%i", "Colour Index: ", iSel);
+	CString S1;
+	S1.Format(_T("%s%i"), _T("Colour Index: "), iSel);
 	CWnd* label = GetDlgItem(IDC_STATIC_COL);
 	label->SetWindowText((LPCTSTR) S1);
 
@@ -51789,12 +51784,12 @@ void CSETSDialog::OnBnClickedCreate() {
 		outtextMSG2(sSET);
 		outtextMSG2(cI);
 		outtextMSG2(cT);
-		char sNew[80];
+		CString sNew;
 		CListBox* pSets = (CListBox*) GetDlgItem(IDC_LIST1);
-		sprintf_s(sNew, "%i : %s", iID, cT);
+		sNew.Format(_T("%i : %s"), iID, cT);
 		if (iNow == *iNoS - 2) {
-			AddSet(*iNoS - 1, CString(CA2T(sNew)));
-			pSets->AddString(CA2T(sNew));
+			AddSet(*iNoS - 1, sNew);
+			pSets->AddString(sNew);
 		}
 	} else {
 		outtext1("ERROR: Set ID Must be Greater than 0.");
@@ -51864,26 +51859,26 @@ CSOLDialog::CSOLDialog()
 }
 
 void CSOLDialog::Refresh() {
-	char OutT[80];
+	CString OutT;
 	CString ss;
 	int i;
 	CListBox* pSol = (CListBox*) GetDlgItem(IDC_SOL_LST);
 	pSol->ResetContent();
 	for (i = 0; i < pSOL->iNo; i++) {
-		sprintf_s(OutT, "%i : %s", i, pSOL->pSols[i]->sTitle);
-		pSol->AddString(CA2T(OutT));
+		OutT.Format(_T("%i : %s"), i, pSOL->pSols[i]->sTitle);
+		pSol->AddString(OutT);
 	}
 	if (pSOL->iCur != -1) {
-		sprintf_s(OutT, "%g", pSOL->pSols[pSOL->iCur]->dTol);
+		OutT.Format(_T("%g"), pSOL->pSols[pSOL->iCur]->dTol);
 		pSol->SetCurSel(pSOL->iCur);
 		CEdit* pTol = (CEdit*) GetDlgItem(IDC_TOL_TXT);
-		pTol->SetWindowText(CA2T(OutT));
+		pTol->SetWindowText(OutT);
 		CComboBox* pType = (CComboBox*) GetDlgItem(IDC_TYPE_CBO);
 		pType->SetCurSel(pSOL->pSols[pSOL->iCur]->iType);
 		CEdit* pTit = (CEdit*) GetDlgItem(IDC_TITLE_TXT);
 		pTit->SetWindowText(pSOL->pSols[pSOL->iCur]->sTitle);
 		CStatic* pSt = (CStatic*) GetDlgItem(IDC_STATIC_SOL_ACT);
-		sprintf_s(OutT, "%i : %s", pSOL->iCur, pSOL->pSols[pSOL->iCur]->sTitle);
+		OutT.Format(_T("%i : %s"), pSOL->iCur, pSOL->pSols[pSOL->iCur]->sTitle);
 
 		ss = pSOL->pSols[pSOL->iCur]->GetSolutionTitleString();
 		pSt->SetWindowText(ss);
@@ -51924,7 +51919,7 @@ END_MESSAGE_MAP()
 void CSOLDialog::OnBnClickedCr() {
 	CString sTitle;
 	CString sTol;
-	char S1[20] = "";
+	CString S1;
 	// TODO: Add your control notification handler code here
 	CEdit* pTitle = (CEdit*) GetDlgItem(IDC_TITLE_TXT);
 	// IDC_TYPE_CBO
@@ -51935,7 +51930,7 @@ void CSOLDialog::OnBnClickedCr() {
 	pTol->GetWindowText(sTol);
 	outtextMSG2("SOLCR");
 	outtextMSG2(sTitle);
-	sprintf_s(S1, "%i", iT);
+	S1.Format(_T("%i"), iT);
 	outtextMSG2(S1);
 	outtextMSG2(sTol);
 	Refresh();
@@ -52076,12 +52071,11 @@ void CSTEPSDialog::Refresh() {
 	CListBox* pSol = (CListBox*) GetDlgItem(IDC_STEP_LBX);
 	pSol->ResetContent();
 	Solution* pS;
-	char S1[200] = "";
 	if (pSOL != NULL) {
 		if (pSOL->iCur != -1) {
 			pS = pSOL->pSols[pSOL->iCur];
 			for (i = 0; i < pS->iNo; i++) {
-				// sprintf_s(S1,"STEP: %i LC: %i BC: %i TSET: %i RS: %i %s",i,pS->LS[i],pS->BS[i],pS->TS[i],pS->RS[i],pS->sStepTitle[i]);
+				// S1.Format(_T("STEP: %i LC: %i BC: %i TSET: %i RS: %i %s"),i,pS->LS[i],pS->BS[i],pS->TS[i],pS->RS[i],pS->sStepTitle[i]);
 				pSol->AddString((LPCTSTR) pSOL->GetCurSolution()->GetStepTitleString(i));
 			}
 		}
@@ -52170,7 +52164,7 @@ void CSTEPSDialog::OnBnClickedCreate() {
 	int iLSet;
 	int iBSet;
 	int iTSet;
-	char S1[20] = "";
+	CString S1;
 
 	CComboBox* pCB;
 	// TODO: Add your control notification handler code here
@@ -52187,17 +52181,17 @@ void CSTEPSDialog::OnBnClickedCreate() {
 
 	outtextMSG2("STEPCR");
 	outtextMSG2(sTitle);
-	sprintf_s(S1, "%i", iLC[iLSet]);
+	S1.Format(_T("%i"), iLC[iLSet]);
 	outtextMSG2(S1);
-	sprintf_s(S1, "%i", iBC[iBSet]);
+	S1.Format(_T("%i"), iBC[iBSet]);
 	outtextMSG2(S1);
 	if (iTSet != -1) {
-		sprintf_s(S1, "%i", iTC[iTSet]);
+		S1.Format(_T("%i"), iTC[iTSet]);
 		outtextMSG2(S1);
 	} else {
 		outtextMSG2("");
 	}
-	sprintf_s(S1, "%i", iRS);
+	S1.Format(_T("%i"), iRS);
 	outtextMSG2(S1);
 	Refresh();
 }
@@ -52383,8 +52377,8 @@ void CEntEditDialog::Populate1() {
 	m_List.InsertColumn(1, _T("Value"), LVCFMT_LEFT, 250);
 
 	Ed_Title.SetWindowText(pO->GetName());
-	char S1[80] = "";
-	sprintf_s(S1, "%i", pO->iLabel);
+	CString S1;
+	S1.Format(_T("%i"), pO->iLabel);
 	CString ss;
 	ss = S1;
 	Ed_ID.SetWindowText(ss);
@@ -52413,8 +52407,8 @@ void CEntEditDialog::Populate2() {
 	m_List.InsertColumn(1, _T("Value"), LVCFMT_LEFT, 250);
 
 	Ed_Title.SetWindowText(pEnt->sTitle);
-	char S1[80] = "";
-	sprintf_s(S1, "%i", pEnt->iID);
+	CString S1;
+	S1.Format(_T("%i"), pEnt->iID);
 	CString ss;
 	ss = S1;
 	Ed_ID.SetWindowText(ss);
@@ -52483,7 +52477,7 @@ void CEntEditDialog::Build(BOOL isPCOMPG) {
 }
 
 void CEntEditDialog::Build2(BOOL isPCOMPG) {
-	char S1[80];
+	CString S1;
 	CString sTemp = _T("");
 	int i = 0;
 	double dTheta[100];
@@ -52520,10 +52514,10 @@ void CEntEditDialog::Build2(BOOL isPCOMPG) {
 	for (i = 0; i < iLC; i++) {
 		dThk += dT[i];
 	}
-	sprintf_s(S1, "%i", iLC);
+	S1.Format(_T("%i"), iLC);
 	sTemp = S1;
 	m_List.SetItemText(8, 1, sTemp);
-	sprintf_s(S1, "%g", dThk);
+	S1.Format(_T("%g"), dThk);
 	sTemp = S1;
 	m_List.SetItemText(9, 1, sTemp);
 	sTemp = m_List.GetItemText(1, 1);
@@ -52618,19 +52612,19 @@ void CEntEditDialog::OglDraw() {
 	glVertex3f(0.0, 0.5, 0.0);
 	glEnd();
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	char sLab[20];
+	CString sLab;
 
 	int i;
 	for (i = 0; i < iNoLayers; i++)
 		Laminate[i].OglDraw();
-	sprintf_s(sLab, "%s", "Z");
-	OglString(1, 0.0, 0.0, 0.7, &sLab[0]);
+	sLab.Format(_T("%s"), _T("Z"));
+	OglString(1, 0.0, 0.0, 0.7, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.0, (float) 0.0, (float) 0.7);
 	glEnd();
-	sprintf_s(sLab, "%s", "1");
-	OglString(1, 0.7, 0.0, 0.0, &sLab[0]);
+	sLab.Format(_T("%s"), _T("1"));
+	OglString(1, 0.7, 0.0, 0.0, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.7, (float) 0.0, (float) 0.0);
@@ -53039,7 +53033,7 @@ void Lamina::SetAng(double dA) {
 
 void Lamina::OglDraw() {
 	C3dMatrix R;
-	char s1[8];
+	CString s1;
 	R.MakeUnit();
 	R.Rotate(0, 0, dMAng);
 	C3dVector vTmp;
@@ -53103,12 +53097,12 @@ void Lamina::OglDraw() {
 
 	p1.Set(0.75, 0, dZOFFS);
 	// p1 = R * p1;
-	sprintf_s(s1, "%g", dMAng);
-	OglString(0, p1.x, p1.y, p1.z, &s1[0]);
+	s1.Format(_T("%g"), dMAng);
+	OglString(0, p1.x, p1.y, p1.z, CT2A(s1));
 	p1.Set(-0.95, 0, dZOFFS);
 	// p1 = R * p1;
-	sprintf_s(s1, "%i", iMID);
-	OglString(0, p1.x, p1.y, p1.z, &s1[0]);
+	s1.Format(_T("%i"), iMID);
+	OglString(0, p1.x, p1.y, p1.z, CT2A(s1));
 
 	// Draw fibres
 	double dWid;
@@ -53309,19 +53303,19 @@ void CPcompEditor::OglDraw() {
 	glVertex3f(0.0, 0.5, 0.0);
 	glEnd();
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	char sLab[20];
+	CString sLab;
 
 	int i;
 	for (i = 0; i < iNoLayers; i++)
 		Laminate[i].OglDraw();
-	sprintf_s(sLab, "%s", "Z");
-	OglString(1, 0.0, 0.0, 0.7, &sLab[0]);
+	sLab.Format(_T("%s"), _T("Z"));
+	OglString(1, 0.0, 0.0, 0.7, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.0, (float) 0.0, (float) 0.7);
 	glEnd();
-	sprintf_s(sLab, "%s", "1");
-	OglString(1, 0.7, 0.0, 0.0, &sLab[0]);
+	sLab.Format(_T("%s"), _T("1"));
+	OglString(1, 0.7, 0.0, 0.0, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.7, (float) 0.0, (float) 0.0);
@@ -53560,10 +53554,10 @@ void CGraphDialog::GDIDraw() {
 	int iLegOffY = 250;
 	float fDivX = 0;
 	float fDivY = 0;
-	char sLab[20];
+	CString sLab;
 	BOOL bFirst = TRUE;
 	HDC hDC;
-	char buff[200];
+	CString buff;
 	CDC* pDC = pDrg->GetDC();
 	hDC = pDC->m_hDC;
 	float X;
@@ -53616,22 +53610,22 @@ void CGraphDialog::GDIDraw() {
 		pDC->MoveTo(X, fH - (fyoff - 5));
 		pDC->LineTo(X, fH - (fyoff + fyspan));
 		if (bLOG)
-			sprintf_s(sLab, "%g", pow(10, i * fDivX));
+			sLab.Format(_T("%g"), pow(10, i * fDivX));
 		else
-			sprintf_s(sLab, "%g", i * fDivX);
+			sLab.Format(_T("%g"), i * fDivX);
 		// momo
 		// momo// TextOut(hDC, X, fH - (fyoff - 5), sLab, static_cast<int>(strlen(sLab)));
-		TextOut(hDC, X, fH - (fyoff - 5), CA2T(sLab), lstrlen(CA2T(sLab)));
+		TextOut(hDC, X, fH - (fyoff - 5), sLab, lstrlen(sLab));
 		// momo
 	}
 	for (i = 0; i <= iNoTicksY; i++) {
 		Y = fyoff + (fyspan) * (i * fDivY - minY) / (maxY - minY);
 		pDC->MoveTo(fxoff - 5, fH - Y);
 		pDC->LineTo(fxoff + fxspan, fH - Y);
-		sprintf_s(sLab, "%g", i * fDivY);
+		sLab.Format(_T("%g"), i * fDivY);
 		// momo
 		// momo// TextOut(hDC, fxoff - 40, fH - Y, sLab, static_cast<int>(strlen(sLab)));
-		TextOut(hDC, fxoff - 40, fH - Y, CA2T(sLab), lstrlen(CA2T(sLab)));
+		TextOut(hDC, fxoff - 40, fH - Y, sLab, lstrlen(sLab));
 		// momo
 	}
 	RestorePen(pDC);
@@ -53684,10 +53678,10 @@ void CGraphDialog::GDIDraw() {
 				SetPen(pDC, pG->iCol, 3);
 			// Lengend
 			SetTextCol(hDC, pG->iCol);
-			sprintf_s(buff, "%s %s %s", pG->sResType, pG->sEntID, pG->sVar);
+			buff.Format(_T("%s %s %s"), pG->sResType, pG->sEntID, pG->sVar);
 			// momo
 			// momo// TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), buff, static_cast<int>(strlen(buff)));
-			TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), CA2T(buff), lstrlen(CA2T(buff)));
+			TextOut(hDC, iLegOffX, fH - (iLegOffY + j * 20), buff, lstrlen(buff));
 			// momo
 			for (i = 0; i < pG->fx.size(); i++) {
 				if (bLOG)
@@ -53713,7 +53707,7 @@ void CGraphDialog::popResVec() {
 	int i;
 	int iLC;
 	int iTCode;
-	char buff[200];
+	CString buff;
 	NEList* LCGp = new NEList();
 	NEList* oIDS = new NEList();
 	CListBox* oLB;
@@ -53725,8 +53719,8 @@ void CGraphDialog::popResVec() {
 		// TCODE 1039 Node MPC
 		if ((iTCode == 1039) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
-			sprintf_s(buff, "%i_%s_%i_%s", iTCode, "LC", iLC, "MPCF");
-			oLB->AddString(CA2T(buff));
+			buff.Format(_T("%i_%s_%i_%s"), iTCode, _T("LC"), iLC, _T("MPCF"));
+			oLB->AddString(buff);
 			vTC.push_back(iTCode);
 			vLC.push_back(iLC);
 		}
@@ -53738,8 +53732,8 @@ void CGraphDialog::popResVec() {
 		// TCODE 1011 Accel
 		if ((iTCode == 1011) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
-			sprintf_s(buff, "%i	%s %i %s", iTCode, "LC", iLC, "ACCEL");
-			oLB->AddString(CA2T(buff));
+			buff.Format(_T("%i	%s %i %s"), iTCode, _T("LC"), iLC, _T("ACCEL"));
+			oLB->AddString(buff);
 			vTC.push_back(iTCode);
 			vLC.push_back(iLC);
 		}
@@ -53752,8 +53746,8 @@ void CGraphDialog::popResVec() {
 		// TCODE 1004 El Force CBUSH
 		if ((iTCode == 1004) && (!LCGp->IsIn(iLC))) {
 			LCGp->Add(iLC, 1);
-			sprintf_s(buff, "%i	%s %i %s", iTCode, "LC", iLC, "ELFORCE");
-			oLB->AddString(CA2T(buff));
+			buff.Format(_T("%i	%s %i %s"), iTCode, _T("LC"), iLC, _T("ELFORCE"));
+			oLB->AddString(buff);
 			vTC.push_back(iTCode);
 			vLC.push_back(iLC);
 		}
@@ -53769,7 +53763,7 @@ void CGraphDialog::popEnt(int inTC, int inLC) {
 	int iLC;
 	int iTCode;
 	Res* pR = NULL;
-	char buff[200];
+	CString buff;
 	CListBox* oLB;
 	CListBox* oLBE;
 	vE.clear();
@@ -53784,8 +53778,8 @@ void CGraphDialog::popEnt(int inTC, int inLC) {
 		if ((iTCode == inTC) && (iLC = inLC)) {
 			pR = pME->ResultsSets[i]->Head;
 			for (j = 0; j < pME->ResultsSets[i]->iCnt; j++) {
-				sprintf_s(buff, "%i", pR->ID);
-				oLBE->AddString(CA2T(buff));
+				buff.Format(_T("%i"), pR->ID);
+				oLBE->AddString(buff);
 				vE.push_back(pR->ID);
 				pR = pR->next;
 			}
@@ -54020,7 +54014,7 @@ void CGraphDialog::OnBnClickedPlot() {
 }
 
 void CGraphDialog::GenGraph(CString sRT, CString sID, CString sVar, int iTC, int iLC, int iEnt, int iVar) {
-	char buff[200];
+	CString buff;
 	int i;
 	int j;
 	ResSet* pRS;
@@ -54037,8 +54031,8 @@ void CGraphDialog::GenGraph(CString sRT, CString sID, CString sVar, int iTC, int
 		pG->sEntID = sID;
 		pG->sVar = sVar;
 		CListBox* oLB = (CListBox*) this->GetDlgItem(IDC_PLOTS);
-		sprintf_s(buff, "%s_%s_%s", sRT, sID, sVar);
-		oLB->AddString(CA2T(buff));
+		buff.Format(_T("%s_%s_%s"), sRT, sID, sVar);
+		oLB->AddString(buff);
 		for (i = 0; i < pME->iNoRes; i++) {
 			if ((pME->ResultsSets[i]->LC == iLC) && (iTC == pME->ResultsSets[i]->TCODE)) {
 				pRS = pME->ResultsSets[i];
@@ -54057,7 +54051,7 @@ void CGraphDialog::GenGraph(CString sRT, CString sID, CString sVar, int iTC, int
 							pG->fx.push_back(*pR->GetAddress(0));
 							pG->fy.push_back(*pR->GetAddress(iVar));
 
-							// sprintf_s(buff, "%g	%g", *pR->GetAddress(0), *pR->GetAddress(iVar));
+							// buff.Format(_T("%g	%g"), *pR->GetAddress(0), *pR->GetAddress(iVar));
 							// outtext1(buff);
 							break;
 						}
@@ -54322,69 +54316,69 @@ int G_ObjectDUM::GetVarHeaders(CString sVar[]) {
 
 int G_ObjectDUM::GetVarValues(CString sVar[]) {
 	int iNo = 0;
-	char S1[80] = "";
-	sprintf_s(S1, "%i", gBACKGRD_COL);
+	CString S1;
+	S1.Format(_T("%i"), gBACKGRD_COL);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gZOOM_SCL);
+	S1.Format(_T("%g"), gZOOM_SCL);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gPT_SIZE);
+	S1.Format(_T("%g"), gPT_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gND_SIZE);
+	S1.Format(_T("%g"), gND_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gLM_SIZE);
+	S1.Format(_T("%g"), gLM_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gEL_SIZE);
+	S1.Format(_T("%g"), gEL_SIZE);
 	sVar[iNo++] = S1;
 	;
-	sprintf_s(S1, "%g", gED_SIZE);
+	S1.Format(_T("%g"), gED_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gFC_SIZE);
+	S1.Format(_T("%g"), gFC_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gWP_SIZE);
+	S1.Format(_T("%g"), gWP_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gBM_SIZE);
+	S1.Format(_T("%g"), gBM_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gTXT_SIZE);
+	S1.Format(_T("%g"), gTXT_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDIM_SCALE);
+	S1.Format(_T("%g"), gDIM_SCALE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDIM_FILSZ);
+	S1.Format(_T("%g"), gDIM_FILSZ);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDIM_OFFSZ);
+	S1.Format(_T("%g"), gDIM_OFFSZ);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gTXT_HEIGHT);
+	S1.Format(_T("%g"), gTXT_HEIGHT);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDIM_RADSZ);
+	S1.Format(_T("%g"), gDIM_RADSZ);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDIM_CVORD);
+	S1.Format(_T("%g"), gDIM_CVORD);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%i", gDIM_PREC);
+	S1.Format(_T("%i"), gDIM_PREC);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDIM_SIZE);
+	S1.Format(_T("%g"), gDIM_SIZE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%i", gCUR_RES);
+	S1.Format(_T("%i"), gCUR_RES);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDRILL_KS);
+	S1.Format(_T("%g"), gDRILL_KS);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gRIGID_MULTIPLIER);
+	S1.Format(_T("%g"), gRIGID_MULTIPLIER);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gVSTIFF_KS);
+	S1.Format(_T("%g"), gVSTIFF_KS);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDEF_E);
+	S1.Format(_T("%g"), gDEF_E);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDEF_V);
+	S1.Format(_T("%g"), gDEF_V);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDEF_DEN);
+	S1.Format(_T("%g"), gDEF_DEN);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDEF_COND);
+	S1.Format(_T("%g"), gDEF_COND);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gSTIFF_BDIA);
+	S1.Format(_T("%g"), gSTIFF_BDIA);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDEF_CTE);
+	S1.Format(_T("%g"), gDEF_CTE);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDEF_THERM_LNK);
+	S1.Format(_T("%g"), gDEF_THERM_LNK);
 	sVar[iNo++] = S1;
-	sprintf_s(S1, "%g", gDEF_SOL_TOL);
+	S1.Format(_T("%g"), gDEF_SOL_TOL);
 	sVar[iNo++] = S1;
 
 	return (iNo);

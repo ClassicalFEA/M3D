@@ -358,13 +358,13 @@ void DBase::PrintTime(CString cS) {
 	int Hour;
 	int Min;
 	int Sec;
-	char s1[80];
+	CString s1;
 	COleDateTime timeStart;
 	timeStart = COleDateTime::GetCurrentTime();
 	Hour = timeStart.GetHour();
 	Min = timeStart.GetMinute();
 	Sec = timeStart.GetSecond();
-	sprintf_s(s1, "%s %i:%i:%i\n", cS, Hour, Min, Sec);
+	s1.Format(_T("%s %i:%i:%i\n"), cS, Hour, Min, Sec);
 	outtext1(s1);
 }
 
@@ -498,7 +498,7 @@ DBase::DBase(double WPS) {
 //********************************************************
 void DBase::MeshListALl() {
 	int i;
-	char S1[200];
+	CString S1;
 	CString sVis;
 	ME_Object* ME;
 	outtext1("All Available Meshes:-");
@@ -509,7 +509,7 @@ void DBase::MeshListALl() {
 				sVis = "Vis ON ";
 			else
 				sVis = "Vis OFF";
-			sprintf_s(S1, "%i : %s : %s", ME->iLabel, ME->sName, sVis);
+			S1.Format(_T("%i : %s : %s"), ME->iLabel, ME->sName, sVis);
 			outtext1(S1);
 		}
 	}
@@ -518,19 +518,19 @@ void DBase::MeshListALl() {
 	else
 		sVis = "Vis OFF";
 	outtext1("Currently Active Mesh:-");
-	sprintf_s(S1, "%i : %s : %s", pCurrentMesh->iLabel, pCurrentMesh->sName, sVis);
+	S1.Format(_T("%i : %s : %s"), pCurrentMesh->iLabel, pCurrentMesh->sName, sVis);
 	outtext1(S1);
 }
 
 void DBase::SetActiveMesh(int ID) {
 	int i;
-	char S1[200];
+	CString S1;
 	ME_Object* ME;
 	for (i = 0; i < DB_ObjectCount; i++) {
 		if ((DB_Obj[i]->iObjType == 4) && (DB_Obj[i]->iLabel == ID)) {
 			ME = (ME_Object*) DB_Obj[i];
 			pCurrentMesh = ME;
-			sprintf_s(S1, "%i : %s", ME->iLabel, ME->sName);
+			S1.Format(_T("%i : %s"), ME->iLabel, ME->sName);
 			outtext1(S1);
 			break;
 		}
@@ -539,7 +539,7 @@ void DBase::SetActiveMesh(int ID) {
 
 void DBase::TogVisableMesh(int ID) {
 	int i;
-	char S1[200];
+	CString S1;
 	ME_Object* ME;
 	for (i = 0; i < DB_ObjectCount; i++) {
 		if ((DB_Obj[i]->iObjType == 4) && (DB_Obj[i]->iLabel == ID)) {
@@ -555,7 +555,7 @@ void DBase::TogVisableMesh(int ID) {
 				InvalidateOGL();
 				ReDraw();
 			}
-			sprintf_s(S1, "%i : %s", ME->iLabel, ME->sName);
+			S1.Format(_T("%i : %s"), ME->iLabel, ME->sName);
 			outtext1(S1);
 			break;
 		}
@@ -572,7 +572,7 @@ void DBase::DeleteMesh(int ID) {
 				// Dsp_Rem(ME);
 				// Dsp_RemGP(ME);
 				// RemObj(ME);
-				// sprintf_s(S1, "%i : %s", ME->iLabel, ME->Name);
+				// S1.Format(_T("%i : %s"), ME->iLabel, ME->Name);
 				// outtext1(S1);
 				// break;
 			} else {
@@ -833,11 +833,11 @@ void DBase::AnalysisLoadStep() {
 // DELAY IN SECONDS
 //********************************************
 void DBase::DELAY(int iDelay) {
-	char buff[80];
+	CString buff;
 
 	if (iDelay > 0) {
 		int iDelayMilli = iDelay * 1000; // Delay in milli seconds
-		sprintf_s(buff, "%s %i %s", "Waiting", iDelay, "Second(s)");
+		buff.Format(_T("%s %i %s"), _T("Waiting"), iDelay, _T("Second(s)"));
 		outtext1(buff);
 		Sleep(iDelayMilli); // sleep for iDelay
 		outtext1("Resume.");
@@ -845,14 +845,14 @@ void DBase::DELAY(int iDelay) {
 }
 
 void DBase::HLimit(int iHlim) {
-	char buff[80];
+	CString buff;
 	if (iHlim > 0) {
 		iHLimit = iHlim;
-		sprintf_s(buff, "%s %i", "Highlight Limit = ", iHLimit);
+		buff.Format(_T("%s %i"), _T("Highlight Limit = "), iHLimit);
 		outtext1(buff);
 	} else {
 		iHLimit = -1;
-		sprintf_s(buff, "%s", "Highlight Limit = ALL");
+		buff.Format(_T("%s"), _T("Highlight Limit = ALL"));
 		outtext1(buff);
 	}
 }
@@ -903,19 +903,19 @@ void DBase::ResListRespDataFull(int iEnt) {
 // RESULTS FRAME DELAY IN MIL SECONDS
 //********************************************
 void DBase::ResDelay(int iDelay) {
-	char S1[80];
+	CString S1;
 	ResFrameDelay = iDelay;
-	sprintf_s(S1, "%s %i ms", "Animation Delay : ", iDelay);
+	S1.Format(_T("%s %i ms"), _T("Animation Delay : "), iDelay);
 	outtext1(S1);
 }
 
 void DBase::ResFrames(int iNoF) {
-	char S1[80];
+	CString S1;
 	if ((iNoF > 0) && (iNoF < 21))
 		NoResFrame = iNoF;
 	else
 		outtext1("Frames Out of Range (1 to 20)");
-	sprintf_s(S1, "%s %i", "No Off Animation Frames : ", NoResFrame);
+	S1.Format(_T("%s %i"), _T("No Off Animation Frames : "), NoResFrame);
 	outtext1(S1);
 }
 
@@ -933,24 +933,24 @@ void DBase::LoadProps(CString sFile) {
 void DBase::LoadSecT(FILE* pFileA) {
 	int iStop = 0;
 	char s1[1000];
-	CString s2; // char s2[20];
-	CString s3; // char s3[20];
-	CString s4; // char s4[20];
-	CString s5; // char s5[20];
-	CString s6; // char s6[20];
-	CString s7; // char s7[20];
-	CString s8; // char s8[20];
-	CString s9; // char s9[20];
-	CString s10; // char s10[20];
-	CString s11; // char s11[20];
-	CString s12; // char s12[20];
-	CString s13; // char s13[20];
-	CString s14; // char s14[20];
-	CString s15; // char s15[20];
-	CString s16; // char s16[20];
-	CString s17; // char s17[20];
-	CString s18; // char s18[20];
-	CString s19; // char s19[20];
+	CString s2;
+	CString s3;
+	CString s4;
+	CString s5;
+	CString s6;
+	CString s7;
+	CString s8;
+	CString s9;
+	CString s10;
+	CString s11;
+	CString s12;
+	CString s13;
+	CString s14;
+	CString s15;
+	CString s16;
+	CString s17;
+	CString s18;
+	CString s19;
 
 	char sT[20];
 
@@ -1157,7 +1157,7 @@ void DBase::Serialize(CArchive& ar) {
 		// MoMo_End
 		ar >> iVER;
 		// MoMo_Start
-		char S1[200];
+		CString S1;
 		outtextSprintf(_T("Version of Loaded File = %.2f"), 0, abs(iVER / 10.0), false, 1);
 		// MoMo_End
 		if (iVER <= -66) {
@@ -1404,7 +1404,7 @@ void DBase::Serialize(CArchive& ar) {
 				}
 			}
 		}
-		sprintf_s(S1, "%s%s%s", "Name : ", pCurrentMesh->sName, " Active");
+		S1.Format(_T("%s%s%s"), _T("Name : "), pCurrentMesh->sName, _T(" Active"));
 		outtext1(S1);
 
 		pCurrentPart = NULL;
@@ -1419,22 +1419,22 @@ void DBase::Serialize(CArchive& ar) {
 			}
 		}
 		if (pCurrentPart != NULL) {
-			sprintf_s(S1, "%s%s%s", "Name : ", pCurrentPart->sName, " Active");
+			S1.Format(_T("%s%s%s"), _T("Name : "), pCurrentPart->sName, _T(" Active"));
 			outtext1(S1);
 		} else {
 			outtext1("ERROR: no active Part found.");
 		}
 
 		// iPtLabCnt=GetMaxPtLabCnt();
-		sprintf_s(S1, "%s%i", "Maximum Point Label  : ", iPtLabCnt);
+		S1.Format(_T("%s%i"), _T("Maximum Point Label  : "), iPtLabCnt);
 		outtext1(S1);
 		// iCVLabCnt=GetMaxCVLabCnt();
-		sprintf_s(S1, "%s%i", "Maximum Curve Label  : ", iCVLabCnt);
+		S1.Format(_T("%s%i"), _T("Maximum Curve Label  : "), iCVLabCnt);
 		outtext1(S1);
 		// iSFLabCnt=GetMaxSFLabCnt();
-		sprintf_s(S1, "%s%i", "Maximum Surface Label: ", iSFLabCnt);
+		S1.Format(_T("%s%i"), _T("Maximum Surface Label: "), iSFLabCnt);
 		outtext1(S1);
-		sprintf_s(S1, "%s%i", "Maximum Part Label: ", iPartLabCnt);
+		S1.Format(_T("%s%i"), _T("Maximum Part Label: "), iPartLabCnt);
 		outtext1(S1);
 	}
 }
@@ -1724,11 +1724,11 @@ void DBase::Ortho() {
 void DBase::ToggleDoubleBuffering(int newMode) {
 	CAppSettings settings;
 	CString onRestartModeString, currentModeString;
-	char S1[200];
+	CString S1;
 	onRestartModeString = settings.ModeName(newMode);
 	int currentMode = settings.ToggleDoubleBuffer(newMode);
 	currentModeString = settings.ModeName(currentMode);
-	sprintf_s(S1, "\r\nBuffering: Current = %s, Restart = %s\r\nPlease restart the application to apply changes.", currentModeString, onRestartModeString);
+	S1.Format(_T("\r\nBuffering: Current = %s, Restart = %s\r\nPlease restart the application to apply changes."), currentModeString, onRestartModeString);
 	outtext1(S1);
 }
 
@@ -1736,20 +1736,20 @@ void DBase::ListDoubleBuffering() {
 	CAppSettings settings;
 	CString resultModeString, onRestartModeString;
 	int currentValue = 0, resultValue = 0;
-	char S1[200];
+	CString S1;
 	onRestartModeString = settings.OnRestartName();
 	settings.CurrentBuffer(currentValue, resultValue);
 	if (currentValue == 0) {
-		sprintf_s(S1, "\r\nBuffering: Current = Single, Restart = %s", onRestartModeString);
+		S1.Format(_T("\r\nBuffering: Current = Single, Restart = %s"), onRestartModeString);
 	} else if (currentValue == 1) {
-		sprintf_s(S1, "\r\nBuffering: Current = Double, Restart = %s", onRestartModeString);
+		S1.Format(_T("\r\nBuffering: Current = Double, Restart = %s"), onRestartModeString);
 	} else {
 		if (resultValue == 0) {
 			resultModeString = "Single";
 		} else if (resultValue == 1) {
 			resultModeString = "Double";
 		}
-		sprintf_s(S1, "\r\nBuffering: Current = Auto, Result = %s, Restart = %s", resultModeString, onRestartModeString);
+		S1.Format(_T("\r\nBuffering: Current = Auto, Result = %s, Restart = %s"), resultModeString, onRestartModeString);
 	}
 	outtext1(S1);
 }
@@ -2258,7 +2258,7 @@ void DBase::ShellNormConsistancy(ObjList* Els) {
 //***************************************************************************
 CONST double dNd2dTol = 0.0000001;
 ObjList* DBase::is2D(ObjList* Els, double& dxMin, double& dyMin, double& dxMax, double& dyMax) {
-	char S1[200];
+	CString S1;
 	BOOL brc = TRUE;
 	BOOL bShellFail = FALSE;
 	int i;
@@ -2291,7 +2291,7 @@ ObjList* DBase::is2D(ObjList* Els, double& dxMin, double& dyMin, double& dxMax, 
 				if (pN->Pt_Point->y < dyMin)
 					dyMin = pN->Pt_Point->y;
 			} else {
-				sprintf_s(S1, "ERROR: Element %i Fails Planality Check.", pE->iLabel);
+				S1.Format(_T("ERROR: Element %i Fails Planality Check."), pE->iLabel);
 				outtext1(S1);
 				brc = FALSE;
 				break;
@@ -2317,7 +2317,7 @@ void DBase::SectionProps(ObjList* Els) {
 	NLine* lx;
 	NLine* ly;
 	double dxs, dys;
-	char S1[200];
+	CString S1;
 	int i;
 	double dA; // Area
 	double dATot = 0;
@@ -2378,21 +2378,19 @@ void DBase::SectionProps(ObjList* Els) {
 			dIyy += dA * (vC.x - xbar) * (vC.x - xbar);
 		}
 		dIzz = dIxx + dIyy;
-		sprintf_s(S1, "2d Section Properties in X-Y Plane");
+		outtext1("2d Section Properties in X-Y Plane");
+		S1.Format(_T("Total Area A: %g"), dATot);
 		outtext1(S1);
-		sprintf_s(S1, "Total Area A: %g", dATot);
+		S1.Format(_T("Centroid X: %g"), xbar);
 		outtext1(S1);
-		sprintf_s(S1, "Centroid X: %g", xbar);
+		S1.Format(_T("Centroid Y: %g"), ybar);
 		outtext1(S1);
-		sprintf_s(S1, "Centroid Y: %g", ybar);
+		outtext1("Second Moments of Area about Centroid");
+		S1.Format(_T("Ixx: %g"), dIxx);
 		outtext1(S1);
-		sprintf_s(S1, "Second Moments of Area about Centroid");
+		S1.Format(_T("Iyy: %g"), dIyy);
 		outtext1(S1);
-		sprintf_s(S1, "Ixx: %g", dIxx);
-		outtext1(S1);
-		sprintf_s(S1, "Iyy: %g", dIyy);
-		outtext1(S1);
-		sprintf_s(S1, "Izz: %g", dIzz);
+		S1.Format(_T("Izz: %g"), dIzz);
 		outtext1(S1);
 		lx = AddLNbyXYZ(xbar - dxs, ybar, 0, xbar + dxs, ybar, 0, 151);
 		ly = AddLNbyXYZ(xbar, ybar - dys, 0, xbar, ybar + dys, 0, 151);
@@ -2510,7 +2508,7 @@ void DBase::FreeFaceDsp(ObjList* Els) {
 //                     MASS CHECK
 //***************************************************************************
 void DBase::ElMass(ObjList* Els) {
-	char S1[200] = "";
+	CString S1;
 	int i;
 	int j;
 	Mat mm;
@@ -2551,23 +2549,23 @@ void DBase::ElMass(ObjList* Els) {
 		mm.clear();
 	}
 	outtext1("ELEMENT MASS SUMATION IN WP COORDINATES");
-	sprintf_s(S1, "Number off Elements summed: %i", Els->iNo);
-	sprintf_s(S1, "CofG X,Y,Z : %g,%g,%g", mx / dM, my / dM, mz / dM);
+	S1.Format(_T("Number off Elements summed: %i"), Els->iNo);
+	S1.Format(_T("CofG X,Y,Z : %g,%g,%g"), mx / dM, my / dM, mz / dM);
 	outtext1(S1);
 	outtext1("Mass Moment of Inertia");
-	sprintf_s(S1, "Ixx : %g", Ixx);
+	S1.Format(_T("Ixx : %g"), Ixx);
 	outtext1(S1);
-	sprintf_s(S1, "Iyy : %g", Iyy);
+	S1.Format(_T("Iyy : %g"), Iyy);
 	outtext1(S1);
-	sprintf_s(S1, "Izz : %g", Izz);
+	S1.Format(_T("Izz : %g"), Izz);
 	outtext1(S1);
-	sprintf_s(S1, "Ixy : %g", Ixy);
+	S1.Format(_T("Ixy : %g"), Ixy);
 	outtext1(S1);
-	sprintf_s(S1, "Ixz : %g", Ixz);
+	S1.Format(_T("Ixz : %g"), Ixz);
 	outtext1(S1);
-	sprintf_s(S1, "Iyz : %g", Iyz);
+	S1.Format(_T("Iyz : %g"), Iyz);
 	outtext1(S1);
-	sprintf_s(S1, "Mass Total: %g", dM);
+	S1.Format(_T("Mass Total: %g"), dM);
 	outtext1(S1);
 }
 
@@ -2623,7 +2621,7 @@ void DBase::MeshTET(ObjList* Els, double G) {
 //*********************************************************************************
 void DBase::AdvancingTet(cLinkedList* fEls, cLinkedList* fNodes, double dG) {
 	double dMinAng = 25; // Minimum internal angle for acceptance
-	char S1[200] = "";
+	CString S1;
 	E_Object3* pE = NULL;
 	int i;
 	int iTT = 0;
@@ -2776,7 +2774,7 @@ void DBase::AdvancingTet(cLinkedList* fEls, cLinkedList* fNodes, double dG) {
 		{
 			E_Object34* pEDel = GetTETRelFace(pIntFace);
 			if (pEDel != NULL) {
-				sprintf_s(S1, "BOUNDARY VIOLATION DELETEING TET: %i CNT: %i", pEDel->iLabel, iTT);
+				S1.Format(_T("BOUNDARY VIOLATION DELETEING TET: %i CNT: %i"), pEDel->iLabel, iTT);
 				outtext1(S1);
 				DeleteTET(fEls, fNodes, pCandidateFaces, pEDel);
 				bReTry = TRUE; // Should be TRUE
@@ -2811,7 +2809,7 @@ void DBase::AdvancingTet(cLinkedList* fEls, cLinkedList* fNodes, double dG) {
 	ReDraw();
 	if (eTET != NULL)
 		delete (eTET);
-	sprintf_s(S1, "Number off Tet Elements Generated: %i", iNoElsGen);
+	S1.Format(_T("Number off Tet Elements Generated: %i"), iNoElsGen);
 	outtext1(S1);
 	outtext1("** E N D   OF   T E T   G E N E R A T I O N **");
 }
@@ -4047,8 +4045,8 @@ Node* DBase::GetBestNode(ObjList* pFrom, E_Object3* pFace) {
 		}
 	}
 	// Report diagnostics
-	// char S1[200]="";
-	// sprintf_s(S1,"No off conflicting nodes: %i %i",pCand->iNo,pFace->iLabel);
+	// CString S1;
+	// S1.Format(_T("No off conflicting nodes: %i %i"),pCand->iNo,pFace->iLabel);
 	// outtext1(S1);
 
 	delete (pCand);
@@ -4301,7 +4299,7 @@ void DBase::AddPressure(ObjList* Els, C3dVector F) {
 
 void DBase::RESLISTEL(ObjList* Els) {
 	int i;
-	char S1[80];
+	CString S1;
 	float fRes;
 	if (pCurrentMesh != NULL) {
 		if (pCurrentMesh->CResSet != NULL) {
@@ -4315,7 +4313,7 @@ void DBase::RESLISTEL(ObjList* Els) {
 					E_Object* pE = (E_Object*) Els->Objs[i];
 					if (pE->pResV != NULL) {
 						fRes = (*pE->pResV->GetAddress(pCurrentMesh->iCVar));
-						sprintf_s(S1, "LAB: %i VAL: %g ", pE->iLabel, fRes);
+						S1.Format(_T("LAB: %i VAL: %g "), pE->iLabel, fRes);
 						outtext1(S1);
 					}
 				}
@@ -4329,7 +4327,7 @@ void DBase::RESLISTEL(ObjList* Els) {
 
 void DBase::RESLISTND(ObjList* Nds) {
 	int i;
-	char S1[80];
+	CString S1;
 	float fRes;
 	if (pCurrentMesh != NULL) {
 		if (pCurrentMesh->CResSet != NULL) {
@@ -4343,7 +4341,7 @@ void DBase::RESLISTND(ObjList* Nds) {
 					Node* pN = (Node*) Nds->Objs[i];
 					if (pN->pResV != NULL) {
 						fRes = (*pN->pResV->GetAddress(pCurrentMesh->iCVar));
-						sprintf_s(S1, "LAB: %i VAL: %g ", pN->iLabel, fRes);
+						S1.Format(_T("LAB: %i VAL: %g "), pN->iLabel, fRes);
 						outtext1(S1);
 					}
 				}
@@ -4472,15 +4470,15 @@ void DBase::CoincidentElements(ObjList* Chkls) {
 }
 
 void DBase::FindNode(C3dVector vP) {
-	char s1[80];
+	CString s1;
 	Node* cNode;
 	double dMinDist = 1e36;
-	sprintf_s(s1, "Closest Node To: %g,%g,%g", vP.x, vP.y, vP.z);
+	s1.Format(_T("Closest Node To: %g,%g,%g"), vP.x, vP.y, vP.z);
 	outtext1(s1);
 	if (pCurrentMesh != NULL) {
 		cNode = pCurrentMesh->GetClosestNode2(vP, dMinDist);
 		if (cNode != NULL) {
-			sprintf_s(s1, "NID: %i DISTANCE: %g", cNode->iLabel, dMinDist);
+			s1.Format(_T("NID: %i DISTANCE: %g"), cNode->iLabel, dMinDist);
 			outtext1(s1);
 			S_Buff[S_Count] = cNode;
 			// momo
@@ -5331,8 +5329,8 @@ void DBase::IntersectEls(ObjList* Els1) {
 			}
 		}
 	}
-	char s1[200];
-	sprintf_s(s1, "No of Intersection Points Generated: %i", iNoInts);
+	CString s1;
+	s1.Format(_T("No of Intersection Points Generated: %i"), iNoInts);
 	outtext1(s1);
 	ReDraw();
 }
@@ -5422,8 +5420,8 @@ void DBase::IntersectElsWP(ObjList* Els1) {
 			}
 		}
 	}
-	char s1[200];
-	sprintf_s(s1, "No of Intersection Points Generated: %i", iNoInts);
+	CString s1;
+	s1.Format(_T("No of Intersection Points Generated: %i"), iNoInts);
 	outtext1(s1);
 	ReDraw();
 }
@@ -6250,9 +6248,9 @@ C3dVector DBase::NLnInt2(NCurve* L1, NCurve* L2, C3dVector* pNear) {
 		dDist = P2.Dist(P1);
 		iMaxIt++;
 	} while ((dDist > dTol) && (iMaxIt < 10000));
-	char S1[200];
+	CString S1;
 	CString OutT;
-	sprintf_s(S1, "ITERATIONS: %i TOL: %f", iMaxIt, dDist);
+	S1.Format(_T("ITERATIONS: %i TOL: %f"), iMaxIt, dDist);
 	outtext1(S1);
 
 	return (P1);
@@ -6305,9 +6303,9 @@ C3dVector DBase::NLnInt3(NCurve* L1, NCurve* L2, C3dVector* pNear) {
 		}
 		iMaxIt++;
 	} while ((dDist > dTol) && (iMaxIt < 1000));
-	char S1[200];
+	CString S1;
 	CString OutT;
-	sprintf_s(S1, "ITERATIONS: %i TOL: %g", iMaxIt, dDist);
+	S1.Format(_T("ITERATIONS: %i TOL: %g"), iMaxIt, dDist);
 	outtext1(S1);
 	return (P1);
 }
@@ -6840,7 +6838,7 @@ C3dVector DBase::PickPointToGlobal2(CPoint Pt) {
 		iErrCnt++;
 	} while ((dErr > 5) && (iErrCnt < 100));
 	P0 = this->WPtoGlobal(P0);
-	// sprintf_s(s1, "Error %g cnt %i", dErr, iErrCnt);
+	// s1.Format(_T("Error %g cnt %i"), dErr, iErrCnt);
 	// outtext1(s1);
 	return (P0);
 }
@@ -7098,10 +7096,10 @@ BOOL DBase::isClockWise(ObjList* Curves) {
 	// for (i = 0; i < iNo; i++)
 	//{
 
-	//	sprintf_s(s1, "%s %g %s %g ", "U:", vVerts[i].x, "V:", vVerts[i].y);
+	//	s1.Format(_T("%s %g %s %g "), _T("U:"), vVerts[i].x, _T("V:"), vVerts[i].y);
 	//	outtext1(s1);
 	//}
-	// sprintf_s(s1, "Area %g", area);
+	// s1.Format(_T("Area %g"), area);
 	// outtext1(s1);
 	// outtext1("*************");
 	if (area > 0)
@@ -7369,7 +7367,7 @@ BOOL DBase::ChainCurves(ObjList* Curves) {
 	delete (tmp);
 	// ensure all intersecsiona are exact
 
-	// sprintf_s(S1, "GRID %8i X %s Y %s Z %s DEFSYS %i OUTSYS %i", iLabel, float8NAS(Pt_Point->x), float8NAS(Pt_Point->y), float8NAS(Pt_Point->z), DefSys, OutSys);
+	// S1.Format(_T("GRID %8i X %s Y %s Z %s DEFSYS %i OUTSYS %i"), iLabel, float8NAS(Pt_Point->x), float8NAS(Pt_Point->y), float8NAS(Pt_Point->z), DefSys, OutSys);
 	// outtext1(S1);
 	MaxDist = 0;
 	for (j = 0; j < Curves->iNo - 1; j++) {
@@ -7396,9 +7394,9 @@ BOOL DBase::ChainCurves(ObjList* Curves) {
 	//	c1 = (NCurve*)Curves->Objs[j];
 	//	v1 = c1->GetStartPt();
 	//	v2 = c1->GetEndPt();
-	//	sprintf_s(S1, "CURVES %8i X %g Y %g Z %g", j, (v1.x), (v1.y), (v1.z));
+	//	S1.Format(_T("CURVES %8i X %g Y %g Z %g"), j, (v1.x), (v1.y), (v1.z));
 	//	outtext1(S1);
-	//	sprintf_s(S1, "CURVEE %8i X %g Y %g Z %g", j, (v2.x), (v2.y), (v2.z));
+	//	S1.Format(_T("CURVEE %8i X %g Y %g Z %g"), j, (v2.x), (v2.y), (v2.z));
 	//   outtext1(S1);
 	// }
 
@@ -7927,7 +7925,7 @@ void DBase::OffSet(G_Object* pOff, C3dVector vDir, double Dist) {
 
 void DBase::BeamUpVecs(ObjList* Items, C3dVector tVec) {
 	int iCO;
-	char s1[200];
+	CString s1;
 	CString OutT;
 	BOOL bReGen = FALSE;
 	tVec.Normalize();
@@ -7942,11 +7940,11 @@ void DBase::BeamUpVecs(ObjList* Items, C3dVector tVec) {
 					pB->vUp = tVec;
 					pB->iONID = -1;
 					bReGen = TRUE;
-					sprintf_s(s1, "%s%i", "Up vector changed for El: ", pE->iLabel);
+					s1.Format(_T("%s%i"), _T("Up vector changed for El: "), pE->iLabel);
 					OutT = s1;
 					outtext1(OutT);
 				} else {
-					sprintf_s(s1, "%s%i", "Up vector or colinear for El: ", pE->iLabel);
+					s1.Format(_T("%s%i"), _T("Up vector or colinear for El: "), pE->iLabel);
 					OutT = s1;
 					outtext1(OutT);
 				}
@@ -8068,7 +8066,7 @@ void DBase::SetDOFStringB(ObjList* Items, CString sDOF) {
 void DBase::ShellOffsets(ObjList* Items, double dOff) {
 	int iCO = 0;
 	int iNoC = 0;
-	char s1[200];
+	CString s1;
 
 	CString OutT;
 	BOOL bReGen = FALSE;
@@ -8088,7 +8086,7 @@ void DBase::ShellOffsets(ObjList* Items, double dOff) {
 			}
 		}
 	}
-	sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iNoC);
+	s1.Format(_T("%s%i"), _T("Number of Elements Modified : "), iNoC);
 	outtext1(s1);
 	if (bReGen == TRUE) {
 		InvalidateOGL();
@@ -9100,7 +9098,7 @@ void DBase::CreatTestPCOMPS() {
 // Post: 1d elements extruded to 2d based on attached PCOMPG
 //*********************************************************************************
 void DBase::ElSweepB(ObjList* Items, double dDist, int iNo) {
-	char S1[80];
+	CString S1;
 	double dDir = 1;
 	int i, j, k, m;
 	int iDir = 1;
@@ -9204,7 +9202,7 @@ void DBase::ElSweepB(ObjList* Items, double dDist, int iNo) {
 			for (i = 0; i < ELF->iNo; i++) {
 				eEdge* pEdge;
 				pEdge = (eEdge*) ELF->Objs[i];
-				sprintf_s(S1, "%i %i", pEdge->pVertex[0]->iLabel, pEdge->pVertex[1]->iLabel);
+				S1.Format(_T("%i %i"), pEdge->pVertex[0]->iLabel, pEdge->pVertex[1]->iLabel);
 				outtext1(S1);
 
 				if (bFirst) {
@@ -9375,7 +9373,7 @@ void DBase::SurfUnTrim() {
 	NSurf* pS;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 15) {
-			// sprintf_s(buff, "%s%4i","Meshing Surface : ",S_Buff[iCO]->iLabel );
+			// buff.Format(_T("%s%4i"),_T("Meshing Surface : "),S_Buff[iCO]->iLabel );
 			// outtext1(buff);
 			pS = (NSurf*) S_Buff[iCO];
 			pS->DeleteExtTrimLoop();
@@ -9763,7 +9761,7 @@ E_Object* DBase::AddEl(int iPos, BOOL AddDsp) {
 	Node* pENodes[MaxSelNodes];
 	cAddedEl = NULL;
 	int i;
-	char S1[80];
+	CString S1;
 	CString OutT;
 	if ((S_Count - iPos != iNo) && (iCurElemType != 122)) {
 		BOOL bChk = FALSE;
@@ -9811,7 +9809,7 @@ E_Object* DBase::AddEl(int iPos, BOOL AddDsp) {
 			cAddedEl = pCurrentMesh->AddEl(pENodes, pCurrentMesh->iElementLab, 44, iCurElemType, -1, -1, iNo, 1, 1, 1, AddDsp, -1, 0);
 			outtext2("//LAB");
 			for (i = 0; i < iNo; i++) {
-				sprintf_s(S1, "//%i", pENodes[i]->iLabel);
+				S1.Format(_T("//%i"), pENodes[i]->iLabel);
 				outtext2(S1);
 			}
 			outtext2("//D");
@@ -9843,7 +9841,7 @@ E_Object* DBase::InsSpringEl(int iPos, BOOL AddDsp) {
 	ObjList* pList = new ObjList();
 	pList->Clear();
 	cAddedEl = NULL;
-	char S1[80];
+	CString S1;
 	CString OutT;
 	ME_Object* pMesh = NULL;
 
@@ -9884,7 +9882,7 @@ E_Object* DBase::InsSpringEl(int iPos, BOOL AddDsp) {
 		cAddedEl->SetToScr(&pModelMat, &pScrMat);
 		AddTempGraphics(cAddedEl);
 		Dsp_Add(cAddedEl);
-		sprintf_s(S1, "Element %i created between nodes %i %i", cAddedEl->iLabel, pNP->iLabel, pNewN->iLabel);
+		S1.Format(_T("Element %i created between nodes %i %i"), cAddedEl->iLabel, pNP->iLabel, pNewN->iLabel);
 		outtext1(S1);
 	} else {
 		outtext1("ERROR: No Element Created");
@@ -11864,7 +11862,7 @@ void DBase::MapMesh(double dU, double dV) {
 
 	NSurf* pS;
 
-	char buff[80];
+	CString buff;
 	if (iU <= 0)
 		iU = 1;
 	if (iV <= 0)
@@ -11877,7 +11875,7 @@ void DBase::MapMesh(double dU, double dV) {
 	iFEl = iSEl;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 15) {
-			sprintf_s(buff, "%s%4i", "Meshing surface : ", S_Buff[iCO]->iLabel);
+			buff.Format(_T("%s%4i"), _T("Meshing surface : "), S_Buff[iCO]->iLabel);
 			outtext1(buff);
 			pS = (NSurf*) S_Buff[iCO];
 			pS->GetBoundingUV(dUi, dVi, dSpanU, dSpanV);
@@ -11920,9 +11918,9 @@ void DBase::MapMesh(double dU, double dV) {
 			}
 		}
 	}
-	sprintf_s(buff, "%s%4i%s%4i", "Nodes Generated : ", iSNd, " to ", iFNd - 1);
+	buff.Format(_T("%s%4i%s%4i"), _T("Nodes Generated : "), iSNd, _T(" to "), iFNd - 1);
 	outtext1(buff);
-	sprintf_s(buff, "%s%4i%s%4i", "Elements Generated : ", iSEl, " to ", iFEl - 1);
+	buff.Format(_T("%s%4i%s%4i"), _T("Elements Generated : "), iSEl, _T(" to "), iFEl - 1);
 	outtext1(buff);
 	pCurrentMesh->iNodeLab = iFNd;
 	pCurrentMesh->iElementLab = iFEl;
@@ -11951,7 +11949,7 @@ void DBase::MapMeshTri(double dU, double dV) {
 
 	NSurf* pS;
 
-	char buff[80];
+	CString buff;
 	if (iU <= 0)
 		iU = 1;
 	if (iV <= 0)
@@ -11964,7 +11962,7 @@ void DBase::MapMeshTri(double dU, double dV) {
 	iFEl = iSEl;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 15) {
-			sprintf_s(buff, "%s%4i", "Meshing surface : ", S_Buff[iCO]->iLabel);
+			buff.Format(_T("%s%4i"), _T("Meshing surface : "), S_Buff[iCO]->iLabel);
 			outtext1(buff);
 			pS = (NSurf*) S_Buff[iCO];
 			pS->GetBoundingUV(dUi, dVi, dSpanU, dSpanV);
@@ -12011,9 +12009,9 @@ void DBase::MapMeshTri(double dU, double dV) {
 			}
 		}
 	}
-	sprintf_s(buff, "%s%4i%s%4i", "Nodes Generated : ", iSNd, " to ", iFNd - 1);
+	buff.Format(_T("%s%4i%s%4i"), _T("Nodes Generated : "), iSNd, _T(" to "), iFNd - 1);
 	outtext1(buff);
-	sprintf_s(buff, "%s%4i%s%4i", "Elements Generated : ", iSEl, " to ", iFEl - 1);
+	buff.Format(_T("%s%4i%s%4i"), _T("Elements Generated : "), iSEl, _T(" to "), iFEl - 1);
 	outtext1(buff);
 	pCurrentMesh->iNodeLab = iFNd;
 	pCurrentMesh->iElementLab = iFEl;
@@ -12122,7 +12120,7 @@ void DBase::insBackGround() {
 
 	if (pWorldBMP != nullptr) {
 		pS->AttachTexture(pWorldBMP);
-		// sprintf_s(buff, "%x", pWorldBMP->header);
+		// buff.Format(_T("%x"), pWorldBMP->header);
 		sprintf_s(buff, sizeof(buff), "%p", pWorldBMP->header);
 		outtext1(buff);
 		AddObj(pS);
@@ -12396,7 +12394,7 @@ void DBase::Readdb(FILE* pFile, int Vals[], int& iCnt, int& iKey, int& iRec, CSt
 		Vals[8] = STRESS_CODE;
 		iCnt = 10;
 		// if (ACODE=22)
-		// sprintf_s(s80, "MODE ,%i", iM);
+		// s80.Format(_T("MODE ,%i"), iM);
 		for (i = 11; i < 50; i++) {
 			fread(&iWord, 4, 1, pFile);
 		}
@@ -12868,15 +12866,14 @@ void DBase::S_ImportCat(FILE* pFile, CString inName) {
 
 GLuint DBase::S_loadBMP(CString sFile, CString inName) {
 	// Load the bitman must read as a binary file
-	CT2CA pszConvertedAnsiString(sFile);
-	std::string strFileName(pszConvertedAnsiString);
+	std::wstring strFileName(sFile);
 
 	if (pWorldBMP != nullptr) {
 		delete (pWorldBMP);
 		pWorldBMP = nullptr;
 	}
 	// Open file
-	std::ifstream file(strFileName.c_str(), std::ios::binary);
+	std::ifstream file(strFileName, std::ios::binary);
 	if (!file.is_open()) {
 		outtext1("ERROR: Image could not be opened.");
 		return 0;
@@ -13156,10 +13153,10 @@ void DBase::S_ImportIges(FILE* pFile, CString inName) {
 	CString sParam;
 	CString sParam2;
 	CString sParam3; // iDirCount
-	char sDE[80];
+	CString sDE;
 	for (i = 0; i < iDirCount; i++) {
 		if (i % 100 == 0) {
-			sprintf_s(sDE, "DE : %i of %i", i, iDirCount);
+			sDE.Format(_T("DE : %i of %i"), i, iDirCount);
 			outtext1(sDE);
 		}
 		// These type left here require other DEs
@@ -13199,7 +13196,7 @@ void DBase::S_ImportIges(FILE* pFile, CString inName) {
 		// These type left here require other DEs
 		// for there creation
 		if (i % 100 == 0) {
-			sprintf_s(sDE, "2nd PASS DE : %i of %i", i, iDirCount);
+			sDE.Format(_T("2nd PASS DE : %i of %i"), i, iDirCount);
 			outtext1(sDE);
 		}
 		if (DirEnt[i].itype == 144) // Trim Surface Curves are in Paremetric space
@@ -15266,7 +15263,7 @@ void DBase::Corner2(CPoint PNear1, CPoint PNear2) {
 }
 
 void DBase::Trim(CPoint PNear1, CPoint PNear2) {
-	char S1[200];
+	CString S1;
 	CString OutT;
 	double dU;
 	double dUse, dUse2;
@@ -15290,7 +15287,7 @@ void DBase::Trim(CPoint PNear1, CPoint PNear2) {
 				vRet = NLnInt2(Ln, Ln1, &pN1);
 				dU = Ln->MinWPt(vRet); // U at intersect
 				dUse = Ln->MinWPt(pN1);
-				sprintf_s(S1, " Debug W: ,%f,%f", dU, dUse);
+				S1.Format(_T(" Debug W: ,%f,%f"), dU, dUse);
 				if ((dUse < dU) && (Ln->we > dU)) // This is trim
 					Ln->ws = dU;
 				else if ((dUse > dU) && (Ln->ws < dU))
@@ -15327,7 +15324,7 @@ void DBase::Trim(CPoint PNear1, CPoint PNear2) {
 				pNr2 = Cv->GetPt(dU);
 				vRet = NLnInt3(Cv, Cv1, &pNr2);
 				dU = Cv->MinWPt(vRet); // U at intersect
-				sprintf_s(S1, " Debug W: ,%f,%f", dU, dUse);
+				S1.Format(_T(" Debug W: ,%f,%f"), dU, dUse);
 				if (cCir != nullptr) {
 					// if ((dUse < dU) && (Cv->we > dU)) // This is trim
 					if (abs(Cv->ws - dUse) < abs(Cv->we - dUse))
@@ -15747,8 +15744,8 @@ NCircle* DBase::FilletIter(NLine* Ln1, NLine* Ln2, double dR, C3dVector PNear1, 
 			iter++;
 		} while ((dMinDist > dTol) && (iter < 1000000));
 		pPt = AddPt(vCur2, -1, TRUE);
-		char buff[200];
-		sprintf_s(buff, "Interation to Intersect %i Tol %g", iter, dMinDist);
+		CString buff;
+		buff.Format(_T("Interation to Intersect %i Tol %g"), iter, dMinDist);
 		outtext1(buff);
 		if (iter < 1000000) {
 			// create the circle
@@ -16716,7 +16713,7 @@ E_Object* NASReadCROD(NasCard& oC,
 void NASReadSPC(NasCard& oC,
                 ME_Object* pM,
                 int iF) {
-	char S1[200];
+	CString S1;
 	cLinkedListB* pBCSET = nullptr;
 	Node* pN = nullptr;
 	int iID;
@@ -16740,8 +16737,8 @@ void NASReadSPC(NasCard& oC,
 	// if it exists get the BC Set else create one
 	pBCSET = pM->GetBC(iID);
 	if (pBCSET == nullptr) {
-		sprintf_s(S1, "BC SET : %i", iID);
-		iSet = pM->CreateBC(iID, CString(CA2T(S1)));
+		S1.Format(_T("BC SET : %i"), iID);
+		iSet = pM->CreateBC(iID, S1);
 		pBCSET = pM->GetBC(iID);
 	}
 	pN = pM->GetNode(iND);
@@ -16769,7 +16766,7 @@ void NASReadSPC(NasCard& oC,
 void NASReadFORCE(NasCard& oC,
                   ME_Object* pM,
                   int iF) {
-	char S1[200];
+	CString S1;
 	cLinkedList* pLCSET = nullptr;
 	Node* pN = nullptr;
 	int iID;
@@ -16791,8 +16788,8 @@ void NASReadFORCE(NasCard& oC,
 	// if it exists get the BC Set else create one
 	pLCSET = pM->GetLC(iID);
 	if (pLCSET == nullptr) {
-		sprintf_s(S1, "LC SET : %i", iID);
-		iSet = pM->CreateLC(iID, CString(CA2T(S1)));
+		S1.Format(_T("LC SET : %i"), iID);
+		iSet = pM->CreateLC(iID, S1);
 		pLCSET = pM->GetLC(iID);
 	}
 	pN = pM->GetNode(iND);
@@ -16810,7 +16807,7 @@ void NASReadFORCE(NasCard& oC,
 void NASReadMOMENT(NasCard& oC,
                    ME_Object* pM,
                    int iF) {
-	char S1[200];
+	CString S1;
 	cLinkedList* pLCSET = nullptr;
 	Node* pN = nullptr;
 	int iID;
@@ -16832,8 +16829,8 @@ void NASReadMOMENT(NasCard& oC,
 	// if it exists get the BC Set else create one
 	pLCSET = pM->GetLC(iID);
 	if (pLCSET == nullptr) {
-		sprintf_s(S1, "LC SET : %i", iID);
-		iSet = pM->CreateLC(iID, CString(CA2T(S1)));
+		S1.Format(_T("LC SET : %i"), iID);
+		iSet = pM->CreateLC(iID, S1);
 		pLCSET = pM->GetLC(iID);
 	}
 	pN = pM->GetNode(iND);
@@ -16851,7 +16848,7 @@ void NASReadMOMENT(NasCard& oC,
 void NASReadPLOAD(NasCard& oC,
                   ME_Object* pM,
                   int iF) {
-	char S1[200];
+	CString S1;
 	cLinkedList* pLCSET = nullptr;
 	E_Object* pE = nullptr;
 	int iID;
@@ -16871,8 +16868,8 @@ void NASReadPLOAD(NasCard& oC,
 	// if it exists get the BC Set else create one
 	pLCSET = pM->GetLC(iID);
 	if (pLCSET == nullptr) {
-		sprintf_s(S1, "LC SET : %i", iID);
-		iSet = pM->CreateLC(iID, CString(CA2T(S1)));
+		S1.Format(_T("LC SET : %i"), iID);
+		iSet = pM->CreateLC(iID, S1);
 		pLCSET = pM->GetLC(iID);
 	}
 	// pE=pM->FindElement()
@@ -16892,7 +16889,7 @@ void NASReadPLOAD(NasCard& oC,
 void NASReadTEMP(NasCard& oC,
                  ME_Object* pM,
                  int iF) {
-	char S1[200];
+	CString S1;
 	cLinkedList* pTSET = nullptr;
 	Node* pN = nullptr;
 	int iSID = -1;
@@ -16907,8 +16904,8 @@ void NASReadTEMP(NasCard& oC,
 	// if it exists get the BC Set else create one
 	pTSET = pM->GetTSET(iSID);
 	if (pTSET == nullptr) {
-		sprintf_s(S1, "TSET : %i", iSID);
-		iSet = pM->CreateTSET(iSID, CString(CA2T(S1)));
+		S1.Format(_T("TSET : %i"), iSID);
+		iSet = pM->CreateTSET(iSID, S1);
 		pTSET = pM->GetTSET(iSID);
 	}
 	// pE=pM->FindElement()
@@ -16924,7 +16921,7 @@ void NASReadTEMP(NasCard& oC,
 void NASReadTEMPD(NasCard& oC,
                   ME_Object* pM,
                   int iF) {
-	char S1[200];
+	CString S1;
 	cLinkedList* pTSET = nullptr;
 	// Node* pN = nullptr;
 	int iSID = -1;
@@ -16938,8 +16935,8 @@ void NASReadTEMPD(NasCard& oC,
 	////if it exists get the BC Set else create one
 	pTSET = pM->GetTSET(iSID);
 	if (pTSET == nullptr) {
-		sprintf_s(S1, "TEMPD : %i", iSID);
-		iSet = pM->CreateTSET(iSID, CString(CA2T(S1)));
+		S1.Format(_T("TEMPD : %i"), iSID);
+		iSet = pM->CreateTSET(iSID, S1);
 		pTSET = pM->GetTSET(iSID);
 	}
 
@@ -16954,7 +16951,7 @@ void NASReadTEMPD(NasCard& oC,
 void NASReadGRAV(NasCard& oC,
                  ME_Object* pM,
                  int iF) {
-	char S1[200];
+	CString S1;
 	cLinkedList* pLSET = nullptr;
 	int iSID = -1;
 	int iCID = -1;
@@ -16971,8 +16968,8 @@ void NASReadGRAV(NasCard& oC,
 	////if it exists get the BC Set else create one
 	pLSET = pM->GetLC(iSID);
 	if (pLSET == nullptr) {
-		sprintf_s(S1, "GRAV : %i", iSID);
-		iSet = pM->CreateLC(iSID, CString(CA2T(S1)));
+		S1.Format(_T("GRAV : %i"), iSID);
+		iSet = pM->CreateLC(iSID, S1);
 		pLSET = pM->GetLC(iSID);
 	}
 
@@ -18311,10 +18308,10 @@ ME_Object* DBase::ImportNASTRAN(CString inName) {
 	RetMesh->CoordToGlocal();
 	outtext1("Finished Read.");
 	RetMesh->iFileNo = iFileNo;
-	char buff[200];
+	CString buff;
 	for (i = 0; i < iFileNo; i++) {
 		RetMesh->sFiles[i] = sFiles[i];
-		sprintf_s(buff, "File No %i %s", i, sFiles[i]);
+		buff.Format(_T("File No %i %s"), i, sFiles[i]);
 		outtext1(buff);
 	}
 
@@ -18542,10 +18539,10 @@ void DBase::DelAll_Group() {
 
 void DBase::Del_Group(int iThisGp) {
 	int i;
-	char buff[80];
+	CString buff;
 
 	if ((iThisGp > -1) && (iThisGp < iNoGPs)) {
-		sprintf_s(buff, "%s%s", "Deleting Group : ", Groups[iThisGp]->Title);
+		buff.Format(_T("%s%s"), _T("Deleting Group : "), Groups[iThisGp]->Title);
 		delete (Groups[iThisGp]);
 		outtext1(buff);
 		for (i = iThisGp; i < iNoGPs - 1; i++) {
@@ -18613,10 +18610,10 @@ void DBase::GPRemGP(int iGP) {
 }
 
 void DBase::SetCurrentGP(int iGP) {
-	char buff[80];
+	CString buff;
 	if ((iGP < iNoGPs) && (iGP >= 0)) {
 		iCurGp = iGP;
-		sprintf_s(buff, "%3i%s%s", iCurGp, " : ", Groups[iCurGp]->Title);
+		buff.Format(_T("%3i%s%s"), iCurGp, _T(" : "), Groups[iCurGp]->Title);
 		outtext1(buff);
 	}
 }
@@ -18636,19 +18633,19 @@ void DBase::InsertCat(C3dVector p1) {
 
 void DBase::ListGp() {
 	int i;
-	char buff[80];
+	CString buff;
 	CString iGp;
 	CString oLine;
 	outtext1("GROUP LISTING:-");
 
 	for (i = 0; i < iNoGPs; i++) {
-		sprintf_s(buff, "%3i%s%s", i, " : ", Groups[i]->Title);
+		buff.Format(_T("%3i%s%s"), i, _T(" : "), Groups[i]->Title);
 		// oLine=buff;
 		outtext1(buff);
 	}
 	if ((iNoGPs > 0) && (iCurGp < iNoGPs)) {
 		outtext1("Active Group :");
-		sprintf_s(buff, "%3i%s%s", iCurGp, " : ", Groups[iCurGp]->Title);
+		buff.Format(_T("%3i%s%s"), iCurGp, _T(" : "), Groups[iCurGp]->Title);
 		outtext1(buff);
 	} else {
 		outtext1("ERROR: No Active Group.");
@@ -18814,9 +18811,9 @@ void DBase::SetCurrentResSetDef(int iRS, int iRV) {
 void DBase::Dsp_Group() {
 	int iCO;
 	bDispAll = FALSE;
-	char buff[80];
+	CString buff;
 	if (iCurGp != -1) {
-		sprintf_s(buff, "%3i%s%s", iCurGp, " : ", Groups[iCurGp]->Title);
+		buff.Format(_T("%3i%s%s"), iCurGp, _T(" : "), Groups[iCurGp]->Title);
 		outtext1(buff);
 	} else {
 		outtext1("No Groups Exist!");
@@ -19153,21 +19150,21 @@ void DBase::lMeasure(C3dVector v1, C3dVector v2) {
 	v1a = GlobaltoWP(v1a);
 	v2a = GlobaltoWP(v2a);
 	vg = v2a - v1a;
-	char S1[200];
+	CString S1;
 	CString OutT;
 	WP_Object* pWPlane = (WP_Object*) DB_Obj[iWP];
 	outtext1("LINEAR DISTANCE (GLOBAL)");
-	sprintf_s(S1, "GL: X,%f,Y,%f,Z,%f", v.x, v.y, v.z);
+	S1.Format(_T("GL: X,%f,Y,%f,Z,%f"), v.x, v.y, v.z);
 	OutT = S1;
 	outtext1(OutT);
 	if (pWPlane->iWPMode == 1) {
-		sprintf_s(S1, "WP: R,%f,T,%f,Z,%f", vg.x, vg.y, vg.z);
+		S1.Format(_T("WP: R,%f,T,%f,Z,%f"), vg.x, vg.y, vg.z);
 	} else {
-		sprintf_s(S1, "WP: X,%f,Y,%f,Z,%f", vg.x, vg.y, vg.z);
+		S1.Format(_T("WP: X,%f,Y,%f,Z,%f"), vg.x, vg.y, vg.z);
 	}
 	OutT = S1;
 	outtext1(OutT);
-	sprintf_s(S1, "MAG: %f", vg.Mag());
+	S1.Format(_T("MAG: %f"), vg.Mag());
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -19183,10 +19180,10 @@ void DBase::AMeasure(C3dVector v1, C3dVector v2, C3dVector v3) {
 	v2a.Normalize();
 	dDot = v1a.Dot(v2a);
 	dAng = acos(dDot) * 180 / Pi;
-	char S1[200];
+	CString S1;
 	CString OutT;
 	outtext1("ANGLE BETWEEN VECTORS:-");
-	sprintf_s(S1, "ANG: %f,", dAng);
+	S1.Format(_T("ANG: %f,"), dAng);
 	OutT = S1;
 	outtext1(OutT);
 }
@@ -19682,7 +19679,7 @@ void DBase::Colour(int iCol) {
 
 void DBase::ModIncludeNo(int iF) {
 	int iNoC = 0;
-	char s1[200];
+	CString s1;
 	int iCO;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if ((S_Buff[iCO]->iObjType == 0) || (S_Buff[iCO]->iObjType == 7)) {
@@ -19692,13 +19689,13 @@ void DBase::ModIncludeNo(int iF) {
 			iNoC++;
 		}
 	}
-	sprintf_s(s1, "%s%i", "Number of Entities Modified : ", iNoC);
+	s1.Format(_T("%s%i"), _T("Number of Entities Modified : "), iNoC);
 	outtext1(s1);
 }
 
 void DBase::ModLayerNo(int iF) {
 	int iNoC = 0;
-	char s1[200];
+	CString s1;
 	int iCO = 0;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if ((S_Buff[iCO]->iObjType == 0) || (S_Buff[iCO]->iObjType == 7) || (S_Buff[iCO]->iObjType == 6) || (S_Buff[iCO]->iObjType == 10)) {
@@ -19706,12 +19703,12 @@ void DBase::ModLayerNo(int iF) {
 			iNoC++;
 		}
 	}
-	sprintf_s(s1, "%s%i", "Number of Entities Modified : ", iNoC);
+	s1.Format(_T("%s%i"), _T("Number of Entities Modified : "), iNoC);
 	outtext1(s1);
 }
 
 void DBase::CountItems() {
-	char S1[200];
+	CString S1;
 	int iNode = 0;
 	int iEl = 0;
 	int iCYS = 0;
@@ -19752,23 +19749,23 @@ void DBase::CountItems() {
 		iCYSMin = 0;
 
 	outtext1("Count of Selected F.E. Items:-");
-	sprintf_s(S1, "%s%i", "Number of Nodes : ", iNode);
+	S1.Format(_T("%s%i"), _T("Number of Nodes : "), iNode);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Number of Elements : ", iEl);
+	S1.Format(_T("%s%i"), _T("Number of Elements : "), iEl);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Number of Coord-Systems : ", iCYS);
+	S1.Format(_T("%s%i"), _T("Number of Coord-Systems : "), iCYS);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Min Node Label : ", iNodeMin);
+	S1.Format(_T("%s%i"), _T("Min Node Label : "), iNodeMin);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Min Elem Label : ", iElMin);
+	S1.Format(_T("%s%i"), _T("Min Elem Label : "), iElMin);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Min CSYS Label : ", iCYSMin);
+	S1.Format(_T("%s%i"), _T("Min CSYS Label : "), iCYSMin);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Max Node Label : ", iNodeMax);
+	S1.Format(_T("%s%i"), _T("Max Node Label : "), iNodeMax);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Max Elem Label : ", iElMax);
+	S1.Format(_T("%s%i"), _T("Max Elem Label : "), iElMax);
 	outtext1(S1);
-	sprintf_s(S1, "%s%i", "Max CSYS Label : ", iCYSMax);
+	S1.Format(_T("%s%i"), _T("Max CSYS Label : "), iCYSMax);
 	outtext1(S1);
 	ReDraw();
 }
@@ -19805,7 +19802,7 @@ void DBase::ElementReverse() {
 }
 
 void DBase::TetCircumSphere() {
-	char s1[200];
+	CString s1;
 	int iCO;
 	CString OutT;
 	BOOL bReGen = FALSE;
@@ -19824,9 +19821,9 @@ void DBase::TetCircumSphere() {
 				v2 = pEtet->GetNodalCoords(2);
 				v3 = pEtet->GetNodalCoords(3);
 				Circumsphere(&v0, &v1, &v2, &v3, &vC, &dR);
-				sprintf_s(s1, "%s%g", "Circum Radius : ", dR);
+				s1.Format(_T("%s%g"), _T("Circum Radius : "), dR);
 				outtext1(s1);
-				sprintf_s(s1, "%s X: %g Y: %g Z: %g", "Circum Centre : ", vC.x, vC.y, vC.z);
+				s1.Format(_T("%s X: %g Y: %g Z: %g"), _T("Circum Centre : "), vC.x, vC.y, vC.z);
 				outtext1(s1);
 			}
 		}
@@ -19835,7 +19832,7 @@ void DBase::TetCircumSphere() {
 
 void DBase::ElemntMoPID(int iPID) {
 	int iCO;
-	char s1[200];
+	CString s1;
 	CString OutT;
 	BOOL bReGen = FALSE;
 	BOOL bC = FALSE;
@@ -19853,7 +19850,7 @@ void DBase::ElemntMoPID(int iPID) {
 			}
 		}
 	}
-	sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iNoC);
+	s1.Format(_T("%s%i"), _T("Number of Elements Modified : "), iNoC);
 	outtext1(s1);
 	if (bReGen == TRUE) {
 		InvalidateOGL();
@@ -19863,7 +19860,7 @@ void DBase::ElemntMoPID(int iPID) {
 
 void DBase::SelRBENode(ObjList* Items) {
 	int iNoC = 0;
-	char s1[200];
+	CString s1;
 	CString OutT;
 	BOOL bReGen = FALSE;
 	BOOL bC = FALSE;
@@ -19885,7 +19882,7 @@ void DBase::SelRBENode(ObjList* Items) {
 		ReDraw();
 	}
 	// momo gdi to og
-	sprintf_s(s1, "%s%i", "Number of RBE Nodes Found : ", iNoC);
+	s1.Format(_T("%s%i"), _T("Number of RBE Nodes Found : "), iNoC);
 	outtext1(s1);
 	Items->Clear();
 	ReDraw();
@@ -19893,7 +19890,7 @@ void DBase::SelRBENode(ObjList* Items) {
 
 void DBase::SpringMoCSys(int iSys) {
 	int iCO;
-	char s1[200];
+	CString s1;
 	CoordSys* pSYS = NULL;
 	int iCnt = 0;
 	if (pCurrentMesh != NULL) {
@@ -19920,7 +19917,7 @@ void DBase::SpringMoCSys(int iSys) {
 				}
 			}
 		}
-		sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iCnt);
+		s1.Format(_T("%s%i"), _T("Number of Elements Modified : "), iCnt);
 		outtext1(s1);
 	} else {
 		outtext1("ERROR: Coordinate System Does Not Exist.");
@@ -19929,7 +19926,7 @@ void DBase::SpringMoCSys(int iSys) {
 
 void DBase::ShellMoCSys(int iSys) {
 	int iCO;
-	char s1[200];
+	CString s1;
 	CoordSys* pSYS = NULL;
 	int iCnt = 0;
 	if (pCurrentMesh != NULL) {
@@ -19966,7 +19963,7 @@ void DBase::ShellMoCSys(int iSys) {
 				}
 			}
 		}
-		sprintf_s(s1, "%s%i", "Number of Elements Modified : ", iCnt);
+		s1.Format(_T("%s%i"), _T("Number of Elements Modified : "), iCnt);
 		outtext1(s1);
 	} else {
 		outtext1("ERROR: Coordinate System Does Not Exist.");
@@ -19976,7 +19973,7 @@ void DBase::ShellMoCSys(int iSys) {
 void DBase::NodeMoOSys(int iSys) {
 	int iCO = 0;
 	int iNoC = 0;
-	char s1[200];
+	CString s1;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 1) {
 			Node* pN = (Node*) S_Buff[iCO];
@@ -19984,14 +19981,14 @@ void DBase::NodeMoOSys(int iSys) {
 			iNoC++;
 		}
 	}
-	sprintf_s(s1, "%s%i", "Number of Nodes Modified : ", iNoC);
+	s1.Format(_T("%s%i"), _T("Number of Nodes Modified : "), iNoC);
 	outtext1(s1);
 }
 
 void DBase::ElementMoLab(int iN) {
 	int iCO;
 	int iNewLab;
-	char S1[200];
+	CString S1;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 3) {
 			E_Object* pN = (E_Object*) S_Buff[iCO];
@@ -20003,7 +20000,7 @@ void DBase::ElementMoLab(int iN) {
 					pN->iLabel = iNewLab;
 				} else {
 					CString OutT;
-					sprintf_s(S1, "%s%i", "Element Label Not Modified For EL: ", pN->iLabel);
+					S1.Format(_T("%s%i"), _T("Element Label Not Modified For EL: "), pN->iLabel);
 					OutT = S1;
 					outtext1(OutT);
 				}
@@ -20018,7 +20015,7 @@ void DBase::ElementMoLab(int iN) {
 void DBase::ElementMoLab2(int iN) {
 	int iCO;
 	int iNewLab;
-	char S1[200];
+	CString S1;
 	iNewLab = iN;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 3) {
@@ -20031,7 +20028,7 @@ void DBase::ElementMoLab2(int iN) {
 					iNewLab++;
 				} else {
 					CString OutT;
-					sprintf_s(S1, "%s%i", "Element Label Not Modified For EL: ", pN->iLabel);
+					S1.Format(_T("%s%i"), _T("Element Label Not Modified For EL: "), pN->iLabel);
 					OutT = S1;
 					outtext1(OutT);
 				}
@@ -20045,7 +20042,7 @@ void DBase::ElementMoLab2(int iN) {
 void DBase::NodeMoLab(int iN) {
 	int iCO;
 	int iNewLab;
-	char S1[200];
+	CString S1;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 1) {
 			Node* pN = (Node*) S_Buff[iCO];
@@ -20057,7 +20054,7 @@ void DBase::NodeMoLab(int iN) {
 					pN->iLabel = iNewLab;
 				} else {
 					CString OutT;
-					sprintf_s(S1, "%s%i", "Node Label Not Modified For ND: ", pN->iLabel);
+					S1.Format(_T("%s%i"), _T("Node Label Not Modified For ND: "), pN->iLabel);
 					OutT = S1;
 					outtext1(OutT);
 				}
@@ -20072,7 +20069,7 @@ void DBase::NodeMoLab(int iN) {
 void DBase::NodeMoLab2(int iN) {
 	int iCO;
 	int iNewLab;
-	char S1[200];
+	CString S1;
 	iNewLab = iN;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 1) {
@@ -20085,7 +20082,7 @@ void DBase::NodeMoLab2(int iN) {
 					iNewLab++;
 				} else {
 					CString OutT;
-					sprintf_s(S1, "%s%i", "Node Label Not Modified For ND: ", pN->iLabel);
+					S1.Format(_T("%s%i"), _T("Node Label Not Modified For ND: "), pN->iLabel);
 					OutT = S1;
 					outtext1(OutT);
 				}
@@ -20100,7 +20097,7 @@ void DBase::NodeMoLab2(int iN) {
 void DBase::NodeMoRSys(int iSys) {
 	int iCO = 0;
 	int iNoC = 0;
-	char s1[200];
+	CString s1;
 	for (iCO = 0; iCO < S_Count; iCO++) {
 		if (S_Buff[iCO]->iObjType == 1) {
 			Node* pN = (Node*) S_Buff[iCO];
@@ -20108,7 +20105,7 @@ void DBase::NodeMoRSys(int iSys) {
 			iNoC++;
 		}
 	}
-	sprintf_s(s1, "%s%i", "Number of Nodes Modified : ", iNoC);
+	s1.Format(_T("%s%i"), _T("Number of Nodes Modified : "), iNoC);
 	outtext1(s1);
 }
 void DBase::Dsp_RemGP(G_Object* gIn) {
@@ -20313,7 +20310,7 @@ void DBase::CreatePrSolid(CString sT, int iPID, int iMID) {
 void DBase::ChkShellAspect(ObjList* Elems, double dT, BOOL bList) {
 	CString sTit;
 	CString sNum;
-	char S1[200];
+	CString S1;
 	E_Object* pE;
 	int iGP;
 	int i;
@@ -20332,7 +20329,7 @@ void DBase::ChkShellAspect(ObjList* Elems, double dT, BOOL bList) {
 				dA = pE->QualAspect();
 				if (dA > dT) {
 					if (bList) {
-						sprintf_s(S1, "ELEMENT: %8i VAL: %f", pE->iLabel, dA);
+						S1.Format(_T("ELEMENT: %8i VAL: %f"), pE->iLabel, dA);
 						outtext1(S1);
 					}
 					Groups[iGP]->Add(pE);
@@ -20350,7 +20347,7 @@ void DBase::ChkShellAspect(ObjList* Elems, double dT, BOOL bList) {
 void DBase::ChkTetCollapse(ObjList* Elems, double dT, BOOL bList) {
 	CString sTit;
 	CString sNum;
-	char S1[200];
+	CString S1;
 	E_Object* pE;
 	E_Object34* pTET;
 	int iGP;
@@ -20371,7 +20368,7 @@ void DBase::ChkTetCollapse(ObjList* Elems, double dT, BOOL bList) {
 				dA = pTET->TetCollapse();
 				if (dA < dT) {
 					if (bList) {
-						sprintf_s(S1, "ELEMENT: %8i VAL: %f", pE->iLabel, dA);
+						S1.Format(_T("ELEMENT: %8i VAL: %f"), pE->iLabel, dA);
 						outtext1(S1);
 					}
 					Groups[iGP]->Add(pE);
@@ -20400,12 +20397,12 @@ void DBase::GetClosestNodes(ObjList* pSource, C3dVector pTrg, ObjList* pRes, dou
 }
 
 void DBase::CNodesMerge2(ObjList* Nodes, double dTol, BOOL UpLab, BOOL bDel) {
-	char S1[200];
+	CString S1;
 	int i;
 	CString OutT;
 	ObjList* CNodes = new ObjList();
 	ObjList* ChkNodes = new ObjList();
-	sprintf_s(S1, "%s%f", "Merging Coincident Nodes, Tol:", dTol);
+	S1.Format(_T("%s%f"), _T("Merging Coincident Nodes, Tol:"), dTol);
 
 	// Check all node for checking are in current mesh
 	if (pCurrentMesh != NULL) {
@@ -20448,12 +20445,12 @@ void DBase::CNodesMerge2(ObjList* Nodes, double dTol, BOOL UpLab, BOOL bDel) {
 }
 
 void DBase::EqLab(ObjList* Nodes, double dTol, BOOL UpLab, BOOL bDel) {
-	char S1[200];
+	CString S1;
 	int i;
 	CString OutT;
 	ObjList* CNodes = new ObjList();
 	ObjList* ChkNodes = new ObjList();
-	sprintf_s(S1, "%s%f", "Relabeling Coincident Nodes Across Meshes, Tol:", dTol);
+	S1.Format(_T("%s%f"), _T("Relabeling Coincident Nodes Across Meshes, Tol:"), dTol);
 
 	for (i = 0; i < Nodes->iNo; i++) {
 		if (Nodes->Objs[i]->iObjType == 1) {
@@ -20482,7 +20479,7 @@ void DBase::EqLab(ObjList* Nodes, double dTol, BOOL UpLab, BOOL bDel) {
 					if (CNodes->Objs[i]->pParent == pCurrentMesh) {
 						pRetPt = pCurrentMesh->GetNode(iLabN);
 						if (pRetPt != NULL) {
-							sprintf_s(S1, "%s %i %s %i", "WARNING: Node", iLabN, "Exists Renaming to", pCurrentMesh->iNodeLab);
+							S1.Format(_T("%s %i %s %i"), _T("WARNING: Node"), iLabN, _T("Exists Renaming to"), pCurrentMesh->iNodeLab);
 							pRetPt->iLabel = pCurrentMesh->iNodeLab;
 							pCurrentMesh->iNodeLab++;
 							outtext1(S1);
@@ -20552,9 +20549,9 @@ void DBase::CycleFrames() {
 }
 
 void DBase::CNodesMerge(double dTol) {
-	char S1[200];
+	CString S1;
 	CString OutT;
-	sprintf_s(S1, "%s%f", "Merging coincident nodes, Tol:", dTol);
+	S1.Format(_T("%s%f"), _T("Merging coincident nodes, Tol:"), dTol);
 	if (pCurrentMesh != NULL) {
 		outtext1(S1);
 		pCurrentMesh->CNodesMerge(dTol);
@@ -20787,7 +20784,7 @@ SecTable::SecTable() {
 }
 
 void SecTable::ExportSecs(FILE* pFile) {
-	char Name[20];
+	CString Name;
 	int i;
 	double w;
 	double h;
@@ -20798,7 +20795,7 @@ void SecTable::ExportSecs(FILE* pFile) {
 	fprintf(pFile, "%6s\n", "776");
 	for (i = 0; i < iNo; i++) {
 		if (Secs[i]->bFlex == FALSE) {
-			sprintf_s(Name, "%s%i%s%f2%i", "WR", Secs[i]->WR, "_t", Secs[i]->THK, Secs[i]->Opt);
+			Name.Format(_T("%s%i%s%f2%i"), _T("WR"), Secs[i]->WR, _T("_t"), Secs[i]->THK, Secs[i]->Opt);
 			w = Secs[i]->W / 1000 + Secs[i]->THK / 1000;
 			h = Secs[i]->H / 1000 + Secs[i]->THK / 1000;
 			t = Secs[i]->THK / 1000;
@@ -21325,7 +21322,7 @@ void DBase::SolveCFD() {
 
 	double pUStar;
 	double pVStar;
-	char S1[80];
+	CString S1;
 	Matrix<double> UVP(iNI + 1, iNJ + 1);
 	Matrix<double> UVPS(iNI + 1, iNJ + 1);
 	for (i = 0; i < UVP.m; i++) {
@@ -21455,7 +21452,7 @@ void DBase::SolveCFD() {
 		}
 		BCS(UVP); // re-afirm the lid velocity
 		if (k % 10 == 0) {
-			sprintf_s(S1, "%s%i", "Iteration:", k);
+			S1.Format(_T("%s%i"), _T("Iteration:"), k);
 			outtext1(S1);
 			PlotSol(pVec, UVP, dx, dy);
 		}
@@ -21589,7 +21586,7 @@ void DBase::PlotData2(ObjList* pVec, Matrix<double>& U, Matrix<double>& V, doubl
 	C3dVector a;
 	C3dVector b;
 
-	char S1[80];
+	CString S1;
 	outtext1("Centre Line Data.");
 	if (pVec->iNo != 0) {
 		for (j = 1; j < U.n; j++) {
@@ -21597,7 +21594,7 @@ void DBase::PlotData2(ObjList* pVec, Matrix<double>& U, Matrix<double>& V, doubl
 			if (j % 2 != 0) {
 				u = U(i, j);
 				v = V(j, i);
-				sprintf_s(S1, "%s%f%s%f", "X ", u, " Y ", v);
+				S1.Format(_T("%s%f%s%f"), _T("X "), u, _T(" Y "), v);
 				outtext1(S1);
 			}
 		}
@@ -21615,7 +21612,7 @@ void DBase::PlotData(ObjList* pVec, Matrix<double>& UVP, double dx, double dy) {
 	C3dVector a;
 	C3dVector b;
 
-	char S1[80];
+	CString S1;
 	outtext1("Centre Line Data.");
 	if (pVec->iNo != 0) {
 		for (j = 1; j < UVP.n; j++) {
@@ -21623,7 +21620,7 @@ void DBase::PlotData(ObjList* pVec, Matrix<double>& UVP, double dx, double dy) {
 			if (j % 2 != 0) {
 				u = UVP(i, j);
 				v = UVP(j, i);
-				sprintf_s(S1, "%s%f%s%f", "X ", u, " Y ", v);
+				S1.Format(_T("%s%f%s%f"), _T("X "), u, _T(" Y "), v);
 				outtext1(S1);
 			}
 		}
@@ -22325,7 +22322,7 @@ void DBase::MeshBeamSize(ObjList* pCurves, double dS) {
 	int iCO;
 	int iInc;
 	double dL;
-	char S1[200];
+	CString S1;
 	NCurve* pEdge = NULL;
 	if (dS < 0) {
 		outtext1("ERROR: Element mesh size must be > 0.");
@@ -22341,7 +22338,7 @@ void DBase::MeshBeamSize(ObjList* pCurves, double dS) {
 				if ((pEdge->iType == 3) && (iInc < 4)) // Case of sircle
 					iInc = 4; // Use a min of 4 elements
 				pEdge->iInc = iInc;
-				sprintf_s(S1, "INFO: %i Elements Set For Curve %i Set", iInc, pEdge->iLabel);
+				S1.Format(_T("INFO: %i Elements Set For Curve %i Set"), iInc, pEdge->iLabel);
 				outtext1(S1);
 			}
 		}
@@ -22372,7 +22369,7 @@ void DBase::MeshBeams(ObjList* pCurves) {
 				ReDraw();
 			} else {
 			}
-			// sprintf_s(S1, "INFO: %i Elements Set For Curve %i Set", iInc, pEdge->iLabel);
+			// S1.Format(_T("INFO: %i Elements Set For Curve %i Set"), iInc, pEdge->iLabel);
 			// outtext1(S1);
 		}
 	}
@@ -22443,7 +22440,7 @@ void DBase::MeshSurfSize(ObjList* pSurfs, double dS) {
 //               2D SURFACE ADVANCING MESHING ALGORITHM
 //*****************************************************************************
 void DBase::MeshSurfAF(ObjList* pSurfs, double dSz) {
-	char S1[80];
+	CString S1;
 	outtext1("**** STARTING AFM GEN 2D ****");
 	PrintTime(_T("START TIME: "));
 	BOOL bNinT;
@@ -22628,7 +22625,7 @@ void DBase::MeshSurfAF(ObjList* pSurfs, double dSz) {
 		Pts->DeleteAll();
 		Segs->DeleteAll();
 		pEls->Clear();
-		sprintf_s(S1, "Number off Tri Elements Generated: %i", iNoEls);
+		S1.Format(_T("Number off Tri Elements Generated: %i"), iNoEls);
 		outtext1(S1);
 	}
 	InvalidateOGL();
@@ -23054,12 +23051,12 @@ void DBase::GenPts(NSurf* pS, ObjList* Pts) {
 void DBase::LabGapsMP(int iGap) {
 	// PropTable* PropsT;
 	// MatTable* MatT;
-	char buff[200];
+	CString buff;
 	int i = 0;
 	int iCur;
 	int iS;
 	vector<int> iLabs;
-	sprintf_s(buff, "%s %i", "Finding Material Labeling Gaps > ", iGap);
+	buff.Format(_T("%s %i"), _T("Finding Material Labeling Gaps > "), iGap);
 	outtext1(buff);
 	// Material label sparsity
 	if ((MatT->iNo > 2) && (iGap > 0)) {
@@ -23071,7 +23068,7 @@ void DBase::LabGapsMP(int iGap) {
 			iCur = iLabs.at(i - 1);
 			iS = iLabs.at(i) - iCur;
 			if (iS > iGap) {
-				sprintf_s(buff, "%s %i to %i size %i", "Gap Found at:  ", iCur + 1, iLabs.at(i) - 1, iS - 1);
+				buff.Format(_T("%s %i to %i size %i"), _T("Gap Found at:  "), iCur + 1, iLabs.at(i) - 1, iS - 1);
 				outtext1(buff);
 				iCur = iLabs.at(i);
 			}
@@ -23081,7 +23078,7 @@ void DBase::LabGapsMP(int iGap) {
 	}
 	iLabs.clear();
 	// Property label sparsity
-	sprintf_s(buff, "%s %i", "Finding Property Labeling Gaps > ", iGap);
+	buff.Format(_T("%s %i"), _T("Finding Property Labeling Gaps > "), iGap);
 	outtext1(buff);
 	if ((PropsT->iNo > 2) && (iGap > 0)) {
 		for (i = 0; i < PropsT->iNo; i++)
@@ -23092,7 +23089,7 @@ void DBase::LabGapsMP(int iGap) {
 			iCur = iLabs.at(i - 1);
 			iS = iLabs.at(i) - iCur;
 			if (iS > iGap) {
-				sprintf_s(buff, "%s %i to %i size %i", "Gap Found at:  ", iCur + 1, iLabs.at(i) - 1, iS - 1);
+				buff.Format(_T("%s %i to %i size %i"), _T("Gap Found at:  "), iCur + 1, iLabs.at(i) - 1, iS - 1);
 				outtext1(buff);
 				iCur = iLabs.at(i);
 			}
@@ -23518,7 +23515,7 @@ void DBase::MeshSurfAF_EXP04() {
 		Pts->DeleteAll();
 		Segs->DeleteAll();
 		pEls->Clear();
-		// MoMo// sprintf_s(S1, "Number off Tri Elements Generated: %i", iNoEls);
+		// MoMo// S1.Format(_T("Number off Tri Elements Generated: %i"), iNoEls);
 		// MoMo// outtext1(S1);
 	}
 	InvalidateOGL();

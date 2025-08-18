@@ -2974,8 +2974,8 @@ int zPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (iStat == 2) {
 			C3dVector vP;
 			vP = cDBase->DB_GetBuff();
-			char S1[80];
-			sprintf_s(S1, "%f,%f,%f", vP.x, vP.y, vP.z);
+			CString S1;
+			S1.Format(_T("%f,%f,%f"), vP.x, vP.y, vP.z);
 			outtext2(S1);
 			RetVal = 1;
 		}
@@ -3434,8 +3434,8 @@ int zPTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			C3dVector vP;
 			if (cDBase->DB_BuffCount > 0) {
 				vP = cDBase->DB_GetBuff();
-				// char S1[80];
-				// sprintf_s(S1,"%d,%d,%d",vP.x,vP.y,vP.z);
+				// CString S1;
+				// S1.Format(_T("%d,%d,%d"),vP.x,vP.y,vP.z);
 				// outtext2(S1);
 				// momo
 				cDBase->AddPt(vP, -1, TRUE);
@@ -4484,8 +4484,8 @@ int zCIRCR2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			p1 = cDBase->DB_PopBuff();
 			cDBase->AddDragCIR(vN, p1);
 			cDBase->vLS = p1;
-			char OutT[80];
-			sprintf_s(OutT, "%s %g)", "ENTER RADIUS (", gDIM_RADSZ);
+			CString OutT;
+			OutT.Format(_T("%s %g)"), _T("ENTER RADIUS ("), gDIM_RADSZ);
 			SetFocus();
 			outtext2(OutT);
 			iResumePos = 2;
@@ -4661,8 +4661,8 @@ int zTEXTCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 2;
 		} else if (iStat == 2) {
 			sText = CInMsg;
-			char OutT[80];
-			sprintf_s(OutT, "%s %g)", "ENTER TEXT HEIGHT (", gTXT_HEIGHT);
+			CString OutT;
+			OutT.Format(_T("%s %g)"), _T("ENTER TEXT HEIGHT ("), gTXT_HEIGHT);
 			outtext2(OutT);
 			SetFocus();
 			iStat = 3;
@@ -4710,8 +4710,8 @@ int zDIMSCL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			goto MenuEnd;
 		}
 		if (iStat == 0) {
-			char OutT[80];
-			sprintf_s(OutT, "%s %g)", "ENTER DIMENSION SIXE (", gDIM_SIZE);
+			CString OutT;
+			OutT.Format(_T("%s %g)"), _T("ENTER DIMENSION SIXE ("), gDIM_SIZE);
 			outtext2(OutT);
 			SetFocus();
 			iStat = 1;
@@ -6194,8 +6194,8 @@ int zCIRCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			goto MenuEnd;
 		}
 		if (iStat == 0) {
-			char OutT[80];
-			sprintf_s(OutT, "%s %g)", "ENTER RADIUS (", gDIM_RADSZ);
+			CString OutT;
+			OutT.Format(_T("%s %g)"), _T("ENTER RADIUS ("), gDIM_RADSZ);
 			outtext2(OutT);
 			iResumePos = 1;
 			iCancelPos = 100;
@@ -6922,8 +6922,8 @@ int zCVCR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			DoNext(&CInMsg, Pt);
 		}
 		if (iStat == 2) {
-			char OutT[80];
-			sprintf_s(OutT, "%s %g)", "//ENTER ORDER (", gDIM_CVORD);
+			CString OutT;
+			OutT.Format(_T("%s %g)"), _T("//ENTER ORDER ("), gDIM_CVORD);
 			outtext2(OutT);
 			SetFocus();
 			iResumePos = 3;
@@ -6988,8 +6988,8 @@ int zCVFIT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			DoNext(&CInMsg, Pt);
 		}
 		if (iStat == 2) {
-			char OutT[80];
-			sprintf_s(OutT, "%s %g)", "//ENTER ORDER (", gDIM_CVORD);
+			CString OutT;
+			OutT.Format(_T("%s %g)"), _T("//ENTER ORDER ("), gDIM_CVORD);
 			outtext2(OutT);
 			SetFocus();
 			iResumePos = 3;
@@ -8323,8 +8323,8 @@ int zFIL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		}
 
 		if (iStat == 1) {
-			char OutT[80];
-			sprintf_s(OutT, "%s %g)", "ENTER RADIUS (", gDIM_FILSZ);
+			CString OutT;
+			OutT.Format(_T("%s %g)"), _T("ENTER RADIUS ("), gDIM_FILSZ);
 			outtext2(OutT);
 			SetFocus();
 			iResumePos = 2;
@@ -10139,9 +10139,9 @@ int zPRBROD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "//ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("//ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -10235,9 +10235,9 @@ int zPRROD_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -10346,9 +10346,9 @@ int zPRBAR2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -10487,9 +10487,9 @@ int zPRBBAR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11051,9 +11051,9 @@ int zPRSOLID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11133,9 +11133,9 @@ int zPRSHELL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11245,9 +11245,9 @@ int zPRPCOMP_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11342,8 +11342,8 @@ int zPRSPGT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		CString s1;
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11470,8 +11470,8 @@ int zPRBUSH_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		CString s1;
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11628,8 +11628,8 @@ int zPRMASS_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		CString s1;
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11708,8 +11708,8 @@ int zPRSPGR_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		CString s1;
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -11835,9 +11835,9 @@ int zPRBBOX_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 
 		if (iStat == 2) {
@@ -11978,9 +11978,9 @@ int zPRBL_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 
 		if (iStat == 2) {
@@ -12121,9 +12121,9 @@ int zPRBT2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 
 		if (iStat == 2) {
@@ -12264,9 +12264,9 @@ int zPRBCHAN2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 
 		if (iStat == 2) {
@@ -12407,9 +12407,9 @@ int zPRBI2_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 
 		if (iStat == 2) {
@@ -12580,9 +12580,9 @@ int zMMAT8_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = MatT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "//ENTER NEW MID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("//ENTER NEW MID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 
 		if (iStat == 2) {
@@ -12777,9 +12777,9 @@ int zMMAT1_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = MatT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "//ENTER NEW MID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("//ENTER NEW MID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 
 		if (iStat == 2) {
@@ -12919,9 +12919,9 @@ int zPRBTUBE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 		if (cDBase->pCurrentMesh != NULL) {
 			iNLab = PropsT->NextID();
 		}
-		char s1[200];
+		CString s1;
 		CString sT;
-		sprintf_s(s1, "%s%i%s", "ENTER NEW PID (", iNLab, ")");
+		s1.Format(_T("%s%i%s"), _T("ENTER NEW PID ("), iNLab, _T(")"));
 		////////////////////////////////////////////////////////////
 		if (iStat == 2) {
 			outtext2(s1);
@@ -14521,8 +14521,8 @@ int zOFFSET_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			goto MenuEnd;
 		}
 		if (iStat == 0) {
-			char OutT[80];
-			sprintf_s(OutT, "%s%g)", "ENTER OFFSET DISTANCE (", gDIM_OFFSZ);
+			CString OutT;
+			OutT.Format(_T("%s%g)"), _T("ENTER OFFSET DISTANCE ("), gDIM_OFFSZ);
 			outtext2(OutT);
 			SetFocus();
 			iResumePos = 1;
@@ -16309,8 +16309,8 @@ int zRELTO_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			iStat = 3;
 		}
 		if (iStat == 3) {
-			char S1[80];
-			sprintf_s(S1, "%s %i", "//PICK ITEMS RELATED TO TYPE ", iT);
+			CString S1;
+			S1.Format(_T("%s %i"), _T("//PICK ITEMS RELATED TO TYPE "), iT);
 			outtext2(S1);
 			iStat = 4;
 		}
