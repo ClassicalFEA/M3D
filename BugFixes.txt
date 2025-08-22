@@ -86,3 +86,6 @@ In the two newly added commands for adding and using mesh seeds (which are still
 83-Added "Shaded Without Edges" button to the "View" toolbar.  
 84-Set focus to the "Command Entry" text box when starting a command.
 85-Fixed some bugs caused by Unicode support.
+86-Draw selection circles during drag, rotation, and drawing (lines, circles, etc.).
+87-Reset command line color after commands such as "CIRCPT".
+88-Fixed bug where compilation required "glew.h".

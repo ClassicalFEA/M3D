@@ -2050,7 +2050,10 @@ class Line_Object: public G_Object {
 		virtual void Create(C3dVector* pInVertex1, C3dVector* pInVertex2, int iLab, G_Object* Parrent);
 		virtual G_Object* Copy(G_Object* Parrent);
 		virtual C3dVector MinPt(C3dVector inPt);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);

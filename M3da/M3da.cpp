@@ -232,7 +232,7 @@ BOOL CM3daApp::InitInstance() {
 	// such as the name of your company or organization
 	// MoMo_Start
 	// MoMo// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	SetRegistryKey(_T("M3D-DevM-Reg-15"));
+	SetRegistryKey(_T("M3D-DevM-Reg-16"));
 	// MoMo_End
 	// momo
 	SelRowsCurrent[0][0] = -1;

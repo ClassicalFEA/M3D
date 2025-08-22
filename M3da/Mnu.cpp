@@ -2550,8 +2550,9 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 		// momo change command box color
 		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase(_T("NEW")) != 0 && CInMsg.CompareNoCase(_T("OPEN")) != 0 && CInMsg.CompareNoCase(_T("DSPALL")) != 0 && CInMsg.CompareNoCase(_T("DSPSEL")) != 0 && CInMsg.CompareNoCase(_T("SHOWALL")) != 0 && CInMsg.CompareNoCase(_T("DSPGP")) != 0) {
 			CommIsActive.NewState = true;
-		} else if (inputInOneCommand == -1) {
+		} else if (inputInOneCommand == -1 || CInMsg.CompareNoCase(_T("NULL")) != 0) {
 			CommIsActive.NewState = false;
+			CheckCommandEditColor(false);
 		}
 		// momo change command box color
 	}
@@ -15156,7 +15157,7 @@ int zLAB_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			if (iStat == 2) {
 				// momo
 				// momo// outtext2("// ENTER IDS (START - FININSH) (Key In)");
-				outtext2("// ENTER IDS (START FININSH) (Key In). Example: \"5 25\"");
+				outtext2("// ENTER IDS (START END) (Key In). Example: \"5 25\"");
 				// momo
 				iStat = 3;
 			}

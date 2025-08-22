@@ -3577,9 +3577,16 @@ CvPt_Object* Line_Object::GetTEnd() {
 	}
 }
 
-void Line_Object::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex1->DSP_Point->x, (int) pVertex1->DSP_Point->y);
-	pDC->LineTo((int) pVertex2->DSP_Point->x, (int) pVertex2->DSP_Point->y);
+// momo gdi to og2
+//void Line_Object::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex1->DSP_Point->x, (int) pVertex1->DSP_Point->y);
+//	pDC->LineTo((int) pVertex2->DSP_Point->x, (int) pVertex2->DSP_Point->y);
+	void Line_Object::Draw() {
+	glBegin(GL_LINES);
+	glVertex2f(pVertex1->DSP_Point->x, pVertex1->DSP_Point->y);
+	glVertex2f(pVertex2->DSP_Point->x, pVertex2->DSP_Point->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 void Line_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {

@@ -85,8 +85,9 @@ class DBase: public CCmdTarget {
 		BOOL bPICK;
 		// MoMo_Start
 		// MoMo// int iVER;
+		// MoMo// bool pDCDrawFlags[10];
 		int iVER = 0;
-		bool pDCDrawFlags[10];
+		bool ShowSelectionCircles;
 		// MoMo_End
 		void ClearSymTable();
 		void AddSymbol(Symbol* pSym);

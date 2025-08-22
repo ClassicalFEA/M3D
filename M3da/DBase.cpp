@@ -10067,9 +10067,9 @@ void DBase::Draw(C3dMatrix pM, int iDrawmode) {
 
 	// momo gdi to og
 	if ((iDrawmode == 4) || (iDrawmode == 5)) {
-		pDCDrawFlags[0] = true;
+		ShowSelectionCircles = true;
 	} else {
-		pDCDrawFlags[0] = false;
+		ShowSelectionCircles = true; //momo: temporary change to check speed
 	}
 	// momo gdi to og
 
@@ -10793,7 +10793,7 @@ double DBase::GetZoomScale(C3dMatrix* pModelMat) {
 }
 
 void DBase::DrawSelectCircles() {
-	if (pDCDrawFlags[0] && SelectMode != 2) {
+	if (ShowSelectionCircles && SelectMode != 2) {
 		if (DspFlags & DSP_BLACK) {
 			glColor3f(1.0f, 1.0f, 0);
 		} else {
@@ -10860,7 +10860,7 @@ void DBase::DrawSelectCircles() {
 }
 
 void DBase::StartpDCToOpenGL() {
-	if (pDCDrawFlags[0] || m_leftIsDragging) {
+	if (ShowSelectionCircles || m_leftIsDragging) {
 		glDisable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
@@ -10873,8 +10873,8 @@ void DBase::StartpDCToOpenGL() {
 }
 
 void DBase::EndpDCToOpenGL() {
-	if (pDCDrawFlags[0] || m_leftIsDragging) {
-		pDCDrawFlags[0] = false;
+	if (ShowSelectionCircles || m_leftIsDragging) {
+		ShowSelectionCircles = false;
 		glPopMatrix();
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();

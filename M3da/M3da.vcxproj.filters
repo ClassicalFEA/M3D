@@ -60,9 +60,6 @@
     <ClCompile Include="Mnu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="G_object.h">
@@ -123,9 +120,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Mnu.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderUtils.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
