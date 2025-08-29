@@ -90,3 +90,5 @@ In the two newly added commands for adding and using mesh seeds (which are still
 87-Reset command line color after commands such as "CIRCPT".
 88-Fixed bug where compilation required "glew.h".
 89-Added "Code Snapshots" folder to store different versions of the source code as compressed files.
+90-Second series of code changes from GDI to Classic OpenGL.
+91-Some changes in toolbars and menus.

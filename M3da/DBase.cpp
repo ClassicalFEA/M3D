@@ -5962,7 +5962,10 @@ Line_Object* DBase::AddLN2(double x1, double y1, double z1, double x2, double y2
 	DB_Obj[DB_ObjectCount]->SetToScr(&pModelMat, &pScrMat);
 	// momo gdi to og
 	// momo// DB_Obj[DB_ObjectCount]->Draw(pDC, 4);
-	DB_Obj[DB_ObjectCount]->Draw(4);
+	// momo gdi to og2
+	// momo// DB_Obj[DB_ObjectCount]->Draw(4);
+	DB_Obj[DB_ObjectCount]->Draw();
+	// momo gdi to og2
 	// momo gdi to og
 	Dsp_Add(LnIn);
 	Dsp_Add(LnIn->pVertex1);
@@ -10069,7 +10072,7 @@ void DBase::Draw(C3dMatrix pM, int iDrawmode) {
 	if ((iDrawmode == 4) || (iDrawmode == 5)) {
 		ShowSelectionCircles = true;
 	} else {
-		ShowSelectionCircles = true; //momo: temporary change to check speed
+		ShowSelectionCircles = true; // momo: temporary change to check speed
 	}
 	// momo gdi to og
 
@@ -10497,10 +10500,11 @@ void DBase::OglDrawW(int iDspFlgs) {
 	}
 
 	// momo gdi to og =================================================
-	StartpDCToOpenGL();
+	StartGDIToOpenGL();
 	DrawSelectCircles();
 	DrawSelectionRectangle();
-	EndpDCToOpenGL();
+	DrawCrossMarker2D(5, 1.0f, 0.0f, 0.0f);
+	EndGDIToOpenGL();
 	// momo gdi to og =================================================
 	// momo axis ======================================================
 	if (AxisOrigin) {
@@ -10517,7 +10521,40 @@ void DBase::OglDrawW(int iDspFlgs) {
 }
 
 // momo axis ======================================================
+// momo gdi to og2
+void DBase::DrawCrossMarker2D(int size, float r, float g, float b) {
+	if (!mClickPoint.IsClicked)
+		return;
+	mClickPoint.IsClicked = false;
+	int x = mClickPoint.x + 1;
+	int y = mClickPoint.y + 1;
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, dWidth, dHeight, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glColor3f(r, g, b);
+	glLineWidth(1.0f);
+	glBegin(GL_LINES);
+	glVertex2i(x - size - 1, y);
+	glVertex2i(x + size, y);
+
+	glVertex2i(x, y - size - 1);
+	glVertex2i(x, y + size);
+	glEnd();
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+// momo gdi to og2
 void DBase::MakeAxisCorner(float dx, float dy) {
 	// Small viewport (bottom-left corner)
 	int smallViewportWidth = 150;
@@ -10859,7 +10896,7 @@ void DBase::DrawSelectCircles() {
 	}
 }
 
-void DBase::StartpDCToOpenGL() {
+void DBase::StartGDIToOpenGL() {
 	if (ShowSelectionCircles || m_leftIsDragging) {
 		glDisable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
@@ -10872,7 +10909,7 @@ void DBase::StartpDCToOpenGL() {
 	}
 }
 
-void DBase::EndpDCToOpenGL() {
+void DBase::EndGDIToOpenGL() {
 	if (ShowSelectionCircles || m_leftIsDragging) {
 		ShowSelectionCircles = false;
 		glPopMatrix();
@@ -11010,10 +11047,10 @@ void DBase::OglDraw(int iDspFlgs) {
 	}
 
 	// momo gdi to og =================================================
-	StartpDCToOpenGL();
+	StartGDIToOpenGL();
 	DrawSelectCircles();
 	DrawSelectionRectangle();
-	EndpDCToOpenGL();
+	EndGDIToOpenGL();
 	// momo gdi to og =================================================
 	// momo axis ======================================================
 	if (AxisOrigin) {

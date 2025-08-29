@@ -11,8 +11,6 @@
 #include <algorithm>
 // momo
 #include "GLOBAL_VARS.h"
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <cmath>
 // momo
 
@@ -1677,7 +1675,10 @@ class G_Object: public CCmdTarget {
 		virtual void Serialize(CArchive& ar, int iV);
 		// momo gdi to og
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
-		virtual void Draw(int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		// momo gdi to og
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
@@ -1762,7 +1763,10 @@ class cLinkedList: public G_Object {
 		// momo gdi to og
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		// momo// virtual void HighLight(CDC* pDC);
-		virtual void Draw(int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void HighLight();
 		// momo gdi to og
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
@@ -1903,7 +1907,10 @@ class WP_Object: public G_Object {
 		C3dMatrix mWPTransform;
 		int iWPMode; // 0 cart 1 cyl 2 sph
 		virtual void Create(double dWPSize);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
@@ -1934,7 +1941,10 @@ class Planet: public G_Object {
 		virtual ~Planet();
 		BMP* pTexture;
 		void AttachTexture(BMP* pT);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 };
@@ -1951,7 +1961,10 @@ class BackGround: public G_Object {
 		virtual ~BackGround();
 		BMP* pTexture = nullptr;
 		void AttachTexture(BMP* pT);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 };
@@ -1979,7 +1992,10 @@ class Node: public G_Object {
 		virtual G_Object* Copy(G_Object* Parrent);
 		// momo gdi to og
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
-		virtual void Draw(int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		// momo gdi to og
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
@@ -2012,7 +2028,10 @@ class CvPt_Object: public G_Object {
 		virtual void Clear();
 		void Info();
 		virtual G_Object* Copy(G_Object* Parrent);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		C3dVector GetCoords();
@@ -2089,7 +2108,10 @@ class ContrPolyW: public G_Object {
 		virtual void AddVertW(C4dVector pInVertex1);
 		// momo gdi to og
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode, double sw, double ew);
-		virtual void Draw(int iDrawmode, double sw, double ew);
+		// momo gdi to og2
+		// momo// virtual void Draw(int iDrawmode, double sw, double ew);
+		virtual void Draw(double sw, double ew);
+		// momo gdi to og2
 		// momo gdi to og
 		virtual void OglDraw(double sw, double ew);
 		virtual void OglDrawW(double sw, double ew);
@@ -2115,7 +2137,10 @@ class ContrPolyW: public G_Object {
 class Curve: public ContrPolyW {
 		DECLARE_DYNAMIC(Curve)
 	public:
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		// momo gdi to og
@@ -2457,7 +2482,10 @@ class Symbol: public G_Object {
 		virtual C3dVector MinPt(C3dVector inPt);
 		virtual void Info();
 		virtual G_Object* Copy(G_Object* Parrent);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		void CalculateMetrics();
@@ -2801,7 +2829,10 @@ class Surf_Ex1: public G_Object {
 		C3dMatrix* pScrZ;
 		C3dMatrix* pModZ;
 		virtual void Create(ContrPolyW* pWCurveIn, C3dVector vTranVecIn, int iLab, G_Object* Parrent);
-		virtual void Draw(CClientDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CClientDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CClientDC* pDC);
@@ -2820,7 +2851,10 @@ class Surf_R: public G_Object {
 		C3dMatrix* pModZ;
 		C3dMatrix* pScrZ;
 		virtual void Create(ContrPolyW* pWCurveIn, C3dVector vRotVecIn, int iLab, G_Object* Parrent);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -2847,7 +2881,10 @@ class Circ1: public G_Object {
 		virtual void Info();
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual G_Object* Copy(G_Object* Parrent);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs);
 		virtual void OglDrawW(int iDspFlgs);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
@@ -3249,7 +3286,10 @@ class E_Object38: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
@@ -3289,7 +3329,10 @@ class E_Object36: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
@@ -3335,7 +3378,10 @@ class E_Object2: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
@@ -3397,7 +3443,10 @@ class E_Object2R: public E_Object2 {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void Info();
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
@@ -3474,7 +3523,10 @@ class E_Object1: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
@@ -3511,7 +3563,10 @@ class E_Object3: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual int GetfaceList(eFace* Faces[6]);
@@ -3585,7 +3640,10 @@ class E_CellS: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
@@ -3609,7 +3667,10 @@ class E_Object4: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		// virtual void SetToScr(C3dMatrix* pModMat,C3dMatrix* pScrTran);
@@ -3688,7 +3749,10 @@ class E_Object34: public E_Object {
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
 		virtual void Info();
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		// virtual void SetToScr(C3dMatrix* pModMat,C3dMatrix* pScrTran);
@@ -3740,7 +3804,10 @@ class E_Object310: public E_Object {
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
 		virtual void Info();
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		// virtual void SetToScr(C3dMatrix* pModMat,C3dMatrix* pScrTran);
@@ -3796,7 +3863,10 @@ class E_ObjectR: public E_Object {
 		virtual G_Object* Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int inPID, int inMID, int inPIDunv);
 		virtual G_Object* CopyAppend(int iSInd, ME_Object* Target, ME_Object* Source);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
@@ -3851,7 +3921,10 @@ class E_ObjectR2: public E_ObjectR {
 		                      double dAlp);
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual C3dVector Get_Centroid();
 		virtual BOOL NodeInEl(Node* pN);
 		virtual void RepNodeInEl(Node* pThis, Node* pWith);
@@ -4316,7 +4389,10 @@ class PartsCat: public G_Object {
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		// virtual G_Object* Copy();
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw(int iDrawmode);
+		// momo gdi to og2
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -4350,7 +4426,10 @@ class Section: public G_Object {
 		virtual void Serialize(CArchive& ar, int iV);
 		// momo gdi to og
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
-		virtual void Draw(int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		// momo gdi to og
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
@@ -4399,7 +4478,10 @@ class Sweep: public G_Object {
 		virtual void Create(int iLab, G_Object* inPath,
 		                    Section* inSec, G_Object* Parrent);
 		virtual void Serialize(CArchive& ar, int iV);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw(int iDrawmode);
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
@@ -4448,7 +4530,10 @@ class SweepB: public Sweep {
 		                    Section* inSec, G_Object* Parrent);
 
 		virtual void Serialize(CArchive& ar, int iV);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw(int iDrawmode);
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void Transform(C3dMatrix TMat);
@@ -4545,7 +4630,10 @@ class Force: public BCLD {
 		                    C3dVector inF,
 		                    int inSetID);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
@@ -4750,7 +4838,10 @@ class Restraint: public BCLD {
 		                    int inSetID);
 
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void Draw(CDC* pDC, int iDrawmode);
+		// momo gdi to og2
+		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
+		virtual void Draw();
+		// momo gdi to og2
 		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
 		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);

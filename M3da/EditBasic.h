@@ -15,7 +15,7 @@ class CEditBasic: public CEdit {
 	protected:
 		DECLARE_MESSAGE_MAP()
 		// momo change command box color
-		afx_msg HBRUSH CtlColor(CDC* pDC, UINT nCtlColor);
+		afx_msg HBRUSH CtlColor(CDC* cDC, UINT nCtlColor);
 
 	private:
 		COLORREF m_bgColor;

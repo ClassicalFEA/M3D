@@ -346,23 +346,28 @@ void CM3daView::OnLButtonUp(UINT nFlags, CPoint point) {
 			// momo// ReleaseDC(pDC);
 			// momo gdi to og
 		} else {
-			CDC* pDC = this->GetDC();
-			// if (GetDocument()->isBlackDisp())
-			//   GetDocument()->SetPen(pDC,255,255,255);
-			// else
-			//   GetDocument()->SetPen(pDC,0,0,0);
-			// Draw tick marker
-			CPen* Pen = new CPen(PS_SOLID, 1, RGB(255, 0, 0));
-			CPen* OldPen = pDC->SelectObject(Pen);
-
-			pDC->MoveTo(point.x - 5, point.y);
-			pDC->LineTo(point.x + 5, point.y);
-			pDC->MoveTo(point.x, point.y - 5);
-			pDC->LineTo(point.x, point.y + 5);
-			// GetDocument()->RestorePen(pDC);
-			pDC->SelectObject(OldPen);
-			delete (Pen);
-			ReleaseDC(pDC);
+			// momo gdi to og2
+			// CDC* pDC = this->GetDC();
+			//// if (GetDocument()->isBlackDisp())
+			////   GetDocument()->SetPen(pDC,255,255,255);
+			//// else
+			////   GetDocument()->SetPen(pDC,0,0,0);
+			//// Draw tick marker
+			// CPen* Pen = new CPen(PS_SOLID, 1, RGB(255, 0, 0));
+			// CPen* OldPen = pDC->SelectObject(Pen);
+			// pDC->MoveTo(point.x - 5, point.y);
+			// pDC->LineTo(point.x + 5, point.y);
+			// pDC->MoveTo(point.x, point.y - 5);
+			// pDC->LineTo(point.x, point.y + 5);
+			//// GetDocument()->RestorePen(pDC);
+			// pDC->SelectObject(OldPen);
+			// delete (Pen);
+			// ReleaseDC(pDC);
+			mClickPoint.IsClicked = true;
+			mClickPoint.x = point.x;
+			mClickPoint.y = point.y;
+			GetDocument()->Draw(tOrient.RetrieveMat(), 5);
+			//  momo gdi to og2
 			GetDocument()->DoMsg(1, point, point, _T("MouseInp"));
 		}
 	}

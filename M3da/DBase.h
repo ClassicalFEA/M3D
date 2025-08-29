@@ -37,8 +37,8 @@ class DBase: public CCmdTarget {
 		void DrawSelectionRectangle();
 		double GetZoomScale(C3dMatrix* pScrTran);
 		void DrawSelectCircles();
-		void StartpDCToOpenGL();
-		void EndpDCToOpenGL();
+		void StartGDIToOpenGL();
+		void EndGDIToOpenGL();
 		// momo gdi to og
 		// momo axis
 		void MakeAxisCorner(float dx, float dy);
@@ -51,6 +51,10 @@ class DBase: public CCmdTarget {
 		void MakeAxis_InitializeFont(int fontSize, float fontScale, GLuint baseList, bool& fontsInitializedFlag, float& fontWidthOut, float& fontHeightOut);
 		void MakeAxis_ShowLetters(float cylinderHeight, float labelOffset, float labelSize, float rasterScale, float colorAxis[3][2][3], float fontWidth, float fontHeight, GLuint baseList, float zoomScale);
 		void MakeAxis_DrawAxisLabel(char axis, C3dVector start, C3dVector end, float offsetAlongAxis, C3dVector shift, float rasterScale, float* color, float fontWidth, float fontHeight, GLuint baseList);
+		// momo axis
+		// momo gdi to og2
+		void DrawCrossMarker2D(int size, float r, float g, float b);
+		// momo gdi to og2
 
 		void LabGaps(int iGap);
 		HGLRC hrc;

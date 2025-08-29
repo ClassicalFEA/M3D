@@ -78,8 +78,8 @@ void CEditBasic::SetBgColor(COLORREF clr) {
 	Invalidate();
 }
 
-HBRUSH CEditBasic::CtlColor(CDC* pDC, UINT /*nCtlColor*/) {
-	pDC->SetBkColor(m_bgColor);
+HBRUSH CEditBasic::CtlColor(CDC* cDC, UINT /*nCtlColor*/) {
+	cDC->SetBkColor(m_bgColor);
 	return (HBRUSH) m_brush.GetSafeHandle();
 }
 // momo change command box color

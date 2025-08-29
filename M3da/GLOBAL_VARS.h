@@ -104,6 +104,14 @@ struct ButtonPushed {
 extern ButtonPushed ButtonPush;
 extern bool ShadedEdges;
 // momo on off button and menu
+// momo gdi to og2
+struct ClickPoint {
+		bool IsClicked;
+		int x;
+		int y;
+};
+extern ClickPoint mClickPoint;
+// momo gdi to og2
 extern BOOL gDSP_BACK;
 extern BOOL gORTHO;
 extern DSP_Triad tOrient;

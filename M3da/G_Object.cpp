@@ -676,14 +676,20 @@ void cLinkedList::GenIDS(int& iS) {
 
 // momo gdi to og
 // momo// void cLinkedList::Draw(CDC* pDC, int iDrawmode) {
-void cLinkedList::Draw(int iDrawmode) {
+// momo gdi to og2
+// momo// void cLinkedList::Draw(int iDrawmode) {
+void cLinkedList::Draw() {
+	// momo gdi to og2
 	// momo gdi to og
 	G_Object* pNext;
 	pNext = Head;
 	while (pNext != NULL) {
 		// momo gdi to og
 		// momo// pNext->Draw(pDC, iDrawmode);
-		pNext->Draw(iDrawmode);
+		// momo gdi to og2
+		// momo// pNext->Draw(iDrawmode);
+		pNext->Draw();
+		// momo gdi to og2
 		// momo gdi to og
 		pNext = (G_Object*) pNext->next;
 	}
@@ -1909,7 +1915,10 @@ C3dVector G_Object::Get_Normal() {
 
 // momo gdi to og
 // momo// void G_Object::Draw(CDC* pDC, int iDrawmode) {
-void G_Object::Draw(int iDrawmode) {
+// momo gdi to og2
+// momo// void G_Object::Draw(int iDrawmode) {
+void G_Object::Draw() {
+	// momo gdi to og2
 	// momo gdi to og
 }
 
@@ -2111,7 +2120,10 @@ void Planet::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	OglDrawW(iDspFlgs, dS1, dS2);
 }
 
-void Planet::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void Planet::Draw(CDC* pDC, int iDrawmode) {
+void Planet::Draw() {
+	// momo gdi to og2
 }
 
 void Planet::AttachTexture(BMP* pT) {
@@ -2191,7 +2203,10 @@ void BackGround::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	OglDrawW(iDspFlgs, dS1, dS2);
 }
 
-void BackGround::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void BackGround::Draw(CDC* pDC, int iDrawmode) {
+void BackGround::Draw() {
+	// momo gdi to og2
 }
 
 void BackGround::AttachTexture(BMP* pT) {
@@ -2418,7 +2433,10 @@ C3dVector Node::Get_Centroid() {
 //	pDC->LineTo((int) DSP_Point->x - 5, (int) DSP_Point->y);
 //	pDC->MoveTo((int) DSP_Point->x, (int) DSP_Point->y - 4);
 //	pDC->LineTo((int) DSP_Point->x, (int) DSP_Point->y + 4);
-void Node::Draw(int iDrawmode) {
+// momo gdi to og2
+// momo// void Node::Draw(int iDrawmode) {
+void Node::Draw() {
+	// momo gdi to og2
 	glLineWidth(1.5);
 	glBegin(GL_LINES);
 	glVertex2f(DSP_Point->x - 4, DSP_Point->y + 4);
@@ -3578,10 +3596,10 @@ CvPt_Object* Line_Object::GetTEnd() {
 }
 
 // momo gdi to og2
-//void Line_Object::Draw(CDC* pDC, int iDrawmode) {
+// void Line_Object::Draw(CDC* pDC, int iDrawmode) {
 //	pDC->MoveTo((int) pVertex1->DSP_Point->x, (int) pVertex1->DSP_Point->y);
 //	pDC->LineTo((int) pVertex2->DSP_Point->x, (int) pVertex2->DSP_Point->y);
-	void Line_Object::Draw() {
+void Line_Object::Draw() {
 	glBegin(GL_LINES);
 	glVertex2f(pVertex1->DSP_Point->x, pVertex1->DSP_Point->y);
 	glVertex2f(pVertex2->DSP_Point->x, pVertex2->DSP_Point->y);
@@ -3722,10 +3740,16 @@ double Line_Object::getLen() {
 
 IMPLEMENT_DYNAMIC(Curve, CObject)
 
-void Curve::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void Curve::Draw(CDC* pDC, int iDrawmode) {
+void Curve::Draw() {
+	// momo gdi to og2
 	// momo gdi to og
 	// momo// ContrPolyW::Draw(pDC, iDrawmode, 0, 1);
-	ContrPolyW::Draw(iDrawmode, 0, 1);
+	// momo gdi to og2
+	// momo// ContrPolyW::Draw(iDrawmode, 0, 1);
+	ContrPolyW::Draw(0, 1);
+	// momo gdi to og2
 	// momo gdi to og
 }
 
@@ -3741,7 +3765,10 @@ void Curve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 // void Curve::HighLight(CDC* pDC) {
 //	ContrPolyW::Draw(pDC, 4, 0, 1);
 void Curve::HighLight() {
-	ContrPolyW::Draw(4, 0, 1);
+	// momo gdi to og2
+	// momo// ContrPolyW::Draw(4, 0, 1);
+	ContrPolyW::Draw(0, 1);
+	// momo gdi to og2
 	// momo gdi to og
 }
 
@@ -3958,7 +3985,10 @@ C4dVector ContrPolyW::deCastelJau1(double u) {
 // momo gdi to og
 // momo// void ContrPolyW::Draw(CDC* pDC, int iDrawmode,
 // momo//                       double sw, double ew) {
-void ContrPolyW::Draw(int iDrawmode, double sw, double ew) {
+// momo gdi to og2
+// momo// void ContrPolyW::Draw(int iDrawmode, double sw, double ew) {
+void ContrPolyW::Draw(double sw, double ew) {
+	// momo gdi to og2
 	glLineWidth(1.5);
 	glBegin(GL_LINE_STRIP);
 	// momo gdi to og
@@ -4050,7 +4080,10 @@ void ContrPolyW::Transform(C3dMatrix TMat) {
 // momo// void ContrPolyW::HighLight(CDC* pDC, double sw, double ew) {
 // momo//	Draw(pDC, 4, sw, ew);
 void ContrPolyW::HighLight(double sw, double ew) {
-	Draw(4, sw, ew);
+	// momo gdi to og2
+	// momo// Draw(4, sw, ew);
+	Draw(sw, ew);
+	// momo gdi to og2
 	// momo gdi to og
 }
 
@@ -4351,7 +4384,10 @@ C3dVector Circ1::Get_Centroid() {
 	return (vT);
 }
 
-void Circ1::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void Circ1::Draw(CDC* pDC, int iDrawmode) {
+void Circ1::Draw() {
+	// momo gdi to og2
 	double dLS;
 	double dLE;
 
@@ -4366,7 +4402,10 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		}
 		// momo gdi to og
 		// momo// pSegs[0]->Draw(pDC, iDrawmode, dLS, dLE);
-		pSegs[0]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og2
+		// momo// pSegs[0]->Draw(iDrawmode, dLS, dLE);
+		pSegs[0]->Draw(dLS, dLE);
+		// momo gdi to og2
 		// momo gdi to og
 	}
 	if ((dS <= 0.5) && (dE > 0.25)) {
@@ -4380,7 +4419,9 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		}
 		// momo gdi to og
 		// momo// pSegs[1]->Draw(pDC, iDrawmode, dLS, dLE);
-		pSegs[1]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og2
+		pSegs[1]->Draw(dLS, dLE);
+		// momo gdi to og2
 		// momo gdi to og
 	}
 	if ((dS <= 0.75) && (dE > 0.5)) {
@@ -4394,7 +4435,10 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		}
 		// momo gdi to og
 		// momo// pSegs[2]->Draw(pDC, iDrawmode, dLS, dLE);
-		pSegs[2]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og2
+		// momo// pSegs[2]->Draw(iDrawmode, dLS, dLE);
+		pSegs[2]->Draw(dLS, dLE);
+		// momo gdi to og2
 		// momo gdi to og
 	}
 	if ((dS <= 1) && (dE > 0.75)) {
@@ -4408,7 +4452,10 @@ void Circ1::Draw(CDC* pDC, int iDrawmode) {
 		}
 		// momo gdi to og
 		// momo// pSegs[3]->Draw(pDC, iDrawmode, dLS, dLE);
-		pSegs[3]->Draw(iDrawmode, dLS, dLE);
+		// momo gdi to og2
+		// momo// pSegs[3]->Draw(iDrawmode, dLS, dLE);
+		pSegs[3]->Draw(dLS, dLE);
+		// momo gdi to og2
 		// momo gdi to og
 	}
 }
@@ -4692,7 +4739,10 @@ void Surf_Ex1::Create(ContrPolyW* pWCurveIn, C3dVector vTranVecIn, int iLab, G_O
 	pWCurve[3]->AddVert(&pWCurve[1]->pCVertex[pWCurve[0]->iNoVerts - 1]->GetPoint(), 1);
 }
 
-void Surf_Ex1::Draw(CClientDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void Surf_Ex1::Draw(CClientDC* pDC, int iDrawmode) {
+void Surf_Ex1::Draw() {
+	// momo gdi to og2
 	pWCurve[0]->SetToScr(pModZ, pScrZ);
 	pWCurve[1]->SetToScr(pModZ, pScrZ);
 	pWCurve[2]->SetToScr(pModZ, pScrZ);
@@ -4702,10 +4752,16 @@ void Surf_Ex1::Draw(CClientDC* pDC, int iDrawmode) {
 	// pWCurve[1]->Draw(pDC, 4, 0, 1);
 	// pWCurve[2]->Draw(pDC, 4, 0, 1);
 	// pWCurve[3]->Draw(pDC, 4, 0, 1);
-	pWCurve[0]->Draw(4, 0, 1);
-	pWCurve[1]->Draw(4, 0, 1);
-	pWCurve[2]->Draw(4, 0, 1);
-	pWCurve[3]->Draw(4, 0, 1);
+	// momo gdi to og2
+	// pWCurve[0]->Draw(4, 0, 1);
+	// pWCurve[1]->Draw(4, 0, 1);
+	// pWCurve[2]->Draw(4, 0, 1);
+	// pWCurve[3]->Draw(4, 0, 1);
+	pWCurve[0]->Draw(0, 1);
+	pWCurve[1]->Draw(0, 1);
+	pWCurve[2]->Draw(0, 1);
+	pWCurve[3]->Draw(0, 1);
+	// momo gdi to og2
 	// momo gdi to og
 
 	int iCnt1;
@@ -4719,7 +4775,11 @@ void Surf_Ex1::Draw(CClientDC* pDC, int iDrawmode) {
 	ThePoint.Pt_Point->y = vDrawPt.y;
 	ThePoint.Pt_Point->z = vDrawPt.z;
 	ThePoint.SetToScr(pModZ, pScrZ);
-	pDC->MoveTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+	// momo gdi to og2
+	// momo// pDC->MoveTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+	glBegin(GL_LINES);
+	glVertex2d(ThePoint.DSP_Point->x, ThePoint.DSP_Point->y);
+	// momo gdi to og2
 	for (iCnt1 = 1; iCnt1 < 21; iCnt1++) {
 		fred = iCnt1 * 0.05;
 		vDrawPt = deCastelJau2(fred, 0.5).GetPoint();
@@ -4727,20 +4787,29 @@ void Surf_Ex1::Draw(CClientDC* pDC, int iDrawmode) {
 		ThePoint.Pt_Point->y = vDrawPt.y;
 		ThePoint.Pt_Point->z = vDrawPt.z;
 		ThePoint.SetToScr(pModZ, pScrZ);
-		pDC->LineTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+		// momo gdi to og2
+		// momo// pDC->LineTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+		glVertex2d(ThePoint.DSP_Point->x, ThePoint.DSP_Point->y);
+		// momo gdi to og2
 	}
 	vDrawPt = deCastelJau2(0.5, 0).GetPoint();
 	ThePoint.Pt_Point->x = vDrawPt.x;
 	ThePoint.Pt_Point->y = vDrawPt.y;
 	ThePoint.Pt_Point->z = vDrawPt.z;
 	ThePoint.SetToScr(pModZ, pScrZ);
-	pDC->MoveTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+	// momo gdi to og2
+	// momo// pDC->MoveTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+	glVertex2d(ThePoint.DSP_Point->x, ThePoint.DSP_Point->y);
+	// momo gdi to og2
 	vDrawPt = deCastelJau2(0.5, 1).GetPoint();
 	ThePoint.Pt_Point->x = vDrawPt.x;
 	ThePoint.Pt_Point->y = vDrawPt.y;
 	ThePoint.Pt_Point->z = vDrawPt.z;
 	ThePoint.SetToScr(pModZ, pScrZ);
-	pDC->LineTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+	// momo gdi to og2
+	// momo// pDC->LineTo((int) ThePoint.DSP_Point->x, (int) ThePoint.DSP_Point->y);
+	glVertex2d(ThePoint.DSP_Point->x, ThePoint.DSP_Point->y);
+	// momo gdi to og2
 }
 
 void Surf_Ex1::OglDraw(int iDspFlgs) {
@@ -4911,7 +4980,10 @@ void Surf_R::Create(ContrPolyW* pWCurveIn, C3dVector vRotVecIn, int iLab, G_Obje
 	pWCurve[4]->AddVertW(*pWCurve[2]->pCVertex[pWCurve[0]->iNoVerts - 1]);
 }
 
-void Surf_R::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void Surf_R::Draw(CDC* pDC, int iDrawmode) {
+void Surf_R::Draw() {
+	// momo gdi to og2
 	pWCurve[0]->SetToScr(pModZ, pScrZ);
 	pWCurve[1]->SetToScr(pModZ, pScrZ);
 	pWCurve[2]->SetToScr(pModZ, pScrZ);
@@ -4923,10 +4995,16 @@ void Surf_R::Draw(CDC* pDC, int iDrawmode) {
 	// pWCurve[2]->Draw(pDC, 4, 0, 1);
 	// pWCurve[3]->Draw(pDC, 4, 0, 1);
 	// pWCurve[4]->Draw(pDC, 4, 0, 1);
-	pWCurve[0]->Draw(4, 0, 1);
-	pWCurve[2]->Draw(4, 0, 1);
-	pWCurve[3]->Draw(4, 0, 1);
-	pWCurve[4]->Draw(4, 0, 1);
+	// momo gdi to og2
+	// pWCurve[0]->Draw(4, 0, 1);
+	// pWCurve[2]->Draw(4, 0, 1);
+	// pWCurve[3]->Draw(4, 0, 1);
+	// pWCurve[4]->Draw(4, 0, 1);
+	pWCurve[0]->Draw(0, 1);
+	pWCurve[2]->Draw(0, 1);
+	pWCurve[3]->Draw(0, 1);
+	pWCurve[4]->Draw(0, 1);
+	// momo gdi to og2
 	// momo gdi to og
 
 	C3dVector vDrawPt;
@@ -5420,27 +5498,51 @@ G_Object* E_Object38::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int
 }
 
 // Draw Object line
-void E_Object38::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object38::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//
+//	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[6]->DSP_Point->x, (int) pVertex[6]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[7]->DSP_Point->x, (int) pVertex[7]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[6]->DSP_Point->x, (int) pVertex[6]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[7]->DSP_Point->x, (int) pVertex[7]->DSP_Point->y);
+void E_Object38::Draw() {
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(pVertex[0]->DSP_Point->x, pVertex[0]->DSP_Point->y);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glVertex2f(pVertex[2]->DSP_Point->x, pVertex[2]->DSP_Point->y);
+	glVertex2f(pVertex[3]->DSP_Point->x, pVertex[3]->DSP_Point->y);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(pVertex[4]->DSP_Point->x, pVertex[4]->DSP_Point->y);
+	glVertex2f(pVertex[5]->DSP_Point->x, pVertex[5]->DSP_Point->y);
+	glVertex2f(pVertex[6]->DSP_Point->x, pVertex[6]->DSP_Point->y);
+	glVertex2f(pVertex[7]->DSP_Point->x, pVertex[7]->DSP_Point->y);
+	glEnd();
+	glBegin(GL_LINES);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glVertex2f(pVertex[5]->DSP_Point->x, pVertex[5]->DSP_Point->y);
+	glVertex2f(pVertex[2]->DSP_Point->x, pVertex[2]->DSP_Point->y);
+	glVertex2f(pVertex[6]->DSP_Point->x, pVertex[6]->DSP_Point->y);
+	glVertex2f(pVertex[3]->DSP_Point->x, pVertex[3]->DSP_Point->y);
+	glVertex2f(pVertex[7]->DSP_Point->x, pVertex[7]->DSP_Point->y);
+	glEnd();
 
-	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[6]->DSP_Point->x, (int) pVertex[6]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[7]->DSP_Point->x, (int) pVertex[7]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[6]->DSP_Point->x, (int) pVertex[6]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[7]->DSP_Point->x, (int) pVertex[7]->DSP_Point->y);
+	// momo gdi to og2
 }
 
 void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
@@ -6514,25 +6616,50 @@ G_Object* E_Object36::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int
 	return (gret);
 }
 // Draw Object line
-void E_Object36::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object36::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[5]->DSP_Point->x, (int) pVertex[5]->DSP_Point->y);
+void E_Object36::Draw() {
+	// draw edges
+	// Draw first triangle (vertices 0-1-2)
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(pVertex[0]->DSP_Point->x, pVertex[0]->DSP_Point->y);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glVertex2f(pVertex[2]->DSP_Point->x, pVertex[2]->DSP_Point->y);
+	glEnd();
+	// Draw second triangle (vertices 3-4-5)
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(pVertex[3]->DSP_Point->x, pVertex[3]->DSP_Point->y);
+	glVertex2f(pVertex[4]->DSP_Point->x, pVertex[4]->DSP_Point->y);
+	glVertex2f(pVertex[5]->DSP_Point->x, pVertex[5]->DSP_Point->y);
+	glEnd();
+	// Draw connecting lines between triangles
+	glBegin(GL_LINES);
+	glVertex2f(pVertex[0]->DSP_Point->x, pVertex[0]->DSP_Point->y);
+	glVertex2f(pVertex[3]->DSP_Point->x, pVertex[3]->DSP_Point->y);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glVertex2f(pVertex[4]->DSP_Point->x, pVertex[4]->DSP_Point->y);
+	glVertex2f(pVertex[2]->DSP_Point->x, pVertex[2]->DSP_Point->y);
+	glVertex2f(pVertex[5]->DSP_Point->x, pVertex[5]->DSP_Point->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
@@ -7837,20 +7964,44 @@ int E_Object34::GetLinkList(eEdge* Links[200]) {
 }
 
 // Draw Object line
-void E_Object34::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object34::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+void E_Object34::Draw() {
+	glBegin(GL_LINES);
+	// First triangle (0 → 1 → 2 → 0)
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+	// Second connections (0 → 3 → 2 → 0)
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+	glVertex2i((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+	glVertex2i((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+	// Extra lines (1 → 3 and 2 → 1)
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+	glVertex2i((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
@@ -9015,20 +9166,44 @@ int E_Object310::GetLinkList(eEdge* Links[200]) {
 }
 
 // Draw Object line
-void E_Object310::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-
-	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object310::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//
+//	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+void E_Object310::Draw() {
+	// Draw polygon edges
+	glBegin(GL_LINE_STRIP);
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y); // start at v0
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y); // v1
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y); // v2
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y); // back to v0
+	glEnd();
+	// Draw extra connections
+	glBegin(GL_LINE_STRIP);
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y); // v0
+	glVertex2i((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y); // v3
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y); // v2
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y); // back to v0
+	glEnd();
+	// Separate lines
+	glBegin(GL_LINES);
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y); // v1
+	glVertex2i((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y); // v3
+	glVertex2i((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y); // v2
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y); // v1
+	glEnd();
+	// momo gdi to og2
 }
 
 void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
@@ -11652,9 +11827,16 @@ G_Object* E_Object2::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int 
 }
 
 // Draw Object line
-void E_Object2::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object2::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+void E_Object2::Draw() {
+	glBegin(GL_LINES);
+	glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y); // start point
+	glVertex2i((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y); // end point
+	glEnd();
+	// momo gdi to og2
 }
 
 int E_Object2::GetLinkList(eEdge* Links[200]) {
@@ -12422,9 +12604,16 @@ G_Object* E_Object2R::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int
 }
 
 // Draw Object line
-void E_Object2R::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object2R::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+void E_Object2R::Draw() {
+	glBegin(GL_LINES);
+	glVertex2f(pVertex[0]->DSP_Point->x, pVertex[0]->DSP_Point->y);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 void E_Object2R::Info() {
@@ -13960,11 +14149,19 @@ G_Object* E_Object3::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int 
 }
 
 // Draw Object line
-void E_Object3::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object3::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+void E_Object3::Draw() {
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(pVertex[0]->DSP_Point->x, pVertex[0]->DSP_Point->y);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glVertex2f(pVertex[2]->DSP_Point->x, pVertex[2]->DSP_Point->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 int E_Object3::GetLinkList(eEdge* Links[200]) {
@@ -16358,12 +16555,21 @@ G_Object* E_Object1::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int 
 }
 
 // Draw Object line
-void E_Object1::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y - 5);
-	pDC->LineTo((int) pVertex->DSP_Point->x + 5, (int) pVertex->DSP_Point->y - 5);
-	pDC->LineTo((int) pVertex->DSP_Point->x + 5, (int) pVertex->DSP_Point->y + 5);
-	pDC->LineTo((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y + 5);
-	pDC->LineTo((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y - 5);
+// momo gdi to og2
+// void E_Object1::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y - 5);
+//	pDC->LineTo((int) pVertex->DSP_Point->x + 5, (int) pVertex->DSP_Point->y - 5);
+//	pDC->LineTo((int) pVertex->DSP_Point->x + 5, (int) pVertex->DSP_Point->y + 5);
+//	pDC->LineTo((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y + 5);
+//	pDC->LineTo((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y - 5);
+void E_Object1::Draw() {
+	glBegin(GL_LINE_LOOP);
+	glVertex2i((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y - 5);
+	glVertex2i((int) pVertex->DSP_Point->x + 5, (int) pVertex->DSP_Point->y - 5);
+	glVertex2i((int) pVertex->DSP_Point->x + 5, (int) pVertex->DSP_Point->y + 5);
+	glVertex2i((int) pVertex->DSP_Point->x - 5, (int) pVertex->DSP_Point->y + 5);
+	glEnd();
+	// momo gdi to og2
 }
 
 void E_Object1::OglDraw(int iDspFlgs, double dS1, double dS2) {
@@ -16682,11 +16888,20 @@ G_Object* E_CellS::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int in
 }
 
 // Draw Object line
-void E_CellS::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
+// momo gdi to og2
+// void E_CellS::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->MoveTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[4]->DSP_Point->x, (int) pVertex[4]->DSP_Point->y);
+void E_CellS::Draw() {
+	glBegin(GL_LINES);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glVertex2f(pVertex[3]->DSP_Point->x, pVertex[3]->DSP_Point->y);
+	glVertex2f(pVertex[2]->DSP_Point->x, pVertex[2]->DSP_Point->y);
+	glVertex2f(pVertex[4]->DSP_Point->x, pVertex[4]->DSP_Point->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 BOOL E_CellS::NodeInEl(Node* pN) {
@@ -18540,12 +18755,22 @@ G_Object* E_Object4::Copy2(G_Object* Parrent, Node* pInVertex[MaxSelNodes], int 
 }
 
 // Draw Object line
-void E_Object4::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
-	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+// momo gdi to og2
+// void E_Object4::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[2]->DSP_Point->x, (int) pVertex[2]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[3]->DSP_Point->x, (int) pVertex[3]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+void E_Object4::Draw() {
+	// Draw polygon with 4 vertices
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(pVertex[0]->DSP_Point->x, pVertex[0]->DSP_Point->y);
+	glVertex2f(pVertex[1]->DSP_Point->x, pVertex[1]->DSP_Point->y);
+	glVertex2f(pVertex[2]->DSP_Point->x, pVertex[2]->DSP_Point->y);
+	glVertex2f(pVertex[3]->DSP_Point->x, pVertex[3]->DSP_Point->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 G_Object* E_Object4::GetNode(int i) {
@@ -19759,12 +19984,22 @@ void E_ObjectR::ExportNAS(FILE* pFile) {
 }
 
 // Draw Object line
-void E_ObjectR::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// void E_ObjectR::Draw(CDC* pDC, int iDrawmode) {
+//	int i;
+//	for (i = 0; i < iNoNodes; i++) {
+//		pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//		pDC->LineTo((int) pVertex[i]->DSP_Point->x, (int) pVertex[i]->DSP_Point->y);
+//	}
+void E_ObjectR::Draw() {
 	int i;
-	for (i = 0; i < iNoNodes; i++) {
-		pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-		pDC->LineTo((int) pVertex[i]->DSP_Point->x, (int) pVertex[i]->DSP_Point->y);
+	glBegin(GL_LINES);
+	for (i = 1; i < iNoNodes; i++) {
+		glVertex2i((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+		glVertex2i((int) pVertex[i]->DSP_Point->x, (int) pVertex[i]->DSP_Point->y);
 	}
+	glEnd();
+	// momo gdi to og2
 }
 
 void E_ObjectR::OglDrawW(int iDspFlgs, double dS1, double dS2) {
@@ -20350,12 +20585,21 @@ void E_ObjectR2::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_ObjectR2::Draw(CDC* pDC, int iDrawmode) {
-	int i;
-	for (i = 0; i < iNoNodes; i++) {
-		pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
-		pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+// momo gdi to og2
+// void E_ObjectR2::Draw(CDC* pDC, int iDrawmode) {
+// int i;
+// for (i = 0; i < iNoNodes; i++) {
+//	pDC->MoveTo((int) pVertex[0]->DSP_Point->x, (int) pVertex[0]->DSP_Point->y);
+//	pDC->LineTo((int) pVertex[1]->DSP_Point->x, (int) pVertex[1]->DSP_Point->y);
+//}
+void E_ObjectR2::Draw() {
+	glBegin(GL_LINES);
+	for (int i = 0; i < iNoNodes; i++) {
+		glVertex2f((GLfloat) pVertex[0]->DSP_Point->x, (GLfloat) pVertex[0]->DSP_Point->y);
+		glVertex2f((GLfloat) pVertex[1]->DSP_Point->x, (GLfloat) pVertex[1]->DSP_Point->y);
 	}
+	glEnd();
+	// momo gdi to og2
 }
 
 BOOL E_ObjectR2::NodeInEl(Node* pN) {
@@ -20599,37 +20843,80 @@ void WP_Object::ReSize(double dWPSize) {
 }
 
 // Draw Object line
-void WP_Object::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) DSP_Point[0]->x, (int) DSP_Point[0]->y);
-	pDC->LineTo((int) DSP_Point[1]->x, (int) DSP_Point[1]->y);
-	pDC->LineTo((int) DSP_Point[2]->x, (int) DSP_Point[2]->y);
-	pDC->LineTo((int) DSP_Point[3]->x, (int) DSP_Point[3]->y);
-	pDC->LineTo((int) DSP_Point[0]->x, (int) DSP_Point[0]->y);
-
-	pDC->MoveTo((int) DSP_Point[4]->x, (int) DSP_Point[4]->y);
-	pDC->LineTo((int) DSP_Point[5]->x, (int) DSP_Point[5]->y);
-	pDC->LineTo((int) DSP_Point[6]->x, (int) DSP_Point[6]->y);
-	pDC->LineTo((int) DSP_Point[7]->x, (int) DSP_Point[7]->y);
-	pDC->LineTo((int) DSP_Point[8]->x, (int) DSP_Point[8]->y);
-	pDC->LineTo((int) DSP_Point[9]->x, (int) DSP_Point[9]->y);
-	pDC->LineTo((int) DSP_Point[10]->x, (int) DSP_Point[10]->y);
-	pDC->LineTo((int) DSP_Point[11]->x, (int) DSP_Point[11]->y);
-	pDC->LineTo((int) DSP_Point[12]->x, (int) DSP_Point[12]->y);
-	pDC->LineTo((int) DSP_Point[13]->x, (int) DSP_Point[13]->y);
-	pDC->LineTo((int) DSP_Point[14]->x, (int) DSP_Point[14]->y);
-	pDC->LineTo((int) DSP_Point[15]->x, (int) DSP_Point[15]->y);
-	pDC->LineTo((int) DSP_Point[4]->x, (int) DSP_Point[4]->y);
-
-	pDC->MoveTo((int) DSP_Point[16]->x, (int) DSP_Point[16]->y);
-	pDC->LineTo((int) DSP_Point[17]->x, (int) DSP_Point[17]->y);
-	pDC->MoveTo((int) DSP_Point[18]->x, (int) DSP_Point[18]->y);
-	pDC->LineTo((int) DSP_Point[19]->x, (int) DSP_Point[19]->y);
-
-	pDC->MoveTo((int) DSP_Point[20]->x, (int) DSP_Point[20]->y);
-	pDC->LineTo((int) DSP_Point[21]->x, (int) DSP_Point[21]->y);
-	pDC->LineTo((int) DSP_Point[22]->x, (int) DSP_Point[22]->y);
-	pDC->MoveTo((int) DSP_Point[21]->x, (int) DSP_Point[21]->y);
-	pDC->LineTo((int) DSP_Point[23]->x, (int) DSP_Point[23]->y);
+// momo gdi to og2
+// void WP_Object::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) DSP_Point[0]->x, (int) DSP_Point[0]->y);
+//	pDC->LineTo((int) DSP_Point[1]->x, (int) DSP_Point[1]->y);
+//	pDC->LineTo((int) DSP_Point[2]->x, (int) DSP_Point[2]->y);
+//	pDC->LineTo((int) DSP_Point[3]->x, (int) DSP_Point[3]->y);
+//	pDC->LineTo((int) DSP_Point[0]->x, (int) DSP_Point[0]->y);
+//
+//	pDC->MoveTo((int) DSP_Point[4]->x, (int) DSP_Point[4]->y);
+//	pDC->LineTo((int) DSP_Point[5]->x, (int) DSP_Point[5]->y);
+//	pDC->LineTo((int) DSP_Point[6]->x, (int) DSP_Point[6]->y);
+//	pDC->LineTo((int) DSP_Point[7]->x, (int) DSP_Point[7]->y);
+//	pDC->LineTo((int) DSP_Point[8]->x, (int) DSP_Point[8]->y);
+//	pDC->LineTo((int) DSP_Point[9]->x, (int) DSP_Point[9]->y);
+//	pDC->LineTo((int) DSP_Point[10]->x, (int) DSP_Point[10]->y);
+//	pDC->LineTo((int) DSP_Point[11]->x, (int) DSP_Point[11]->y);
+//	pDC->LineTo((int) DSP_Point[12]->x, (int) DSP_Point[12]->y);
+//	pDC->LineTo((int) DSP_Point[13]->x, (int) DSP_Point[13]->y);
+//	pDC->LineTo((int) DSP_Point[14]->x, (int) DSP_Point[14]->y);
+//	pDC->LineTo((int) DSP_Point[15]->x, (int) DSP_Point[15]->y);
+//	pDC->LineTo((int) DSP_Point[4]->x, (int) DSP_Point[4]->y);
+//
+//	pDC->MoveTo((int) DSP_Point[16]->x, (int) DSP_Point[16]->y);
+//	pDC->LineTo((int) DSP_Point[17]->x, (int) DSP_Point[17]->y);
+//	pDC->MoveTo((int) DSP_Point[18]->x, (int) DSP_Point[18]->y);
+//	pDC->LineTo((int) DSP_Point[19]->x, (int) DSP_Point[19]->y);
+//
+//	pDC->MoveTo((int) DSP_Point[20]->x, (int) DSP_Point[20]->y);
+//	pDC->LineTo((int) DSP_Point[21]->x, (int) DSP_Point[21]->y);
+//	pDC->LineTo((int) DSP_Point[22]->x, (int) DSP_Point[22]->y);
+//	pDC->MoveTo((int) DSP_Point[21]->x, (int) DSP_Point[21]->y);
+//	pDC->LineTo((int) DSP_Point[23]->x, (int) DSP_Point[23]->y);
+void WP_Object::Draw() {
+	// --- First closed shape (points 0-3) ---
+	glBegin(GL_LINE_LOOP); // closed polygon
+	glVertex2f(DSP_Point[0]->x, DSP_Point[0]->y);
+	glVertex2f(DSP_Point[1]->x, DSP_Point[1]->y);
+	glVertex2f(DSP_Point[2]->x, DSP_Point[2]->y);
+	glVertex2f(DSP_Point[3]->x, DSP_Point[3]->y);
+	glEnd();
+	// --- Second closed shape (points 4-15) ---
+	glBegin(GL_LINE_LOOP); // closed polygon
+	glVertex2f(DSP_Point[4]->x, DSP_Point[4]->y);
+	glVertex2f(DSP_Point[5]->x, DSP_Point[5]->y);
+	glVertex2f(DSP_Point[6]->x, DSP_Point[6]->y);
+	glVertex2f(DSP_Point[7]->x, DSP_Point[7]->y);
+	glVertex2f(DSP_Point[8]->x, DSP_Point[8]->y);
+	glVertex2f(DSP_Point[9]->x, DSP_Point[9]->y);
+	glVertex2f(DSP_Point[10]->x, DSP_Point[10]->y);
+	glVertex2f(DSP_Point[11]->x, DSP_Point[11]->y);
+	glVertex2f(DSP_Point[12]->x, DSP_Point[12]->y);
+	glVertex2f(DSP_Point[13]->x, DSP_Point[13]->y);
+	glVertex2f(DSP_Point[14]->x, DSP_Point[14]->y);
+	glVertex2f(DSP_Point[15]->x, DSP_Point[15]->y);
+	glEnd();
+	// --- Two separate lines (16-17 and 18-19) ---
+	glBegin(GL_LINES);
+	glVertex2f(DSP_Point[16]->x, DSP_Point[16]->y);
+	glVertex2f(DSP_Point[17]->x, DSP_Point[17]->y);
+	glVertex2f(DSP_Point[18]->x, DSP_Point[18]->y);
+	glVertex2f(DSP_Point[19]->x, DSP_Point[19]->y);
+	glEnd();
+	// --- Small polyline (20-21-22) ---
+	glBegin(GL_LINE_STRIP); // open chain
+	glVertex2f(DSP_Point[20]->x, DSP_Point[20]->y);
+	glVertex2f(DSP_Point[21]->x, DSP_Point[21]->y);
+	glVertex2f(DSP_Point[22]->x, DSP_Point[22]->y);
+	glEnd();
+	// --- Extra connection (21-23) ---
+	glBegin(GL_LINES);
+	glVertex2f(DSP_Point[21]->x, DSP_Point[21]->y);
+	glVertex2f(DSP_Point[23]->x, DSP_Point[23]->y);
+	glEnd();
+	// momo gdi to og2
 }
 
 void WP_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
@@ -27068,7 +27355,10 @@ void ME_Object::Draw(int iDrawmode) {
 			for (i = 0; i < iNdNo; i++) {
 				// momo gdi to og
 				// momo// pNodes[i]->Draw(pDC, iDrawmode);
-				pNodes[i]->Draw(iDrawmode);
+				// momo gdi to og2
+				// momo// pNodes[i]->Draw(iDrawmode);
+				pNodes[i]->Draw();
+				// momo gdi to og2
 				// momo gdi to og
 			}
 		}
@@ -27076,26 +27366,38 @@ void ME_Object::Draw(int iDrawmode) {
 			for (i = 0; i < iElNo; i++) {
 				// momo gdi to og
 				// momo// pElems[i]->Draw(pDC, iDrawmode);
-				pElems[i]->Draw(iDrawmode);
+				// momo gdi to og2
+				// momo// pElems[i]->Draw(iDrawmode);
+				pElems[i]->Draw();
+				// momo gdi to og2
 				// momo gdi to og
 			}
 		}
 		if (iCurLC != -1) {
 			// momo gdi to og
 			// momo// LCS[iCurLC]->Draw(pDC, iDrawmode);
-			LCS[iCurLC]->Draw(iDrawmode);
+			// momo gdi to og2
+			// momo// LCS[iCurLC]->Draw(iDrawmode);
+			LCS[iCurLC]->Draw();
+			// momo gdi to og2
 			// momo gdi to og
 		}
 		if (iCurBC != -1) {
 			// momo gdi to og
 			// momo// BCS[iCurBC]->Draw(pDC, iDrawmode);
-			BCS[iCurBC]->Draw(iDrawmode);
+			// momo gdi to og2
+			// momo// BCS[iCurBC]->Draw(iDrawmode);
+			BCS[iCurBC]->Draw();
+			// momo gdi to og2
 			// momo gdi to og
 		}
 		if (iCurTSet != -1) {
 			// momo gdi to og
 			// momo// TSETS[iCurTSet]->Draw(pDC, iDrawmode);
-			TSETS[iCurTSet]->Draw(iDrawmode);
+			// momo gdi to og2
+			// momo// TSETS[iCurTSet]->Draw(iDrawmode);
+			TSETS[iCurTSet]->Draw();
+			// momo gdi to og2
 			// momo gdi to og
 		}
 
@@ -27103,7 +27405,10 @@ void ME_Object::Draw(int iDrawmode) {
 			for (i = 0; i < iBCLDs; i++) {
 				// momo gdi to og
 				// momo// pBCLDs[i]->Draw(pDC, iDrawmode);
-				pBCLDs[i]->Draw(iDrawmode);
+				// momo gdi to og2
+				// momo// pBCLDs[i]->Draw(iDrawmode);
+				pBCLDs[i]->Draw();
+				// momo gdi to og2
 				// momo gdi to og
 			}
 		}
@@ -27111,7 +27416,10 @@ void ME_Object::Draw(int iDrawmode) {
 			for (i = 0; i < iCYS; i++) {
 				// momo gdi to og
 				// momo// pSys[i]->Draw(pDC, iDrawmode);
-				pSys[i]->Draw(iDrawmode);
+				// momo gdi to og2
+				// momo// pSys[i]->Draw(iDrawmode);
+				pSys[i]->Draw();
+				// momo gdi to og2
 				// momo gdi to og
 			}
 		}
@@ -32067,7 +32375,10 @@ G_Object* Section::Copy(G_Object* Parrent) {
 // Draw Object line
 // momo gdi to og
 // void Section::Draw(CDC* pDC, int iDrawmode) {
-void Section::Draw(int iDrawmode) {
+// momo gdi to og2
+// momo// void Section::Draw(int iDrawmode) {
+void Section::Draw() {
+	// momo gdi to og2
 	// momo gdi to og
 	int j = 0;
 	if (iLnCnt != 0) {
@@ -32499,20 +32810,29 @@ C3dVector Sweep::MinPt(C3dVector inPt) {
 }
 
 // Draw Object line
-void Sweep::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void Sweep::Draw(CDC* pDC, int iDrawmode) {
+void Sweep::Draw(int iDrawmode) {
+	// momo gdi to og2
 	int j = 0;
 	if (iSecCnt != 0) {
 		for (j = 0; j < iSecCnt; j++) {
 			// momo gdi to og
 			// momo// pAllSecs[j]->Draw(pDC, iDrawmode);
-			pAllSecs[j]->Draw(iDrawmode);
+			// momo gdi to og2
+			// momo// pAllSecs[j]->Draw(iDrawmode);
+			pAllSecs[j]->Draw();
+			// momo gdi to og2
 			// momo gdi to og
 		}
 	}
 	if (pPath != NULL) {
 		// momo gdi to og
 		// momo// pPath->Draw(pDC, iDrawmode);
-		pPath->Draw(iDrawmode);
+		// momo gdi to og2
+		// momo// pPath->Draw(iDrawmode);
+		pPath->Draw();
+		// momo gdi to og2
 		// momo gdi to og
 	}
 	if (Mesh != NULL) {
@@ -32596,14 +32916,23 @@ void Sweep::HighLight() {
 		for (j = 0; j < iSecCnt; j++) {
 			// momo gdi to og
 			// momo// pAllSecs[j]->Draw(pDC, 4);
-			pAllSecs[j]->Draw(4);
+			// momo gdi to og2
+			// momo// pAllSecs[j]->Draw(4);
+			pAllSecs[j]->Draw();
+			// momo gdi to og2
 			// momo gdi to og
 		}
 	}
 	if (pPath != NULL) {
 		// momo gdi to og
 		// momo// pPath->Draw(pDC, 4);
-		pPath->Draw(4);
+		// momo gdi to og2
+		// momo// pPath->Draw(4);
+		// momo gdi to og2
+		// momo// pPath->Draw(4);
+		pPath->Draw();
+		// momo gdi to og2
+		// momo gdi to og2
 		// momo gdi to og
 	}
 	// momo gdi to og
@@ -33527,9 +33856,14 @@ void SweepB::Serialize(CArchive& ar, int iV) {
 	}
 }
 // Draw Object line
-void SweepB::Draw(CDC* pDC, int iDrawmode) {
-	Sweep::Draw(pDC, iDrawmode);
-	inPt->Draw(pDC, iDrawmode);
+// momo gdi to og2
+// void SweepB::Draw(CDC* pDC, int iDrawmode) {
+//	Sweep::Draw(pDC, iDrawmode);
+//	inPt->Draw(pDC, iDrawmode);
+void SweepB::Draw(int iDrawmode) {
+	Sweep::Draw(iDrawmode);
+	inPt->Draw();
+	// momo gdi to og2
 }
 
 void SweepB::OglDraw(int iDspFlgs, double dS1, double dS2) {
@@ -33674,14 +34008,22 @@ void PartsCat::Info() {
 	outtext1("    ****");
 }
 
-void PartsCat::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void PartsCat::Draw(CDC* pDC, int iDrawmode) {
+void PartsCat::Draw(int iDrawmode) {
+	// momo gdi to og2
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
 			// momo gdi to og
 			// momo// P_Obj[iCurDsp]->Draw(pDC, iDrawmode);
 			P_Obj[iCurDsp]->Draw(iDrawmode);
 			// momo gdi to og
-			pDC->TextOut(20, 20, P_Obj[iCurDsp]->sName);
+			// momo gdi to og2
+			// momo// pDC->TextOut(20, 20, P_Obj[iCurDsp]->sName);
+			CString sText;
+			sText.Format(_T("%s"), P_Obj[iCurDsp]->sName);
+			OglString(0, 20.0f, 20.0f, 0.0f, CT2A(sText));
+			// momo gdi to og2
 		}
 	}
 }
@@ -37961,9 +38303,16 @@ void Force::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	DSP_Point[1].z = 0;
 }
 
-void Force::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) DSP_Point[0].x, (int) DSP_Point[0].y);
-	pDC->LineTo((int) DSP_Point[1].x, (int) DSP_Point[1].y);
+// momo gdi to og2
+// void Force::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) DSP_Point[0].x, (int) DSP_Point[0].y);
+//	pDC->LineTo((int) DSP_Point[1].x, (int) DSP_Point[1].y);
+void Force::Draw() {
+	glBegin(GL_LINES);
+	glVertex2f(DSP_Point[0].x, DSP_Point[0].y);
+	glVertex2f(DSP_Point[1].x, DSP_Point[1].y);
+	glEnd();
+	// momo gdi to og2
 }
 
 // momo gdi to og
@@ -38441,11 +38790,20 @@ void Restraint::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	DSP_Point.z = 0;
 }
 
-void Restraint::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) DSP_Point.x, (int) DSP_Point.y);
-	pDC->LineTo((int) DSP_Point.x - 10, (int) DSP_Point.y - 10);
-	pDC->LineTo((int) DSP_Point.x - 10, (int) DSP_Point.y + 10);
-	pDC->LineTo((int) DSP_Point.x, (int) DSP_Point.y);
+// momo gdi to og2
+// void Restraint::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) DSP_Point.x, (int) DSP_Point.y);
+//	pDC->LineTo((int) DSP_Point.x - 10, (int) DSP_Point.y - 10);
+//	pDC->LineTo((int) DSP_Point.x - 10, (int) DSP_Point.y + 10);
+//	pDC->LineTo((int) DSP_Point.x, (int) DSP_Point.y);
+void Restraint::Draw() {
+	glBegin(GL_LINE_STRIP);
+	glVertex2f(DSP_Point.x, DSP_Point.y);
+	glVertex2f(DSP_Point.x - 10, DSP_Point.y - 10);
+	glVertex2f(DSP_Point.x - 10, DSP_Point.y + 10);
+	glVertex2f(DSP_Point.x, DSP_Point.y);
+	glEnd();
+	// momo gdi to og2
 }
 
 // momo gdi to og
@@ -42343,19 +42701,34 @@ void Symbol::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void Symbol::Draw(CDC* pDC, int iDrawmode) {
+// momo gdi to og2
+// momo// void Symbol::Draw(CDC* pDC, int iDrawmode) {
+void Symbol::Draw() {
+	// momo gdi to og2
 	Link* pCL;
 	pCL = pL;
 	C3dVector p1;
 	C3dVector p2;
 	if (inPt != NULL)
-		inPt->Draw(pDC, iDrawmode);
+		// momo gdi to og2
+		// momo// inPt->Draw(pDC, iDrawmode);
+		inPt->Draw();
+	// momo gdi to og2
 	if (vCent != NULL)
-		vCent->Draw(pDC, iDrawmode);
+		// momo gdi to og2
+		// momo// vCent->Draw(pDC, iDrawmode);
+		vCent->Draw();
+	// momo gdi to og2
 	while (pCL != NULL) {
 		// Points at end of segement
-		pDC->MoveTo((int) pCL->p1->DSP_Point->x, (int) pCL->p1->DSP_Point->y);
-		pDC->LineTo((int) pCL->p2->DSP_Point->x, (int) pCL->p2->DSP_Point->y);
+		// momo gdi to og2
+		// pDC->MoveTo((int) pCL->p1->DSP_Point->x, (int) pCL->p1->DSP_Point->y);
+		// pDC->LineTo((int) pCL->p2->DSP_Point->x, (int) pCL->p2->DSP_Point->y);
+		glBegin(GL_LINES);
+		glVertex2f(pCL->p1->DSP_Point->x, pCL->p1->DSP_Point->y);
+		glVertex2f(pCL->p2->DSP_Point->x, pCL->p2->DSP_Point->y);
+		glEnd();
+		// momo gdi to og2
 		pCL = pCL->pNext;
 	}
 }
@@ -44151,15 +44524,30 @@ C3dVector CvPt_Object::Get_Centroid() {
 }
 
 // Draw Object line
-void CvPt_Object::Draw(CDC* pDC, int iDrawmode) {
-	pDC->MoveTo((int) DSP_Point->x - 4, (int) DSP_Point->y + 4);
-	pDC->LineTo((int) DSP_Point->x + 4, (int) DSP_Point->y - 4);
-	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y + 4);
-	pDC->LineTo((int) DSP_Point->x - 4, (int) DSP_Point->y - 4);
-	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y);
-	pDC->LineTo((int) DSP_Point->x - 5, (int) DSP_Point->y);
-	pDC->MoveTo((int) DSP_Point->x, (int) DSP_Point->y - 4);
-	pDC->LineTo((int) DSP_Point->x, (int) DSP_Point->y + 4);
+// momo gdi to og2
+// void CvPt_Object::Draw(CDC* pDC, int iDrawmode) {
+//	pDC->MoveTo((int) DSP_Point->x - 4, (int) DSP_Point->y + 4);
+//	pDC->LineTo((int) DSP_Point->x + 4, (int) DSP_Point->y - 4);
+//	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y + 4);
+//	pDC->LineTo((int) DSP_Point->x - 4, (int) DSP_Point->y - 4);
+//	pDC->MoveTo((int) DSP_Point->x + 4, (int) DSP_Point->y);
+//	pDC->LineTo((int) DSP_Point->x - 5, (int) DSP_Point->y);
+//	pDC->MoveTo((int) DSP_Point->x, (int) DSP_Point->y - 4);
+//	pDC->LineTo((int) DSP_Point->x, (int) DSP_Point->y + 4);
+void CvPt_Object::Draw() {
+	float x = DSP_Point->x;
+	float y = DSP_Point->y;
+	glBegin(GL_LINES);
+	glVertex2f(x - 4, y + 4);
+	glVertex2f(x + 4, y - 4);
+	glVertex2f(x + 4, y + 4);
+	glVertex2f(x - 4, y - 4);
+	glVertex2f(x + 4, y);
+	glVertex2f(x - 5, y);
+	glVertex2f(x, y - 4);
+	glVertex2f(x, y + 4);
+	glEnd();
+	// momo gdi to og2
 	// pDC->SetPixel(DSP_Point->x, DSP_Point->y+4, 255 );
 
 	// pDC->Ellipse(DSP_Point->x+3,DSP_Point->y+3,DSP_Point->x-3,DSP_Point->y-3);
@@ -45868,13 +46256,14 @@ void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (DrawCPts || gDSP_CPTS) {
 			OglDrawCtrlPts();
 		}
-		if (gDSP_CIRS) // put a s at start of circle helps woth trimming
-		{
-			sLab = " S";
-			OglString(iDspFlgs, cPts[0]->Pt_Point->x, cPts[0]->Pt_Point->y, cPts[0]->Pt_Point->z, CT2A(sLab));
-		}
 		// momo
-		//  momo// glColor3fv(cols[iColour]);
+		// if (gDSP_CIRS) // put a s at start of circle helps woth trimming
+		//{
+		//	sLab = " S";
+		//	OglString(iDspFlgs, cPts[0]->Pt_Point->x, cPts[0]->Pt_Point->y, cPts[0]->Pt_Point->z, CT2A(sLab));
+		// }
+		//  momo
+		//   momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, 171));
 		// momo
 		C3dVector vPt;
@@ -45919,11 +46308,23 @@ void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		// Esp_Mod_Labels_4_27_2025_Start: Added global label variable for label display
 		if (gLBL_DSP_TRG)
 			bDrawLab = FALSE;
-		if (bDrawLab == TRUE) {
-			// Esp_Mod_Labels_4_27_2025_End
-			sLab.Format(_T("C%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+		// momo
+		// if (bDrawLab == TRUE) {
+		//	// Esp_Mod_Labels_4_27_2025_End
+		//	sLab.Format(_T("C%i"), iLabel);
+		//	OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+		// }
+		if (bDrawLab || gDSP_CIRS) {
+			if (bDrawLab && gDSP_CIRS) {
+				sLab.Format(_T("C%i S"), iLabel);
+			} else if (bDrawLab) {
+				sLab.Format(_T("C%i"), iLabel);
+			} else if (gDSP_CIRS) {
+				sLab.Format(_T("S"));
+			}
+			OglString(iDspFlgs, vCent.x, vCent.y - 0.5, vCent.z, CT2A(sLab));
 		}
+		// momo
 	} else {
 		Selectable = 0;
 	}
