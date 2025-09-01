@@ -2508,6 +2508,14 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 					pNext = new zEXP05_Mnu();
 					pNext->Init(cDBase, -1);
 					this->DoMenu(CInMsg, Pt);
+				} else if (CInMsg.CompareNoCase(_T("LABENTOFF")) == 0) {
+					iResumePos = 0;
+					iCancelPos = 100;
+					cDBase->DB_ActiveBuffSet(2);
+					cDBase->DB_ClearBuff();
+					pNext = new zLABENTOff_Mnu();
+					pNext->Init(cDBase, -1);
+					this->DoMenu(CInMsg, Pt);
 				}
 				// MoMo_End
 				// momo
@@ -9891,7 +9899,10 @@ int zLABENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			}
 		}
 		if (iStat == 2) {
-			cDBase->LabEnt();
+			// momo
+			// momo// cDBase->LabEnt();
+			cDBase->LabEnt(true);
+			// momo
 			RetVal = 1;
 		}
 		// Escape clause
@@ -9907,6 +9918,42 @@ int zLABENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 MenuEnd:
 	return RetVal;
 }
+
+// momo
+int zLABENTOff_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
+	DoNext(&CInMsg, Pt);
+	if (pNext == NULL) {
+		if (CInMsg.CompareNoCase(_T("C")) == 0) // Common Options
+		{
+			RetVal = 2;
+			goto MenuEnd;
+		}
+
+		if (iStat == 0) {
+			outtext2("// PICK ITEMS");
+			iStat = 1;
+		}
+		if (iStat == 1) {
+			if ((CInMsg.CompareNoCase(_T("D")) == 0) || (CInMsg == "")) {
+				iStat = 2;
+			}
+		}
+		if (iStat == 2) {
+			cDBase->LabEnt(false);
+			RetVal = 1;
+		}
+		// Escape clause
+		if (iStat == 100) {
+			cDBase->S_BuffChanged(S_initCnt, cDBase->S_Count - 1, false);
+			cDBase->DB_BuffCount = initCnt;
+			cDBase->S_Count = S_initCnt;
+			RetVal = 1;
+		}
+	}
+MenuEnd:
+	return RetVal;
+}
+// momo
 
 int zELMOPID_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	CString CInMsg2 = CInMsg;

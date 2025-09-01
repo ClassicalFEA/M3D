@@ -247,36 +247,38 @@ class SolSets;
 class CEntEditDialog;
 class Ndata;
 class Lamina;
-// DIPLAY FLAGS
-const int DSP_ALL = 0xFFFFFFF;
-const int DSP_LINE = 0x00000001;
-const int DSP_NODES = 0x00000002;
-const int DSP_NODES_ASK = 0x00000004;
-// momo
-// momo// const int DSP_SHADED_EDGES = 0x00000008;
-// momo
-const int DSP_ELEMENTS = 0x00000010;
-const int DSP_CURVES = 0x00000020;
-const int DSP_SURFACES = 0x00000040;
-const int DSP_THK = 0x00000080;
-const int DSP_OFF = 0x00000100;
-const int DSP_SURC = 0x00000200;
-const int DSP_POINTS = 0x00000400;
-const int DSP_BLACK = 0x00000800;
-const int DSP_ASSEM = 0x00001000;
-const int DSP_CONT = 0x00002000;
-const int DSP_RESLAB = 0x00004000;
-const int DSP_RESDEF = 0x00008000;
-const int DSP_ELSYS = 0x00010000;
-const int DSP_BC = 0x00020000;
-const int DSP_GRAD = 0x00040000;
-const int DSP_MATL = 0x00080000;
-const int DSP_COORD = 0x00100000;
-const int DSP_WP = 0x00200000;
-const int DSP_SURFU = 0x00400000;
-const int DSP_ANIMATION = 0x00800000;
-const int DSP_ANIMPOSNEG = 0x01000000;
-const int DSP_VEC = 0x20000000;
+// momo change Display Flags Method
+//// DIPLAY FLAGS
+// const int DSP_ALL = 0xFFFFFFF;
+// const int DSP_LINE = 0x00000001;
+// const int DSP_NODES = 0x00000002;
+// const int DSP_NODES_ASK = 0x00000004;
+//// momo
+//// momo// const int DSP_SHADED_EDGES = 0x00000008;
+//// momo
+// const int DSP_ELEMENTS = 0x00000010;
+// const int DSP_CURVES = 0x00000020;
+// const int DSP_SURFACES = 0x00000040;
+// const int DSP_THK = 0x00000080;
+// const int DSP_OFF = 0x00000100;
+// const int DSP_SURC = 0x00000200;
+// const int DSP_POINTS = 0x00000400;
+// const int DSP_BLACK = 0x00000800;
+// const int DSP_ASSEM = 0x00001000;
+// const int DSP_CONT = 0x00002000;
+// const int DSP_RESLAB = 0x00004000;
+// const int DSP_RESDEF = 0x00008000;
+// const int DSP_ELSYS = 0x00010000;
+// const int DSP_BC = 0x00020000;
+// const int DSP_GRAD = 0x00040000;
+// const int DSP_MATL = 0x00080000;
+// const int DSP_COORD = 0x00100000;
+// const int DSP_WP = 0x00200000;
+// const int DSP_SURFU = 0x00400000;
+// const int DSP_ANIMATION = 0x00800000;
+// const int DSP_ANIMPOSNEG = 0x01000000;
+// const int DSP_VEC = 0x20000000;
+//  momo change Display Flags Method
 
 // DOF FLAGS
 const int DOF_ALL = 0xFFFFFFFF;
@@ -848,8 +850,8 @@ class BSec: public CObject {
 		void CreateI2(double d1, double d2, double d3, double d4, double d5, double d6, double yb);
 		void Clear();
 		void Serialize(CArchive& ar, int iV);
-		void OglDraw(int iDspFlgs, C3dMatrix TA, C3dMatrix TB, C3dVector d0, C3dVector d1, float C1, float C2, BOOL bD);
-		void OglDrawW(int iDspFlgs, C3dMatrix TMat, C3dVector d0, C3dVector d1);
+		void OglDraw(DisplayFlags DspFlagsIn, C3dMatrix TA, C3dMatrix TB, C3dVector d0, C3dVector d1, float C1, float C2, BOOL bD);
+		void OglDrawW(DisplayFlags DspFlagsIn, C3dMatrix TMat, C3dVector d0, C3dVector d1);
 		void AddOutPt(double X1, double Y1);
 		void AddInPt(double X1, double Y1);
 		void MoveY(double yBar);
@@ -1680,8 +1682,8 @@ class G_Object: public CCmdTarget {
 		virtual void Draw();
 		// momo gdi to og2
 		// momo gdi to og
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void Transform(C3dMatrix TMat);
 		virtual void Translate(C3dVector vIn);
 		// Curve specific
@@ -1757,8 +1759,8 @@ class cLinkedList: public G_Object {
 		G_Object* GetObj(int iType, int iLab);
 		G_Object* GetByPtr(G_Object* pThis);
 		void GenIDS(int& iS);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
@@ -1911,8 +1913,8 @@ class WP_Object: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -1945,8 +1947,8 @@ class Planet: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 //**********************************************************************
@@ -1965,8 +1967,8 @@ class BackGround: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class Node: public G_Object {
@@ -1997,8 +1999,8 @@ class Node: public G_Object {
 		virtual void Draw();
 		// momo gdi to og2
 		// momo gdi to og
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		C3dVector GetCoords();
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void SetTo(C3dVector cInVect);
@@ -2032,8 +2034,8 @@ class CvPt_Object: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		C3dVector GetCoords();
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// virtual G_ObjectD SelDist(CPoint InPT,Filter FIL);
@@ -2073,8 +2075,8 @@ class Line_Object: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -2141,8 +2143,8 @@ class Curve: public ContrPolyW {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
 		virtual void HighLight();
@@ -2184,8 +2186,8 @@ class Text: public G_Object {
 		~Text();
 		virtual void BuildText();
 		virtual double GetLength();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
@@ -2251,8 +2253,8 @@ class DIM: public G_Object {
 		~DIM();
 		virtual void Clean();
 		virtual void Build();
-		// virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		// virtual void OglDraw(int iDspFlgs,DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		virtual void S_Box(CPoint P1, CPoint P2, ObjList* pSel);
@@ -2329,8 +2331,8 @@ class DIMA: public DIM {
 		~DIMA();
 		virtual void Clean();
 		virtual void Build();
-		// virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		// virtual void OglDraw(int iDspFlgs,DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual void Colour(int iCol);
 		virtual void ExportDXF(FILE* pFile);
@@ -2372,7 +2374,7 @@ class DIMANG: public DIMA {
 		       int iLab);
 		virtual void Build();
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class DIMH: public DIMA {
@@ -2419,7 +2421,7 @@ class DIML: public DIMA {
 		     C3dVector vD,
 		     double dDScl,
 		     int iLab);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void Build();
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual void Colour(int iCol);
@@ -2438,7 +2440,7 @@ class DIMR: public DIMA {
 		     double dDrawingScale,
 		     double dDScl,
 		     int iLab);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void Build();
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual void Colour(int iCol);
@@ -2457,7 +2459,7 @@ class DIMD: public DIMA {
 		     double dDrawingScale,
 		     double dDScl,
 		     int iLab);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void Build();
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual void Colour(int iCol);
@@ -2486,8 +2488,8 @@ class Symbol: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		void CalculateMetrics();
 		C3dVector GetCoords();
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
@@ -2552,8 +2554,8 @@ class NCurve: public G_Object {
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual void AddVert(C3dVector pInVertex1, double dWght);
 		// virtual void Draw(CDC* pDC,int iDrawmode);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void OglDrawCtrlPts();
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
@@ -2627,7 +2629,7 @@ class NCurveOnSurf: public NCurve {
 		NCurveOnSurf();
 		virtual void Create(int iLab, G_Object* Parrent);
 		void OglDrawCtrlPts();
-		virtual void OglDrawW(int iDspFlgs);
+		virtual void OglDrawW();
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
 		// virtual void HighLight();
@@ -2692,8 +2694,8 @@ class NSurf: public G_Object {
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual void AddCV(NCurve* inCV);
 		// virtual void Draw(CDC* pDC,int iDrawmode);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
@@ -2807,7 +2809,7 @@ class NLine: public NCurve {
 		NLine();
 		virtual void Create(C3dVector vP1, C3dVector vP2, int iLab, G_Object* Parrent);
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
 		// virtual void HighLight();
@@ -2932,8 +2934,8 @@ class Face: public G_Object {
 		~Face();
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual void Info();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -2964,8 +2966,8 @@ class Shell: public G_Object {
 		Shell(BOOL isOut, int iLab);
 		~Shell();
 		virtual void Serialize(CArchive& ar, int iV, Part* pP);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -3008,8 +3010,8 @@ class Part: public G_Object {
 		void AddSurf(Face* pF);
 		void CurveColour(int iCol);
 		void SurfColour(int iCol);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void GetBoundingBox(C3dVector& vll, C3dVector& vur);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
@@ -3050,8 +3052,8 @@ class eFace: public G_Object {
 		virtual C3dVector Get_Centroid();
 		void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void Serialize(CArchive& ar, int iV);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class eEdge: public G_Object {
@@ -3066,8 +3068,8 @@ class eEdge: public G_Object {
 		void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual C3dVector Get_Centroid();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class c2dParPt: public G_Object
@@ -3100,8 +3102,8 @@ class cSeg: public G_Object {
 		BOOL HasCommonVert(c2dParPt* p1, c2dParPt* p2);
 		// int isSameWithDir(cLink* inLink);
 		C2dVector Get_Mid();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class c2dFront: public G_Object {
@@ -3115,8 +3117,8 @@ class c2dFront: public G_Object {
 		Node* isSegBet(int pL, int pH);
 		Node* GetNodeByGID(int iGID);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class eEdgeList: public G_Object {
@@ -3132,8 +3134,8 @@ class eEdgeList: public G_Object {
 		void AddGp(int iN, eEdge* inLink[]);
 		void Remove(eEdge* inLink);
 		void Purge();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class eFaceList: public G_Object {
@@ -3146,8 +3148,8 @@ class eFaceList: public G_Object {
 		eFace* IsIn(eFace* inFace);
 		void Add(eFace* inFace);
 		void Remove(eFace* inFace);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 };
 
 class ParPt {
@@ -3181,8 +3183,8 @@ class CoordSys: public G_Object {
 		double dScl;
 		virtual void Create(C3dVector Orig, C3dMatrix RMat, int inRID, int inTp, int iLab, int iC, G_Object* Parrent);
 		// virtual void Draw(CDC* pDC,int iDrawmode);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void Serialize(CArchive& ar, int iV);
 		virtual C3dVector Get_Centroid();
 		virtual void Translate(C3dVector vIn);
@@ -3290,8 +3292,8 @@ class E_Object38: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual C3dMatrix GetElSys();
 		virtual void ExportUNV(FILE* pFile);
@@ -3333,8 +3335,8 @@ class E_Object36: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual C3dMatrix GetElSys();
 		virtual void ExportUNV(FILE* pFile);
@@ -3382,8 +3384,8 @@ class E_Object2: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		void SetUpVec(C3dVector vIn);
 		void SetSec(int iA, int iB, int iC);
@@ -3448,8 +3450,8 @@ class E_Object2R: public E_Object2 {
 		virtual void Draw();
 		// momo gdi to og2
 		virtual void Info();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		void SetUpVec(C3dVector vIn);
 		C3dVector GetDir();
@@ -3527,8 +3529,8 @@ class E_Object1: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual void ExportUNV(FILE* pFile);
 		virtual BOOL NodeInEl(Node* pN);
@@ -3567,8 +3569,8 @@ class E_Object3: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual int GetfaceList(eFace* Faces[6]);
 		virtual C3dVector Get_Centroid();
 		virtual void ExportUNV(FILE* pFile);
@@ -3644,8 +3646,8 @@ class E_CellS: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual G_Object* GetNode(int i);
 		virtual BOOL NodeInEl(Node* pN);
@@ -3671,8 +3673,8 @@ class E_Object4: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		// virtual void SetToScr(C3dMatrix* pModMat,C3dMatrix* pScrTran);
 		// virtual void HighLight(CDC* pDC);
 		// virtual G_ObjectD SelDist(CPoint InPT,Filter FIL);
@@ -3753,8 +3755,8 @@ class E_Object34: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		// virtual void SetToScr(C3dMatrix* pModMat,C3dMatrix* pScrTran);
 		// virtual void HighLight(CDC* pDC);
 		// virtual G_ObjectD SelDist(CPoint InPT,Filter FIL);
@@ -3808,8 +3810,8 @@ class E_Object310: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		// virtual void SetToScr(C3dMatrix* pModMat,C3dMatrix* pScrTran);
 		// virtual void HighLight(CDC* pDC);
 		// virtual G_ObjectD SelDist(CPoint InPT,Filter FIL);
@@ -3867,8 +3869,8 @@ class E_ObjectR: public E_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual void ExportUNV(FILE* pFile);
 		virtual CString ToString();
@@ -3919,8 +3921,8 @@ class E_ObjectR2: public E_ObjectR {
 		                      CString s3,
 		                      CString s4,
 		                      double dAlp);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		// momo gdi to og2
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
@@ -3975,7 +3977,7 @@ class MatTable: public Table {
 		virtual void Serialize(CArchive& ar, int iV);
 };
 
-void DrawColBar(int iDspFlgs, double dW, double dH);
+void DrawColBar(DisplayFlags DspFlagsIn, double dW, double dH);
 void CreateTexture(BOOL bRev);
 // The max number of load BC and TSets
 const int MAX_SETS = 1000;
@@ -4193,8 +4195,8 @@ class ME_Object: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw(int iDrawmode);
 		// momo gdi to og
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void RelTo(G_Object* pThis, ObjList* pList, int iType);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void Transform(C3dMatrix TMat);
@@ -4349,7 +4351,7 @@ class ME_Object: public G_Object {
 		void SetDefScale(double dS);
 		void SetDefScaleVec(double dS);
 		void SetCurrentResSet(int iRS, int iRV, int iOPT);
-		void WriteResHead(int iDspFlgs, float dW, float dH);
+		void WriteResHead(DisplayFlags DspFlagsIn, float dW, float dH);
 		void ResListRespData(int iEnt);
 		void ResLabRespItems();
 		void ResListRespDataFull(int iEnt);
@@ -4386,12 +4388,12 @@ class PartsCat: public G_Object {
 		virtual void Create(int iLab);
 		// virtual void Clear();
 		virtual void Info();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		// virtual G_Object* Copy();
 		// momo gdi to og2
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
-		virtual void Draw(int iDrawmode);
+		virtual void Draw(int iDrawmode, DisplayFlags DspFlagsIn);
 		// momo gdi to og2
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
@@ -4431,8 +4433,8 @@ class Section: public G_Object {
 		virtual void Draw();
 		// momo gdi to og2
 		// momo gdi to og
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -4482,8 +4484,8 @@ class Sweep: public G_Object {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw(int iDrawmode);
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -4534,7 +4536,7 @@ class SweepB: public Sweep {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw(int iDrawmode);
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void Transform(C3dMatrix TMat);
 		virtual C3dVector GetInPt();
@@ -4634,8 +4636,8 @@ class Force: public BCLD {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -4667,8 +4669,8 @@ class Temperature: public BCLD {
 
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual void ExportUNV(FILE* pFile);
 		virtual void ExportNAS(FILE* pFile);
@@ -4690,8 +4692,8 @@ class AccelLoad: public BCLD {
 		                    int inSetID);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual void ExportUNV(FILE* pFile);
 		virtual void ExportNAS(FILE* pFile);
@@ -4717,8 +4719,8 @@ class RotationLoad: public BCLD {
 		                    int inSetID);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual void Info();
 };
@@ -4736,7 +4738,7 @@ class TemperatureBC: public Temperature {
 		                    G_Object* Parrent,
 		                    double inV,
 		                    int inSetID);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
 };
 
@@ -4748,7 +4750,7 @@ class FluxLoad: public Temperature {
 		                    G_Object* Parrent,
 		                    double inV,
 		                    int inSetID);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
 };
 //****************************************************************************
@@ -4761,8 +4763,8 @@ class Moment: public Force {
 		                    G_Object* Parrent,
 		                    C3dVector inF,
 		                    int inSetID);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		void ExportNAS(FILE* pFile);
 		virtual CString GetName();
 };
@@ -4777,7 +4779,7 @@ class Pressure: public Force {
 		void ExportNAS(FILE* pFile);
 		void Serialize(CArchive& ar, int iV, ME_Object* MESH);
 		void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
-		void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual CString GetName();
 		virtual int GetVarHeaders(CString sVar[]);
 		virtual int GetVarValues(CString sVar[]);
@@ -4793,8 +4795,8 @@ class TEMPD: public BCLD {
 		virtual void Create(C3dVector vC, G_Object* Parrent, int SetID, double dTIn);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
 		virtual void ExportNAS(FILE* pFile);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual int GetVarHeaders(CString sVar[]);
 		virtual int GetVarValues(CString sVar[]);
@@ -4811,8 +4813,8 @@ class GRAV: public BCLD {
 		virtual void Create(C3dVector vC, G_Object* Parrent, int inSID, int inCID, double indScl, C3dVector invV);
 		virtual void Serialize(CArchive& ar, int iV, ME_Object* MESH);
 		virtual void ExportNAS(FILE* pFile);
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual C3dVector Get_Centroid();
 		virtual int GetVarHeaders(CString sVar[]);
 		virtual int GetVarValues(CString sVar[]);
@@ -4842,8 +4844,8 @@ class Restraint: public BCLD {
 		// momo// virtual void Draw(CDC* pDC, int iDrawmode);
 		virtual void Draw();
 		// momo gdi to og2
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran);
 		// momo gdi to og
 		// momo// virtual void HighLight(CDC* pDC);
@@ -4874,10 +4876,10 @@ class ResultsVec: public G_Object {
 		ResultsVec(int iD, C3dVector Pt, C3dVector Vec, int iC, int iDf, int iS, int iTp);
 		virtual void Create(int iD, C3dVector Pt, C3dVector Vec, int iC);
 		virtual C3dVector Get_Centroid();
-		virtual void OglDraw(int iDspFlgs, double dS1, double dS2);
-		virtual void OglDrawW(int iDspFlgs, double dS1, double dS2);
-		void DrawVector(int iDspFlgs, double dS1, double dS2, double dS, double dRF);
-		void DrawTenVector(int iDspFlgs, double dS1, double dS2, double dS, double dRF);
+		virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
+		void DrawVector(DisplayFlags DspFlagsIn, double dS1, double dS2, double dS, double dRF);
+		void DrawTenVector(DisplayFlags DspFlagsIn, double dS1, double dS2, double dS, double dRF);
 		virtual void Info();
 		// virtual void HighLight(CDC* pDC);
 };

@@ -54,7 +54,6 @@ CommandIsActive CommIsActive;
 // momo change command box color
 // momo on off button and menu
 ButtonPushed ButtonPush;
-bool ShadedEdges;
 // momo on off button and menu
 // momo gdi to og2
 ClickPoint mClickPoint;
@@ -235,7 +234,7 @@ BOOL CM3daApp::InitInstance() {
 	// such as the name of your company or organization
 	// MoMo_Start
 	// MoMo// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	SetRegistryKey(_T("M3D-DevM-Reg-17"));
+	SetRegistryKey(_T("M3D-DevM-Reg-18"));
 	// MoMo_End
 	// momo
 	SelRowsCurrent[0][0] = -1;
@@ -247,7 +246,7 @@ BOOL CM3daApp::InitInstance() {
 	SeedVals.InputedSeedNumbers = 0;
 	ButtonPush.Points = false;
 	ButtonPush.WireFrame = true;
-	ButtonPush.Shaded = false;
+	ButtonPush.ShadedWithEdges = false;
 	ButtonPush.ShadedWithoutEdges = false;
 	ButtonPush.DrawModeCurrent = 1;
 	ButtonPush.DrawModeOut = 2;
@@ -264,7 +263,7 @@ BOOL CM3daApp::InitInstance() {
 	ButtonPush.ElementCoordSysOn = false;
 	ButtonPush.SurfaceDirectionMarkersOn = false;
 	ButtonPush.WorkplaneOn = false;
-	ButtonPush.LabelOn = false;
+	// ButtonPush.LabelOn = false;
 	ButtonPush.GeomOn = false;
 	ButtonPush.FiniteOn = false;
 	ButtonPush.QfilterNodesOn = false;
@@ -276,7 +275,6 @@ BOOL CM3daApp::InitInstance() {
 	ButtonPush.FullBody = true;
 	ButtonPush.PartOfBody = false;
 	ButtonPush.CenterOfBody = true;
-	ShadedEdges = true;
 	// momo
 	// momo gdi to og2
 	mClickPoint.IsClicked = false;

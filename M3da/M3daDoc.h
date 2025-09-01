@@ -71,7 +71,7 @@ class CM3daDoc: public CDocument, public CUndo {
 		void DspCat();
 		void DspNext();
 		void DspPrev();
-		void SetDrawType(int iType);
+		void SetDrawType(int iType, bool bShadedWithEdges);
 		int GetDrawType();
 		C3dVector GetViewPt();
 		C3dVector GetMeshCentre();
@@ -249,14 +249,14 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnChecksCoincidentnodes();
 		afx_msg void OnMeshSweepelements();
 		afx_msg void OnViewShadededges();
-		//  afx_msg void OnViewLine();
+		//  afx_msg void OnViewWireframe();
 		afx_msg void OnVisabilityNodeon();
-		afx_msg void OnVisabilityElementon();
+		afx_msg void OnVisabilityElementOn();
 		afx_msg void OnViewNodesask();
 		afx_msg void OnVisabilitySurfaceson();
 		afx_msg void OnVisabilityCurveson();
 		afx_msg void OnVisabilityAllvisable();
-		afx_msg void OnViewLabelentities();
+		afx_msg void OnViewLabelEntities();
 		afx_msg void OnQwantaImportcatalogue();
 		afx_msg void OnQwantaImportsectiontable();
 		afx_msg void OnQwantaImportwaveguide();
@@ -267,7 +267,7 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnCataloguedisplayDisplaynext();
 		afx_msg void OnCataloguedisplayDisplayprevious();
 		// momo
-		afx_msg void OnVisabilityLabelOn();
+		afx_msg void OnVisabilityLabelOff();
 		afx_msg void OnVisabilityGeomOn();
 		afx_msg void OnVisabilityFiniteOn();
 		afx_msg void OnViewDeselectAll();
@@ -394,7 +394,7 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnUpdateDisplayelementcoordsys(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateSurfacedirectionmarkers(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateVisabilityWorkplane(CCmdUI* pCmdUI);
-		afx_msg void OnUpdateVisabilityLabelOn(CCmdUI* pCmdUI);
+		// afx_msg void OnUpdateVisabilityLabelOff(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateVisabilityFiniteOn(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateQfilterNodes(CCmdUI* pCmdUI);

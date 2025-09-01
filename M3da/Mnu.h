@@ -717,6 +717,13 @@ class zLABENT_Mnu: public zMnu {
 		virtual int DoMenu(CString CInMsg, CPoint Pt);
 };
 
+// momo
+class zLABENTOff_Mnu: public zMnu {
+	public:
+		virtual int DoMenu(CString CInMsg, CPoint Pt);
+};
+// momo
+
 class zELMOPID_Mnu: public zMnu {
 	public:
 		virtual int DoMenu(CString CInMsg, CPoint Pt);

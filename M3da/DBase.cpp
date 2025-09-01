@@ -476,7 +476,10 @@ DBase::DBase(double WPS) {
 	bPICK = TRUE;
 	bDispAll = TRUE;
 	iEdges = 1;
-	DspFlags = DSP_ALL;
+	// momo
+	// momo// DspFlags = DSP_ALL;
+	DisplayAll();
+	// momo
 	dMFullScl = 1;
 	bRevColBar = FALSE;
 	iPtLabCnt = 1;
@@ -779,6 +782,38 @@ void DBase::SetActSol(int iD) {
 		}
 	}
 }
+
+// momo change Display Flags Method
+void DBase::DisplayAll() {
+	DspFlagsMain.DSP_WIREFRAME = true;
+	DspFlagsMain.DSP_SHADED_WITH_EDGES = false;
+	DspFlagsMain.DSP_NODES = true;
+	DspFlagsMain.DSP_NODES_ASK = true;
+	DspFlagsMain.DSP_SHADED_EDGES = true;
+	DspFlagsMain.DSP_ELEMENTS = true;
+	DspFlagsMain.DSP_CURVES = true;
+	DspFlagsMain.DSP_SURFACES = true;
+	DspFlagsMain.DSP_THK = true;
+	DspFlagsMain.DSP_OFF = true;
+	DspFlagsMain.DSP_SURC = true;
+	DspFlagsMain.DSP_POINTS = true;
+	DspFlagsMain.DSP_BLACK = true;
+	DspFlagsMain.DSP_ASSEM = true;
+	DspFlagsMain.DSP_CONT = true;
+	DspFlagsMain.DSP_RESLAB = true;
+	DspFlagsMain.DSP_RESDEF = true;
+	DspFlagsMain.DSP_ELSYS = true;
+	DspFlagsMain.DSP_BC = true;
+	DspFlagsMain.DSP_GRAD = true;
+	DspFlagsMain.DSP_MATL = true;
+	DspFlagsMain.DSP_COORD = true;
+	DspFlagsMain.DSP_WP = true;
+	DspFlagsMain.DSP_SURFU = true;
+	DspFlagsMain.DSP_ANIMATION = true;
+	DspFlagsMain.DSP_ANIMPOSNEG = true;
+	DspFlagsMain.DSP_VEC = true;
+}
+// momo change Display Flags Method
 
 void DBase::SetActStep(int iD) {
 	BOOL bret;
@@ -5945,7 +5980,7 @@ void DBase::TestSYS() {
 
 	DB_ObjectCount++;
 	AddTempGraphics(Sys);
-	OglDraw(DspFlags);
+	OglDraw(DspFlagsMain);
 }
 
 Line_Object* DBase::AddLN2(double x1, double y1, double z1, double x2, double y2, double z2, int ilab) {
@@ -9908,7 +9943,7 @@ int DBase::AddEl2(int pVnode[MaxSelNodes], int iLab, int iCol, int iType, int iP
 		cAddedEl->SetToScr(&pModelMat, &pScrMat);
 		AddTempGraphics(cAddedEl);
 		Dsp_Add(cAddedEl);
-		OglDraw(DspFlags);
+		OglDraw(DspFlagsMain);
 	}
 	return (1);
 }
@@ -10056,7 +10091,7 @@ void DBase::SetToScr2(C3dMatrix pM) {
 
 BOOL DBase::isBlackDisp() {
 	BOOL brc = FALSE;
-	if (DspFlags & DSP_BLACK) {
+	if (DspFlagsMain.DSP_BLACK) {
 		brc = TRUE;
 	}
 	return (brc);
@@ -10085,10 +10120,10 @@ void DBase::Draw(C3dMatrix pM, int iDrawmode) {
 				Dsp_List[iDB_I]->SetToScr(&pModelMat, &pScrMat);
 			}
 		}
-		if ((DspFlags & DSP_LINE) > 0) {
-			OglDrawW(DspFlags);
+		if (DspFlagsMain.DSP_WIREFRAME) {
+			OglDrawW(DspFlagsMain);
 		} else {
-			OglDraw(DspFlags);
+			OglDraw(DspFlagsMain);
 		}
 	}
 	// Do the highlighting if its a full redraw
@@ -10235,10 +10270,10 @@ void DBase::Cycle() {
 	// ReGen();
 	do {
 		iOGLList = i;
-		if ((DspFlags & DSP_LINE) > 0)
-			this->OglDrawW(DspFlags);
+		if (DspFlagsMain.DSP_WIREFRAME)
+			this->OglDrawW(DspFlagsMain);
 		else
-			this->OglDraw(DspFlags);
+			this->OglDraw(DspFlagsMain);
 		Sleep(ResFrameDelay);
 		iExit++;
 		i += iDir;
@@ -10246,7 +10281,7 @@ void DBase::Cycle() {
 			iDir = -1;
 		if (i == iOGL_Start)
 			iDir = 1;
-	} while ((DspFlags & DSP_ANIMATION) == 0);
+	} while (!DspFlagsMain.DSP_ANIMATION);
 	pTheView->ReleaseDC(pDC);
 	InvalidateOGL();
 	BOOL OglErr;
@@ -10254,8 +10289,8 @@ void DBase::Cycle() {
 }
 
 void DBase::AnimatePosNeg() {
-	DspFlags = (DspFlags ^ DSP_ANIMPOSNEG);
-	if ((DspFlags & DSP_ANIMPOSNEG) > 0) {
+	DspFlagsMain.DSP_ANIMPOSNEG = !DspFlagsMain.DSP_ANIMPOSNEG;
+	if (DspFlagsMain.DSP_ANIMPOSNEG) {
 		outtext1("Neg/Pos Animation is OFF");
 	} else {
 		outtext1("Neg/Pos Animation is ON");
@@ -10263,22 +10298,22 @@ void DBase::AnimatePosNeg() {
 }
 
 void DBase::Animate() {
-	if ((DspFlags & DSP_ANIMATION) > 0) {
+	if (DspFlagsMain.DSP_ANIMATION) {
 		InvalidateOGL();
 		CycleFrames();
 	}
-	DspFlags = (DspFlags ^ DSP_ANIMATION);
+	DspFlagsMain.DSP_ANIMATION = !DspFlagsMain.DSP_ANIMATION;
 	// bAnimate = FALSE;
 	// InvalidateOGL();
 	// ReGen();
 }
 
-void DBase::GenAnimationW(int iDspFlgs, int iNoFrames) {
+void DBase::GenAnimationW(DisplayFlags DspFlagsIn, int iNoFrames) {
 	int i;
 	double dSF = 0;
 	double dInc;
 
-	if ((DspFlags & DSP_ANIMPOSNEG) > 0) {
+	if (DspFlagsMain.DSP_ANIMPOSNEG) {
 		dSF = 0;
 		dInc = 1.0 / (iNoFrames - 1);
 		iOGL_NoOff = iNoFrames;
@@ -10286,7 +10321,7 @@ void DBase::GenAnimationW(int iDspFlgs, int iNoFrames) {
 		iOGL_Start = glGenLists(iNoFrames);
 		iOGLList = iOGL_Start;
 		for (i = iOGLList; i < iOGLList + iNoFrames; i++) {
-			GenAnimationFrameW(iDspFlgs, i, dSF);
+			GenAnimationFrameW(DspFlagsIn, i, dSF);
 			dSF += dInc;
 		}
 	} else {
@@ -10298,14 +10333,14 @@ void DBase::GenAnimationW(int iDspFlgs, int iNoFrames) {
 		iOGL_Start = glGenLists(iNoFrames);
 		iOGLList = iOGL_Start;
 		for (i = iOGLList; i < iOGLList + iNoFrames; i++) {
-			GenAnimationFrameW(iDspFlgs, i, dSF);
+			GenAnimationFrameW(DspFlagsIn, i, dSF);
 			dSF += dInc;
 		}
 	}
 	this->ReDraw();
 }
 
-void DBase::GenAnimationFrameW(int iDspFlgs, int iFrameNo, double dF) {
+void DBase::GenAnimationFrameW(DisplayFlags DspFlagsIn, int iFrameNo, double dF) {
 	int iDB_I;
 	if (pCurrentMesh != NULL)
 		pCurrentMesh->dResFactor = dF; // Factor the results
@@ -10322,7 +10357,7 @@ void DBase::GenAnimationFrameW(int iDspFlgs, int iFrameNo, double dF) {
 			for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
 				if ((IsSurf && Dsp_List[iDB_I]->iObjType == 15) ||
 				    (!IsSurf && Dsp_List[iDB_I]->iObjType != 15)) {
-					Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+					Dsp_List[iDB_I]->OglDrawW(DspFlagsIn, dMFullScl, 0);
 				}
 			}
 		}
@@ -10332,12 +10367,12 @@ void DBase::GenAnimationFrameW(int iDspFlgs, int iFrameNo, double dF) {
 	glEndList();
 }
 
-void DBase::GenAnimationS(int iDspFlgs, int iNoFrames) {
+void DBase::GenAnimationS(DisplayFlags DspFlagsIn, int iNoFrames) {
 	int i;
 	double dSF = 0;
 	double dInc;
 
-	if ((DspFlags & DSP_ANIMPOSNEG) > 0) {
+	if (DspFlagsMain.DSP_ANIMPOSNEG) {
 		dSF = 0;
 		dInc = 1.0 / (iNoFrames - 1);
 		iOGL_NoOff = iNoFrames;
@@ -10345,7 +10380,7 @@ void DBase::GenAnimationS(int iDspFlgs, int iNoFrames) {
 		iOGL_Start = glGenLists(iNoFrames);
 		iOGLList = iOGL_Start;
 		for (i = iOGLList; i < iOGLList + iNoFrames; i++) {
-			GenAnimationFrameS(iDspFlgs, i, dSF);
+			GenAnimationFrameS(DspFlagsIn, i, dSF);
 			dSF += dInc;
 		}
 	} else {
@@ -10357,14 +10392,14 @@ void DBase::GenAnimationS(int iDspFlgs, int iNoFrames) {
 		iOGL_Start = glGenLists(iNoFrames);
 		iOGLList = iOGL_Start;
 		for (i = iOGLList; i < iOGLList + iNoFrames; i++) {
-			GenAnimationFrameS(iDspFlgs, i, dSF);
+			GenAnimationFrameS(DspFlagsIn, i, dSF);
 			dSF += dInc;
 		}
 	}
 	this->ReDraw();
 }
 
-void DBase::GenAnimationFrameS(int iDspFlgs, int iFrameNo, double dF) {
+void DBase::GenAnimationFrameS(DisplayFlags DspFlagsIn, int iFrameNo, double dF) {
 	int iDB_I;
 	pCurrentMesh->dResFactor = dF; // Factor the results
 
@@ -10381,12 +10416,12 @@ void DBase::GenAnimationFrameS(int iDspFlgs, int iFrameNo, double dF) {
 			for (iDB_I = 0; iDB_I < iDspLstCount; iDB_I++) {
 				if ((IsSurf && Dsp_List[iDB_I]->iObjType == 15) ||
 				    (!IsSurf && Dsp_List[iDB_I]->iObjType != 15)) {
-					Dsp_List[iDB_I]->OglDraw(iDspFlgs, dMFullScl, 0);
+					Dsp_List[iDB_I]->OglDraw(DspFlagsIn, dMFullScl, 0);
 					// momo
 					// momo// if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
-					if (ShadedEdges) {
+					if (DspFlagsIn.DSP_SHADED_WITH_EDGES) {
 						// momo
-						Dsp_List[iDB_I]->OglDrawW(iDspFlgs, dMFullScl, 0);
+						Dsp_List[iDB_I]->OglDrawW(DspFlagsIn, dMFullScl, 0);
 					}
 				}
 			}
@@ -10398,7 +10433,7 @@ void DBase::GenAnimationFrameS(int iDspFlgs, int iFrameNo, double dF) {
 	glEndList();
 }
 
-void DBase::OglDrawW(int iDspFlgs) {
+void DBase::OglDrawW(DisplayFlags DspFlagsIn) {
 	int i;
 	CalcMScl();
 	GLfloat fMaxObjSize, fAspect;
@@ -10436,7 +10471,7 @@ void DBase::OglDrawW(int iDspFlgs) {
 	float R = cols[gBACKGRD_COL][0];
 	float G = cols[gBACKGRD_COL][1];
 	float B = cols[gBACKGRD_COL][2];
-	if (iDspFlgs & DSP_BLACK) {
+	if (DspFlagsIn.DSP_BLACK) {
 		glClearColor(R, G, B, 1.0f);
 	} else {
 		glClearColor(255.0f, 255.0f, 255.0f, 1.0f);
@@ -10456,25 +10491,25 @@ void DBase::OglDrawW(int iDspFlgs) {
 
 	if (iOGLList == -1) {
 		// If animation is on generate multiple frames
-		if ((DspFlags & DSP_ANIMATION) == 0) {
-			GenAnimationW(iDspFlgs, NoResFrame);
+		if (!DspFlagsMain.DSP_ANIMATION) {
+			GenAnimationW(DspFlagsIn, NoResFrame);
 		} else {
 			iOGL_NoOff = 1;
 			iOGL_Start = glGenLists(iOGL_NoOff);
 			iOGLList = iOGL_Start;
-			GenAnimationFrameW(iDspFlgs, iOGL_Start, 1.0);
+			GenAnimationFrameW(DspFlagsIn, iOGL_Start, 1.0);
 		}
 	}
 
 	glCallList(iOGLList);
 
 	for (i = 0; i < TmpOGLCnt; i++) {
-		TmpOGL[i]->OglDrawW(iDspFlgs, dMFullScl, 0);
+		TmpOGL[i]->OglDrawW(DspFlagsIn, dMFullScl, 0);
 	}
 	// Draw the dragging update
 	if ((pDragObj != nullptr) && (bIsDrag == TRUE))
-		pDragObj->OglDrawW(iDspFlgs, dMFullScl, 0);
-	if ((DspFlags & DSP_GRAD) != 0) {
+		pDragObj->OglDrawW(DspFlagsIn, dMFullScl, 0);
+	if (DspFlagsMain.DSP_GRAD) {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		// glBegin(GL_QUADS);
@@ -10831,7 +10866,7 @@ double DBase::GetZoomScale(C3dMatrix* pModelMat) {
 
 void DBase::DrawSelectCircles() {
 	if (ShowSelectionCircles && SelectMode != 2) {
-		if (DspFlags & DSP_BLACK) {
+		if (DspFlagsMain.DSP_BLACK) {
 			glColor3f(1.0f, 1.0f, 0);
 		} else {
 			glColor3f(0, 0, 0);
@@ -10921,7 +10956,7 @@ void DBase::EndGDIToOpenGL() {
 }
 // momo gdi to og
 
-void DBase::OglDraw(int iDspFlgs) {
+void DBase::OglDraw(DisplayFlags DspFlagsIn) {
 	CalcMScl();
 	int i;
 	GLfloat fMaxObjSize, fAspect;
@@ -10962,7 +10997,7 @@ void DBase::OglDraw(int iDspFlgs) {
 	float R = cols[gBACKGRD_COL][0];
 	float G = cols[gBACKGRD_COL][1];
 	float B = cols[gBACKGRD_COL][2];
-	if (iDspFlgs & DSP_BLACK) {
+	if (DspFlagsIn.DSP_BLACK) {
 		glClearColor(R, G, B, 1.0f);
 	} else {
 		glClearColor(255.0f, 255.0f, 255.0f, 1.0f);
@@ -10990,7 +11025,7 @@ void DBase::OglDraw(int iDspFlgs) {
 	glMultMatrixf(mOGLmat.fMat);
 	// momo
 	// momo// if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
-	if (ShadedEdges) {
+	if (DspFlagsIn.DSP_SHADED_WITH_EDGES) {
 		// momo
 		glPolygonOffset(1.0, 2);
 	} else {
@@ -10999,39 +11034,39 @@ void DBase::OglDraw(int iDspFlgs) {
 
 	if (iOGLList == -1) {
 		// If animation is on generate multiple frames
-		if ((DspFlags & DSP_ANIMATION) == 0) {
-			GenAnimationS(iDspFlgs, NoResFrame);
+		if (!DspFlagsMain.DSP_ANIMATION) {
+			GenAnimationS(DspFlagsIn, NoResFrame);
 		} else {
 			iOGL_NoOff = 1;
 			iOGL_Start = glGenLists(iOGL_NoOff);
 			iOGLList = iOGL_Start;
-			GenAnimationFrameS(iDspFlgs, iOGL_Start, 1.0);
+			GenAnimationFrameS(DspFlagsIn, iOGL_Start, 1.0);
 		}
 	}
 
 	glCallList(iOGLList);
 	for (i = 0; i < TmpOGLCnt; i++) {
-		TmpOGL[i]->OglDraw(iDspFlgs, dMFullScl, 0);
+		TmpOGL[i]->OglDraw(DspFlagsIn, dMFullScl, 0);
 		// momo
 		// momo// if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
-		if (ShadedEdges) {
+		if (DspFlagsIn.DSP_SHADED_WITH_EDGES) {
 			// momo
-			TmpOGL[i]->OglDrawW(iDspFlgs, dMFullScl, 0);
+			TmpOGL[i]->OglDrawW(DspFlagsIn, dMFullScl, 0);
 		}
 	}
 	// Draw the dragging update
 	if ((pDragObj != nullptr) && (bIsDrag == TRUE))
-		pDragObj->OglDrawW(iDspFlgs, dMFullScl, 0);
+		pDragObj->OglDrawW(DspFlagsIn, dMFullScl, 0);
 	glLoadIdentity();
 	if (pCurrentMesh != NULL) {
-		if ((iDspFlgs & DSP_CONT) == 0) {
-			DrawColBar(iDspFlgs, dW, dH);
-			pCurrentMesh->WriteResHead(iDspFlgs, (float) dW, (float) dH);
+		if (!DspFlagsIn.DSP_CONT) {
+			DrawColBar(DspFlagsIn, dW, dH);
+			pCurrentMesh->WriteResHead(DspFlagsIn, (float) dW, (float) dH);
 		}
 	}
 	// Gradient fill background
 
-	if ((DspFlags & DSP_GRAD) != 0) {
+	if (DspFlagsMain.DSP_GRAD) {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glBegin(GL_QUADS);
@@ -12127,7 +12162,7 @@ void DBase::TestMPM2() {
 // 28/02/2019
 //*******************************************************
 void DBase::TestFL() {
-	GenAnimationW(DspFlags, 8);
+	GenAnimationW(DspFlagsMain, 8);
 }
 
 //*******************************************************
@@ -14130,7 +14165,7 @@ void DBase::InitOGL(CDC* pDC) {
 
 void DBase::InvalidateOGL() {
 	GLenum aa;
-	if ((DspFlags & DSP_ANIMATION) > 0) {
+	if (DspFlagsMain.DSP_ANIMATION) {
 		if (iOGLList != -1) {
 			glDeleteLists(iOGL_Start, iOGL_NoOff);
 			aa = glGetError();
@@ -14141,17 +14176,18 @@ void DBase::InvalidateOGL() {
 	}
 }
 
-void DBase::SetDrawType(int iType) {
+void DBase::SetDrawType(int iType, bool bShadedWithEdges) {
 	DB_DrawState = iType;
 	MainDrawState = iType;
+	DspFlagsMain.DSP_SHADED_WITH_EDGES = bShadedWithEdges;
 	if (DB_DrawState == 0) {
-		if ((DspFlags & DSP_LINE) == 0) {
-			DspFlags = (DspFlags ^ DSP_LINE);
+		if (!DspFlagsMain.DSP_WIREFRAME) {
+			DspFlagsMain.DSP_WIREFRAME = true;
 		}
 	}
 	if (DB_DrawState == 1) {
-		if ((DspFlags & DSP_LINE) > 0) {
-			DspFlags = (DspFlags ^ DSP_LINE);
+		if (DspFlagsMain.DSP_WIREFRAME) {
+			DspFlagsMain.DSP_WIREFRAME = false;
 		}
 	}
 }
@@ -14970,7 +15006,7 @@ void DBase::ExportToText(FILE* pFile2) {
 
 			for (iCO = 0; iCO < S_Count; iCO++) {
 				OutS = S_Buff[iCO]->ToString();
-				fprintf(pFile2, "%s", (LPCSTR) CT2A(OutS));
+				fprintf(pFile2, "%S", (LPCSTR) CT2A(OutS));
 			}
 		} else {
 			outtext1("Export Expired.");
@@ -19807,14 +19843,20 @@ void DBase::CountItems() {
 	ReDraw();
 }
 
-void DBase::LabEnt() {
+// momo
+// momo// void DBase::LabEnt() {
+void DBase::LabEnt(bool bMode) {
+	// momo
 	int iCO;
 	for (iCO = 0; iCO < S_Count; iCO++) {
-		if (S_Buff[iCO]->bDrawLab == FALSE) {
-			S_Buff[iCO]->bDrawLab = TRUE;
-		} else {
-			S_Buff[iCO]->bDrawLab = FALSE;
-		}
+		// momo
+		// if (S_Buff[iCO]->bDrawLab == FALSE) {
+		//	S_Buff[iCO]->bDrawLab = TRUE;
+		//} else {
+		//	S_Buff[iCO]->bDrawLab = FALSE;
+		//}
+		S_Buff[iCO]->bDrawLab = bMode;
+		// momo
 	}
 	InvalidateOGL();
 	ReDraw();
@@ -20838,7 +20880,7 @@ void SecTable::ExportSecs(FILE* pFile) {
 			t = Secs[i]->THK / 1000;
 			id = Secs[i]->SecNo;
 			fprintf(pFile, "%10i%10i%10i\n", id, 2, 0);
-			fprintf(pFile, "%20s\n", Name);
+			fprintf(pFile, "%20S\n", Name);
 			fprintf(pFile, "%13.6E%13.6E%13.6E%13.6E%13.6E%13.6E\n", w, h, t, t, 0.0, 0.0);
 			fprintf(pFile, "%13.6E%13.6E%13.6E%13.6E\n", 0.0, 0.0, 0.0, 0.0);
 			fprintf(pFile, "%13.6E%13.6E%13.6E%13.6E%13.6E%13.6E\n", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -21734,7 +21776,7 @@ void DBase::ResSelectDef() {
 }
 
 void DBase::DoDeformedDisp() {
-	if ((DspFlags & DSP_RESDEF) == 0) {
+	if (!DspFlagsMain.DSP_RESDEF) {
 		pCurrentMesh->BuildDeromedVecs();
 	} else {
 		pCurrentMesh->DeleteDeromedVecs();

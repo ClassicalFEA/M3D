@@ -42,11 +42,11 @@ ON_WM_RBUTTONUP()
 // momo
 ON_COMMAND(ID_VIEW_DISPLAYSELECTED, &CM3daView::OnViewDisplayselected)
 ON_COMMAND(ID_VIEW_DISPLAYGROUP, &CM3daView::OnViewDisplaygroup)
-ON_COMMAND(ID_VIEW_WIREFRAME, &CM3daView::OnViewLine)
-ON_COMMAND(ID_VIEW_SHADED, &CM3daView::OnViewShaded)
+ON_COMMAND(ID_VIEW_WIREFRAME, &CM3daView::OnViewWireframe)
+ON_COMMAND(ID_VIEW_SHADED, &CM3daView::OnViewShadedWithEdges)
 // momo on off button and menu
-ON_UPDATE_COMMAND_UI(ID_VIEW_WIREFRAME, &CM3daView::OnUpdateViewLine)
-ON_UPDATE_COMMAND_UI(ID_VIEW_SHADED, &CM3daView::OnUpdateViewShaded)
+ON_UPDATE_COMMAND_UI(ID_VIEW_WIREFRAME, &CM3daView::OnUpdateViewWireframe)
+ON_UPDATE_COMMAND_UI(ID_VIEW_SHADED, &CM3daView::OnUpdateViewShadedWithEdges)
 ON_UPDATE_COMMAND_UI(ID_VIEW_DISPLAYSELECTED, &CM3daView::OnUpdateDisplayselected)
 ON_COMMAND(ID_VIEW_SHADED_WITHOUT_EDGES, &CM3daView::OnViewShadedWithoutEdges)
 ON_UPDATE_COMMAND_UI(ID_VIEW_SHADED_WITHOUT_EDGES, &CM3daView::OnUpdateViewShadedWithoutEdges)
@@ -567,7 +567,7 @@ void CM3daView::OnViewDisplaygroup() {
 	outtextMSG2("DSPGP");
 }
 
-void CM3daView::OnViewLine() {
+void CM3daView::OnViewWireframe() {
 	// TODO: Add your command handler code here
 	// momo on off button and menu
 	ButtonPush.WireFrame = !ButtonPush.WireFrame;
@@ -585,22 +585,20 @@ void CM3daView::OnViewLine() {
 		}
 		ButtonPush.DrawModeCurrent = 1;
 		ButtonPush.WireFrame = true;
-		ButtonPush.Shaded = false;
+		ButtonPush.ShadedWithEdges = false;
 		ButtonPush.ShadedWithoutEdges = false;
 	} else {
 		if (ButtonPush.DrawModeOut != 3) {
-			ShadedEdges = false;
 			ButtonPush.DrawModeCurrent = 3;
 			outtext1("Draw Shaded Without Edges.");
 			ButtonPush.WireFrame = false;
-			ButtonPush.Shaded = false;
+			ButtonPush.ShadedWithEdges = false;
 			ButtonPush.ShadedWithoutEdges = true;
 		} else {
-			ShadedEdges = true;
 			outtext1("Draw Shaded.");
 			ButtonPush.DrawModeCurrent = 2;
 			ButtonPush.WireFrame = false;
-			ButtonPush.Shaded = true;
+			ButtonPush.ShadedWithEdges = true;
 			ButtonPush.ShadedWithoutEdges = false;
 		}
 	}
@@ -613,7 +611,7 @@ void CM3daView::OnViewLine() {
 	GetDocument()->SetView(this);
 	// momo on off button and menu
 	// momo// GetDocument()->SetDrawType(0);
-	GetDocument()->SetDrawType((int) !ButtonPush.WireFrame);
+	GetDocument()->SetDrawType((int) !ButtonPush.WireFrame, !ButtonPush.ShadedWithoutEdges);
 	// momo on off button and menu
 	GetDocument()->InvalidateOGL();
 	// momo gdi to og
@@ -623,17 +621,16 @@ void CM3daView::OnViewLine() {
 	// momo gdi to og
 }
 
-void CM3daView::OnViewShaded() {
+void CM3daView::OnViewShadedWithEdges() {
 	// TODO: Add your command handler code here
 	// momo on off button and menu
-	ButtonPush.Shaded = !ButtonPush.Shaded;
+	ButtonPush.ShadedWithEdges = !ButtonPush.ShadedWithEdges;
 	// if (ButtonPush.WireFrame) {
 	//	outtext1("Draw Wire Frame.");
 	// } else {
 	//	outtext1("Draw Shaded.");
 	// }
-	if (ButtonPush.Shaded) {
-		ShadedEdges = true;
+	if (ButtonPush.ShadedWithEdges) {
 		outtext1("Draw Shaded.");
 		if (ButtonPush.DrawModeCurrent == 1) {
 			ButtonPush.DrawModeOut = 3;
@@ -642,21 +639,20 @@ void CM3daView::OnViewShaded() {
 		}
 		ButtonPush.DrawModeCurrent = 2;
 		ButtonPush.WireFrame = false;
-		ButtonPush.Shaded = true;
+		ButtonPush.ShadedWithEdges = true;
 		ButtonPush.ShadedWithoutEdges = false;
 	} else {
 		if (ButtonPush.DrawModeOut != 3) {
-			ShadedEdges = false;
 			ButtonPush.DrawModeCurrent = 3;
 			outtext1("Draw Shaded Without Edges.");
 			ButtonPush.WireFrame = false;
-			ButtonPush.Shaded = false;
+			ButtonPush.ShadedWithEdges = false;
 			ButtonPush.ShadedWithoutEdges = true;
 		} else {
 			outtext1("Draw Wire Frame.");
 			ButtonPush.DrawModeCurrent = 1;
 			ButtonPush.WireFrame = true;
-			ButtonPush.Shaded = false;
+			ButtonPush.ShadedWithEdges = false;
 			ButtonPush.ShadedWithoutEdges = false;
 		}
 	}
@@ -668,7 +664,7 @@ void CM3daView::OnViewShaded() {
 	GetDocument()->SetView(this);
 	// momo on off button and menu
 	// momo// GetDocument()->SetDrawType(1);
-	GetDocument()->SetDrawType((int) !ButtonPush.WireFrame);
+	GetDocument()->SetDrawType((int) !ButtonPush.WireFrame, !ButtonPush.ShadedWithoutEdges);
 	// momo on off button and menu
 	GetDocument()->InvalidateOGL();
 	// momo gdi to og
@@ -682,7 +678,6 @@ void CM3daView::OnViewShaded() {
 void CM3daView::OnViewShadedWithoutEdges() {
 	ButtonPush.ShadedWithoutEdges = !ButtonPush.ShadedWithoutEdges;
 	if (ButtonPush.ShadedWithoutEdges) {
-		ShadedEdges = false;
 		outtext1("Draw Shaded Without Edges.");
 		if (ButtonPush.DrawModeCurrent == 1) {
 			ButtonPush.DrawModeOut = 2;
@@ -691,38 +686,37 @@ void CM3daView::OnViewShadedWithoutEdges() {
 		}
 		ButtonPush.DrawModeCurrent = 3;
 		ButtonPush.WireFrame = false;
-		ButtonPush.Shaded = false;
+		ButtonPush.ShadedWithEdges = false;
 		ButtonPush.ShadedWithoutEdges = true;
 	} else {
 		if (ButtonPush.DrawModeOut != 2) {
-			ShadedEdges = true;
 			outtext1("Draw Shaded.");
 			ButtonPush.DrawModeCurrent = 2;
 			ButtonPush.WireFrame = false;
-			ButtonPush.Shaded = true;
+			ButtonPush.ShadedWithEdges = true;
 			ButtonPush.ShadedWithoutEdges = false;
 		} else {
 			outtext1("Draw Wire Frame.");
 			ButtonPush.DrawModeCurrent = 1;
 			ButtonPush.WireFrame = true;
-			ButtonPush.Shaded = false;
+			ButtonPush.ShadedWithEdges = false;
 			ButtonPush.ShadedWithoutEdges = false;
 		}
 	}
 	GetDocument()->SetView(this);
-	GetDocument()->SetDrawType((int) !ButtonPush.WireFrame);
+	GetDocument()->SetDrawType((int) !ButtonPush.WireFrame, !ButtonPush.ShadedWithoutEdges);
 	GetDocument()->InvalidateOGL();
 	GetDocument()->Draw(tOrient.RetrieveMat(), 4);
 }
 // momo
 
 // momo on off button and menu
-void CM3daView::OnUpdateViewLine(CCmdUI* pCmdUI) {
+void CM3daView::OnUpdateViewWireframe(CCmdUI* pCmdUI) {
 	pCmdUI->SetCheck(ButtonPush.WireFrame);
 }
 
-void CM3daView::OnUpdateViewShaded(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(ButtonPush.Shaded);
+void CM3daView::OnUpdateViewShadedWithEdges(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(ButtonPush.ShadedWithEdges);
 }
 
 void CM3daView::OnUpdateViewShadedWithoutEdges(CCmdUI* pCmdUI) {

@@ -281,11 +281,11 @@ CString e8(double dIn) {
 	return (sRet);
 }
 
-void OglString(int iDspFlgs, double x, double y, double z, char* s) {
+void OglString(DisplayFlags DspFlagsIn, double x, double y, double z, char* s) {
 	////Esp_Mod_Labels_4_27_2025_Start: Redined Label display to use advance font display
 	int iLen;
 	iLen = (int) strlen(s);
-	if (iDspFlgs & DSP_BLACK) {
+	if (DspFlagsIn.DSP_BLACK) {
 		// momo
 		glColor3fv(cols[124]);
 		//  momo// glColor3fv(ColorIfSelect(124,-1));
@@ -710,17 +710,17 @@ void cLinkedList::HighLight() {
 	}
 }
 
-void cLinkedList::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void cLinkedList::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	G_Object* pNext;
 	pNext = Head;
 	while (pNext != NULL) {
-		pNext->OglDrawW(iDspFlgs, dS1, dS2);
+		pNext->OglDrawW(DspFlagsIn, dS1, dS2);
 		pNext = (G_Object*) pNext->next;
 	}
 }
 
-void cLinkedList::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void cLinkedList::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 void cLinkedList::S_Box(CPoint P1, CPoint P2, ObjList* pSel) {
@@ -957,13 +957,13 @@ CString ResSet::ToStringHead() {
 void ResSet::PrintToFile(FILE* pFile) {
 	int i;
 	fprintf(pFile, "%s\n", "START OF DATA SET");
-	fprintf(pFile, "%s%s\n", "FILE, ", sFile);
-	fprintf(pFile, "%s%i%s,%s\n", "LC, ", LC, " ", sName);
-	fprintf(pFile, "%s%s\n", "TITLE, ", sTitle);
-	fprintf(pFile, "%s%s\n", "SUBTITLE, ", sSubTitle);
+	fprintf(pFile, "%s%S\n", "FILE, ", sFile);
+	fprintf(pFile, "%s%i%s,%S\n", "LC, ", LC, " ", sName);
+	fprintf(pFile, "%s%S\n", "TITLE, ", sTitle);
+	fprintf(pFile, "%s%S\n", "SUBTITLE, ", sSubTitle);
 	fprintf(pFile, "%s", "ID,");
 	for (i = 0; i < iNoV; i++) {
-		fprintf(pFile, "%s,", lab[i]);
+		fprintf(pFile, "%S,", lab[i]);
 	}
 	fprintf(pFile, "\n");
 	int j;
@@ -1922,10 +1922,10 @@ void G_Object::Draw() {
 	// momo gdi to og
 }
 
-void G_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void G_Object::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 }
 
-void G_Object::OglDrawW(int DspFlags, double dS1, double dS2) {
+void G_Object::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 }
 
 void G_Object::Transform(C3dMatrix TMat) {
@@ -2030,7 +2030,7 @@ Planet::~Planet() {
 }
 
 // Planet Draw
-void Planet::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Planet::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	if ((pTexture != nullptr) && (gDSP_BACK == TRUE)) {
 		int width = pTexture->width;
 		int height = pTexture->height;
@@ -2116,8 +2116,8 @@ void Planet::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void Planet::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Planet::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 // momo gdi to og2
@@ -2149,7 +2149,7 @@ BackGround::~BackGround() {
 	pTexture = nullptr;
 }
 
-void BackGround::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void BackGround::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	if ((pTexture != nullptr) && (gDSP_BACK == TRUE)) {
 		int width = pTexture->width;
 		int height = pTexture->height;
@@ -2199,8 +2199,8 @@ void BackGround::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void BackGround::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void BackGround::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 // momo gdi to og2
@@ -2364,7 +2364,7 @@ void Node::ExportNAS(FILE* pFile, CoordSys* pD) {
 		}
 		//}
 	}
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s%8i\n", "GRID    ", iLabel, DefSys, e8(pt.x), e8(pt.y), e8(pt.z), OutSys);
+	fprintf(pFile, "%4s %8i %8i %8S %8S %8S %8i\n", "GRID", iLabel, DefSys, e8(pt.x), e8(pt.y), e8(pt.z), OutSys);
 }
 
 G_Object* Node::Copy(G_Object* Parrent) {
@@ -2457,7 +2457,7 @@ void Node::Draw() {
 
 GLubyte BmpND[22] = {0x04, 0x00, 0x44, 0x40, 0x24, 0x80, 0x15, 0x00, 0x0e, 0x00, 0xff, 0xe0, 0x0e, 0x00, 0x15, 0x00, 0x24, 0x80, 0x44, 0x40, 0x04, 0x00};
 
-void Node::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Node::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	double x;
 	double y;
@@ -2470,11 +2470,11 @@ void Node::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dS = ME->dScale;
 	dRF = ME->dResFactor;
 	ind = ME->iCVar;
-	if ((iDspFlgs & DSP_NODES) > 0) {
+	if (DspFlagsIn.DSP_NODES) {
 		x = Pt_Point->x;
 		y = Pt_Point->y;
 		z = Pt_Point->z;
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			if (pResD != NULL) {
 				vD = pResD->GetVec();
 				vD -= ME->vRelDispOff;
@@ -2490,7 +2490,7 @@ void Node::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glColor3fv(ColorIfSelect(GetCol(), 170));
 		// momo
 		glPointSize(gND_SIZE);
-		if ((iDspFlgs & DSP_NODES_ASK) > 0) {
+		if (DspFlagsIn.DSP_NODES_ASK) {
 			glBegin(GL_POINTS);
 			glVertex3f((float) x, (float) y, (float) z);
 			glEnd();
@@ -2507,24 +2507,24 @@ void Node::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		// Esp_Mod_Labels_4_27_2025_End
 		{
 			sLab.Format(_T("N%i"), iLabel);
-			OglString(iDspFlgs, (float) x, (float) y, (float) z, CT2A(sLab));
+			OglString(DspFlagsIn, (float) x, (float) y, (float) z, CT2A(sLab));
 		}
-		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+		if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			// Esp_Mod_Label_Old: Offset Labels for Nodes
 			// float radius = gND_SIZE / 100;
 			// float offset = (radius / 2.0f + 0.15f) * (float)dS1;
 			// OglString(iDspFlgs, (float)x + offset, (float)y + offset, (float)z + offset, CT2A(sLab));
 			// Esp_Mod_Label_Old
-			OglString(iDspFlgs, (float) x, (float) y, (float) z, CT2A(sLab));
+			OglString(DspFlagsIn, (float) x, (float) y, (float) z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
 	}
 }
 
-void Node::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Node::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 void Node::Move(C3dVector vM) {
@@ -2679,7 +2679,7 @@ BOOL eFace::isSame(eFace* inFace) {
 	return (brc);
 }
 
-void eFace::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void eFace::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
@@ -2736,7 +2736,7 @@ void eFace::RelTo(G_Object* pThis, ObjList* pList, int iType) {
 void eFace::Serialize(CArchive& ar, int iV) {
 }
 
-void eFace::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void eFace::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
@@ -2854,7 +2854,7 @@ int eEdge::isSameWithDir(eEdge* inLink) {
 	return (irc);
 }
 
-void eEdge::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void eEdge::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	glLineWidth(gED_SIZE);
 	// momo
 	//  momo// glColor3fv(cols[iColour]);
@@ -2957,8 +2957,8 @@ C3dVector eEdge::Get_Centroid() {
 	return (vT);
 }
 
-void eEdge::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void eEdge::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 c2dParPt::c2dParPt() {
@@ -3044,7 +3044,7 @@ BOOL cSeg::HasCommonVert(c2dParPt* p1, c2dParPt* p2) {
 	return (bRet);
 }
 
-void cSeg::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void cSeg::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector vA, vB, vV;
 	C3dMatrix mT;
 	int i;
@@ -3119,8 +3119,8 @@ C2dVector cSeg::Get_Mid() {
 	return (MpT);
 }
 
-void cSeg::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void cSeg::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 c2dFront::c2dFront() {
@@ -3172,12 +3172,12 @@ void c2dFront::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
 	fNodes->SetToScr(pModMat, pScrTran);
 }
 
-void c2dFront::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	fNodes->OglDrawW(iDspFlgs, dS1, dS2);
+void c2dFront::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	fNodes->OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void c2dFront::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	fNodes->OglDraw(iDspFlgs, dS1, dS2);
+void c2dFront::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	fNodes->OglDraw(DspFlagsIn, dS1, dS2);
 }
 
 eFaceList::eFaceList() {
@@ -3257,20 +3257,20 @@ void eFaceList::Remove(eFace* inFace) {
 	}
 }
 
-void eFaceList::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void eFaceList::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	eFace* pNext;
 	pNext = Head;
 	while (pNext != NULL) {
-		pNext->OglDraw(iDspFlgs, dS1, dS2);
+		pNext->OglDraw(DspFlagsIn, dS1, dS2);
 		pNext = (eFace*) pNext->next;
 	}
 }
 
-void eFaceList::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void eFaceList::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	eFace* pNext;
 	pNext = Head;
 	while (pNext != NULL) {
-		pNext->OglDrawW(iDspFlgs, dS1, dS2);
+		pNext->OglDrawW(DspFlagsIn, dS1, dS2);
 		pNext = (eFace*) pNext->next;
 	}
 }
@@ -3407,17 +3407,17 @@ void eEdgeList::Purge() {
 	}
 }
 
-void eEdgeList::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void eEdgeList::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	eEdge* pNext;
 	pNext = Head;
 	while (pNext != NULL) {
-		pNext->OglDrawW(iDspFlgs, dS1, dS2);
+		pNext->OglDrawW(DspFlagsIn, dS1, dS2);
 		pNext = (eEdge*) pNext->next;
 	}
 }
 
-void eEdgeList::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void eEdgeList::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 //****************************************************************************
@@ -3607,7 +3607,7 @@ void Line_Object::Draw() {
 	// momo gdi to og2
 }
 
-void Line_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void Line_Object::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	// momo
 	//  momo// glColor3fv(cols[GetCol()]);
 	glColor3fv(ColorIfSelect(GetCol(), -1));
@@ -3618,7 +3618,7 @@ void Line_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	glEnd();
 }
 
-void Line_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Line_Object::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	// momo
 	//  momo// glColor3fv(cols[GetCol()]);
 	glColor3fv(ColorIfSelect(GetCol(), -1));
@@ -3753,11 +3753,11 @@ void Curve::Draw() {
 	// momo gdi to og
 }
 
-void Curve::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void Curve::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	ContrPolyW::OglDraw(0.0, 1.0);
 }
 
-void Curve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Curve::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	ContrPolyW::OglDrawW(0.0, 1.0);
 }
 
@@ -5545,7 +5545,7 @@ void E_Object38::Draw() {
 	// momo gdi to og2
 }
 
-void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object38::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector d[8];
 	int i;
@@ -5563,8 +5563,8 @@ void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 8; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -5574,7 +5574,7 @@ void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_LINE) > 0) {
+		if (DspFlagsIn.DSP_WIREFRAME) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -5621,13 +5621,13 @@ void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+		if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -5664,7 +5664,7 @@ void E_Object38::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_Object38::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object38::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector d[8];
 	int i;
 	for (i = 0; i < 8; i++) {
@@ -5722,8 +5722,8 @@ void E_Object38::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 8; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -5737,7 +5737,7 @@ void E_Object38::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
-		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
+		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
 			v1.x = pVertex[1]->Pt_Point->x - pVertex[0]->Pt_Point->x;
 			v1.y = pVertex[1]->Pt_Point->y - pVertex[0]->Pt_Point->y;
 			v1.z = pVertex[1]->Pt_Point->z - pVertex[0]->Pt_Point->z;
@@ -6662,7 +6662,7 @@ void E_Object36::Draw() {
 	// momo gdi to og2
 }
 
-void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object36::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector d[6];
 	int i;
 	for (i = 0; i < 6; i++) {
@@ -6707,8 +6707,8 @@ void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 6; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -6719,7 +6719,7 @@ void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		}
 
 		Selectable = 1;
-		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
+		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
 			v1.x = pVertex[1]->Pt_Point->x - pVertex[0]->Pt_Point->x;
 			v1.y = pVertex[1]->Pt_Point->y - pVertex[0]->Pt_Point->y;
 			v1.z = pVertex[1]->Pt_Point->z - pVertex[0]->Pt_Point->z;
@@ -6957,7 +6957,7 @@ void E_Object36::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_Object36::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object36::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector d[6];
 	int i;
@@ -6975,8 +6975,8 @@ void E_Object36::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 6; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -6986,7 +6986,7 @@ void E_Object36::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_LINE) > 0) {
+		if (DspFlagsIn.DSP_WIREFRAME) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -7025,13 +7025,13 @@ void E_Object36::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+		if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -8004,7 +8004,7 @@ void E_Object34::Draw() {
 	// momo gdi to og2
 }
 
-void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object34::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector d[4];
 	int i;
@@ -8022,8 +8022,8 @@ void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -8033,7 +8033,7 @@ void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_LINE) > 0) {
+		if (DspFlagsIn.DSP_WIREFRAME) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -8066,13 +8066,13 @@ void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+		if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -8109,7 +8109,7 @@ void E_Object34::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_Object34::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object34::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector d[4];
 	int i;
 	for (i = 0; i < 4; i++) {
@@ -8149,8 +8149,8 @@ void E_Object34::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -8164,7 +8164,7 @@ void E_Object34::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
-		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
+		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
 			v1.x = pVertex[1]->Pt_Point->x - pVertex[0]->Pt_Point->x;
 			v1.y = pVertex[1]->Pt_Point->y - pVertex[0]->Pt_Point->y;
 			v1.z = pVertex[1]->Pt_Point->z - pVertex[0]->Pt_Point->z;
@@ -9206,7 +9206,7 @@ void E_Object310::Draw() {
 	// momo gdi to og2
 }
 
-void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object310::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector d[10];
 	int i;
@@ -9224,8 +9224,8 @@ void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 10; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -9235,7 +9235,7 @@ void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_LINE) > 0) {
+		if (DspFlagsIn.DSP_WIREFRAME) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -9292,13 +9292,13 @@ void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+		if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -9335,7 +9335,7 @@ void E_Object310::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_Object310::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object310::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector d[10];
 	int i;
 	for (i = 0; i < 10; i++) {
@@ -9393,8 +9393,8 @@ void E_Object310::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 10; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -9408,7 +9408,7 @@ void E_Object310::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
-		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
+		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
 			v1 = pVertex[1]->Pt_Point - pVertex[0]->Pt_Point;
 			v2 = pVertex[2]->Pt_Point - pVertex[1]->Pt_Point;
 			Vn = v1.Cross(v2);
@@ -11874,11 +11874,11 @@ C3dMatrix E_Object2::GetElSys() {
 	return (vR);
 }
 
-void E_Object2::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void E_Object2::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object2::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int ind;
 	BOOL bD = FALSE;
 	float fCols[2] = {0, 0};
@@ -11895,8 +11895,8 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	ME_Object* ME = (ME_Object*) this->pParent;
 	S = ME->dScale;
 	dFS = ME->dResFactor;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 2; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -11922,7 +11922,7 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		C3dVector vCent;
 		CString sLab;
 		vCent = Get_Centroid();
-		if (((iDspFlgs & DSP_CONT) == 0) && (bD == TRUE)) {
+		if (!DspFlagsIn.DSP_CONT && (bD == TRUE)) {
 			// momo
 			//  momo// glColor3fv(cols[124]);
 			glColor3fv(ColorIfSelect(124, -1));
@@ -11958,13 +11958,13 @@ void E_Object2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_end
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+		if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			// C3dMatrix mS = GetElSys();
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
@@ -12651,7 +12651,7 @@ G_Object* E_Object2R::GetNode(int i) {
 	return (pVertex[i]);
 }
 
-void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object2R::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	// momo
 	//  momo// glColor3fv(cols[iColour]);
 	glColor3fv(ColorIfSelect(iColour, -1));
@@ -12686,8 +12686,8 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		fCols[1] = GetContourCol(*pResV->GetAddress(iVar) * dFS);
 	}
 
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 2; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -12697,7 +12697,7 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_THK) > 0) {
+		if (DspFlagsIn.DSP_THK) {
 			if (pPr != NULL) {
 				BSec* pS = pPr->GetSec();
 				if (pS != NULL) {
@@ -12705,7 +12705,7 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 					C3dMatrix TB = GetBeamTformB();
 					glEnable(GL_BLEND);
 					glBlendFunc(GL_SRC_ALPHA, GL_SRC_COLOR);
-					pS->OglDraw(iDspFlgs, TA, TB, d[0], d[1], fCols[0], fCols[1], bD);
+					pS->OglDraw(DspFlagsIn, TA, TB, d[0], d[1], fCols[0], fCols[1], bD);
 					glDisable(GL_BLEND);
 				}
 			} else {
@@ -12721,7 +12721,7 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 				glEnd();
 			}
 		} else {
-			if (((iDspFlgs & DSP_CONT) == 0) || (bD == TRUE)) {
+			if (!DspFlagsIn.DSP_CONT || (bD == TRUE)) {
 				// momo
 				//  momo// glColor3fv(cols[124]);
 				glColor3fv(ColorIfSelect(124, -1));
@@ -12750,7 +12750,7 @@ void E_Object2R::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object2R::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector d[2];
 	int i;
@@ -12767,8 +12767,8 @@ void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 2; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -12778,7 +12778,7 @@ void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_LINE) > 0) {
+		if (DspFlagsIn.DSP_WIREFRAME) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, 172));
@@ -12802,22 +12802,22 @@ void E_Object2R::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+		if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if ((iDspFlgs & DSP_THK) > 0) {
+		if (DspFlagsIn.DSP_THK) {
 			if (pPr != NULL) {
 				BSec* pS = pPr->GetSec();
 				if (pS != NULL) {
 					C3dMatrix TMat = GetBeamTform();
-					pS->OglDrawW(iDspFlgs, TMat, d[0], d[1]);
+					pS->OglDrawW(DspFlagsIn, TMat, d[0], d[1]);
 				}
 			}
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -13541,9 +13541,9 @@ void E_Object2B::ExportNAS(FILE* pFile) {
 		}
 		C3dVector vU;
 		vU = TMat * vUp;
-		fprintf(pFile, "%8s%8s%8s\n", e8(vU.x), e8(vU.y), e8(vU.z));
+		fprintf(pFile, "%8S%8S%8S\n", e8(vU.x), e8(vU.y), e8(vU.z));
 	}
-	fprintf(pFile, "%8s%8s%8s", "        ", GetDOFString(iDOFA), GetDOFString(iDOFB));
+	fprintf(pFile, "%8s%8S%8S", "        ", GetDOFString(iDOFA), GetDOFString(iDOFB));
 
 	TMat.MakeUnit();
 	if (pVertex[0]->OutSys > 0) {
@@ -13556,7 +13556,7 @@ void E_Object2B::ExportNAS(FILE* pFile) {
 	}
 	C3dVector vD1;
 	vD1 = TMat * OffA;
-	fprintf(pFile, "%8s%8s%8s", e8(vD1.x), e8(vD1.y), e8(vD1.z));
+	fprintf(pFile, "%8S%8S%8S", e8(vD1.x), e8(vD1.y), e8(vD1.z));
 	TMat.MakeUnit();
 	if (pVertex[0]->OutSys > 0) {
 		ME_Object* pM = (ME_Object*) this->pParent;
@@ -13568,7 +13568,7 @@ void E_Object2B::ExportNAS(FILE* pFile) {
 	}
 	C3dVector vD2;
 	vD2 = TMat * OffB;
-	fprintf(pFile, "%8s%8s%8s\n", e8(vD2.x), e8(vD2.y), e8(vD2.z));
+	fprintf(pFile, "%8S%8S%8S\n", e8(vD2.x), e8(vD2.y), e8(vD2.z));
 }
 
 int E_Object2B::noDof() {
@@ -14053,7 +14053,7 @@ void E_Object3::Serialize(CArchive& ar, int iV, ME_Object* MESH)
 }
 
 void E_Object3::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s", ToString());
+	fprintf(pFile, "%8S", ToString());
 }
 
 void E_Object3::ExportUNV(FILE* pFile) {
@@ -14187,7 +14187,7 @@ G_Object* E_Object3::GetNode(int i) {
 	return (pVertex[i]);
 }
 
-void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object3::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector d[3];
 	int i;
@@ -14205,8 +14205,8 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 3; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -14216,8 +14216,8 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-			if ((iDspFlgs & DSP_LINE) > 0) {
+		if (DspFlagsIn.DSP_ELEMENTS) {
+			if (DspFlagsIn.DSP_WIREFRAME) {
 				// momo
 				//  momo// glColor3fv(cols[iColour]);
 				glColor3fv(ColorIfSelect(iColour, -1));
@@ -14245,14 +14245,14 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 					dPCompOff = pPCOMP->dZ0 + dt;
 				}
 			}
-			if (((iDspFlgs & DSP_OFF) > 0) && (dZOFFS != DBL_MAX)) {
+			if (DspFlagsIn.DSP_OFF && (dZOFFS != DBL_MAX)) {
 				vOff = vN;
 				vOff *= dZOFFS + dPCompOff;
 			} else {
 				vOff *= 0;
 			}
 			vN *= dt;
-			if ((iDspFlgs & DSP_THK) > 0) {
+			if (DspFlagsIn.DSP_THK) {
 				glBegin(GL_LINES);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
 				glVertex3f((float) (pVertex[1]->Pt_Point->x + vOff.x + vN.x + d[1].x), (float) (pVertex[1]->Pt_Point->y + vOff.y + vN.y + d[1].y), (float) (pVertex[1]->Pt_Point->z + vOff.z + vN.z + d[1].z));
@@ -14294,14 +14294,14 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			if (bDrawLab == TRUE) {
 				// Esp_Mod_Labels_4_27_2025_End
 				sLab.Format(_T("E%i"), iLabel);
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+				OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
-			if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+			if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 				sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+				OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -14337,7 +14337,7 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			glRasterPos3f((float) vZ.x, (float) vZ.y, (float) vZ.z);
 			glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, BMPZ);
 		}
-		if ((iDspFlgs & DSP_MATL) == 0) {
+		if (!DspFlagsIn.DSP_MATL) {
 			C3dMatrix mS = GetElSys();
 			C3dMatrix mR;
 			C3dVector vD;
@@ -14380,7 +14380,7 @@ void E_Object3::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_Object3::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object3::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector d[3];
 	int i;
 	for (i = 0; i < 3; i++) {
@@ -14434,7 +14434,7 @@ void E_Object3::OglDraw(int iDspFlgs, double dS1, double dS2) {
 			dPCompOff = pPCOMP->dZ0 + dt;
 		}
 	}
-	if (((iDspFlgs & DSP_OFF) > 0) && (dZOFFS != DBL_MAX)) {
+	if (DspFlagsIn.DSP_OFF && (dZOFFS != DBL_MAX)) {
 		vOff = vN;
 		vOff *= dZOFFS + dPCompOff;
 	} else {
@@ -14445,8 +14445,8 @@ void E_Object3::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	Vn = Get_Normal();
 	Vn.Normalize();
 
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 3; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -14460,8 +14460,8 @@ void E_Object3::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
-		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
-			if ((iDspFlgs & DSP_THK) > 0) {
+		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
+			if (DspFlagsIn.DSP_THK) {
 				glBegin(GL_POLYGON);
 				glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
@@ -16408,7 +16408,7 @@ void E_Object1::ExportUNV(FILE* pFile) {
 }
 
 void E_Object1::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%s", ToString().GetString());
+	fprintf(pFile, "%S", ToString().GetString());
 }
 
 CString E_Object1::ToString() {
@@ -16572,7 +16572,7 @@ void E_Object1::Draw() {
 	// momo gdi to og2
 }
 
-void E_Object1::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object1::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector d;
 	C3dVector vCent;
@@ -16587,8 +16587,8 @@ void E_Object1::OglDraw(int iDspFlgs, double dS1, double dS2) {
 
 	S = ME->dScale;
 	dFS = ME->dResFactor;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			if (pVertex->pResD != NULL) {
 				d = pVertex->pResD->GetVec();
 				d -= ME->vRelDispOff;
@@ -16614,12 +16614,12 @@ void E_Object1::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	if (bDrawLab == TRUE) {
 		// Esp_Mod_Labels_4_27_2025_End
 		sLab.Format(_T("N%i"), iLabel);
-		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+		OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 	}
 }
 
-void E_Object1::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	OglDraw(iDspFlgs, dS1, dS2);
+void E_Object1::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDraw(DspFlagsIn, dS1, dS2);
 }
 
 C3dVector E_Object1::Get_Centroid() {
@@ -16941,9 +16941,9 @@ C3dVector E_CellS::Get_Centroid() {
 	return (pVertex[0]->Get_Centroid());
 }
 
-void E_CellS::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_CellS::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
 		Selectable = 1;
 		glEnable(GL_LINE_STIPPLE);
 		glLineStipple(1, 0x0101);
@@ -16970,15 +16970,15 @@ void E_CellS::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
 	}
 }
 
-void E_CellS::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void E_CellS::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 //----------------------------------------------------------------------------
@@ -18666,7 +18666,7 @@ void E_Object4::ExportUNV(FILE* pFile) {
 }
 
 void E_Object4::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s", ToString());
+	fprintf(pFile, "%8S", ToString());
 }
 
 G_Object* E_Object4::Copy(G_Object* Parrent) {
@@ -18803,7 +18803,7 @@ int E_Object4::GetLinkList(eEdge* Links[200]) {
 	return (4);
 }
 
-void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void E_Object4::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	double dFS;
 	CString sLab;
 	C3dVector d[4];
@@ -18821,8 +18821,8 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -18832,8 +18832,8 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-			if ((iDspFlgs & DSP_LINE) > 0) {
+		if (DspFlagsIn.DSP_ELEMENTS) {
+			if (DspFlagsIn.DSP_WIREFRAME) {
 				// momo
 				//  momo// glColor3fv(cols[iColour]);
 				glColor3fv(ColorIfSelect(iColour, -1));
@@ -18861,7 +18861,7 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 					dPCompOff = pPCOMP->dZ0 + dt;
 				}
 			}
-			if (((iDspFlgs & DSP_OFF) > 0) && (dZOFFS != DBL_MAX)) {
+			if (DspFlagsIn.DSP_OFF && (dZOFFS != DBL_MAX)) {
 				vOff = vN;
 				vOff *= dZOFFS + dPCompOff;
 			} else {
@@ -18869,7 +18869,7 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			}
 
 			vN *= dt;
-			if ((iDspFlgs & DSP_THK) > 0) {
+			if (DspFlagsIn.DSP_THK) {
 				glBegin(GL_LINES);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
 				glVertex3f((float) (pVertex[1]->Pt_Point->x + vOff.x + vN.x + d[1].x), (float) (pVertex[1]->Pt_Point->y + vOff.y + vN.y + d[1].y), (float) (pVertex[1]->Pt_Point->z + vOff.z + vN.z + d[1].z));
@@ -18919,16 +18919,16 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			if (bDrawLab == TRUE) {
 				// Esp_Mod_Labels_4_27_2025_End
 				sLab.Format(_T("E%i"), iLabel);
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+				OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
-			if (((iDspFlgs & DSP_RESLAB) == 0) && (pResV != NULL)) {
+			if (!DspFlagsIn.DSP_RESLAB && (pResV != NULL)) {
 				sLab.Format(_T("%f"), *pResV->GetAddress(ind));
-				OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+				OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
 
 			// Results Label
 		}
-		if ((iDspFlgs & DSP_ELSYS) == 0) {
+		if (!DspFlagsIn.DSP_ELSYS) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -18965,7 +18965,7 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, BMPZ);
 		}
 
-		if ((iDspFlgs & DSP_MATL) == 0) {
+		if (!DspFlagsIn.DSP_MATL) {
 			C3dMatrix mS = GetElSys();
 			C3dMatrix mR;
 			C3dVector vD;
@@ -19018,7 +19018,7 @@ void E_Object4::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void E_Object4::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_Object4::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector d[4];
 	int i;
 	for (i = 0; i < 4; i++) {
@@ -19074,7 +19074,7 @@ void E_Object4::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		}
 	}
 
-	if (((iDspFlgs & DSP_OFF) > 0) && (dZOFFS != DBL_MAX)) {
+	if (DspFlagsIn.DSP_OFF && (dZOFFS != DBL_MAX)) {
 		vOff = vN;
 		vOff *= dZOFFS + dPCompOff;
 	} else {
@@ -19084,8 +19084,8 @@ void E_Object4::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	vN *= dt;
 	Vn = Get_Normal();
 
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -19099,8 +19099,8 @@ void E_Object4::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
-		if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
-			if ((iDspFlgs & DSP_THK) > 0) {
+		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
+			if (DspFlagsIn.DSP_THK) {
 				glBegin(GL_POLYGON);
 				glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
@@ -19968,7 +19968,7 @@ void E_ObjectR::ExportNAS(FILE* pFile) {
 	int iFN;
 	CString sDof;
 	sDof = GetDOFString(iDOF);
-	fprintf(pFile, "%8s%8i%8i%8s", "RBE2    ", iLabel, pVertex[0]->iLabel, sDof);
+	fprintf(pFile, "%8s%8i%8i%8S", "RBE2    ", iLabel, pVertex[0]->iLabel, sDof);
 	iFN = 5;
 
 	for (i = 1; i < iNoNodes; i++) {
@@ -19980,7 +19980,7 @@ void E_ObjectR::ExportNAS(FILE* pFile) {
 			fprintf(pFile, "%8s", "        ");
 		}
 	}
-	fprintf(pFile, "%8s\n", e8(dALPHA));
+	fprintf(pFile, "%8S\n", e8(dALPHA));
 }
 
 // Draw Object line
@@ -20002,8 +20002,8 @@ void E_ObjectR::Draw() {
 	// momo gdi to og2
 }
 
-void E_ObjectR::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	OglDraw(iDspFlgs, dS1, dS2);
+void E_ObjectR::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDraw(DspFlagsIn, dS1, dS2);
 }
 
 G_Object* E_ObjectR::GetNode(int i) {
@@ -20073,7 +20073,7 @@ void E_ObjectR::PutVarValues(PropTable* PT, int iNo, CString sVar[]) {
 	;
 }
 
-void E_ObjectR::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_ObjectR::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int i;
 	CString sLab;
 	BOOL bD = FALSE;
@@ -20092,14 +20092,14 @@ void E_ObjectR::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		dFS = ME->dResFactor;
 	}
 
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
 		Selectable = 1;
 		C3dVector vCent;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
-		if ((iDspFlgs & DSP_RESDEF) == 0) {
+		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < iNoNodes; i++) {
 				if (pVertex[i]->pResD != NULL) {
 					d[i] = pVertex[i]->pResD->GetVec();
@@ -20118,10 +20118,10 @@ void E_ObjectR::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		vCent = Get_Centroid();
 		if (bDrawLab == TRUE) {
 			sLab.Format(_T(" R%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		} else {
 			sLab.Format(_T("%s"), _T(" R"));
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -20553,14 +20553,14 @@ C3dVector E_ObjectR2::Get_Centroid() {
 	return (vT);
 }
 
-void E_ObjectR2::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	OglDraw(iDspFlgs, dS1, dS2);
+void E_ObjectR2::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDraw(DspFlagsIn, dS1, dS2);
 }
 
-void E_ObjectR2::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void E_ObjectR2::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector vCent;
-	if ((iDspFlgs & DSP_ELEMENTS) > 0) {
+	if (DspFlagsIn.DSP_ELEMENTS) {
 		Selectable = 1;
 		glLineWidth(gEL_SIZE);
 		// momo
@@ -20578,7 +20578,7 @@ void E_ObjectR2::OglDraw(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("E%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -20669,7 +20669,7 @@ void E_ObjectR2::ExportNAS(FILE* pFile) {
 	sDof3 = GetDOFString(iCMA);
 	sDof4 = GetDOFString(iCMB);
 
-	fprintf(pFile, "%8s%8i%8i%8i%8s%8s%8s%8s%8s\n", "RBAR    ", iLabel, pVertex[0]->iLabel, pVertex[1]->iLabel, sDof1, sDof2, sDof3, sDof4, e8(dALPHA));
+	fprintf(pFile, "%8s%8i%8i%8i%8S%8S%8S%8S%8S\n", "RBAR    ", iLabel, pVertex[0]->iLabel, pVertex[1]->iLabel, sDof1, sDof2, sDof3, sDof4, e8(dALPHA));
 }
 
 //----------------------------------------------------------------------------
@@ -20919,11 +20919,11 @@ void WP_Object::Draw() {
 	// momo gdi to og2
 }
 
-void WP_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void WP_Object::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector T_Point[40];
 	C3dVector V;
 	int i;
-	if ((iDspFlgs & DSP_WP) > 0) {
+	if (DspFlagsIn.DSP_WP) {
 		Selectable = 1;
 		for (i = 0; i < 40; i++) {
 			V.x = Pt_Point[i]->x;
@@ -21035,8 +21035,8 @@ void WP_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	}
 }
 
-void WP_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void WP_Object::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 void WP_Object::Reset() {
@@ -23061,7 +23061,7 @@ void ME_Object::ExportSec(FILE* pFile, int id, CString Name, double w, double h,
 	Iyy = (h * w * w * w) / 12 - (h1 * w1 * w1 * w1) / 12;
 
 	fprintf(pFile, "%10i%10i%10i\n", id, 2, 0);
-	fprintf(pFile, "%20s\n", Name);
+	fprintf(pFile, "%20S\n", Name);
 	fprintf(pFile, "%13.6E%13.6E%13.6E%13.6E%13.6E%13.6E\n", w, h, t, t, 0.0, 0.0);
 	fprintf(pFile, "%13.6E%13.6E%13.6E%13.6E\n", 0.0, 0.0, 0.0, 0.0);
 	fprintf(pFile, "%13.6E%13.6E%13.6E%13.6E%13.6E%13.6E\n", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -23112,13 +23112,13 @@ void ME_Object::ExportNASCase101(FILE* pFile, SecTable* pS) {
 	int iC = pSOLS->iCur;
 	fprintf(pFile, "%s\n", "$******************* CASE CONTROL *************************");
 	fprintf(pFile, "%s\n", "$");
-	fprintf(pFile, "TITLE = %s\n", pSOLS->pSols[iC]->sTitle);
+	fprintf(pFile, "TITLE = %S\n", pSOLS->pSols[iC]->sTitle);
 	fprintf(pFile, "%s\n", "ECHO = NONE");
 	Solution* pSOL = pSOLS->pSols[iC];
 	iNoSteps = pSOL->iNo;
 	for (i = 0; i < iNoSteps; i++) {
 		fprintf(pFile, "SUBCASE %i\n", i + 1);
-		fprintf(pFile, "    TITLE = %s\n", pSOL->sStepTitle[i]);
+		fprintf(pFile, "    TITLE = %S\n", pSOL->sStepTitle[i]);
 		if (pSOL->LS[i] > 0) {
 			fprintf(pFile, "    LOAD = %i\n", pSOL->LS[i]);
 		}
@@ -23171,7 +23171,7 @@ void ME_Object::ExportNAS_SETS(FILE* pFile, SecTable* pS, int iFileNo) {
 			LCS->Add(pSOL->LS[i], 1);
 			cLinkedList* pCLC = GetLC(pSOL->LS[i]);
 			if (pCLC != nullptr) {
-				fprintf(pFile, "$%s\n", pCLC->sTitle);
+				fprintf(pFile, "$%S\n", pCLC->sTitle);
 				BCLD* pNext;
 				pNext = (BCLD*) pCLC->Head;
 				while (pNext != NULL) {
@@ -23185,7 +23185,7 @@ void ME_Object::ExportNAS_SETS(FILE* pFile, SecTable* pS, int iFileNo) {
 			BCS->Add(pSOL->BS[i], 1);
 			cLinkedList* pCBC = GetBC(pSOL->BS[i]);
 			if (pCBC != nullptr) {
-				fprintf(pFile, "$%s\n", pCBC->sTitle);
+				fprintf(pFile, "$%S\n", pCBC->sTitle);
 				BCLD* pNext;
 				pNext = (BCLD*) pCBC->Head;
 				while (pNext != NULL) {
@@ -23199,7 +23199,7 @@ void ME_Object::ExportNAS_SETS(FILE* pFile, SecTable* pS, int iFileNo) {
 			TS->Add(pSOL->TS[i], 1);
 			cLinkedList* pTSET = GetTSET(pSOL->TS[i]);
 			if (pTSET != nullptr) {
-				fprintf(pFile, "$%s\n", pTSET->sTitle);
+				fprintf(pFile, "$%S\n", pTSET->sTitle);
 				BCLD* pNext;
 				pNext = (BCLD*) pTSET->Head;
 				while (pNext != NULL) {
@@ -23979,7 +23979,7 @@ void ME_Object::ExportUNV(FILE* pFile, SecTable* pS) {
 		fprintf(pFile, "%6s\n", "2435");
 		for (i = 0; i < iNoGps; i++) {
 			fprintf(pFile, "%10i%10i%10i%10i%10i%10i%10i%10i\n", i + 1, 0, 0, 0, 0, 0, 0, GPs[i]->iNo);
-			fprintf(pFile, "%s\n", GPs[i]->Title);
+			fprintf(pFile, "%S\n", GPs[i]->Title);
 			bNL = FALSE;
 			for (j = 0; j < GPs[i]->iNo; j++) {
 				if (GPs[i]->iType[j] == 3) {
@@ -27208,7 +27208,7 @@ void CreateTexture(BOOL bRev) {
 		glTexImage1D(GL_TEXTURE_1D, 0, 3, 10, 0, GL_RGB, GL_FLOAT, Texture17);
 }
 
-void DrawColBar(int iDspFlgs, double dW, double dH) {
+void DrawColBar(DisplayFlags DspFlagsIn, double dW, double dH) {
 	int iNoCols = 13;
 	float YOrd[30];
 	float TOrd[30];
@@ -27257,36 +27257,36 @@ void DrawColBar(int iDspFlgs, double dW, double dH) {
 	CString sLab;
 	for (i = 0; i < iNoCols + 1; i++) {
 		sLab.Format(_T("%g"), VOrd[i]);
-		OglString(iDspFlgs, dW - 0.95 * dWInc, YOrd[i], 100, CT2A(sLab));
+		OglString(DspFlagsIn, dW - 0.95 * dWInc, YOrd[i], 100, CT2A(sLab));
 	}
 }
 
-void ME_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void ME_Object::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int i;
 
 	if (iElNo > 0) {
 		for (i = 0; i < iElNo; i++) {
-			pElems[i]->OglDraw(iDspFlgs, dS1, dS2);
+			pElems[i]->OglDraw(DspFlagsIn, dS1, dS2);
 		}
 	}
 	if ((iNdNo > 0) && (bDrawN == TRUE)) {
 		for (i = 0; i < iNdNo; i++) {
-			pNodes[i]->OglDraw(iDspFlgs, dS1, dS2);
+			pNodes[i]->OglDraw(DspFlagsIn, dS1, dS2);
 		}
 	}
 	if (iCurLC != -1) {
-		LCS[iCurLC]->OglDraw(iDspFlgs, dS1, dS2);
+		LCS[iCurLC]->OglDraw(DspFlagsIn, dS1, dS2);
 	}
 	if (iCurBC != -1) {
-		BCS[iCurBC]->OglDraw(iDspFlgs, dS1, dS2);
+		BCS[iCurBC]->OglDraw(DspFlagsIn, dS1, dS2);
 	}
 	if (iCurTSet != -1) {
-		TSETS[iCurTSet]->OglDraw(iDspFlgs, dS1, dS2);
+		TSETS[iCurTSet]->OglDraw(DspFlagsIn, dS1, dS2);
 	}
 
 	if (iCYS > 0) {
 		for (i = 0; i < iCYS; i++) {
-			pSys[i]->OglDraw(iDspFlgs, dS1, dS2);
+			pSys[i]->OglDraw(DspFlagsIn, dS1, dS2);
 		}
 	}
 
@@ -27294,40 +27294,40 @@ void ME_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 	//   FcList->OglDraw(iDspFlgs,dS1,dS2);
 }
 
-void ME_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void ME_Object::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int i;
 	CString sLab;
 	if (pResVectors != NULL)
-		pResVectors->OglDrawW(iDspFlgs, dS1, dS2);
+		pResVectors->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (iElNo > 0) {
 		for (i = 0; i < iElNo; i++) {
-			pElems[i]->OglDrawW(iDspFlgs, dS1, dS2);
+			pElems[i]->OglDrawW(DspFlagsIn, dS1, dS2);
 		}
 	}
 	if ((iNdNo > 0) && (bDrawN == TRUE)) {
 		for (i = 0; i < iNdNo; i++) {
-			pNodes[i]->OglDrawW(iDspFlgs, dS1, dS2);
+			pNodes[i]->OglDrawW(DspFlagsIn, dS1, dS2);
 		}
 	}
 
 	if (iCurLC != -1) {
-		LCS[iCurLC]->OglDrawW(iDspFlgs, dS1, dS2);
+		LCS[iCurLC]->OglDrawW(DspFlagsIn, dS1, dS2);
 	}
 	if (iCurBC != -1) {
-		BCS[iCurBC]->OglDrawW(iDspFlgs, dS1, dS2);
+		BCS[iCurBC]->OglDrawW(DspFlagsIn, dS1, dS2);
 	}
 	if (iCurTSet != -1) {
-		TSETS[iCurTSet]->OglDrawW(iDspFlgs, dS1, dS2);
+		TSETS[iCurTSet]->OglDrawW(DspFlagsIn, dS1, dS2);
 	}
 
 	if (iBCLDs > 0) {
 		for (i = 0; i < iBCLDs; i++) {
-			pBCLDs[i]->OglDrawW(iDspFlgs, dS1, dS2);
+			pBCLDs[i]->OglDrawW(DspFlagsIn, dS1, dS2);
 		}
 	}
 	if (iCYS > 0) {
 		for (i = 0; i < iCYS; i++) {
-			pSys[i]->OglDraw(iDspFlgs, dS1, dS2);
+			pSys[i]->OglDraw(DspFlagsIn, dS1, dS2);
 		}
 	}
 
@@ -27341,7 +27341,7 @@ void ME_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	if (bDrawLab == TRUE) {
 		// Esp_Mod_Labels_4_27_2025_End
 		sLab.Format(_T("ME: %s"), sName);
-		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+		OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 	}
 }
 
@@ -31660,24 +31660,24 @@ void ME_Object::SetCurrentResSet(int iRS, int iRV, int iOPT) {
 	}
 }
 
-void ME_Object::WriteResHead(int iDspFlgs, float dW, float dH) {
+void ME_Object::WriteResHead(DisplayFlags DspFlagsIn, float dW, float dH) {
 	CString sLab;
 	if ((iCurResSet > -1) && (CResSet != NULL)) {
 		sLab.Format(_T("%s"), ResultsSets[iCurResSet]->sName);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.1 * dH, 100, CT2A(sLab));
+		OglString(DspFlagsIn, -dW + 0.02 * dW, dH - 0.1 * dH, 100, CT2A(sLab));
 		sLab.Format(_T("%s %i %s"), _T("Solution :"), ResultsSets[iCurResSet]->LC, ResultsSets[iCurResSet]->sTitle);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.2 * dH, 100, CT2A(sLab));
+		OglString(DspFlagsIn, -dW + 0.02 * dW, dH - 0.2 * dH, 100, CT2A(sLab));
 		if (ResultsSets[iCurResSet]->ACODE == 22)
 			sLab.Format(_T("%s %i %g Hz"), _T("MODE :"), ResultsSets[iCurResSet]->i1, ResultsSets[iCurResSet]->d1);
 		else
 			sLab.Format(_T("%s %i %s"), _T("Step :"), ResultsSets[iCurResSet]->LC, ResultsSets[iCurResSet]->sSubTitle);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.3 * dH, 100, CT2A(sLab));
+		OglString(DspFlagsIn, -dW + 0.02 * dW, dH - 0.3 * dH, 100, CT2A(sLab));
 		sLab.Format(_T("%s %s %s %i"), _T("Variable  :"), ResultsSets[iCurResSet]->lab[iResVal], ResultsSets[iCurResSet]->sOpName, iPostOpt);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.4 * dH, 100, CT2A(sLab));
+		OglString(DspFlagsIn, -dW + 0.02 * dW, dH - 0.4 * dH, 100, CT2A(sLab));
 		sLab.Format(_T("%s %f"), _T("Max Value :"), ResultsSets[iCurResSet]->fMaxV);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.5 * dH, 100, CT2A(sLab));
+		OglString(DspFlagsIn, -dW + 0.02 * dW, dH - 0.5 * dH, 100, CT2A(sLab));
 		sLab.Format(_T("%s %f"), _T("Min Value :"), ResultsSets[iCurResSet]->fMinV);
-		OglString(iDspFlgs, -dW + 0.02 * dW, dH - 0.6 * dH, 100, CT2A(sLab));
+		OglString(DspFlagsIn, -dW + 0.02 * dW, dH - 0.6 * dH, 100, CT2A(sLab));
 	}
 }
 
@@ -32391,15 +32391,15 @@ void Section::Draw() {
 	}
 }
 
-void Section::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	OglDraw(iDspFlgs, dS1, dS2);
+void Section::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDraw(DspFlagsIn, dS1, dS2);
 }
 
-void Section::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void Section::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int j = 0;
 	if (iLnCnt != 0) {
 		for (j = 0; j < iLnCnt; j++) {
-			pLn[j]->OglDraw(iDspFlgs, dS1, dS2);
+			pLn[j]->OglDraw(DspFlagsIn, dS1, dS2);
 		}
 	}
 }
@@ -32843,33 +32843,33 @@ void Sweep::Draw(int iDrawmode) {
 	}
 }
 
-void Sweep::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Sweep::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int j = 0;
 	if (iSecCnt != 0) {
 		for (j = 0; j < iSecCnt; j++) {
-			pAllSecs[j]->OglDrawW(iDspFlgs, dS1, dS2);
+			pAllSecs[j]->OglDrawW(DspFlagsIn, dS1, dS2);
 		}
 	}
 	if (pPath != NULL) {
-		pPath->OglDrawW(iDspFlgs, dS1, dS2);
+		pPath->OglDrawW(DspFlagsIn, dS1, dS2);
 	}
 	if (Mesh != NULL) {
-		Mesh->OglDrawW(iDspFlgs, dS1, dS2);
+		Mesh->OglDrawW(DspFlagsIn, dS1, dS2);
 	}
 }
 
-void Sweep::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void Sweep::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int j = 0;
 	if (iSecCnt != 0) {
 		for (j = 0; j < iSecCnt; j++) {
-			pAllSecs[j]->OglDraw(iDspFlgs, dS1, dS2);
+			pAllSecs[j]->OglDraw(DspFlagsIn, dS1, dS2);
 		}
 	}
 	if (pPath != NULL) {
-		pPath->OglDraw(iDspFlgs, dS1, dS2);
+		pPath->OglDraw(DspFlagsIn, dS1, dS2);
 	}
 	if (Mesh != NULL) {
-		Mesh->OglDraw(iDspFlgs, dS1, dS2);
+		Mesh->OglDraw(DspFlagsIn, dS1, dS2);
 	}
 }
 
@@ -33866,9 +33866,9 @@ void SweepB::Draw(int iDrawmode) {
 	// momo gdi to og2
 }
 
-void SweepB::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	Sweep::OglDraw(iDspFlgs, dS1, dS2);
-	inPt->OglDraw(iDspFlgs, dS1, dS2);
+void SweepB::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	Sweep::OglDraw(DspFlagsIn, dS1, dS2);
+	inPt->OglDraw(DspFlagsIn, dS1, dS2);
 }
 
 void SweepB::Generate(C3dMatrix mUp, double dElLen) {
@@ -34010,7 +34010,7 @@ void PartsCat::Info() {
 
 // momo gdi to og2
 // momo// void PartsCat::Draw(CDC* pDC, int iDrawmode) {
-void PartsCat::Draw(int iDrawmode) {
+void PartsCat::Draw(int iDrawmode, DisplayFlags DspFlagsIn) {
 	// momo gdi to og2
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
@@ -34022,34 +34022,34 @@ void PartsCat::Draw(int iDrawmode) {
 			// momo// pDC->TextOut(20, 20, P_Obj[iCurDsp]->sName);
 			CString sText;
 			sText.Format(_T("%s"), P_Obj[iCurDsp]->sName);
-			OglString(0, 20.0f, 20.0f, 0.0f, CT2A(sText));
+			OglString(DspFlagsIn, 20.0f, 20.0f, 0.0f, CT2A(sText));
 			// momo gdi to og2
 		}
 	}
 }
 
-void PartsCat::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void PartsCat::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector pCent;
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
 			sLab.Format(_T("%s"), P_Obj[iCurDsp]->sName);
 			pCent = P_Obj[iCurDsp]->Get_Centroid();
-			OglString(iDspFlgs, pCent.x, pCent.y, pCent.z, CT2A(sLab));
-			P_Obj[iCurDsp]->OglDraw(iDspFlgs, dS1, dS2);
+			OglString(DspFlagsIn, pCent.x, pCent.y, pCent.z, CT2A(sLab));
+			P_Obj[iCurDsp]->OglDraw(DspFlagsIn, dS1, dS2);
 		}
 	}
 }
 
-void PartsCat::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void PartsCat::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector pCent;
 	if ((iCurDsp >= 0) && (iCurDsp < iNo)) {
 		if (P_Obj[iCurDsp] != NULL) {
 			sLab.Format(_T("%s"), P_Obj[iCurDsp]->sName);
 			pCent = P_Obj[iCurDsp]->Get_Centroid();
-			OglString(iDspFlgs, pCent.x, pCent.y, pCent.z, CT2A(sLab));
-			P_Obj[iCurDsp]->OglDrawW(iDspFlgs, dS1, dS2);
+			OglString(DspFlagsIn, pCent.x, pCent.y, pCent.z, CT2A(sLab));
+			P_Obj[iCurDsp]->OglDrawW(DspFlagsIn, dS1, dS2);
 		}
 	}
 }
@@ -34588,8 +34588,8 @@ void PSPRINGT::PutVarValues(int iNo, CString sVar[]) {
 }
 
 void PSPRINGT::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8s%8s%8s%8s\n", _T("PBUSH   "), iID, _T("       K"), e8(dkx), e8(dky), e8(dkz));
+	fprintf(pFile, "$%S\n", sTitle);
+	fprintf(pFile, "%8S%8i%8S%8S%8S%8S\n", _T("PBUSH   "), iID, _T("       K"), e8(dkx), e8(dky), e8(dkz));
 }
 
 IMPLEMENT_DYNAMIC(PSPRINGR, CObject)
@@ -34638,8 +34638,8 @@ int PSPRINGR::GetVarHeaders(CString sVar[]) {
 }
 
 void PSPRINGR::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", _T("PBUSH   "), iID, _T("       K"), _T("        "), _T("       K"), _T("       K"), e8(dkx), e8(dky), e8(dkz));
+	fprintf(pFile, "$%S\n", sTitle);
+	fprintf(pFile, "%8S%8i%8S%8S%8S%8S%8S%8S%8S\n", _T("PBUSH   "), iID, _T("       K"), _T("        "), _T("       K"), _T("       K"), e8(dkx), e8(dky), e8(dkz));
 }
 
 //***************************************************************************
@@ -34788,8 +34788,8 @@ void PBUSH::PutVarValues(int iNo, CString sVar[]) {
 }
 
 void PBUSH::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", _T("PBUSH   "), iID, sFlg, e8(dK1).GetString(), e8(dK2).GetString(), e8(dK3).GetString(), e8(dK4).GetString(), e8(dK5).GetString(), e8(dK6).GetString());
+	fprintf(pFile, "$%S\n", sTitle);
+	fprintf(pFile, "%8S%8i%8S%8S%8S%8S%8S%8S%8S\n", _T("PBUSH   "), iID, sFlg, e8(dK1).GetString(), e8(dK2).GetString(), e8(dK3).GetString(), e8(dK4).GetString(), e8(dK5).GetString(), e8(dK6).GetString());
 }
 
 IMPLEMENT_DYNAMIC(PSOLID, CObject)
@@ -34867,8 +34867,8 @@ int PSOLID::GetDefMatID() {
 }
 
 void PSOLID::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle.GetString());
-	fprintf(pFile, "%8s%8i%8i%8i\n", _T("PSOLID  "), iID, iMID, iCORDM);
+	fprintf(pFile, "$%S\n", sTitle.GetString());
+	fprintf(pFile, "%8S%8i%8i%8i\n", _T("PSOLID  "), iID, iMID, iCORDM);
 }
 
 PSOLID* PSOLID::Copy() {
@@ -35078,10 +35078,10 @@ BOOL PBAR::HasMat(int inMID) {
 }
 
 void PBAR::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%-8s%8i%8i%8s%8s%8s%8s%8s\n", "PBAR    ", iID, iMID, e8(dA), e8(dI1), e8(dI2), e8(dJ), e8(dNSM));
-	fprintf(pFile, "%-8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(dC1), e8(dC2), e8(dD1), e8(dD2), e8(dE1), e8(dE2), e8(dF1), e8(dF2));
-	fprintf(pFile, "%-8s%8s%8s%8s\n", "        ", e8(dK1), e8(dK2), e8(dI12));
+	fprintf(pFile, "$%S\n", sTitle);
+	fprintf(pFile, "%-8s%8i%8i%8S%8S%8S%8S%8S\n", "PBAR    ", iID, iMID, e8(dA), e8(dI1), e8(dI2), e8(dJ), e8(dNSM));
+	fprintf(pFile, "%-8s%8S%8S%8S%8S%8S%8S%8S%8S\n", "        ", e8(dC1), e8(dC2), e8(dD1), e8(dD2), e8(dE1), e8(dE2), e8(dF1), e8(dF2));
+	fprintf(pFile, "%-8s%8S%8S%8S\n", "        ", e8(dK1), e8(dK2), e8(dI12));
 }
 
 PBAR* PBAR::Copy() {
@@ -35269,19 +35269,19 @@ BOOL PBEAM::HasMat(int inMID) {
 
 void PBEAM::ExportNAS(FILE* pFile) {
 	int i;
-	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s%8s%8s%8s\n", "PBEAM   ", iID, iMID, e8(A[0]), e8(I1[0]), e8(I2[0]), e8(I12[0]), e8(J[0]), e8(NSM[0]));
-	fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(C1[0]), e8(C2[0]), e8(D1[0]), e8(D2[0]), e8(E1[0]), e8(E2[0]), e8(F1[0]), e8(F2[0]));
+	fprintf(pFile, "$%S\n", sTitle);
+	fprintf(pFile, "%8s%8i%8i%8S%8S%8S%8S%8S%8S\n", "PBEAM   ", iID, iMID, e8(A[0]), e8(I1[0]), e8(I2[0]), e8(I12[0]), e8(J[0]), e8(NSM[0]));
+	fprintf(pFile, "%8s%8S%8S%8S%8S%8S%8S%8S%8S\n", "        ", e8(C1[0]), e8(C2[0]), e8(D1[0]), e8(D2[0]), e8(E1[0]), e8(E2[0]), e8(F1[0]), e8(F2[0]));
 	for (i = 1; i < iNo; i++) {
-		fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", SO[i], e8(XXB[i]), e8(A[i]), e8(I1[i]), e8(I2[i]), e8(I12[i]), e8(J[i]), e8(NSM[i]));
+		fprintf(pFile, "%8s%8S%8S%8S%8S%8S%8S%8S%8S\n", "        ", SO[i], e8(XXB[i]), e8(A[i]), e8(I1[i]), e8(I2[i]), e8(I12[i]), e8(J[i]), e8(NSM[i]));
 		if ((SO[i].Find(_T("YESA")) > -1) || (SO[i].Find(_T("NO")) > -1)) {
 		} else {
-			fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(C1[i]), e8(C2[i]), e8(D1[i]), e8(D2[i]), e8(E1[i]), e8(E2[i]), e8(F1[i]), e8(F2[i]));
+			fprintf(pFile, "%8s%8S%8S%8S%8S%8S%8S%8S%8S\n", "        ", e8(C1[i]), e8(C2[i]), e8(D1[i]), e8(D2[i]), e8(E1[i]), e8(E2[i]), e8(F1[i]), e8(F2[i]));
 		}
 	}
 
-	fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(K1), e8(K2), e8(S1), e8(S2), e8(NSIA), e8(NSIB), e8(CWA), e8(CWB));
-	fprintf(pFile, "%8s%8s%8s%8s%8s%8s%8s%8s%8s\n", "        ", e8(M1A), e8(M2A), e8(M1B), e8(M2B), e8(N1A), e8(N2A), e8(N1B), e8(N2B));
+	fprintf(pFile, "%8s%8S%8S%8S%8S%8S%8S%8S%8S\n", "        ", e8(K1), e8(K2), e8(S1), e8(S2), e8(NSIA), e8(NSIB), e8(CWA), e8(CWB));
+	fprintf(pFile, "%8s%8S%8S%8S%8S%8S%8S%8S%8S\n", "        ", e8(M1A), e8(M2A), e8(M1B), e8(M2B), e8(N1A), e8(N2A), e8(N1B), e8(N2B));
 
 	// fprintf(pFile,"%-8s%-8s%-8s%-8s\n","        ",e8(dK1),e8(dK2),e8(dI12));
 }
@@ -35541,16 +35541,16 @@ int PBARL::GetNoDims() {
 
 void PBARL::ExportNAS(FILE* pFile) {
 	int i;
-	fprintf(pFile, "$%s\n", sTitle);
+	fprintf(pFile, "$%S\n", sTitle);
 	// momo
 	// momo// fprintf(pFile, "%8s%8i%8i%8s%8s%8s\n", "PBARL   ", iID, iMID, sGROUP, ncr(sSecType), " ");
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s\n", "PBARL   ", iID, iMID, CStringA(sGROUP).GetString(), CStringA(ncr(sSecType)).GetString(), " ");
+	fprintf(pFile, "%8s%8i%8i%8S%8S%8s\n", "PBARL   ", iID, iMID, CStringA(sGROUP).GetString(), CStringA(ncr(sSecType)).GetString(), " ");
 	// momo
 	fprintf(pFile, "%8s", " ");
 	for (i = 0; i < iNoDims; i++) {
-		fprintf(pFile, "%8s", e8(dDIMs[i]));
+		fprintf(pFile, "%8S", e8(dDIMs[i]));
 	}
-	fprintf(pFile, "%8s\n", e8(dNSM));
+	fprintf(pFile, "%8S\n", e8(dNSM));
 }
 
 PBARL* PBARL::Copy() {
@@ -35841,7 +35841,7 @@ void PROD::CalcProps() {
 }
 
 void PROD::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s%8i%8i%8s%8s\n", "PROD    ", iID, iMID, e8(A), e8(J));
+	fprintf(pFile, "%8s%8i%8i%8S%8S\n", "PROD    ", iID, iMID, e8(A), e8(J));
 }
 //***************************************************
 
@@ -36007,8 +36007,8 @@ PSHELL* PSHELL::Copy() {
 }
 
 void PSHELL::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle);
-	fprintf(pFile, "%s", ToString());
+	fprintf(pFile, "$%S\n", sTitle);
+	fprintf(pFile, "%S", ToString());
 }
 
 CString PSHELL::ToString() {
@@ -36347,7 +36347,7 @@ void MAT1::Serialize(CArchive& ar, int iV) {
 }
 
 void MAT1::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle.GetString());
+	fprintf(pFile, "$%S\n", sTitle.GetString());
 	CString sG = _T("        ");
 	CString sV = _T("        ");
 	CString CTE;
@@ -36357,7 +36357,7 @@ void MAT1::ExportNAS(FILE* pFile) {
 		sV = e8(dNU);
 	}
 	CTE = e8(dA);
-	fprintf(pFile, "%8s%8i%8s%8s%8s%8s%8s%8s%8s\n", "MAT1    ", iID, e8(dE), sG, sV, e8(dRHO), e8(dA), e8(dTREF), e8(dGE));
+	fprintf(pFile, "%8s%8i%8S%8S%8S%8S%8S%8S%8S\n", "MAT1    ", iID, e8(dE), sG, sV, e8(dRHO), e8(dA), e8(dTREF), e8(dGE));
 	// fprintf(pFile,"%8s%8s%8s%8s%8i\n","        ",e8(dST),e8(dSC),e8(dSS),iMCSID);
 }
 
@@ -36464,8 +36464,8 @@ void MAT8::Serialize(CArchive& ar, int iV) {
 }
 
 void MAT8::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle.GetString());
-	fprintf(pFile, "%s", ToString().GetString());
+	fprintf(pFile, "$%S\n", sTitle.GetString());
+	fprintf(pFile, "%S", ToString().GetString());
 	// fprintf(pFile,"%8s%8i%8s%8s%8s%8s%8s%8s%8s\n","MAT8    ",iID,e8(dE1),e8(dE2),e8(dNU12),e8(dG12),e8(dG1Z),e8(dG2Z),e8(dRHO));
 	// fprintf(pFile,"%8s%8s%8s%8s%8s%8s%8s%8s%8s\n","        ",e8(dA1),e8(dA2),e8(dTREF),e8(dXt),e8(dXc),e8(dYt),e8(dYc),e8(dS));
 	// fprintf(pFile,"%8s%8s%8s\n","        ",e8(dGE),e8(F12),e8(STRN));
@@ -37038,8 +37038,8 @@ CString PCOMP::ToString() {
 }
 
 void PCOMP::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "$%s\n", sTitle.GetString());
-	fprintf(pFile, "%s", ToString().GetString());
+	fprintf(pFile, "$%S\n", sTitle.GetString());
+	fprintf(pFile, "%S", ToString().GetString());
 }
 
 PCOMP* PCOMP::Copy() {
@@ -37269,18 +37269,18 @@ void Moment::Create(G_Object* pInNode,
 	Point[1] += Point[0];
 }
 
-void Moment::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Moment::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void Moment::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Moment::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int i;
 	double X, Y, Z;
 	C3dVector Pts[7]; // Arrow Head
 	C3dMatrix mT;
 	C3dVector vOff;
 	C3dVector vOffA2;
-	if ((iDspFlgs & DSP_BC) > 0) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		Point[1] = F;
 		Point[1].Normalize();
@@ -37380,14 +37380,14 @@ void Moment::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glEnd();
 		CString sLab;
 		sLab.Format(_T("%3.0f"), F.Mag());
-		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
+		OglString(DspFlagsIn, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
 }
 
 void Moment::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s%8s%8s\n", "MOMENT  ", SetID, pObj->iLabel, "       0", "     1.0", e8(F.x), e8(F.y), e8(F.z));
+	fprintf(pFile, "%8s%8i%8i%8s%8s%8S%8S%8S\n", "MOMENT  ", SetID, pObj->iLabel, "       0", "     1.0", e8(F.x), e8(F.y), e8(F.z));
 }
 
 CString Moment::GetName() {
@@ -37416,14 +37416,14 @@ void Pressure::Create(E_Object* pInEl,
 	Point[1] += Point[0];
 }
 
-void Pressure::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Pressure::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int i;
 	double X, Y, Z;
 	C3dVector Pts[7]; // Arrow Head
 	C3dMatrix mT;
 	C3dVector vOff;
 
-	if ((iDspFlgs & DSP_BC) > 0) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		E_Object* pE = (E_Object*) pObj;
 		Point[0] = pE->Get_Centroid();
@@ -37490,7 +37490,7 @@ void Pressure::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glEnd();
 		CString sLab;
 		sLab.Format(_T("%3.0f"), F.Mag());
-		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
+		OglString(DspFlagsIn, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -37554,9 +37554,9 @@ void Pressure::ExportNAS(FILE* pFile) {
 	if (pObj != NULL) {
 		pE = (E_Object*) pObj;
 		if (pE->iNoNodes == 3) {
-			fprintf(pFile, "%8s%8i%8s%8i%8i%8i\n", "PLOAD   ", SetID, e8(F.x), pE->GetNode(0)->iLabel, pE->GetNode(1)->iLabel, pE->GetNode(2)->iLabel);
+			fprintf(pFile, "%8s%8i%8S%8i%8i%8i\n", "PLOAD   ", SetID, e8(F.x), pE->GetNode(0)->iLabel, pE->GetNode(1)->iLabel, pE->GetNode(2)->iLabel);
 		} else if (pE->iNoNodes == 4) {
-			fprintf(pFile, "%8s%8i%8s%8i%8i%8i%8i\n", "PLOAD   ", SetID, e8(F.x), pE->GetNode(0)->iLabel, pE->GetNode(1)->iLabel, pE->GetNode(2)->iLabel, pE->GetNode(3)->iLabel);
+			fprintf(pFile, "%8s%8i%8S%8i%8i%8i%8i\n", "PLOAD   ", SetID, e8(F.x), pE->GetNode(0)->iLabel, pE->GetNode(1)->iLabel, pE->GetNode(2)->iLabel, pE->GetNode(3)->iLabel);
 		}
 	}
 }
@@ -37686,7 +37686,7 @@ void Temperature::ExportUNV(FILE* pFile) {
 }
 
 void Temperature::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s%8i%8i%8s\n", "TEMP    ", SetID, pObj->iLabel, e8(dV));
+	fprintf(pFile, "%8s%8i%8i%8S\n", "TEMP    ", SetID, pObj->iLabel, e8(dV));
 }
 
 C3dVector Temperature::Get_Centroid() {
@@ -37696,12 +37696,12 @@ C3dVector Temperature::Get_Centroid() {
 	return (vT);
 }
 
-void Temperature::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Temperature::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void Temperature::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	if ((iDspFlgs & DSP_BC) > 0) {
+void Temperature::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -37719,7 +37719,7 @@ void Temperature::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glLineWidth(2.0);
 		CString sLab;
 		sLab.Format(_T("%3.0f"), dV);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
+		OglString(DspFlagsIn, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -37838,12 +37838,12 @@ C3dVector AccelLoad::Get_Centroid() {
 	return (vT);
 }
 
-void AccelLoad::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void AccelLoad::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void AccelLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	if ((iDspFlgs & DSP_BC) > 0) {
+void AccelLoad::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -37977,12 +37977,12 @@ C3dVector RotationLoad::Get_Centroid() {
 	return (vT);
 }
 
-void RotationLoad::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void RotationLoad::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void RotationLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	if ((iDspFlgs & DSP_BC) > 0) {
+void RotationLoad::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38062,8 +38062,8 @@ void TemperatureBC::Create(G_Object* pInNode,
 		Point = pObj->Get_Centroid();
 }
 
-void TemperatureBC::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	if ((iDspFlgs & DSP_BC) > 0) {
+void TemperatureBC::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38081,7 +38081,7 @@ void TemperatureBC::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glLineWidth(2.0);
 		CString sLab;
 		sLab.Format(_T("%g"), dV);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
+		OglString(DspFlagsIn, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38149,8 +38149,8 @@ void FluxLoad::Create(G_Object* pInNode,
 		Point = pObj->Get_Centroid();
 }
 
-void FluxLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	if ((iDspFlgs & DSP_BC) > 0) {
+void FluxLoad::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38170,7 +38170,7 @@ void FluxLoad::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glLineWidth(2.0);
 		CString sLab;
 		sLab.Format(_T("%3.0f"), dV);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
+		OglString(DspFlagsIn, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38253,7 +38253,7 @@ void Force::ExportUNV(FILE* pFile) {
 }
 
 void Force::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s%8s%8s\n", "FORCE   ", SetID, pObj->iLabel, "       0", "     1.0", e8(F.x), e8(F.y), e8(F.z));
+	fprintf(pFile, "%8s%8i%8i%8s%8s%8S%8S%8S\n", "FORCE   ", SetID, pObj->iLabel, "       0", "     1.0", e8(F.x), e8(F.y), e8(F.z));
 }
 
 C3dVector Force::Get_Centroid() {
@@ -38321,17 +38321,17 @@ void Force::Draw() {
 //}
 // momo gdi to og
 
-void Force::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Force::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void Force::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Force::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int i;
 	double X, Y, Z;
 	C3dVector Pts[7]; // Arrow Head
 	C3dMatrix mT;
 	C3dVector vOff;
-	if ((iDspFlgs & DSP_BC) > 0) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		Point[1] = F;
 		Point[1].Normalize();
@@ -38394,7 +38394,7 @@ void Force::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glEnd();
 		CString sLab;
 		sLab.Format(_T("%3.0f"), F.Mag());
-		OglString(iDspFlgs, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
+		OglString(DspFlagsIn, Point[1].x, Point[1].y, Point[1].z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38506,16 +38506,16 @@ void TEMPD::Serialize(CArchive& ar, int iV, ME_Object* MESH)
 }
 
 void TEMPD::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s%8i%8s\n", "TEMPD   ", SetID, e8(dTempD));
+	fprintf(pFile, "%8s%8i%8S\n", "TEMPD   ", SetID, e8(dTempD));
 }
 
-void TEMPD::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void TEMPD::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void TEMPD::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void TEMPD::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dS1 *= 5;
-	if ((iDspFlgs & DSP_BC) > 0) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38533,7 +38533,7 @@ void TEMPD::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glLineWidth(2.0);
 		CString sLab;
 		sLab.Format(_T("TEMPD %3.0f"), dTempD);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
+		OglString(DspFlagsIn, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38612,16 +38612,16 @@ void GRAV::Serialize(CArchive& ar, int iV, ME_Object* MESH)
 }
 
 void GRAV::ExportNAS(FILE* pFile) {
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s%8s\n", "GRAV    ", SetID, iCID, e8(dScl), e8(vV.x), e8(vV.y), e8(vV.z));
+	fprintf(pFile, "%8s%8i%8i%8S%8S%8S%8S\n", "GRAV    ", SetID, iCID, e8(dScl), e8(vV.x), e8(vV.y), e8(vV.z));
 }
 
-void GRAV::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void GRAV::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void GRAV::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void GRAV::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dS1 *= 5;
-	if ((iDspFlgs & DSP_BC) > 0) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38639,7 +38639,7 @@ void GRAV::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glLineWidth(2.0);
 		CString sLab;
 		sLab.Format(_T("GRAV %3.0f"), vV.Mag() * dScl);
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
+		OglString(DspFlagsIn, Point.x, Point.y, Point.z, CT2A(sLab));
 	} else {
 		Selectable = 0;
 	}
@@ -38757,7 +38757,7 @@ void Restraint::ExportNAS(FILE* pFile) {
 	CString S1;
 	S1.Format(_T("%s"), GetDofStr());
 
-	fprintf(pFile, "%8s%8i%8i%8s%8s\n", "SPC     ", SetID, pObj->iLabel, GetDofStr(), "     0.0");
+	fprintf(pFile, "%8s%8i%8i%8S%8s\n", "SPC     ", SetID, pObj->iLabel, GetDofStr(), "     0.0");
 }
 
 C3dVector Restraint::Get_Centroid() {
@@ -38845,8 +38845,8 @@ CString Restraint::GetDofStr() {
 	return (sRet);
 }
 
-void Restraint::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	if ((iDspFlgs & DSP_BC) > 0) {
+void Restraint::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	if (DspFlagsIn.DSP_BC) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38858,14 +38858,14 @@ void Restraint::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, BMPR);
 		CString S1;
 		S1.Format(_T("%s"), GetDofStr());
-		OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(S1));
+		OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(S1));
 	} else {
 		Selectable = 0;
 	}
 }
 
-void Restraint::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Restraint::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 // G_ObjectD Restraint::SelDist(CPoint InPT,Filter FIL)
@@ -39004,11 +39004,11 @@ C3dVector ResultsVec::Get_Centroid() {
 	return (Point);
 }
 
-void ResultsVec::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void ResultsVec::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void ResultsVec::DrawVector(int iDspFlgs, double dS1, double dS2, double dS, double dRF) {
+void ResultsVec::DrawVector(DisplayFlags DspFlagsIn, double dS1, double dS2, double dS, double dRF) {
 	int i;
 	C3dVector p2;
 	C3dVector vZ;
@@ -39100,14 +39100,14 @@ void ResultsVec::DrawVector(int iDspFlgs, double dS1, double dS2, double dS, dou
 	glEnd();
 	glDisable(GL_TEXTURE_1D);
 	glLineWidth(2);
-	if (((iDspFlgs & DSP_RESLAB) == 0)) {
+	if (!DspFlagsIn.DSP_RESLAB) {
 		CString sLab;
 		sLab.Format(_T("%g"), iSign * Vector.Mag());
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
+		OglString(DspFlagsIn, Point.x, Point.y, Point.z, CT2A(sLab));
 	}
 }
 
-void ResultsVec::DrawTenVector(int iDspFlgs, double dS1, double dS2, double dS, double dRF) {
+void ResultsVec::DrawTenVector(DisplayFlags DspFlagsIn, double dS1, double dS2, double dS, double dRF) {
 	int i;
 	C3dVector p2; // Positive direction
 	C3dVector p3; // Negative direction
@@ -39266,14 +39266,14 @@ void ResultsVec::DrawTenVector(int iDspFlgs, double dS1, double dS2, double dS, 
 
 	glDisable(GL_TEXTURE_1D);
 	glLineWidth(2);
-	if (((iDspFlgs & DSP_RESLAB) == 0)) {
+	if (!DspFlagsIn.DSP_RESLAB) {
 		CString sLab;
 		sLab.Format(_T("%g"), iSign * Vector.Mag());
-		OglString(iDspFlgs, Point.x, Point.y, Point.z, CT2A(sLab));
+		OglString(DspFlagsIn, Point.x, Point.y, Point.z, CT2A(sLab));
 	}
 }
 
-void ResultsVec::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void ResultsVec::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	ME_Object* ME = (ME_Object*) this->pParent;
 	double dS = 1.0;
 	double dRF = 1.0;
@@ -39281,12 +39281,12 @@ void ResultsVec::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		dS = ME->dScaleVec;
 		dRF = ME->dResFactor;
 	}
-	if ((iDspFlgs & DSP_VEC) == 0) {
+	if (!DspFlagsIn.DSP_VEC) {
 		Selectable = 1;
 		if (iType == 1)
-			DrawVector(iDspFlgs, dS1, dS2, dS, dRF);
+			DrawVector(DspFlagsIn, dS1, dS2, dS, dRF);
 		else
-			DrawTenVector(iDspFlgs, dS1, dS2, dS, dRF);
+			DrawTenVector(DspFlagsIn, dS1, dS2, dS, dRF);
 	} else {
 		Selectable = 0;
 	}
@@ -39459,8 +39459,8 @@ void CoordSys::ExportNAS(FILE* pFile) {
 	pB += pO;
 	pC += pO;
 
-	fprintf(pFile, "%8s%8i%8i%8s%8s%8s%8s%8s%8s\n", sType.GetString(), iLabel, RID, e8(pO.x).GetString(), e8(pO.y).GetString(), e8(pO.z).GetString(), e8(pB.x).GetString(), e8(pB.y).GetString(), e8(pB.z).GetString());
-	fprintf(pFile, "%8s%8s%8s%8s\n", "        ", e8(pC.x).GetString(), e8(pC.y).GetString(), e8(pC.z).GetString());
+	fprintf(pFile, "%8S%8i%8i%8S%8S%8S%8S%8S%8S\n", sType.GetString(), iLabel, RID, e8(pO.x).GetString(), e8(pO.y).GetString(), e8(pO.z).GetString(), e8(pB.x).GetString(), e8(pB.y).GetString(), e8(pB.z).GetString());
+	fprintf(pFile, "%8s%8S%8S%8S\n", "        ", e8(pC.x).GetString(), e8(pC.y).GetString(), e8(pC.z).GetString());
 }
 
 CString CoordSys::ToString() {
@@ -39575,13 +39575,13 @@ void CoordSys::Serialize(CArchive& ar, int iV) {
 	}
 }
 
-void CoordSys::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void CoordSys::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector X;
 	C3dVector Y;
 	C3dVector Z;
 	C3dVector O;
 
-	if ((iDspFlgs & DSP_COORD) > 0) {
+	if (DspFlagsIn.DSP_COORD) {
 		Selectable = 1;
 
 		X.x = mOrientMat.m_00;
@@ -39636,7 +39636,7 @@ void CoordSys::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		glVertex3f((float) Z.x, (float) Z.y, (float) Z.z);
 		glEnd();
 
-		if (iDspFlgs & DSP_BLACK) {
+		if (DspFlagsIn.DSP_BLACK) {
 			// momo
 			//  momo// glColor3fv(cols[124]);
 			glColor3fv(ColorIfSelect(124, -1));
@@ -39678,15 +39678,15 @@ void CoordSys::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("Cys%i"), iLabel);
-			OglString(iDspFlgs, O.x, O.y, O.z, CT2A(sLab));
+			OglString(DspFlagsIn, O.x, O.y, O.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
 	}
 }
 
-void CoordSys::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void CoordSys::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 //*****************************************************************
@@ -39844,15 +39844,15 @@ void Text::BuildText() {
 	}
 }
 
-void Text::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Text::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void Text::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Text::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector vC;
 	Symbol* pS = NULL;
-	if ((iDspFlgs & DSP_CURVES) > 0) {
+	if (DspFlagsIn.DSP_CURVES) {
 		Selectable = 1;
 		pS = (Symbol*) pSyms->Head;
 		while (pS != NULL) {
@@ -39863,8 +39863,8 @@ void Text::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		//  momo// glColor3fv(cols[GetCol()]);
 		glColor3fv(ColorIfSelect(GetCol(), -1));
 		// momo
-		inPt->OglDrawW(iDspFlgs, dS1, dS2);
-		pSyms->OglDrawW(iDspFlgs, dS1, dS2);
+		inPt->OglDrawW(DspFlagsIn, dS1, dS2);
+		pSyms->OglDrawW(DspFlagsIn, dS1, dS2);
 
 		// Esp_Mod_Labels_4_27_2025_Start: Added global label variable for label display
 		if (gLBL_DSP_TRG)
@@ -39873,7 +39873,7 @@ void Text::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			// Esp_Mod_Labels_4_27_2025_End
 			vC = this->Get_Centroid();
 			sLab.Format(_T("Txt%i"), iLabel);
-			OglString(iDspFlgs, (float) vC.x, (float) vC.y, (float) vC.z, CT2A(sLab));
+			OglString(DspFlagsIn, (float) vC.x, (float) vC.y, (float) vC.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -40186,7 +40186,7 @@ void Text::ExportDXF(FILE* pFile) {
 	fprintf(pFile, " 20\n%.2f\n", vInsPt.y); // Y coordinate of the insertion point
 	fprintf(pFile, " 30\n%.2f\n", vInsPt.z); // Z coordinate of the insertion point
 	fprintf(pFile, " 40\n%.2f\n", dTextHeight); // Text height
-	fprintf(pFile, "  1\n%s\n", sText); // Text string
+	fprintf(pFile, "  1\n%S\n", sText); // Text string
 	fprintf(pFile, " 50\n%.2f\n", dAng); // Angle (relative to X direction)
 	fprintf(pFile, "100\n%s\n", "AcDbText");
 	fprintf(pFile, "  0\n");
@@ -40273,7 +40273,7 @@ void DIM::Build() {
 	pInsPt->Create(vDInsPt, 1, -1, 0, 0, 11, nullptr);
 }
 
-void DIM::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void DIM::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 }
 
 G_ObjectD DIM::SelDist(CPoint InPT, Filter FIL) {
@@ -40654,24 +40654,24 @@ void DIMA::Build() {
 	DragUpdate(vDInsPt, mWP);
 }
 
-void DIMA::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void DIMA::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	if (pLeader1 != nullptr)
-		pLeader1->OglDrawW(iDspFlgs, dS1, dS2);
+		pLeader1->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pLeader2 != nullptr)
-		pLeader2->OglDrawW(iDspFlgs, dS1, dS2);
+		pLeader2->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pDimLine1 != nullptr)
-		pDimLine1->OglDrawW(iDspFlgs, dS1, dS2);
+		pDimLine1->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pDimLine2 != nullptr)
-		pDimLine2->OglDrawW(iDspFlgs, dS1, dS2);
+		pDimLine2->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pText != nullptr)
-		pText->OglDrawW(iDspFlgs, dS1, dS2);
-	if ((iDspFlgs & DSP_CURVES) > 0) {
+		pText->OglDrawW(DspFlagsIn, dS1, dS2);
+	if (DspFlagsIn.DSP_CURVES) {
 		if (pPt1 != nullptr)
-			pPt1->OglDrawW(iDspFlgs, dS1, dS2);
+			pPt1->OglDrawW(DspFlagsIn, dS1, dS2);
 		if (pPt2 != nullptr)
-			pPt2->OglDrawW(iDspFlgs, dS1, dS2);
+			pPt2->OglDrawW(DspFlagsIn, dS1, dS2);
 		if (pInsPt != nullptr)
-			pInsPt->OglDrawW(iDspFlgs, dS1, dS2);
+			pInsPt->OglDrawW(DspFlagsIn, dS1, dS2);
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
@@ -41258,26 +41258,26 @@ void DIMANG::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 	vPP2A2 = vPP2D + vT;
 }
 
-void DIMANG::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void DIMANG::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	if (pText != nullptr)
-		pText->OglDrawW(iDspFlgs, dS1, dS2);
+		pText->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pDimLine1 != nullptr)
-		pDimLine1->OglDrawW(iDspFlgs, dS1, dS2);
+		pDimLine1->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pDimLine2 != nullptr) // Used as leader
-		pDimLine2->OglDrawW(iDspFlgs, dS1, dS2);
+		pDimLine2->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pLeader1 != nullptr)
-		pLeader1->OglDrawW(iDspFlgs, dS1, dS2);
+		pLeader1->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (pLeader2 != nullptr)
-		pLeader2->OglDrawW(iDspFlgs, dS1, dS2);
-	if ((iDspFlgs & DSP_CURVES) > 0) {
+		pLeader2->OglDrawW(DspFlagsIn, dS1, dS2);
+	if (DspFlagsIn.DSP_CURVES) {
 		if (pPtV != nullptr)
-			pPtV->OglDrawW(iDspFlgs, dS1, dS2);
+			pPtV->OglDrawW(DspFlagsIn, dS1, dS2);
 		if (pPt1 != nullptr)
-			pPt1->OglDrawW(iDspFlgs, dS1, dS2);
+			pPt1->OglDrawW(DspFlagsIn, dS1, dS2);
 		if (pPt2 != nullptr)
-			pPt2->OglDrawW(iDspFlgs, dS1, dS2);
+			pPt2->OglDrawW(DspFlagsIn, dS1, dS2);
 		if (pInsPt != nullptr)
-			pInsPt->OglDrawW(iDspFlgs, dS1, dS2);
+			pInsPt->OglDrawW(DspFlagsIn, dS1, dS2);
 		glBegin(GL_POLYGON);
 		glVertex3f(vPP1D.x, vPP1D.y, vPP1D.z);
 		glVertex3f(vPP1A1.x, vPP1A1.y, vPP1A1.z);
@@ -42074,18 +42074,18 @@ void DIML::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 	vPP1A2 = vPP1D + vT;
 }
 
-void DIML::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	pDimLine1->OglDrawW(iDspFlgs, dS1, dS2);
-	pLeader1->OglDrawW(iDspFlgs, dS1, dS2);
-	pText->OglDrawW(iDspFlgs, dS1, dS2);
+void DIML::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	pDimLine1->OglDrawW(DspFlagsIn, dS1, dS2);
+	pLeader1->OglDrawW(DspFlagsIn, dS1, dS2);
+	pText->OglDrawW(DspFlagsIn, dS1, dS2);
 	// momo
 	//  momo// glColor3fv(cols[iColour]);
 	glColor3fv(ColorIfSelect(iColour, -1));
 	// momo
 	// Dim attachment points
-	if ((iDspFlgs & DSP_CURVES) > 0) {
-		pPt1->OglDrawW(iDspFlgs, dS1, dS2);
-		pInsPt->OglDrawW(iDspFlgs, dS1, dS2);
+	if (DspFlagsIn.DSP_CURVES) {
+		pPt1->OglDrawW(DspFlagsIn, dS1, dS2);
+		pInsPt->OglDrawW(DspFlagsIn, dS1, dS2);
 		// Filled Arrow Heads
 		// Dim attachment points
 		glPointSize(5);
@@ -42310,19 +42310,19 @@ void DIMR::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 	vPP1A2 = vP1toIns + vT;
 }
 
-void DIMR::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	pDimLine1->OglDrawW(iDspFlgs, dS1, dS2);
+void DIMR::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	pDimLine1->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (iDimOpt == 0)
-		pLeader1->OglDrawW(iDspFlgs, dS1, dS2);
-	pText->OglDrawW(iDspFlgs, dS1, dS2);
+		pLeader1->OglDrawW(DspFlagsIn, dS1, dS2);
+	pText->OglDrawW(DspFlagsIn, dS1, dS2);
 	// momo
 	//  momo// glColor3fv(cols[iColour]);
 	glColor3fv(ColorIfSelect(iColour, -1));
 	// momo
-	if ((iDspFlgs & DSP_CURVES) > 0) {
-		// pPt1->OglDrawW(iDspFlgs, dS1, dS2);
-		// pPt2->OglDrawW(iDspFlgs, dS1, dS2);
-		pInsPt->OglDrawW(iDspFlgs, dS1, dS2);
+	if (DspFlagsIn.DSP_CURVES) {
+		// pPt1->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
+		// pPt2->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
+		pInsPt->OglDrawW(DspFlagsIn, dS1, dS2);
 		glBegin(GL_POLYGON);
 		glVertex3f(vPP1D.x, vPP1D.y, vPP1D.z);
 		glVertex3f(vPP1A1.x, vPP1A1.y, vPP1A1.z);
@@ -42561,16 +42561,16 @@ void DIMD::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 	vPP2A2 = vPP2D - vT;
 }
 
-void DIMD::OglDrawW(int iDspFlgs, double dS1, double dS2) {
-	// pPt1->OglDrawW(iDspFlgs, dS1, dS2);
-	// pPt2->OglDrawW(iDspFlgs, dS1, dS2);
-	pDimLine1->OglDrawW(iDspFlgs, dS1, dS2);
-	pDimLine2->OglDrawW(iDspFlgs, dS1, dS2);
+void DIMD::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	// pPt1->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
+	// pPt2->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
+	pDimLine1->OglDrawW(DspFlagsIn, dS1, dS2);
+	pDimLine2->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (iDimOpt == 0)
-		pLeader1->OglDrawW(iDspFlgs, dS1, dS2);
-	pText->OglDrawW(iDspFlgs, dS1, dS2);
-	if ((iDspFlgs & DSP_CURVES) > 0) {
-		pInsPt->OglDrawW(iDspFlgs, dS1, dS2);
+		pLeader1->OglDrawW(DspFlagsIn, dS1, dS2);
+	pText->OglDrawW(DspFlagsIn, dS1, dS2);
+	if (DspFlagsIn.DSP_CURVES) {
+		pInsPt->OglDrawW(DspFlagsIn, dS1, dS2);
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, -1));
@@ -42656,13 +42656,13 @@ void Symbol::addSeg(C3dVector pt1, C3dVector pt2) {
 	iSegs++;
 }
 
-void Symbol::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void Symbol::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-void Symbol::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Symbol::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
-	if ((iDspFlgs & DSP_CURVES) > 0) {
+	if (DspFlagsIn.DSP_CURVES) {
 		Selectable = 1;
 		Link* pCL;
 		if (this->pParent != NULL)
@@ -42694,7 +42694,7 @@ void Symbol::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("C%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -43066,14 +43066,14 @@ void Face::Info() {
 	outtext1(S1);
 }
 
-void Face::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void Face::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	if (pSurf != NULL)
-		pSurf->OglDraw(iDspFlgs, dS1, dS2);
+		pSurf->OglDraw(DspFlagsIn, dS1, dS2);
 }
 
-void Face::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Face::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	if (pSurf != NULL)
-		pSurf->OglDrawW(iDspFlgs, dS1, dS2);
+		pSurf->OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 void Face::SetToScr(C3dMatrix* pModMat, C3dMatrix* pScrTran) {
@@ -43268,16 +43268,16 @@ void Shell::Info() {
 	}
 }
 
-void Shell::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void Shell::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	G_Object* pNext;
 	pNext = pFaces.Head;
 	while (pNext != NULL) {
-		pNext->OglDraw(iDspFlgs, dS1, dS2);
+		pNext->OglDraw(DspFlagsIn, dS1, dS2);
 		pNext = (G_Object*) pNext->next;
 	}
 }
 
-void Shell::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Shell::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 }
 
 Shell::~Shell() {
@@ -43852,29 +43852,29 @@ void Part::SurfColour(int iCol) {
 	}
 }
 
-void Part::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void Part::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	Shell* pShell;
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_SRC_COLOR);
 	iShellLab;
 	pShell = (Shell*) pShells.Head;
 	while (pShell != NULL) {
-		pShell->OglDraw(iDspFlgs, dS1, dS2);
+		pShell->OglDraw(DspFlagsIn, dS1, dS2);
 		pShell = (Shell*) pShell->next;
 	}
 	glDisable(GL_BLEND);
 }
 
-void Part::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void Part::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	G_Object* pNext;
 	pNext = pPartC.Head;
 	while (pNext != NULL) {
-		pNext->OglDrawW(iDspFlgs, dS1, dS2);
+		pNext->OglDrawW(DspFlagsIn, dS1, dS2);
 		pNext = (G_Object*) pNext->next;
 	}
 	pNext = pPartV.Head;
 	while (pNext != NULL) {
-		pNext->OglDrawW(iDspFlgs, dS1, dS2);
+		pNext->OglDrawW(DspFlagsIn, dS1, dS2);
 		pNext = (G_Object*) pNext->next;
 	}
 }
@@ -44560,11 +44560,11 @@ void CvPt_Object::Draw() {
 // 	pDC->Ellipse((int)DSP_Point->x - 4, (int)DSP_Point->y - 4, (int)DSP_Point->x + 4, (int)DSP_Point->y + 4);
 // }
 
-void CvPt_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void CvPt_Object::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-// void CvPt_Object::OglDrawW(int iDspFlgs, double dS1, double dS2)
+// void CvPt_Object::OglDrawW(int iDspFlgs,DisplayFlags DspFlagsIn, double dS1, double dS2)
 // {
 // 	CString sLab;
 // 	if ((iDspFlgs & DSP_POINTS) > 0)
@@ -44587,9 +44587,9 @@ void CvPt_Object::OglDraw(int iDspFlgs, double dS1, double dS2) {
 // 	}
 // }
 
-void CvPt_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void CvPt_Object::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
-	if ((iDspFlgs & DSP_POINTS) > 0) {
+	if (DspFlagsIn.DSP_POINTS) {
 		Selectable = 1;
 		// momo
 		// momo// glColor3fv(cols[GetCol()]);
@@ -44609,7 +44609,7 @@ void CvPt_Object::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("Pt%i"), iLabel);
-			OglString(iDspFlgs, (float) Pt_Point->x, (float) Pt_Point->y, (float) Pt_Point->z, CT2A(sLab));
+			OglString(DspFlagsIn, (float) Pt_Point->x, (float) Pt_Point->y, (float) Pt_Point->z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -46225,8 +46225,8 @@ void NCurve::DrawCtrlPtsTog() {
 	}
 }
 
-void NCurve::OglDraw(int iDspFlgs, double dS1, double dS2) {
-	OglDrawW(iDspFlgs, dS1, dS2);
+void NCurve::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
+	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
 void NCurve::OglDrawCtrlPts() {
@@ -46243,11 +46243,11 @@ void NCurve::OglDrawCtrlPts() {
 	glEnd();
 }
 
-void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void NCurve::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	int i = 0;
 	double dt;
-	if ((iDspFlgs & DSP_CURVES) > 0) {
+	if (DspFlagsIn.DSP_CURVES) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -46322,7 +46322,7 @@ void NCurve::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 			} else if (gDSP_CIRS) {
 				sLab.Format(_T("S"));
 			}
-			OglString(iDspFlgs, vCent.x, vCent.y - 0.5, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y - 0.5, vCent.z, CT2A(sLab));
 		}
 		// momo
 	} else {
@@ -46769,7 +46769,7 @@ void NCurveOnSurf::AddVert(C3dVector pInVertex1, double dWght) {
 	}
 }
 
-void NCurveOnSurf::OglDrawW(int iDspFlgs) {
+void NCurveOnSurf::OglDrawW() {
 	int i;
 	double dw = 0;
 	double dSpan;
@@ -47874,12 +47874,12 @@ void NLine::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 	cPts[1]->Pt_Point->Set(p2.x, p2.y, p2.z);
 }
 
-void NLine::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void NLine::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	int i;
 	CString sLab;
 	C3dVector vC;
 
-	if ((iDspFlgs & DSP_CURVES) > 0) {
+	if (DspFlagsIn.DSP_CURVES) {
 		if (DrawCPts || gDSP_CPTS) {
 			OglDrawCtrlPts();
 		}
@@ -47918,7 +47918,7 @@ void NLine::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("Ln%i"), iLabel);
-			OglString(iDspFlgs, (float) vC.x, (float) vC.y, (float) vC.z, CT2A(sLab));
+			OglString(DspFlagsIn, (float) vC.x, (float) vC.y, (float) vC.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
@@ -48507,7 +48507,7 @@ void NSurf::RelTo(G_Object* pThis, ObjList* pList, int iType) {
 	}
 }
 
-void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
+void NSurf::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	double dUi;
 	double dVi;
@@ -48522,7 +48522,7 @@ void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 	C3dVector vO;
 	C3dVector vO1;
 
-	if ((iDspFlgs & DSP_SURFACES) > 0) {
+	if (DspFlagsIn.DSP_SURFACES) {
 		int i;
 		int j;
 		Selectable = 1;
@@ -48543,24 +48543,24 @@ void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		vVDir.Normalize();
 		vZDir = vUDir.Cross(vVDir);
 		for (i = 0; i < iNoTrimCvs; i++) {
-			if ((iDspFlgs & DSP_SURC) > 0) {
+			if (DspFlagsIn.DSP_SURC) {
 				pSurfCvs[i]->Selectable = 1;
-				pSurfCvs[i]->OglDrawW(DSP_CURVES);
+				pSurfCvs[i]->OglDrawW();
 			} else {
 				pSurfCvs[i]->Selectable = 0;
 			}
 		}
 		// DRAW EXTERNAL TRIM LOOP
-		if ((iDspFlgs & DSP_SURC) > 0) {
+		if (DspFlagsIn.DSP_SURC) {
 			for (i = 0; i < iNoExtCvs; i++) {
-				pExtLoop[i]->OglDrawW(DSP_CURVES);
+				pExtLoop[i]->OglDrawW();
 				pExtLoop[i]->Selectable = 1;
 			}
 			// DRAW INTERNAL TRIM LOOP
 			if (this->iNoIntCvs > 0) {
 				for (i = 0; i < iNoIntLoops; i++) {
 					for (j = 0; j < iNoIntCvs[i]; j++) {
-						pIntLoop[i][j]->OglDrawW(DSP_CURVES);
+						pIntLoop[i][j]->OglDrawW();
 						pIntLoop[i][j]->Selectable = 1;
 					}
 				}
@@ -48636,7 +48636,7 @@ void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		//*********************************************************************************
 
 		// Draw the U marker
-		if ((iDspFlgs & DSP_SURFU) == 0) {
+		if (!DspFlagsIn.DSP_SURFU) {
 			C3dVector p2;
 			C3dVector p3;
 			C3dVector p4;
@@ -48809,21 +48809,21 @@ void NSurf::OglDrawW(int iDspFlgs, double dS1, double dS2) {
 		if (bDrawLab == TRUE) {
 			// Esp_Mod_Labels_4_27_2025_End
 			sLab.Format(_T("S%i"), iLabel);
-			OglString(iDspFlgs, vCent.x, vCent.y, vCent.z, CT2A(sLab));
+			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
 	} else {
 		Selectable = 0;
 	}
 }
 
-void NSurf::OglDraw(int iDspFlgs, double dS1, double dS2) {
+void NSurf::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	// Below draw the curve using the open gl nurbs render
 
 	// remove the statement and put some where where it only gets called once
 	//*******************************************************************
 	// CleanExternalTrim();
 
-	if ((iDspFlgs & DSP_SURFACES) > 0) {
+	if (DspFlagsIn.DSP_SURFACES) {
 		Selectable = 1;
 		GLfloat* ctrlpts;
 		GLfloat* KnotsU;
@@ -51103,14 +51103,14 @@ void BSec::Serialize(CArchive& ar, int iV) {
 	}
 }
 
-void BSec::OglDraw(int iDspFlgs, C3dMatrix TA, C3dMatrix TB, C3dVector d0, C3dVector d1, float C1, float C2, BOOL bD) {
+void BSec::OglDraw(DisplayFlags DspFlagsIn, C3dMatrix TA, C3dMatrix TB, C3dVector d0, C3dVector d1, float C1, float C2, BOOL bD) {
 	C3dVector p1;
 	C3dVector p2;
 	C3dVector p3;
 	C3dVector p4;
 
 	int j = 0;
-	if (((iDspFlgs & DSP_CONT) > 0) || (bD == FALSE)) {
+	if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
 		if (iLnCnt1 > 1) {
 			for (j = 0; j < iLnCnt1 - 1; j++) {
 				p1 = TA * pLnLoop1[j + 1];
@@ -51182,7 +51182,7 @@ void BSec::OglDraw(int iDspFlgs, C3dMatrix TA, C3dMatrix TB, C3dVector d0, C3dVe
 	}
 }
 
-void BSec::OglDrawW(int iDspFlgs, C3dMatrix TMat, C3dVector d0, C3dVector d1) {
+void BSec::OglDrawW(DisplayFlags DspFlagsIn, C3dMatrix TMat, C3dVector d0, C3dVector d1) {
 	C3dVector p1;
 	C3dVector p2;
 	C3dVector vOf;
@@ -52995,6 +52995,10 @@ void CEntEditDialog::InitOGL() {
 }
 
 void CEntEditDialog::OglDraw() {
+	// momo change Display Flags Method
+	DisplayFlags DspFlagsIn;
+	DspFlagsIn.DSP_BLACK = true;
+	// momo change Display Flags Method
 	glClearColor(255.0f, 255.0f, 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearDepth(1.0f);
@@ -53026,13 +53030,13 @@ void CEntEditDialog::OglDraw() {
 	for (i = 0; i < iNoLayers; i++)
 		Laminate[i].OglDraw();
 	sLab.Format(_T("%s"), _T("Z"));
-	OglString(1, 0.0, 0.0, 0.7, CT2A(sLab));
+	OglString(DspFlagsIn, 0.0, 0.0, 0.7, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.0, (float) 0.0, (float) 0.7);
 	glEnd();
 	sLab.Format(_T("%s"), _T("1"));
-	OglString(1, 0.7, 0.0, 0.0, CT2A(sLab));
+	OglString(DspFlagsIn, 0.7, 0.0, 0.0, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.7, (float) 0.0, (float) 0.0);
@@ -53440,6 +53444,10 @@ void Lamina::SetAng(double dA) {
 }
 
 void Lamina::OglDraw() {
+	// momo change Display Flags Method
+	DisplayFlags DspFlagsIn;
+	DspFlagsIn.DSP_BLACK = true;
+	// momo change Display Flags Method
 	C3dMatrix R;
 	CString s1;
 	R.MakeUnit();
@@ -53506,11 +53514,11 @@ void Lamina::OglDraw() {
 	p1.Set(0.75, 0, dZOFFS);
 	// p1 = R * p1;
 	s1.Format(_T("%g"), dMAng);
-	OglString(0, p1.x, p1.y, p1.z, CT2A(s1));
+	OglString(DspFlagsIn, p1.x, p1.y, p1.z, CT2A(s1));
 	p1.Set(-0.95, 0, dZOFFS);
 	// p1 = R * p1;
 	s1.Format(_T("%i"), iMID);
-	OglString(0, p1.x, p1.y, p1.z, CT2A(s1));
+	OglString(DspFlagsIn, p1.x, p1.y, p1.z, CT2A(s1));
 
 	// Draw fibres
 	double dWid;
@@ -53686,6 +53694,10 @@ void CPcompEditor::InitOGL() {
 }
 
 void CPcompEditor::OglDraw() {
+	// momo change Display Flags Method
+	DisplayFlags DspFlagsIn;
+	DspFlagsIn.DSP_BLACK = true;
+	// momo change Display Flags Method
 	glClearColor(255.0f, 255.0f, 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearDepth(1.0f);
@@ -53717,13 +53729,13 @@ void CPcompEditor::OglDraw() {
 	for (i = 0; i < iNoLayers; i++)
 		Laminate[i].OglDraw();
 	sLab.Format(_T("%s"), _T("Z"));
-	OglString(1, 0.0, 0.0, 0.7, CT2A(sLab));
+	OglString(DspFlagsIn, 0.0, 0.0, 0.7, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.0, (float) 0.0, (float) 0.7);
 	glEnd();
 	sLab.Format(_T("%s"), _T("1"));
-	OglString(1, 0.7, 0.0, 0.0, CT2A(sLab));
+	OglString(DspFlagsIn, 0.7, 0.0, 0.0, CT2A(sLab));
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f((float) 0.7, (float) 0.0, (float) 0.0);

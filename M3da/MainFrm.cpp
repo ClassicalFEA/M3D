@@ -965,7 +965,7 @@ void CheckPushedButtons(const char* sMode) {
 		ButtonPush.ElementCoordSysOn = false;
 		ButtonPush.SurfaceDirectionMarkersOn = false;
 		ButtonPush.WorkplaneOn = false;
-		ButtonPush.LabelOn = false;
+		// ButtonPush.LabelOn = false;
 		ButtonPush.GeomOn = false;
 		ButtonPush.FiniteOn = false;
 	} else if (sMode == "GeomOn") {

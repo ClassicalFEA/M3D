@@ -71,7 +71,7 @@ extern CommandIsActive CommIsActive;
 struct ButtonPushed {
 		bool Points;
 		bool WireFrame;
-		bool Shaded;
+		bool ShadedWithEdges;
 		bool ShadedWithoutEdges;
 		int DrawModeCurrent;
 		int DrawModeOut;
@@ -102,7 +102,6 @@ struct ButtonPushed {
 		bool CenterOfBody;
 };
 extern ButtonPushed ButtonPush;
-extern bool ShadedEdges;
 // momo on off button and menu
 // momo gdi to og2
 struct ClickPoint {
@@ -112,6 +111,37 @@ struct ClickPoint {
 };
 extern ClickPoint mClickPoint;
 // momo gdi to og2
+// momo change Display Flags Method
+struct DisplayFlags {
+		bool DSP_WIREFRAME;
+		bool DSP_SHADED_WITH_EDGES;
+		bool DSP_NODES;
+		bool DSP_NODES_ASK;
+		bool DSP_SHADED_EDGES;
+		bool DSP_ELEMENTS;
+		bool DSP_CURVES;
+		bool DSP_SURFACES;
+		bool DSP_THK;
+		bool DSP_OFF;
+		bool DSP_SURC;
+		bool DSP_POINTS;
+		bool DSP_BLACK;
+		bool DSP_ASSEM;
+		bool DSP_CONT;
+		bool DSP_RESLAB;
+		bool DSP_RESDEF;
+		bool DSP_ELSYS;
+		bool DSP_BC;
+		bool DSP_GRAD;
+		bool DSP_MATL;
+		bool DSP_COORD;
+		bool DSP_WP;
+		bool DSP_SURFU;
+		bool DSP_ANIMATION;
+		bool DSP_ANIMPOSNEG;
+		bool DSP_VEC;
+};
+// momo change Display Flags Method
 extern BOOL gDSP_BACK;
 extern BOOL gORTHO;
 extern DSP_Triad tOrient;

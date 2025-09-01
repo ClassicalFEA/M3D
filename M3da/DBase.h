@@ -85,7 +85,10 @@ class DBase: public CCmdTarget {
 		DBase(double WPS);
 		virtual ~DBase();
 		void DeleteAll();
-		int DspFlags;
+		// momo change Display Flags Method
+		// momo// int DspFlags;
+		DisplayFlags DspFlagsMain;
+		// momo change Display Flags Method
 		BOOL bPICK;
 		// MoMo_Start
 		// MoMo// int iVER;
@@ -139,6 +142,9 @@ class DBase: public CCmdTarget {
 		void AnalysisLoadStep();
 		void SetActStep(int iD);
 		void SetActSol(int iD);
+		// momo change Display Flags Method
+		void DisplayAll();
+		// momo change Display Flags Method
 
 		//*********************************
 
@@ -328,7 +334,10 @@ class DBase: public CCmdTarget {
 		ME_Object* CreateMesh(CString inName);
 		void Colour(int iCol);
 		void CountItems();
-		void LabEnt();
+		// momo
+		// momo// void LabEnt();
+		void LabEnt(bool bMode);
+		// momo
 		void ElemntMoPID(int iPID);
 		void ElementReverse();
 		void TetCircumSphere();
@@ -554,12 +563,12 @@ class DBase: public CCmdTarget {
 		// momo// void DrawDrag(CDC* pDC, CPoint p1, CPoint p2);
 		// momo// void LineDrag(CDC* pDC, CPoint p1, CPoint p2);
 		// momo gdi to og
-		void DBase::GenAnimationW(int iDspFlgs, int iNoFrames);
-		void DBase::GenAnimationS(int iDspFlgs, int iNoFrames);
-		void DBase::GenAnimationFrameW(int iDspFlgs, int iFrameNo, double dF);
-		void DBase::GenAnimationFrameS(int iDspFlgs, int iFrameNo, double dF);
-		void OglDraw(int iDspFlgs);
-		void OglDrawW(int iDspFlgs);
+		void DBase::GenAnimationW(DisplayFlags DspFlagsIn, int iNoFrames);
+		void DBase::GenAnimationS(DisplayFlags DspFlagsIn, int iNoFrames);
+		void DBase::GenAnimationFrameW(DisplayFlags DspFlagsIn, int iFrameNo, double dF);
+		void DBase::GenAnimationFrameS(DisplayFlags DspFlagsIn, int iFrameNo, double dF);
+		void OglDraw(DisplayFlags DspFlagsIn);
+		void OglDrawW(DisplayFlags DspFlagsIn);
 		void Cycle();
 		void Animate();
 		void AnimatePosNeg();
@@ -587,7 +596,7 @@ class DBase: public CCmdTarget {
 		void InitOGL(CDC* pDC);
 		float m_fRadius;
 		void InvalidateOGL();
-		void SetDrawType(int iType); // 0 GUI LiNE; 1 OGL SHADE
+		void SetDrawType(int iType, bool bShadedWithEdges); // 0 GUI LiNE; 1 OGL SHADE
 		int GetDrawType();
 		void SetFastView();
 		int GetFastView();

@@ -408,7 +408,7 @@ void Matrix<T>::diag() {
 
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
-			fprintf(pFile, "%8s", f4(elem(i, j)));
+			fprintf(pFile, "%8S", f4(elem(i, j)));
 		}
 		fprintf(pFile, "\n", "");
 	}
