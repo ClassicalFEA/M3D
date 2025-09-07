@@ -2521,17 +2521,19 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 				// momo
 				else if (CInMsg.CompareNoCase(_T("NEW")) == 0) {
 					((CM3daApp*) AfxGetApp())->OnFileNewMain();
-					// pNext = new zEXP04_Mnu();
-					// pNext->Init(cDBase, -1);
-					// this->DoMenu(CInMsg, Pt);
 					this->DoMenu(_T(""), Pt);
 				} else if (CInMsg.CompareNoCase(_T("OPEN")) == 0) {
 					((CM3daApp*) AfxGetApp())->OnFileOpenMain();
-					// pNext = new zEXP04_Mnu();
-					// pNext->Init(cDBase, -1);
-					// this->DoMenu(CInMsg, Pt);
 					this->DoMenu(_T(""), Pt);
 					// momo
+					// momo save by old versions
+				} else if (CInMsg.CompareNoCase(_T("SAVE")) == 0) {
+					((CM3daApp*) AfxGetApp())->OnFileSaveMain();
+					this->DoMenu(_T(""), Pt);
+				} else if (CInMsg.CompareNoCase(_T("SAVEAS")) == 0) {
+					((CM3daApp*) AfxGetApp())->OnFileSaveAsMain();
+					this->DoMenu(_T(""), Pt);
+					// momo save by old versions
 				} else if (CInMsg == "NULL") {
 					outtext2("// COMMAND:");
 					// momo change command box color
@@ -2556,7 +2558,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 			// momo change command box color
 		}
 		// momo change command box color
-		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase(_T("NEW")) != 0 && CInMsg.CompareNoCase(_T("OPEN")) != 0 && CInMsg.CompareNoCase(_T("DSPALL")) != 0 && CInMsg.CompareNoCase(_T("DSPSEL")) != 0 && CInMsg.CompareNoCase(_T("SHOWALL")) != 0 && CInMsg.CompareNoCase(_T("DSPGP")) != 0) {
+		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase(_T("NEW")) != 0 && CInMsg.CompareNoCase(_T("OPEN")) != 0 && CInMsg.CompareNoCase(_T("SAVE")) != 0 && CInMsg.CompareNoCase(_T("SAVEAS")) != 0 && CInMsg.CompareNoCase(_T("DSPALL")) != 0 && CInMsg.CompareNoCase(_T("DSPSEL")) != 0 && CInMsg.CompareNoCase(_T("SHOWALL")) != 0 && CInMsg.CompareNoCase(_T("DSPGP")) != 0 && CInMsg.CompareNoCase(_T("SOLVE")) != 0 && CInMsg.CompareNoCase(_T("ADDDESK")) != 0 && CInMsg.CompareNoCase(_T("ADDDESK_S")) != 0 && CInMsg.CompareNoCase(_T("ADDDESK_SR")) != 0) {
 			CommIsActive.NewState = true;
 		} else if (inputInOneCommand == -1 || CInMsg.CompareNoCase(_T("NULL")) != 0) {
 			CommIsActive.NewState = false;

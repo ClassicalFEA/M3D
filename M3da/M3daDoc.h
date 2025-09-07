@@ -125,6 +125,10 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnFileNewButton();
 		afx_msg void OnFileOpenButton();
 		// MoMo_End
+		// momo save by old versions
+		afx_msg void OnFileSaveButton();
+		afx_msg void OnFileSaveAsButton();
+		// momo save by old versions
 		afx_msg void OnGroupAddtogroup();
 		afx_msg void OnGroupRemovefromgroup();
 		afx_msg void OnGroupAddgroup();
@@ -274,6 +278,9 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnSelectFullBody();
 		afx_msg void OnSelectPartOfBody();
 		afx_msg void OnSelectCenterOfBody();
+		afx_msg void OnSolverCreateDesk();
+		afx_msg void OnSolverCreateDeskSolve();
+		afx_msg void OnSolverCreateDeskSolveReadResults();
 		// momo
 
 	protected:
@@ -383,7 +390,6 @@ class CM3daDoc: public CDocument, public CUndo {
 		// momo on off button and menu
 		afx_msg void OnUpdateVisabilityPointson(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateTogglecontrolpointvisability(CCmdUI* pCmdUI);
-		afx_msg void OnUpdateDisplayall(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateVisabilityCurveson(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateSurfacesSurfaceson(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateVisabilityCoordson(CCmdUI* pCmdUI);

@@ -20,6 +20,10 @@
 CEditBasic* Edit1; // momo: "Command Report Text Box"
 CEditBasic* Edit2; // momo: "Information Text Box"
 CMyEdit* Edit3; // momo: "Command Entry Text Box"
+// momo make main buttons
+CMFCButton* buttonCancel;
+CMFCButton* buttonDone;
+// momo make main buttons
 //// momo ModernOpenGL_Start
 ////CMyEdit* EditViewScales;
 //// momo ModernOpenGL_End
@@ -500,6 +504,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	Edit1 = &p_Input.Edit1;
 	Edit2 = &p_Input.Edit2;
 	Edit3 = &p_Input.Edit3;
+	// momo make main buttons
+	buttonCancel = &p_Input.buttonCancel;
+	buttonDone = &p_Input.buttonDone;
+	// momo make main buttons
 	p_Input.EnableDocking(CBRS_ALIGN_ANY);
 
 	struct ToolBarInfo {
@@ -953,40 +961,45 @@ void CheckCommandEditColor(bool bForceToCheck) {
 // momo change command box color
 // momo on off button and menu
 void CheckPushedButtons(const char* sMode) {
-	if (sMode == "AllVisible") {
-		ButtonPush.Points = false;
-		ButtonPush.CurvesOn = false;
-		ButtonPush.SurfaceOn = false;
-		ButtonPush.CoordsOn = false;
-		ButtonPush.NodeOn = false;
-		ButtonPush.ElementOn = false;
-		ButtonPush.BoundaryConditionsOn = false;
-		ButtonPush.ShellThicknessOn = false;
-		ButtonPush.ElementCoordSysOn = false;
-		ButtonPush.SurfaceDirectionMarkersOn = false;
-		ButtonPush.WorkplaneOn = false;
-		// ButtonPush.LabelOn = false;
-		ButtonPush.GeomOn = false;
-		ButtonPush.FiniteOn = false;
-	} else if (sMode == "GeomOn") {
-		ButtonPush.Points = ButtonPush.GeomOn;
-		ButtonPush.CurvesOn = ButtonPush.GeomOn;
-		ButtonPush.SurfaceOn = ButtonPush.GeomOn;
-		ButtonPush.CoordsOn = ButtonPush.GeomOn;
-	} else if (sMode == "FiniteOn") {
-		ButtonPush.NodeOn = ButtonPush.FiniteOn;
-		ButtonPush.ElementOn = ButtonPush.FiniteOn;
-		ButtonPush.BoundaryConditionsOn = ButtonPush.FiniteOn;
-	} else if (sMode == "Check") {
-		if (!ButtonPush.GeomOn && ButtonPush.Points && ButtonPush.CurvesOn && ButtonPush.SurfaceOn && ButtonPush.CoordsOn) {
-			ButtonPush.GeomOn = true;
-		} else if (ButtonPush.GeomOn && !ButtonPush.Points && !ButtonPush.CurvesOn && !ButtonPush.SurfaceOn && !ButtonPush.CoordsOn) {
+	if (strcmp(sMode, "AllVisible") == 0) {
+		ButtonPush.FiniteOn = true;
+		DspFlagsMain.DSP_NODES = true;
+		DspFlagsMain.DSP_ELEMENTS = true;
+		DspFlagsMain.DSP_BOUNDARY_CONDITIONS = true;
+		ButtonPush.GeomOn = true;
+		DspFlagsMain.DSP_POINTS = true;
+		DspFlagsMain.DSP_CONTROL_POINTS = false;
+		DspFlagsMain.DSP_CURVES = true;
+		DspFlagsMain.DSP_SURFACES = true;
+		DspFlagsMain.DSP_COORD = true;
+		DspFlagsMain.DSP_WORK_PLANE = true;
+		DspFlagsMain.DSP_SHELL_THICKNESS = true;
+		DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
+		DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = true;
+	} else if (strcmp(sMode, "GeomOn") == 0) {
+		DspFlagsMain.DSP_POINTS = ButtonPush.GeomOn;
+		DspFlagsMain.DSP_CONTROL_POINTS = ButtonPush.GeomOn;
+		DspFlagsMain.DSP_CURVES = ButtonPush.GeomOn;
+		DspFlagsMain.DSP_SURFACES = ButtonPush.GeomOn;
+		DspFlagsMain.DSP_COORD = ButtonPush.GeomOn;
+	} else if (strcmp(sMode, "FiniteOn") == 0) {
+		DspFlagsMain.DSP_NODES = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_BOUNDARY_CONDITIONS = ButtonPush.FiniteOn;
+	} else if (strcmp(sMode, "Check") == 0) {
+		if (ButtonPush.GeomOn && !DspFlagsMain.DSP_POINTS && !DspFlagsMain.DSP_CURVES && !DspFlagsMain.DSP_SURFACES && !DspFlagsMain.DSP_COORD) {
 			ButtonPush.GeomOn = false;
+			outtext1("All Geom Elements Visibility OFF");
+		} else if (!ButtonPush.GeomOn && DspFlagsMain.DSP_POINTS && DspFlagsMain.DSP_CURVES && DspFlagsMain.DSP_SURFACES && DspFlagsMain.DSP_COORD) {
+			ButtonPush.GeomOn = true;
+			outtext1("All Geom Elements Visibility ON");
 		}
-		if (!ButtonPush.FiniteOn && ButtonPush.NodeOn && ButtonPush.ElementOn && ButtonPush.BoundaryConditionsOn) {
-			ButtonPush.FiniteOn = true;
-		} else if (ButtonPush.FiniteOn && !ButtonPush.NodeOn && !ButtonPush.ElementOn && !ButtonPush.BoundaryConditionsOn) {
+		if (ButtonPush.FiniteOn && !DspFlagsMain.DSP_NODES && !DspFlagsMain.DSP_ELEMENTS && !DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
 			ButtonPush.FiniteOn = false;
+			outtext1("All Finite Elements Visibility OFF");
+		} else if (!ButtonPush.FiniteOn && DspFlagsMain.DSP_NODES && DspFlagsMain.DSP_ELEMENTS && DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
+			ButtonPush.FiniteOn = true;
+			outtext1("All Finite Elements Visibility ON");
 		}
 	}
 }
@@ -1015,6 +1028,38 @@ void CMainFrame::OnSize(UINT nType, int cx, int cy) {
 //{
 //   // TODO: Add your command handler code here
 // }
+
+// momo make main buttons
+void OnCancelClicked() {
+	CString CurrentText;
+	Edit3->GetWindowText(CurrentText);
+	if (CurrentText != _T("")) {
+		Edit3->SetWindowText(_T(""));
+	}
+	if (!SeedVals.IsSeedMode) {
+		outtextMSG2("C");
+	} else {
+		outtextMSG2("Cancel");
+	}
+}
+
+void OnDoneClicked() {
+	CString CurrentText;
+	Edit3->GetWindowText(CurrentText);
+	if (CurrentText == _T("")) {
+		if (!SeedVals.IsSeedMode) {
+			outtextMSG2("D");
+		} else {
+			outtextMSG2("Done");
+		}
+	} else {
+		CString NewText;
+		NewText = CurrentText + _T("\r\n");
+		Edit3->SetWindowText(_T(""));
+		outtextMSG2(NewText);
+	}
+}
+// momo make main buttons
 
 //// momo ModernOpenGL_Start
 ////CString ReadText() {

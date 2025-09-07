@@ -39,7 +39,9 @@ float fontHeightGLOrigin;
 #pragma warning(disable : 4477)
 BOOL gORTHO;
 int gBACKGRD_COL = 0;
-BOOL gDSP_CPTS = FALSE;
+// momo change Display Flags Method
+// momo// BOOL gDSP_CPTS = FALSE;
+// momo change Display Flags Method
 BOOL gDSP_CIRS = TRUE;
 BOOL gDSP_BACK = TRUE;
 int gCUR_RES = 36;
@@ -478,7 +480,7 @@ DBase::DBase(double WPS) {
 	iEdges = 1;
 	// momo
 	// momo// DspFlags = DSP_ALL;
-	DisplayAll();
+	// DisplayAll();
 	// momo
 	dMFullScl = 1;
 	bRevColBar = FALSE;
@@ -785,33 +787,106 @@ void DBase::SetActSol(int iD) {
 
 // momo change Display Flags Method
 void DBase::DisplayAll() {
-	DspFlagsMain.DSP_WIREFRAME = true;
-	DspFlagsMain.DSP_SHADED_WITH_EDGES = false;
+	// ButtonPush.WireFrame = true;
+	// DspFlagsMain.DSP_WIREFRAME = true;
+	// ButtonPush.DrawModeCurrent = 1;
+	// ButtonPush.ShadedWithEdges = false;
+	// ButtonPush.ShadedWithoutEdges = false;
+	// DspFlagsMain.DSP_SHADED_WITH_EDGES = false;
+	ButtonPush.FiniteOn = true;
 	DspFlagsMain.DSP_NODES = true;
-	DspFlagsMain.DSP_NODES_ASK = true;
-	DspFlagsMain.DSP_SHADED_EDGES = true;
 	DspFlagsMain.DSP_ELEMENTS = true;
+	DspFlagsMain.DSP_BOUNDARY_CONDITIONS = true;
+	ButtonPush.GeomOn = true;
+	DspFlagsMain.DSP_POINTS = true;
+	DspFlagsMain.DSP_CONTROL_POINTS = false;
 	DspFlagsMain.DSP_CURVES = true;
 	DspFlagsMain.DSP_SURFACES = true;
-	DspFlagsMain.DSP_THK = true;
+	DspFlagsMain.DSP_COORD = true;
+	ButtonPush.SelectedOn = false;
+	DspFlagsMain.DSP_WORK_PLANE = true;
+	DspFlagsMain.DSP_SHELL_THICKNESS = true;
+	DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
+	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = true;
+	DspFlagsMain.DSP_GRADIENT_BACKGROUND = false;
+
+	DspFlagsMain.DSP_NODES_ASK = true;
 	DspFlagsMain.DSP_OFF = true;
 	DspFlagsMain.DSP_SURC = true;
-	DspFlagsMain.DSP_POINTS = true;
 	DspFlagsMain.DSP_BLACK = true;
 	DspFlagsMain.DSP_ASSEM = true;
 	DspFlagsMain.DSP_CONT = true;
 	DspFlagsMain.DSP_RESLAB = true;
 	DspFlagsMain.DSP_RESDEF = true;
-	DspFlagsMain.DSP_ELSYS = true;
-	DspFlagsMain.DSP_BC = true;
-	DspFlagsMain.DSP_GRAD = true;
 	DspFlagsMain.DSP_MATL = true;
-	DspFlagsMain.DSP_COORD = true;
-	DspFlagsMain.DSP_WP = true;
-	DspFlagsMain.DSP_SURFU = true;
 	DspFlagsMain.DSP_ANIMATION = true;
 	DspFlagsMain.DSP_ANIMPOSNEG = true;
 	DspFlagsMain.DSP_VEC = true;
+
+	ButtonPush.QfilterNodesOn = false;
+	ButtonPush.QfilterElementsOn = false;
+	ButtonPush.QfilterPointsOn = false;
+	ButtonPush.QfilterCurvesOn = false;
+	ButtonPush.QfilterSurfacesOn = false;
+	ButtonPush.FullBody = true;
+	ButtonPush.PartOfBody = false;
+	ButtonPush.CenterOfBody = true;
+}
+
+void DBase::ResteFileSettings(bool bMode) {
+	C3dMatrix mT;
+	mT.m_00 = 1.0;
+	mT.m_01 = 0.0;
+	mT.m_02 = 0.0;
+	mT.m_03 = 0.0;
+	mT.m_10 = 0.0;
+	mT.m_11 = 1.0;
+	mT.m_12 = 0.0;
+	mT.m_13 = 0.0;
+	mT.m_20 = 0.0;
+	mT.m_21 = 0.0;
+	mT.m_22 = 1.0;
+	mT.m_23 = 0.0;
+	mT.m_30 = 0.0;
+	mT.m_31 = 0.0;
+	mT.m_32 = 0.0;
+	mT.m_33 = 1.0;
+	WPSize = 10.0;
+	tOrient.PushMat(mT);
+	pModelMat = mT;
+	if (!bMode) {
+		gDOUBLEBUFF = true;
+		gBACKGRD_COL = 0;
+		gZOOM_SCL = 1.0;
+		gPT_SIZE = 10.0;
+		gND_SIZE = 10.0;
+		gLM_SIZE = 20.0;
+		gEL_SIZE = 2.0;
+		gED_SIZE = 5.0;
+		gFC_SIZE = 3.0;
+		gWP_SIZE = 12.0;
+		gBM_SIZE = 2.0;
+		gTXT_SIZE = 2.0;
+		gDIM_SCALE = 1.0;
+		gDIM_FILSZ = 0.1;
+		gDIM_OFFSZ = 0.1;
+		gTXT_HEIGHT = 0.5;
+		gDIM_RADSZ = 0.5;
+		gDIM_SIZE = 0.5;
+		gCUR_RES = 36;
+		gDRILL_KS = 1.0;
+		gRIGID_MULTIPLIER = 1e4;
+		gVSTIFF_KS = 1e10;
+		gDEF_E = 7e10;
+		gDEF_V = 0.33;
+		gDEF_DEN = 2750.;
+		gDEF_COND = 237.0;
+		gSTIFF_BDIA = 0.1;
+		gDEF_CTE = 2.3e-5;
+		gDEF_THERM_LNK = 1e9;
+		gDEF_SOL_TOL = 1e-9;
+		gDIM_PREC = 2;
+	}
 }
 // momo change Display Flags Method
 
@@ -1106,12 +1181,25 @@ void DBase::Serialize(CArchive& ar) {
 	int i;
 	int iType;
 	int iSecondaryType;
+	// momo save by old versions
+	if (MakingNewFile) {
+		MakingNewFile = false;
+		CFileFind finder;
+		if (finder.FindFile(_T("config.txt"))) {
+			theApp.LoadConfiguration();
+			ResteFileSettings(true);
+		} else {
+			ResteFileSettings(false);
+		}
+	}
+	// momo save by old versions
 	if (ar.IsStoring()) {
 		// TODO: add storing code here
-		// MoMo_Start
-		iVER = VERSION_NO;
-		// MoMo_End
-		ar << VERSION_NO;
+		// momo save by old versions
+		// momo// ar << VERSION_NO;
+		iVER = VERSIONS[FileFormatIndex - 1];
+		ar << iVER;
+		// momo save by old versions
 		ar << pModelMat.m_00;
 		ar << pModelMat.m_01;
 		ar << pModelMat.m_02;
@@ -1162,8 +1250,12 @@ void DBase::Serialize(CArchive& ar) {
 		ar << gDEF_SOL_TOL;
 		ar << gDIM_PREC;
 
-		PropsT->Serialize(ar, VERSION_NO);
-		MatT->Serialize(ar, VERSION_NO);
+		// momo save by old versions
+		// PropsT->Serialize(ar, VERSION_NO);
+		// MatT->Serialize(ar, VERSION_NO);
+		PropsT->Serialize(ar, iVER);
+		MatT->Serialize(ar, iVER);
+		// momo save by old versions
 		ar << DB_ObjectCount;
 		ar << iMeshCnt;
 		ar << iCurGp;
@@ -1191,6 +1283,14 @@ void DBase::Serialize(CArchive& ar) {
 			outtext1("");
 		// MoMo_End
 		ar >> iVER;
+		// momo save by old versions
+		FileFormatIndex = 1;
+		for (int i = 1; i <= nVERSIONS; i++) {
+			if (VERSIONS[i - 1] == iVER) {
+				FileFormatIndex = i;
+			}
+		}
+		// momo save by old versions
 		// MoMo_Start
 		CString S1;
 		outtextSprintf(_T("Version of Loaded File = %.2f"), 0, abs(iVER / 10.0), false, 1);
@@ -1606,8 +1706,7 @@ void DBase::Dsp_All(bool changeButtonIcon) {
 	}
 	// momo on off button and menu
 	if (changeButtonIcon) {
-		ButtonPush.DisplayAll = true;
-		ButtonPush.DisplaySelected = false;
+		ButtonPush.SelectedOn = false;
 	}
 	// momo on off button and menu
 	InvalidateOGL();
@@ -1681,8 +1780,7 @@ void DBase::Dsp_Selected() {
 		}
 	}
 	// momo on off button and menu
-	ButtonPush.DisplaySelected = true;
-	ButtonPush.DisplayAll = false;
+	ButtonPush.SelectedOn = true;
 	// momo on off button and menu
 	InvalidateOGL();
 	ReDraw();
@@ -10509,7 +10607,7 @@ void DBase::OglDrawW(DisplayFlags DspFlagsIn) {
 	// Draw the dragging update
 	if ((pDragObj != nullptr) && (bIsDrag == TRUE))
 		pDragObj->OglDrawW(DspFlagsIn, dMFullScl, 0);
-	if (DspFlagsMain.DSP_GRAD) {
+	if (DspFlagsMain.DSP_GRADIENT_BACKGROUND) {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		// glBegin(GL_QUADS);
@@ -11066,7 +11164,7 @@ void DBase::OglDraw(DisplayFlags DspFlagsIn) {
 	}
 	// Gradient fill background
 
-	if (DspFlagsMain.DSP_GRAD) {
+	if (DspFlagsMain.DSP_GRADIENT_BACKGROUND) {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glBegin(GL_QUADS);
@@ -19090,7 +19188,7 @@ void DBase::EditMat(int MID, BOOL bPID, bool& materialIDFound)
 		Dlg.pEnt = M;
 		// MoMo_Material_FormKeysBugV1_05_22_2025_Start
 		if (Dlg.pEnt->iType == 1) {
-			Dlg.FormCaption = "Isentropic Material";
+			Dlg.FormCaption = "Isotropic Material";
 		} else {
 			Dlg.FormCaption = "Orthotropic Material";
 		}
@@ -23789,7 +23887,7 @@ void DBase::CreateBSegs_EXP04(ObjList* pP, cLinkedList* pS, double dS, NSurf* pS
 void DBase::SaveOrResetTempSeeds_EXP04(const char* sMode) {
 	int i, k, newTempSeedId = 0;
 	NSurf* checkSurface;
-	if (sMode == "Reset") {
+	if (strcmp(sMode, "Reset") == 0) {
 		for (int iList = 0; iList < iDspLstCount; iList++) {
 			if (Dsp_List[iList]->iObjType == 15) {
 				checkSurface = (NSurf*) Dsp_List[iList];
@@ -23842,7 +23940,7 @@ void DBase::SaveOrResetTempSeeds_EXP04(const char* sMode) {
 				}
 			}
 		}
-	} else if (sMode == "Save") {
+	} else if (strcmp(sMode, "Save") == 0) {
 		NCurve* checkEdge;
 		for (int iList = 0; iList < iDspLstCount; iList++) {
 			if (Dsp_List[iList]->iObjType == 15) {
@@ -23944,7 +24042,7 @@ void DBase::AddOrRemoveTempSeeds_EXP04() {
 // MoMo_Start
 void DBase::ViewCurveSeeds(const char* sMode, int tempSeedId, NCurve* curveIn) {
 	NCurveOnSurf* curveOnSurf = (NCurveOnSurf*) curveIn;
-	if (sMode == "Remove") {
+	if (strcmp(sMode, "Remove") == 0) {
 		int i = 0;
 		while (i < DB_BuffCount) {
 			if (abs(DB_PtBuff[i].tempSeedId) == abs(tempSeedId)) {
@@ -23957,7 +24055,7 @@ void DBase::ViewCurveSeeds(const char* sMode, int tempSeedId, NCurve* curveIn) {
 				i++;
 			}
 		}
-	} else if (sMode == "Add") {
+	} else if (strcmp(sMode, "Add") == 0) {
 		C3dVector ptXY, vPt, ptNo;
 		int n;
 		double L, L1, Lm, Ln, dw, dwSum;

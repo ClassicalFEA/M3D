@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 /enc_temp_folder
+
+# Ignore configuration file
+M3da/config.txt

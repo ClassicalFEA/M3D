@@ -27,7 +27,9 @@ extern double gDIM_OFFSZ;
 extern double gTXT_HEIGHT;
 extern double gDIM_RADSZ;
 extern double gDIM_CVORD;
-extern BOOL gDSP_CPTS;
+// momo change Display Flags Method
+// momo// extern BOOL gDSP_CPTS;
+// momo change Display Flags Method
 extern BOOL gDSP_CIRS;
 // MoMo_Start
 struct SeedValues {
@@ -69,34 +71,19 @@ extern CommandIsActive CommIsActive;
 // momo change command box color
 // momo on off button and menu
 struct ButtonPushed {
-		bool Points;
 		bool WireFrame;
 		bool ShadedWithEdges;
 		bool ShadedWithoutEdges;
 		int DrawModeCurrent;
 		int DrawModeOut;
-		bool ControlPoint;
-		bool DisplayAll;
-		bool DisplaySelected;
-		bool CurvesOn;
-		bool SurfaceOn;
-		bool CoordsOn;
-		bool NodeOn;
-		bool ElementOn;
-		bool BoundaryConditionsOn;
-		bool ShellThicknessOn;
-		bool ElementCoordSysOn;
-		bool SurfaceDirectionMarkersOn;
-		bool WorkplaneOn;
-		bool LabelOn;
-		bool GeomOn;
 		bool FiniteOn;
+		bool GeomOn;
+		bool SelectedOn;
 		bool QfilterNodesOn;
 		bool QfilterElementsOn;
 		bool QfilterPointsOn;
 		bool QfilterCurvesOn;
 		bool QfilterSurfacesOn;
-		bool SelectedOn;
 		bool FullBody;
 		bool PartOfBody;
 		bool CenterOfBody;
@@ -116,32 +103,38 @@ struct DisplayFlags {
 		bool DSP_WIREFRAME;
 		bool DSP_SHADED_WITH_EDGES;
 		bool DSP_NODES;
-		bool DSP_NODES_ASK;
-		bool DSP_SHADED_EDGES;
 		bool DSP_ELEMENTS;
+		bool DSP_BOUNDARY_CONDITIONS;
+		bool DSP_POINTS;
+		bool DSP_CONTROL_POINTS;
 		bool DSP_CURVES;
 		bool DSP_SURFACES;
-		bool DSP_THK;
+		bool DSP_COORD;
+		bool DSP_WORK_PLANE;
+		bool DSP_SHELL_THICKNESS;
+		bool DSP_ELEMENT_COORD_SYS;
+		bool DSP_SURFACE_DIRECTION_MARKERS;
+		bool DSP_GRADIENT_BACKGROUND;
+
+		bool DSP_NODES_ASK;
 		bool DSP_OFF;
 		bool DSP_SURC;
-		bool DSP_POINTS;
 		bool DSP_BLACK;
 		bool DSP_ASSEM;
 		bool DSP_CONT;
 		bool DSP_RESLAB;
 		bool DSP_RESDEF;
-		bool DSP_ELSYS;
-		bool DSP_BC;
-		bool DSP_GRAD;
 		bool DSP_MATL;
-		bool DSP_COORD;
-		bool DSP_WP;
-		bool DSP_SURFU;
 		bool DSP_ANIMATION;
 		bool DSP_ANIMPOSNEG;
 		bool DSP_VEC;
 };
+extern DisplayFlags DspFlagsMain;
 // momo change Display Flags Method
+// momo save by old versions
+extern int FileFormatIndex;
+extern bool MakingNewFile;
+// momo save by old versions
 extern BOOL gDSP_BACK;
 extern BOOL gORTHO;
 extern DSP_Triad tOrient;

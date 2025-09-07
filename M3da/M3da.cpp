@@ -54,15 +54,27 @@ CommandIsActive CommIsActive;
 // momo change command box color
 // momo on off button and menu
 ButtonPushed ButtonPush;
+DisplayFlags DspFlagsMain;
 // momo on off button and menu
 // momo gdi to og2
 ClickPoint mClickPoint;
 // momo gdi to og2
+// momo save by old versions
+int FileFormatIndex = 1;
+bool MakingNewFile = false;
+// momo save by old versions
 
 // CM3daApp
 
 BEGIN_MESSAGE_MAP(CM3daApp, CWinAppEx)
 ON_COMMAND(ID_APP_ABOUT, &CM3daApp::OnAppAbout)
+// momo add type id form
+ON_COMMAND(ID_TYPEID_HELP, &CM3daApp::OnShowInfoDialog)
+// momo add type id form
+// momo
+ON_COMMAND(ID_PROPERTY_HELP, &CM3daApp::OnShowInfoDialog)
+ON_COMMAND(ID_ELEMENTMODIFIY_HELP, &CM3daApp::OnShowInfoDialog)
+// momo
 // Standard file based document commands
 // momo
 // momo// ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
@@ -84,6 +96,7 @@ CM3daApp::CM3daApp() {
 
 // momo
 void CM3daApp::OnFileNewMain() {
+	MakingNewFile = true;
 	OnFileNew();
 }
 
@@ -91,6 +104,90 @@ void CM3daApp::OnFileOpenMain() {
 	OnFileOpen();
 }
 // momo
+// momo save by old versions
+void CM3daApp::OnFileSaveMain() {
+	bool SavedOk;
+	CString dlgPath, pDocPath;
+	CDocument* pDoc = ((CFrameWnd*) AfxGetMainWnd())->GetActiveDocument();
+	if (pDoc) {
+		pDocPath = pDoc->GetPathName();
+		CString strFilter =
+		    _T("M3da Files - Version 7.90 (*.m3d)|*.m3d|")
+		    _T("M3da Files - Version 7.80 (*.m3d)|*.m3d||");
+		if (pDocPath.IsEmpty()) {
+			pDocPath = _T("Untitled.m3d");
+			CFileDialog dlg(FALSE, _T(".m3d"), pDocPath, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, strFilter, AfxGetMainWnd());
+			dlg.m_ofn.nFilterIndex = FileFormatIndex;
+			if (dlg.DoModal() != IDOK) {
+				SavedOk = false;
+			} else {
+				SavedOk = true;
+				dlgPath = dlg.GetPathName();
+				FileFormatIndex = dlg.m_ofn.nFilterIndex;
+			}
+		} else {
+			SavedOk = true;
+			dlgPath = pDocPath;
+		}
+	} else {
+		SavedOk = false;
+	}
+
+	if (SavedOk) {
+		pDoc->DoSave(dlgPath);
+		int iVERInner = VERSIONS[FileFormatIndex - 1];
+		outtextSprintf(_T("File Saved successfully. (Version = %.2f)"), 0, abs(iVERInner / 10.0), false, 1);
+	} else {
+		outtext1("File Save failed or was Canceled.");
+	}
+}
+
+void CM3daApp::OnFileSaveAsMain() {
+	bool SavedOk;
+	CString dlgPath, pDocPath;
+	CDocument* pDoc = ((CFrameWnd*) AfxGetMainWnd())->GetActiveDocument();
+	if (pDoc) {
+		pDocPath = pDoc->GetPathName();
+		CString strFilter =
+		    _T("M3da Files - Version 7.90 (*.m3d)|*.m3d|")
+		    _T("M3da Files - Version 7.80 (*.m3d)|*.m3d||");
+		if (pDocPath.IsEmpty()) {
+			pDocPath = _T("Untitled.m3d");
+			CFileDialog dlg(FALSE, _T(".m3d"), pDocPath, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, strFilter, AfxGetMainWnd());
+			dlg.m_ofn.nFilterIndex = FileFormatIndex;
+			if (dlg.DoModal() != IDOK) {
+				SavedOk = false;
+			} else {
+				SavedOk = true;
+				dlgPath = dlg.GetPathName();
+				FileFormatIndex = dlg.m_ofn.nFilterIndex;
+			}
+		} else {
+			CFileDialog dlg(FALSE, _T(".m3d"), pDocPath, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, strFilter, AfxGetMainWnd());
+			dlg.m_ofn.nFilterIndex = FileFormatIndex;
+			if (dlg.DoModal() != IDOK) {
+				SavedOk = false;
+			} else {
+				SavedOk = true;
+				dlgPath = dlg.GetPathName();
+				FileFormatIndex = dlg.m_ofn.nFilterIndex;
+			}
+			//	SavedOk = true;
+			//	dlgPath = pDocPath;
+		}
+	} else {
+		SavedOk = false;
+	}
+
+	if (SavedOk) {
+		pDoc->DoSave(dlgPath);
+		int iVERInner = VERSIONS[FileFormatIndex - 1];
+		outtextSprintf(_T("File Saved successfully. (Version = %.2f)"), 0, abs(iVERInner / 10.0), false, 1);
+	} else {
+		outtext1("File Save failed or was Canceled.");
+	}
+}
+// momo save by old versions
 
 // The one and only CM3daApp object
 
@@ -234,7 +331,7 @@ BOOL CM3daApp::InitInstance() {
 	// such as the name of your company or organization
 	// MoMo_Start
 	// MoMo// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	SetRegistryKey(_T("M3D-DevM-Reg-18"));
+	SetRegistryKey(_T("M3D-DevM-Reg-20"));
 	// MoMo_End
 	// momo
 	SelRowsCurrent[0][0] = -1;
@@ -244,37 +341,51 @@ BOOL CM3daApp::InitInstance() {
 	SeedVals.SelectLock = false;
 	SeedVals.InputedMeshElementSize = 1.0;
 	SeedVals.InputedSeedNumbers = 0;
-	ButtonPush.Points = false;
+
 	ButtonPush.WireFrame = true;
+	DspFlagsMain.DSP_WIREFRAME = true;
+	ButtonPush.DrawModeCurrent = 1;
+	ButtonPush.DrawModeOut = 3;
 	ButtonPush.ShadedWithEdges = false;
 	ButtonPush.ShadedWithoutEdges = false;
-	ButtonPush.DrawModeCurrent = 1;
-	ButtonPush.DrawModeOut = 2;
-	ButtonPush.ControlPoint = false;
-	ButtonPush.DisplayAll = true;
-	ButtonPush.DisplaySelected = false;
-	ButtonPush.CurvesOn = false;
-	ButtonPush.SurfaceOn = false;
-	ButtonPush.CoordsOn = false;
-	ButtonPush.NodeOn = false;
-	ButtonPush.ElementOn = false;
-	ButtonPush.BoundaryConditionsOn = false;
-	ButtonPush.ShellThicknessOn = false;
-	ButtonPush.ElementCoordSysOn = false;
-	ButtonPush.SurfaceDirectionMarkersOn = false;
-	ButtonPush.WorkplaneOn = false;
-	// ButtonPush.LabelOn = false;
-	ButtonPush.GeomOn = false;
-	ButtonPush.FiniteOn = false;
+	DspFlagsMain.DSP_SHADED_WITH_EDGES = false;
+	ButtonPush.FiniteOn = true;
+	DspFlagsMain.DSP_NODES = true;
+	DspFlagsMain.DSP_ELEMENTS = true;
+	DspFlagsMain.DSP_BOUNDARY_CONDITIONS = true;
+	ButtonPush.GeomOn = true;
+	DspFlagsMain.DSP_POINTS = true;
+	DspFlagsMain.DSP_CONTROL_POINTS = false;
+	DspFlagsMain.DSP_CURVES = true;
+	DspFlagsMain.DSP_SURFACES = true;
+	DspFlagsMain.DSP_COORD = true;
+	ButtonPush.SelectedOn = false;
+	DspFlagsMain.DSP_WORK_PLANE = true;
+	DspFlagsMain.DSP_SHELL_THICKNESS = true;
+	DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
+	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = true;
+	DspFlagsMain.DSP_GRADIENT_BACKGROUND = false;
+
 	ButtonPush.QfilterNodesOn = false;
 	ButtonPush.QfilterElementsOn = false;
 	ButtonPush.QfilterPointsOn = false;
 	ButtonPush.QfilterCurvesOn = false;
 	ButtonPush.QfilterSurfacesOn = false;
-	ButtonPush.SelectedOn = false;
 	ButtonPush.FullBody = true;
 	ButtonPush.PartOfBody = false;
 	ButtonPush.CenterOfBody = true;
+	DspFlagsMain.DSP_NODES_ASK = true;
+	DspFlagsMain.DSP_OFF = true;
+	DspFlagsMain.DSP_SURC = true;
+	DspFlagsMain.DSP_BLACK = true;
+	DspFlagsMain.DSP_ASSEM = true;
+	DspFlagsMain.DSP_CONT = true;
+	DspFlagsMain.DSP_RESLAB = true;
+	DspFlagsMain.DSP_RESDEF = true;
+	DspFlagsMain.DSP_MATL = true;
+	DspFlagsMain.DSP_ANIMATION = true;
+	DspFlagsMain.DSP_ANIMPOSNEG = true;
+	DspFlagsMain.DSP_VEC = true;
 	// momo
 	// momo gdi to og2
 	mClickPoint.IsClicked = false;
@@ -438,6 +549,131 @@ void CM3daApp::OnAppAbout() {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
+
+// momo add type id form
+IMPLEMENT_DYNAMIC(InfoDialog, CDialogEx)
+BEGIN_MESSAGE_MAP(InfoDialog, CDialogEx)
+ON_WM_CTLCOLOR()
+ON_WM_SHOWWINDOW()
+ON_BN_CLICKED(IDC_CLOSE_BUTTON, &InfoDialog::OnCloseButtonClick)
+ON_EN_SETFOCUS(IDC_INFO_EDIT, &InfoDialog::OnEditSetFocus)
+END_MESSAGE_MAP()
+
+BOOL InfoDialog::OnInitDialog() {
+	CDialogEx::OnInitDialog();
+	buttonClose.SubclassDlgItem(IDC_CLOSE_BUTTON, this);
+	editInfo.SubclassDlgItem(IDC_INFO_EDIT, this);
+	CString strText, strCaption;
+	double kWidth, kHeight;
+	if (formKind == 1) {
+		strCaption = _T("Type ID Numbers");
+		kWidth = 0.3;
+		kHeight = 0.5;
+		strText = _T("Type ID Numbers\r\n")
+		          _T("\r\n")
+		          _T("OD\r\n")
+		          _T("---\r\n")
+		          _T("Lumped Mass = 161\r\n")
+		          _T("\r\n")
+		          _T("1D\r\n")
+		          _T("---\r\n")
+		          _T("Rod = 11\r\n")
+		          _T("Beam = 21\r\n")
+		          _T("Translational Spring = 136\r\n")
+		          _T("Rotational Spring = 137\r\n")
+		          _T("RBE = 122\r\n")
+		          _T("Bush = 138\r\n")
+		          _T("\r\n")
+		          _T("2D\r\n")
+		          _T("---\r\n")
+		          _T("Tri = 91\r\n")
+		          _T("Quad = 94\r\n")
+		          _T("\r\n")
+		          _T("3D\r\n")
+		          _T("---\r\n")
+		          _T("Tel = 111\r\n")
+		          _T("Wedge = 112\r\n")
+		          _T("Brick = 115");
+	} else if (formKind == 2) {
+		strCaption = _T("Properties Help");
+		kWidth = 0.35;
+		kHeight = 0.4;
+		strText = _T("- For Nastran/MYSTRAN, these are the formal properties, which are associated with entries/cards that start with the letter \"P\".\r\n")
+		          _T("\r\n")
+		          _T("- Note that the \"Element Modify\" menu also affects model \"properties\", but those \"properties\" are stored in entries/cards that begin with \"C\". For example, a CBAR entry contains the bar's orientation vector. Offsets may also be present in the CBAR entry. Similarly, the CQUAD4 stores the offsets (offsets are not stored in the \"P\" cards, such as PBAR and PSHELL).\r\n");
+	} else if (formKind == 3) {
+		strCaption = _T("Element Modify Help");
+		kWidth = 0.35;
+		kHeight = 0.4;
+		strText = _T("-Some of these menus are modifiers to the elements, but may also be considered informal \"properties\" of the element.\r\n")
+		          _T("\r\n")
+		          _T("-The modifiers affect the Nastran/MYSTRAN entries/cards that begin with a \" C \". For example, a CBAR entry contains the bar's orientation vector. Offsets may also be present in the CBAR entry. Similarly, the CQUAD4 stores the offsets (offsets are not stored in the \"P\" cards, such as PBAR and PSHELL).");
+	}
+	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
+	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
+	int dlgWidth, dlgHeight, elementSpacing;
+	dlgWidth = (int) (kWidth * screenWidth);
+	dlgHeight = (int) (kHeight * screenHeight);
+	elementSpacing = 20;
+	SetWindowPos(nullptr, 0, 0, dlgWidth, dlgHeight, SWP_NOMOVE | SWP_NOZORDER);
+
+	CRect client;
+	GetClientRect(&client);
+	dlgWidth = client.Width();
+	dlgHeight = client.Height();
+
+	int btnWidth = 75;
+	int btnHeight = 35;
+	int btnX = (dlgWidth - btnWidth) / 2;
+	int btnY = dlgHeight - btnHeight - elementSpacing;
+	buttonClose.MoveWindow(btnX, btnY, btnWidth, btnHeight, TRUE);
+	editInfo.MoveWindow(elementSpacing, elementSpacing, dlgWidth - 2 * elementSpacing, dlgHeight - btnHeight - 3 * elementSpacing, TRUE);
+	SetWindowText(strCaption);
+	editInfo.SetWindowText(strText);
+	m_brWhite.CreateSolidBrush(RGB(255, 255, 255));
+	return FALSE;
+}
+
+void InfoDialog::OnShowWindow(BOOL bShow, UINT nStatus) {
+	CDialogEx::OnShowWindow(bShow, nStatus);
+	if (bShow) {
+		editInfo.SetSel(0, 0);
+		buttonClose.SetFocus();
+	}
+}
+
+void InfoDialog::OnEditSetFocus() {
+	editInfo.SetSel(0, 0);
+}
+
+void CM3daApp::OnShowInfoDialog() {
+	InfoDialog dlgInfo;
+	const MSG* pMsg = AfxGetCurrentMessage();
+	UINT nID = (UINT) pMsg->wParam;
+	if (nID == ID_TYPEID_HELP) {
+		dlgInfo.formKind = 1;
+	} else if (nID == ID_PROPERTY_HELP) {
+		dlgInfo.formKind = 2;
+	} else if (nID == ID_ELEMENTMODIFIY_HELP) {
+		dlgInfo.formKind = 3;
+	}
+	dlgInfo.DoModal();
+}
+
+void InfoDialog::OnCloseButtonClick() {
+	EndDialog(IDOK);
+}
+
+HBRUSH InfoDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor) {
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+	if (pWnd->GetDlgCtrlID() == IDC_INFO_EDIT) {
+		pDC->SetBkColor(RGB(255, 255, 255));
+		pDC->SetTextColor(RGB(0, 0, 0));
+		return m_brWhite;
+	}
+	return hbr;
+}
+// momo add type id form
 
 // CM3daApp customization load/save methods
 

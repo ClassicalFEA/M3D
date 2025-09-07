@@ -35,14 +35,24 @@ class CM3daApp: public CWinAppEx {
 		void OnFileNewMain();
 		void OnFileOpenMain();
 		// momo
+		// momo save by old versions
+		void OnFileSaveMain();
+		void OnFileSaveAsMain();
+		void LoadConfiguration();
+		// momo save by old versions
 
 		afx_msg void OnAppAbout();
+		// momo add type id form
+		afx_msg void OnShowInfoDialog();
+		// momo add type id form
 		DECLARE_MESSAGE_MAP()
 		afx_msg void OnFileRunscriptfile();
 
 		// Esp_Mod_Config_File_Mod_Start//
 	private:
-		void LoadConfiguration();
+		// momo save by old versions
+		// momo// void LoadConfiguration();
+		// momo save by old versions
 		// Esp_Mod_Config_File_Mod_End//
 };
 // momo
@@ -77,4 +87,37 @@ void CheckCommandEditColor(bool bForceToCheck);
 void CheckPushedButtons(const char* sMode);
 // momo on off button and menu
 
+// momo make main buttons
+void OnCancelClicked();
+void OnDoneClicked();
+// momo make main buttons
+
 extern CM3daApp theApp;
+
+// momo add type id form
+class InfoDialog: public CDialogEx {
+		DECLARE_DYNAMIC(InfoDialog)
+
+	public:
+		int formKind;
+		InfoDialog(CWnd* pParent = nullptr)
+		    : CDialogEx(IDD_INFO_DIALOG, pParent) {}
+
+	protected:
+		virtual void DoDataExchange(CDataExchange* pDX) {
+			CDialogEx::DoDataExchange(pDX);
+		}
+		virtual BOOL OnInitDialog();
+		afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
+		afx_msg void OnCloseButtonClick();
+		afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+		afx_msg void OnEditSetFocus();
+
+		DECLARE_MESSAGE_MAP()
+
+	private:
+		CEdit editInfo;
+		CButton buttonClose;
+		CBrush m_brWhite;
+};
+// momo add type id form

@@ -270,7 +270,7 @@ class Lamina;
 // const int DSP_RESDEF = 0x00008000;
 // const int DSP_ELSYS = 0x00010000;
 // const int DSP_BC = 0x00020000;
-// const int DSP_GRAD = 0x00040000;
+// const int DSP_GRADIENT_BACKGROUND = 0x00040000;
 // const int DSP_MATL = 0x00080000;
 // const int DSP_COORD = 0x00100000;
 // const int DSP_WP = 0x00200000;
@@ -2253,7 +2253,7 @@ class DIM: public G_Object {
 		~DIM();
 		virtual void Clean();
 		virtual void Build();
-		// virtual void OglDraw(int iDspFlgs,DisplayFlags DspFlagsIn, double dS1, double dS2);
+		// virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual G_ObjectD SelDist(CPoint InPT, Filter FIL);
@@ -2331,7 +2331,7 @@ class DIMA: public DIM {
 		~DIMA();
 		virtual void Clean();
 		virtual void Build();
-		// virtual void OglDraw(int iDspFlgs,DisplayFlags DspFlagsIn, double dS1, double dS2);
+		// virtual void OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2);
 		virtual void DragUpdate(C3dVector inPt, C3dMatrix mWP);
 		virtual void Colour(int iCol);

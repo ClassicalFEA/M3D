@@ -543,14 +543,14 @@ void CM3daView::OnViewDisplayselected() {
 	// momo
 	// momo// outtextMSG2("DSPSEL");
 	{
-		if (ButtonPush.SelectedOn) {
-			outtextMSG2("DSPALL");
-			outtext1("Display only selected objects: OFF");
-		} else {
-			outtextMSG2("DSPSEL");
-			outtext1("Display only selected objects: ON");
-		}
 		ButtonPush.SelectedOn = !ButtonPush.SelectedOn;
+		if (ButtonPush.SelectedOn) {
+			outtextMSG2("DSPSEL");
+			outtext1("Selected Objects Visibility ON");
+		} else {
+			outtextMSG2("DSPALL");
+			outtext1("Selected Objects Visibility OFF");
+		}
 	}
 	// momo
 	// GetDocument()->DspSel();
@@ -595,7 +595,7 @@ void CM3daView::OnViewWireframe() {
 			ButtonPush.ShadedWithEdges = false;
 			ButtonPush.ShadedWithoutEdges = true;
 		} else {
-			outtext1("Draw Shaded.");
+			outtext1("Draw Shaded With Edges.");
 			ButtonPush.DrawModeCurrent = 2;
 			ButtonPush.WireFrame = false;
 			ButtonPush.ShadedWithEdges = true;
@@ -631,7 +631,7 @@ void CM3daView::OnViewShadedWithEdges() {
 	//	outtext1("Draw Shaded.");
 	// }
 	if (ButtonPush.ShadedWithEdges) {
-		outtext1("Draw Shaded.");
+		outtext1("Draw Shaded With Edges.");
 		if (ButtonPush.DrawModeCurrent == 1) {
 			ButtonPush.DrawModeOut = 3;
 		} else if (ButtonPush.DrawModeCurrent == 3) {
@@ -690,7 +690,7 @@ void CM3daView::OnViewShadedWithoutEdges() {
 		ButtonPush.ShadedWithoutEdges = true;
 	} else {
 		if (ButtonPush.DrawModeOut != 2) {
-			outtext1("Draw Shaded.");
+			outtext1("Draw Shaded With Edges.");
 			ButtonPush.DrawModeCurrent = 2;
 			ButtonPush.WireFrame = false;
 			ButtonPush.ShadedWithEdges = true;
@@ -724,7 +724,7 @@ void CM3daView::OnUpdateViewShadedWithoutEdges(CCmdUI* pCmdUI) {
 }
 
 void CM3daView::OnUpdateDisplayselected(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(ButtonPush.DisplaySelected);
+	pCmdUI->SetCheck(ButtonPush.SelectedOn);
 }
 // momo on off button and menu
 

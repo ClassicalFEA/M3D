@@ -96,3 +96,14 @@ In the two newly added commands for adding and using mesh seeds (which are still
 93-Added button to "Remove labels from selected entities".
 94-Changed coding method for display flags in preparation for code upgrade.
 95-Fixed some bugs caused by Unicode support.
+96-Fixed a bug for "Export>Current F.E. Model to NASTRAN".
+97-Added "Done" and "Cancel" buttons next to the "Command Entry text box".
+98-Some changes in toolbars.
+99-Added feature: "Save" and "Save As" can now be executed as text commands ("SAVE" and "SAVEAS").
+100-Added feature: Files can now be saved in an older version format to ensure compatibility with previous program versions.
+101-Fixed bug where current display settings (such as shaded) changed when opening a file.
+102-Reset application settings when creating a new file.
+103-Applied settings from "config.txt" when creating a new file. If "config.txt" is not present, default settings are used.
+104-Added "Type ID Number" option to the "Help" menu.
+105-Added "Help" option to the "Properties" menu.
+106-Added "Help" option to the "Element Modify" menu.

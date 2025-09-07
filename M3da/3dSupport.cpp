@@ -1476,56 +1476,56 @@ void DSP_Triad::ReSet2() {
 // momo gdi to og
 // momo// void DSP_Triad::Draw(CDC* pDC, C3dMatrix pMod, C3dMatrix pScrTran) {
 // momo gdi to og
-	// C3dVector vDspPts[4];
-	// C3dVector vAxisDsp[4];
+// C3dVector vDspPts[4];
+// C3dVector vAxisDsp[4];
 
-	// vAxisDsp[0].x = 0;
-	// vAxisDsp[0].y = 0;
-	// vAxisDsp[0].z = 0;
-	// x axis
-	// vAxisDsp[1].x = ds*1;
-	// vAxisDsp[1].y = 0;
-	// vAxisDsp[1].z = 0;
+// vAxisDsp[0].x = 0;
+// vAxisDsp[0].y = 0;
+// vAxisDsp[0].z = 0;
+// x axis
+// vAxisDsp[1].x = ds*1;
+// vAxisDsp[1].y = 0;
+// vAxisDsp[1].z = 0;
 
-	// y axis
-	// vAxisDsp[2].x = 0;
-	// vAxisDsp[2].y = ds*1;
-	// vAxisDsp[2].z = 0;
+// y axis
+// vAxisDsp[2].x = 0;
+// vAxisDsp[2].y = ds*1;
+// vAxisDsp[2].z = 0;
 
-	// z axis
-	// vAxisDsp[3].x = 0;
-	// vAxisDsp[3].y = 0;
-	// vAxisDsp[3].z = ds*1;
+// z axis
+// vAxisDsp[3].x = 0;
+// vAxisDsp[3].y = 0;
+// vAxisDsp[3].z = ds*1;
 
-	// vDspPts[0] = pMod.Mult(vAxisDsp[0]);
-	// vDspPts[1] = pMod.Mult(vAxisDsp[1]);
-	// vDspPts[2] = pMod.Mult(vAxisDsp[2]);
-	// vDspPts[3] = pMod.Mult(vAxisDsp[3]);
+// vDspPts[0] = pMod.Mult(vAxisDsp[0]);
+// vDspPts[1] = pMod.Mult(vAxisDsp[1]);
+// vDspPts[2] = pMod.Mult(vAxisDsp[2]);
+// vDspPts[3] = pMod.Mult(vAxisDsp[3]);
 
-	// vDspPts[0] = pScrTran.Mult(vDspPts[0]);
-	// vDspPts[1] = pScrTran.Mult(vDspPts[1]);
-	// vDspPts[2] = pScrTran.Mult(vDspPts[2]);
-	// vDspPts[3] = pScrTran.Mult(vDspPts[3]);
+// vDspPts[0] = pScrTran.Mult(vDspPts[0]);
+// vDspPts[1] = pScrTran.Mult(vDspPts[1]);
+// vDspPts[2] = pScrTran.Mult(vDspPts[2]);
+// vDspPts[3] = pScrTran.Mult(vDspPts[3]);
 
-	// pDC->MoveTo((int) vDspPts[0].x,(int) vDspPts[0].y);
-	// pDC->LineTo((int) vDspPts[1].x,(int) vDspPts[1].y);
+// pDC->MoveTo((int) vDspPts[0].x,(int) vDspPts[0].y);
+// pDC->LineTo((int) vDspPts[1].x,(int) vDspPts[1].y);
 
-	// pDC->MoveTo((int) vDspPts[0].x,(int) vDspPts[0].y);
-	// pDC->LineTo((int) vDspPts[2].x,(int) vDspPts[2].y);
-	// pDC->SetBkMode(TRANSPARENT);
-	// COLORREF fco = 0x00FF00FF;
-	// pDC->SetTextColor(fco);
+// pDC->MoveTo((int) vDspPts[0].x,(int) vDspPts[0].y);
+// pDC->LineTo((int) vDspPts[2].x,(int) vDspPts[2].y);
+// pDC->SetBkMode(TRANSPARENT);
+// COLORREF fco = 0x00FF00FF;
+// pDC->SetTextColor(fco);
 
-	// CString OutT;
-	// OutT = "x";
-	// pDC->TextOut((int) vDspPts[1].x,(int) vDspPts[1].y,OutT);
-	// OutT = "y";
-	// pDC->TextOut((int) vDspPts[2].x,(int) vDspPts[2].y,OutT);
-	// OutT = "z";
+// CString OutT;
+// OutT = "x";
+// pDC->TextOut((int) vDspPts[1].x,(int) vDspPts[1].y,OutT);
+// OutT = "y";
+// pDC->TextOut((int) vDspPts[2].x,(int) vDspPts[2].y,OutT);
+// OutT = "z";
 
-	// pDC->TextOut((int) vDspPts[3].x,(int) vDspPts[3].y,OutT);
-	// pDC->MoveTo((int) vDspPts[0].x,(int) vDspPts[0].y);
-	// pDC->LineTo((int) vDspPts[3].x,(int) vDspPts[3].y);
+// pDC->TextOut((int) vDspPts[3].x,(int) vDspPts[3].y,OutT);
+// pDC->MoveTo((int) vDspPts[0].x,(int) vDspPts[0].y);
+// pDC->LineTo((int) vDspPts[3].x,(int) vDspPts[3].y);
 // momo gdi to og
 // momo// }
 // momo gdi to og

@@ -9,7 +9,8 @@
 // so we can maintain compatability with older files
 // MoMo_Start
 // MoMo// const int VERSION_NO = -78;
-const int VERSION_NO = -79;
+const int nVERSIONS = 2;
+const int VERSIONS[] = {-79, -78};
 // MoMo_End
 const int MAX_GPS = 1000;
 const int MAX_TEMPGRP = 10000;
@@ -87,7 +88,6 @@ class DBase: public CCmdTarget {
 		void DeleteAll();
 		// momo change Display Flags Method
 		// momo// int DspFlags;
-		DisplayFlags DspFlagsMain;
 		// momo change Display Flags Method
 		BOOL bPICK;
 		// MoMo_Start
@@ -144,6 +144,7 @@ class DBase: public CCmdTarget {
 		void SetActSol(int iD);
 		// momo change Display Flags Method
 		void DisplayAll();
+		void ResteFileSettings(bool bMode);
 		// momo change Display Flags Method
 
 		//*********************************

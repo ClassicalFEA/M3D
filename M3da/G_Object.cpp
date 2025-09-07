@@ -2364,7 +2364,7 @@ void Node::ExportNAS(FILE* pFile, CoordSys* pD) {
 		}
 		//}
 	}
-	fprintf(pFile, "%4s %8i %8i %8S %8S %8S %8i\n", "GRID", iLabel, DefSys, e8(pt.x), e8(pt.y), e8(pt.z), OutSys);
+	fprintf(pFile, "%8s%8i%8i%8S%8S%8S%8i\n", "GRID    ", iLabel, DefSys, e8(pt.x), e8(pt.y), e8(pt.z), OutSys);
 }
 
 G_Object* Node::Copy(G_Object* Parrent) {
@@ -5627,7 +5627,7 @@ void E_Object38::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -7031,7 +7031,7 @@ void E_Object36::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -8072,7 +8072,7 @@ void E_Object34::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -9298,7 +9298,7 @@ void E_Object310::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			C3dMatrix mS = GetElSys();
 			C3dVector vC = Get_Centroid();
 			mS.Transpose();
@@ -11964,7 +11964,7 @@ void E_Object2::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			// C3dMatrix mS = GetElSys();
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
@@ -12697,7 +12697,7 @@ void E_Object2R::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if (DspFlagsIn.DSP_THK) {
+		if (DspFlagsIn.DSP_SHELL_THICKNESS) {
 			if (pPr != NULL) {
 				BSec* pS = pPr->GetSec();
 				if (pS != NULL) {
@@ -12808,7 +12808,7 @@ void E_Object2R::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			sLab.Format(_T("%f"), *pResV->GetAddress(ind));
 			OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 		}
-		if (DspFlagsIn.DSP_THK) {
+		if (DspFlagsIn.DSP_SHELL_THICKNESS) {
 			if (pPr != NULL) {
 				BSec* pS = pPr->GetSec();
 				if (pS != NULL) {
@@ -12817,7 +12817,7 @@ void E_Object2R::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 				}
 			}
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -14252,7 +14252,7 @@ void E_Object3::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 				vOff *= 0;
 			}
 			vN *= dt;
-			if (DspFlagsIn.DSP_THK) {
+			if (DspFlagsIn.DSP_SHELL_THICKNESS) {
 				glBegin(GL_LINES);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
 				glVertex3f((float) (pVertex[1]->Pt_Point->x + vOff.x + vN.x + d[1].x), (float) (pVertex[1]->Pt_Point->y + vOff.y + vN.y + d[1].y), (float) (pVertex[1]->Pt_Point->z + vOff.z + vN.z + d[1].z));
@@ -14301,7 +14301,7 @@ void E_Object3::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 				OglString(DspFlagsIn, vCent.x, vCent.y, vCent.z, CT2A(sLab));
 			}
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -14461,7 +14461,7 @@ void E_Object3::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
 		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
-			if (DspFlagsIn.DSP_THK) {
+			if (DspFlagsIn.DSP_SHELL_THICKNESS) {
 				glBegin(GL_POLYGON);
 				glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
@@ -18869,7 +18869,7 @@ void E_Object4::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			}
 
 			vN *= dt;
-			if (DspFlagsIn.DSP_THK) {
+			if (DspFlagsIn.DSP_SHELL_THICKNESS) {
 				glBegin(GL_LINES);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
 				glVertex3f((float) (pVertex[1]->Pt_Point->x + vOff.x + vN.x + d[1].x), (float) (pVertex[1]->Pt_Point->y + vOff.y + vN.y + d[1].y), (float) (pVertex[1]->Pt_Point->z + vOff.z + vN.z + d[1].z));
@@ -18928,7 +18928,7 @@ void E_Object4::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 
 			// Results Label
 		}
-		if (!DspFlagsIn.DSP_ELSYS) {
+		if (!DspFlagsIn.DSP_ELEMENT_COORD_SYS) {
 			// momo
 			//  momo// glColor3fv(cols[iColour]);
 			glColor3fv(ColorIfSelect(iColour, -1));
@@ -19100,7 +19100,7 @@ void E_Object4::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 		glColor3fv(ColorIfSelect(iColour, -1));
 		// momo
 		if (DspFlagsIn.DSP_CONT || (bD == FALSE)) {
-			if (DspFlagsIn.DSP_THK) {
+			if (DspFlagsIn.DSP_SHELL_THICKNESS) {
 				glBegin(GL_POLYGON);
 				glNormal3f((float) Vn.x, (float) Vn.y, (float) Vn.z);
 				glVertex3f((float) (pVertex[0]->Pt_Point->x + vOff.x + vN.x + d[0].x), (float) (pVertex[0]->Pt_Point->y + vOff.y + vN.y + d[0].y), (float) (pVertex[0]->Pt_Point->z + vOff.z + vN.z + d[0].z));
@@ -20923,7 +20923,7 @@ void WP_Object::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector T_Point[40];
 	C3dVector V;
 	int i;
-	if (DspFlagsIn.DSP_WP) {
+	if (DspFlagsIn.DSP_WORK_PLANE) {
 		Selectable = 1;
 		for (i = 0; i < 40; i++) {
 			V.x = Pt_Point[i]->x;
@@ -37280,7 +37280,7 @@ void Moment::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dMatrix mT;
 	C3dVector vOff;
 	C3dVector vOffA2;
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		Point[1] = F;
 		Point[1].Normalize();
@@ -37423,7 +37423,7 @@ void Pressure::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dMatrix mT;
 	C3dVector vOff;
 
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		E_Object* pE = (E_Object*) pObj;
 		Point[0] = pE->Get_Centroid();
@@ -37701,7 +37701,7 @@ void Temperature::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 }
 
 void Temperature::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -37843,7 +37843,7 @@ void AccelLoad::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 }
 
 void AccelLoad::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -37982,7 +37982,7 @@ void RotationLoad::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 }
 
 void RotationLoad::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38063,7 +38063,7 @@ void TemperatureBC::Create(G_Object* pInNode,
 }
 
 void TemperatureBC::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38150,7 +38150,7 @@ void FluxLoad::Create(G_Object* pInNode,
 }
 
 void FluxLoad::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38331,7 +38331,7 @@ void Force::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector Pts[7]; // Arrow Head
 	C3dMatrix mT;
 	C3dVector vOff;
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		Point[1] = F;
 		Point[1].Normalize();
@@ -38515,7 +38515,7 @@ void TEMPD::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 
 void TEMPD::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dS1 *= 5;
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38621,7 +38621,7 @@ void GRAV::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 
 void GRAV::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dS1 *= 5;
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -38846,7 +38846,7 @@ CString Restraint::GetDofStr() {
 }
 
 void Restraint::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
-	if (DspFlagsIn.DSP_BC) {
+	if (DspFlagsIn.DSP_BOUNDARY_CONDITIONS) {
 		Selectable = 1;
 		// momo
 		//  momo// glColor3fv(cols[iColour]);
@@ -42320,8 +42320,8 @@ void DIMR::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	glColor3fv(ColorIfSelect(iColour, -1));
 	// momo
 	if (DspFlagsIn.DSP_CURVES) {
-		// pPt1->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
-		// pPt2->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
+		// pPt1->OglDrawW(DspFlagsIn, dS1, dS2);
+		// pPt2->OglDrawW(DspFlagsIn, dS1, dS2);
 		pInsPt->OglDrawW(DspFlagsIn, dS1, dS2);
 		glBegin(GL_POLYGON);
 		glVertex3f(vPP1D.x, vPP1D.y, vPP1D.z);
@@ -42562,8 +42562,8 @@ void DIMD::DragUpdate(C3dVector inPt, C3dMatrix mWP) {
 }
 
 void DIMD::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
-	// pPt1->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
-	// pPt2->OglDrawW(iDspFlgs,DspFlagsIn, dS1, dS2);
+	// pPt1->OglDrawW(DspFlagsIn, dS1, dS2);
+	// pPt2->OglDrawW(DspFlagsIn, dS1, dS2);
 	pDimLine1->OglDrawW(DspFlagsIn, dS1, dS2);
 	pDimLine2->OglDrawW(DspFlagsIn, dS1, dS2);
 	if (iDimOpt == 0)
@@ -44564,7 +44564,7 @@ void CvPt_Object::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	OglDrawW(DspFlagsIn, dS1, dS2);
 }
 
-// void CvPt_Object::OglDrawW(int iDspFlgs,DisplayFlags DspFlagsIn, double dS1, double dS2)
+// void CvPt_Object::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2)
 // {
 // 	CString sLab;
 // 	if ((iDspFlgs & DSP_POINTS) > 0)
@@ -46253,7 +46253,7 @@ void NCurve::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 		//  momo// glColor3fv(cols[iColour]);
 		glColor3fv(ColorIfSelect(iColour, 171));
 		// momo
-		if (DrawCPts || gDSP_CPTS) {
+		if (DrawCPts || DspFlagsMain.DSP_CONTROL_POINTS) {
 			OglDrawCtrlPts();
 		}
 		// momo
@@ -46573,7 +46573,7 @@ G_ObjectD NCurve::SelDist(CPoint InPT, Filter FIL) {
 void NCurve::S_Box(CPoint P1, CPoint P2, ObjList* pSel) {
 	int i;
 
-	if (DrawCPts || gDSP_CPTS) {
+	if (DrawCPts || DspFlagsMain.DSP_CONTROL_POINTS) {
 		for (i = 0; i < iNoCPts; i++) {
 			cPts[i]->S_Box(P1, P2, pSel);
 		}
@@ -46779,7 +46779,7 @@ void NCurveOnSurf::OglDrawW() {
 	double dt;
 	int iNo;
 	if (pParent != NULL) {
-		if (DrawCPts || gDSP_CPTS) {
+		if (DrawCPts || DspFlagsMain.DSP_CONTROL_POINTS) {
 			OglDrawCtrlPts();
 		}
 		NSurf* pS = (NSurf*) pParent;
@@ -47880,7 +47880,7 @@ void NLine::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector vC;
 
 	if (DspFlagsIn.DSP_CURVES) {
-		if (DrawCPts || gDSP_CPTS) {
+		if (DrawCPts || DspFlagsMain.DSP_CONTROL_POINTS) {
 			OglDrawCtrlPts();
 		}
 		Selectable = 1;
@@ -48636,7 +48636,7 @@ void NSurf::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 		//*********************************************************************************
 
 		// Draw the U marker
-		if (!DspFlagsIn.DSP_SURFU) {
+		if (!DspFlagsIn.DSP_SURFACE_DIRECTION_MARKERS) {
 			C3dVector p2;
 			C3dVector p3;
 			C3dVector p4;
@@ -48798,7 +48798,7 @@ void NSurf::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, BMPZ);
 		}
 
-		if (DrawCPts || gDSP_CPTS) {
+		if (DrawCPts || DspFlagsMain.DSP_CONTROL_POINTS) {
 			for (i = 0; i < iNoCvs; i++) {
 				pCVsU[i]->OglDrawCtrlPts();
 			}
@@ -49015,7 +49015,7 @@ void NSurf::S_Box(CPoint P1, CPoint P2, ObjList* pSel) {
 	// CALL SURFACE S_BOX METHOD
 	G_Object::S_Box(P1, P2, pSel);
 
-	if (DrawCPts || gDSP_CPTS) {
+	if (DrawCPts || DspFlagsMain.DSP_CONTROL_POINTS) {
 		for (i = 0; i < iNoCvs; i++) {
 			pCVsU[i]->S_Box(P1, P2, pSel);
 			for (j = 0; j < pCVsU[i]->iNoCPts; j++) {
@@ -49172,7 +49172,7 @@ G_ObjectD NSurf::SelDist(CPoint InPT, Filter FIL) {
 
 	// Check the control points
 	if (FIL.isFilter(0)) {
-		if (DrawCPts || gDSP_CPTS) {
+		if (DrawCPts || DspFlagsMain.DSP_CONTROL_POINTS) {
 			for (i = 0; i < iNoCvs; i++) {
 				for (j = 0; j < pCVsU[i]->iNoCPts; j++) {
 					vT = pCVsU[i]->cPts[j]->SelDist(InPT, FIL);

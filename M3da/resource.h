@@ -907,6 +907,23 @@
 #define IDR_FILE 33500 // momo: 33499 for _APS_NEXT_COMMAND_VALUE
 #define ID_VIEW_SHADED_WITHOUT_EDGES 33501
 // MoMo_End
+// momo make main buttons
+#define IDC_BUTTON_CANCEL 33502
+#define IDC_BUTTON_DONE 33503
+// momo make main buttons
+// momo add type id form
+#define IDD_INFO_DIALOG 33504
+#define IDC_INFO_EDIT 33505
+#define IDC_CLOSE_BUTTON 33506
+// momo add type id form
+// momo
+#define ID_TYPEID_HELP 33507
+#define ID_PROPERTY_HELP 33508
+#define ID_ELEMENTMODIFIY_HELP 33509
+#define ID_SOLVER_CREATE_DESK 33510
+#define ID_SOLVER_CREATE_DESK_SOLVE 33511
+#define ID_SOLVER_CREATE_DESK_SOLVE_READ_RESULTS 33512
+// momo
 //// momo ModernOpenGL_Start
 ////#define IDS_EDIT_VIEW_SCALES    33476???
 ////#define IDC_EDIT_VIEW_SCALES    33477???
