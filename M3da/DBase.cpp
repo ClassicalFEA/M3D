@@ -445,6 +445,10 @@ DBase::DBase(double WPS) {
 	// MoMo_Start
 	DB_Obj[DB_ObjectCount]->Selectable = 1;
 	// MoMo_End
+	// momo close for LNC
+	stInsteadPoint.sMode = _T("");
+	stInsteadPoint.startPoint.Set(0.0, 0.0, 0.0);
+	// momo close for LNC
 	DB_ObjectCount++;
 	pCurrentPart = NULL;
 	// momo on off button and menu
@@ -803,11 +807,11 @@ void DBase::DisplayAll() {
 	DspFlagsMain.DSP_CURVES = true;
 	DspFlagsMain.DSP_SURFACES = true;
 	DspFlagsMain.DSP_COORD = true;
-	ButtonPush.SelectedOn = false;
+	ButtonPush.OnlySelectedOn = false;
 	DspFlagsMain.DSP_WORK_PLANE = true;
-	DspFlagsMain.DSP_SHELL_THICKNESS = true;
+	DspFlagsMain.DSP_SHELL_THICKNESS = false;
 	DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
-	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = true;
+	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = false;
 	DspFlagsMain.DSP_GRADIENT_BACKGROUND = false;
 
 	DspFlagsMain.DSP_NODES_ASK = true;
@@ -864,7 +868,7 @@ void DBase::ResteFileSettings(bool bMode) {
 		gEL_SIZE = 2.0;
 		gED_SIZE = 5.0;
 		gFC_SIZE = 3.0;
-		gWP_SIZE = 12.0;
+		gWP_SIZE = 2.0; // Workplane Line Weight
 		gBM_SIZE = 2.0;
 		gTXT_SIZE = 2.0;
 		gDIM_SCALE = 1.0;
@@ -1706,7 +1710,7 @@ void DBase::Dsp_All(bool changeButtonIcon) {
 	}
 	// momo on off button and menu
 	if (changeButtonIcon) {
-		ButtonPush.SelectedOn = false;
+		ButtonPush.OnlySelectedOn = false;
 	}
 	// momo on off button and menu
 	InvalidateOGL();
@@ -1741,9 +1745,23 @@ void DBase::Dsp_Hide() {
 
 void DBase::Info() {
 	int iCO;
+	// momo
+	outtextMultiLine(_T("\r\n\r\n════════════════════ Information ════════════════════"), 1);
+	if (S_Count == 0) {
+		outtext1(_T("No objects have been selected."));
+	}
+	// momo
 	for (iCO = 0; iCO < S_Count; iCO++) {
+		// momo
+		if (iCO != 0) {
+			outtext1(_T(""));
+		}
+		// momo
 		S_Buff[iCO]->Info();
 	}
+	// momo
+	outtextMultiLine(_T("════════════════════"), 1);
+	// momo
 }
 
 // pointer to current mesh
@@ -1780,7 +1798,7 @@ void DBase::Dsp_Selected() {
 		}
 	}
 	// momo on off button and menu
-	ButtonPush.SelectedOn = true;
+	ButtonPush.OnlySelectedOn = true;
 	// momo on off button and menu
 	InvalidateOGL();
 	ReDraw();
@@ -11428,7 +11446,7 @@ void DBase::S_BuffChanged(int iSelStart, int iSelEnd, bool addMode) {
 		iStart = iSelStart;
 		iEnd = iSelEnd;
 	} else if ((iSelStart < 0 || iSelStart > S_Count - 1) || (iSelEnd < 0 || iSelEnd > S_Count - 1)) {
-		outtext1("Program error: selection error.");
+		// outtext1("Program error: selection error.");
 		return;
 	} else {
 		iStart = iSelStart;

@@ -543,13 +543,13 @@ void CM3daView::OnViewDisplayselected() {
 	// momo
 	// momo// outtextMSG2("DSPSEL");
 	{
-		ButtonPush.SelectedOn = !ButtonPush.SelectedOn;
-		if (ButtonPush.SelectedOn) {
+		ButtonPush.OnlySelectedOn = !ButtonPush.OnlySelectedOn;
+		if (ButtonPush.OnlySelectedOn) {
 			outtextMSG2("DSPSEL");
-			outtext1("Selected Objects Visibility ON");
+			outtext1("Only Selected Objects Visibility ON");
 		} else {
 			outtextMSG2("DSPALL");
-			outtext1("Selected Objects Visibility OFF");
+			outtext1("Only Selected Objects Visibility OFF");
 		}
 	}
 	// momo
@@ -724,7 +724,7 @@ void CM3daView::OnUpdateViewShadedWithoutEdges(CCmdUI* pCmdUI) {
 }
 
 void CM3daView::OnUpdateDisplayselected(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(ButtonPush.SelectedOn);
+	pCmdUI->SetCheck(ButtonPush.OnlySelectedOn);
 }
 // momo on off button and menu
 

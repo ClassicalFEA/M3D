@@ -274,13 +274,25 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnVisabilityLabelOff();
 		afx_msg void OnVisabilityGeomOn();
 		afx_msg void OnVisabilityFiniteOn();
-		afx_msg void OnViewDeselectAll();
 		afx_msg void OnSelectFullBody();
 		afx_msg void OnSelectPartOfBody();
 		afx_msg void OnSelectCenterOfBody();
-		afx_msg void OnSolverCreateDesk();
-		afx_msg void OnSolverCreateDeskSolve();
-		afx_msg void OnSolverCreateDeskSolveReadResults();
+		afx_msg void OnSolverNastranMystran();
+		afx_msg void OnSolverCreateDeck();
+		afx_msg void OnSolverCreateDeckSolve();
+		afx_msg void OnSolverCreateDeckSolveReadResults();
+		afx_msg void OnDeckModsExecuticeControlAsIs();
+		afx_msg void OnDeckModsExecuticeControlReplaceTxt();
+		afx_msg void OnDeckModsExecuticeControlReplaceConfig();
+		afx_msg void OnDeckModsExecuticeControlShowCurrent();
+		afx_msg void OnDeckModsCaseControlAsIs();
+		afx_msg void OnDeckModsCaseControlReplaceTxt();
+		afx_msg void OnDeckModsCaseControlReplaceConfig();
+		afx_msg void OnDeckModsCaseControlShowCurrent();
+		afx_msg void OnDeckModsBulkDataAsIs();
+		afx_msg void OnDeckModsBulkDataAddTxt();
+		afx_msg void OnDeckModsBulkDataAddConfig();
+		afx_msg void OnDeckModsBulkDataShowCurrent();
 		// momo
 
 	protected:
@@ -401,14 +413,13 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnUpdateSurfacedirectionmarkers(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateVisabilityWorkplane(CCmdUI* pCmdUI);
 		// afx_msg void OnUpdateVisabilityLabelOff(CCmdUI* pCmdUI);
-		afx_msg void OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI);
-		afx_msg void OnUpdateVisabilityFiniteOn(CCmdUI* pCmdUI);
+		// afx_msg void OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI);
+		// afx_msg void OnUpdateVisabilityFiniteOn(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateQfilterNodes(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateQfilterElements(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateQfilterPoints(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateQfilterCurves(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateQfilterSurface(CCmdUI* pCmdUI);
-		// afx_msg void OnUpdateQfilterAll(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateSelectFullBody(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateSelectPartOfBody(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateSelectCenterOfBody(CCmdUI* pCmdUI);

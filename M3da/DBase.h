@@ -86,9 +86,14 @@ class DBase: public CCmdTarget {
 		DBase(double WPS);
 		virtual ~DBase();
 		void DeleteAll();
-		// momo change Display Flags Method
-		// momo// int DspFlags;
-		// momo change Display Flags Method
+		// momo close for LNC
+		struct StringInsteadPoint {
+				CString sMode;
+				C3dVector startPoint;
+				int createdLines;
+		};
+		StringInsteadPoint stInsteadPoint;
+		// momo close for LNC
 		BOOL bPICK;
 		// MoMo_Start
 		// MoMo// int iVER;

@@ -33,8 +33,9 @@ IMPLEMENT_DYNCREATE(CM3daDoc, CDocument)
 BEGIN_MESSAGE_MAP(CM3daDoc, CDocument)
 // momo
 // momo// ON_COMMAND(ID_VIEW_DISPLAYALL, &CM3daDoc::OnViewDisplayall)
+// momo// ON_COMMAND(ID_EDIT_DES, &CM3daDoc::OnEditDes)
 // momo
-ON_COMMAND(ID_EDIT_DES, &CM3daDoc::OnEditDes)
+ON_COMMAND(ID_EDIT_DESELECTALL, &CM3daDoc::OnEditDes)
 ON_COMMAND(ID_EDIT_INFORMATION, &CM3daDoc::OnEditInformation)
 ON_COMMAND(ID_EDIT_KEYIN, &CM3daDoc::OnEditKeyin)
 ON_COMMAND(ID_EDIT_PICK, &CM3daDoc::OnEditPick)
@@ -89,7 +90,7 @@ ON_COMMAND(ID_TOOLS_COLOUR, &CM3daDoc::OnToolsColour)
 ON_COMMAND(ID_TOOLS_SETCURRENTMESH, &CM3daDoc::OnToolsSetcurrentmesh)
 ON_COMMAND(ID_EXPORT_CURRENTMESHTO, &CM3daDoc::OnExportCurrentmeshto)
 ON_COMMAND(ID_GROUP_CREATEGROUP, &CM3daDoc::OnGroupCreategroup)
-ON_COMMAND(ID_TOOLS_DELETE, &CM3daDoc::OnToolsDelete)
+ON_COMMAND(ID_TOOLS_DELETE_ENTITIES, &CM3daDoc::OnToolsDelete)
 ON_COMMAND(ID_CREATE_FITTEDCURVE, &CM3daDoc::OnCreateFittedcurve)
 ON_COMMAND(ID_EDIT_ONSCREENLOCATION, &CM3daDoc::OnEditOnscreenlocation)
 ON_COMMAND(ID_EDIT_REPEATLASTCOMMAND, &CM3daDoc::OnEditRepeatlastcommand)
@@ -207,10 +208,23 @@ ON_UPDATE_COMMAND_UI(ID_VISABILITY_POINTSON, &CM3daDoc::OnUpdateVisabilityPoints
 ON_UPDATE_COMMAND_UI(ID_VIEW_TOGGLECONTROLPOINTVISABILITY, &CM3daDoc::OnUpdateTogglecontrolpointvisability)
 // momo
 // momo// ON_UPDATE_COMMAND_UI(ID_VIEW_DISPLAYALL, &CM3daDoc::OnUpdateDisplayall)
-ON_COMMAND(ID_EDIT_DESLECTALL, &CM3daDoc::OnViewDeselectAll)
-ON_COMMAND(ID_SOLVER_CREATE_DESK, &CM3daDoc::OnSolverCreateDesk)
-ON_COMMAND(ID_SOLVER_CREATE_DESK_SOLVE, &CM3daDoc::OnSolverCreateDeskSolve)
-ON_COMMAND(ID_SOLVER_CREATE_DESK_SOLVE_READ_RESULTS, &CM3daDoc::OnSolverCreateDeskSolveReadResults)
+ON_COMMAND(ID_EDIT_DESELECTALL, &CM3daDoc::OnEditDes)
+ON_COMMAND(ID_SOLVER_NASTRAN_MYSTRAN, &CM3daDoc::OnSolverNastranMystran)
+ON_COMMAND(ID_SOLVER_CREATE_DECK, &CM3daDoc::OnSolverCreateDeck)
+ON_COMMAND(ID_SOLVER_CREATE_DECK_SOLVE, &CM3daDoc::OnSolverCreateDeckSolve)
+ON_COMMAND(ID_SOLVER_CREATE_DECK_SOLVE_READ_RESULTS, &CM3daDoc::OnSolverCreateDeckSolveReadResults)
+ON_COMMAND(ID_DECKMODS_EXECUTIVECONTROL_ASIS, &CM3daDoc::OnDeckModsExecuticeControlAsIs)
+ON_COMMAND(ID_DECKMODS_EXECUTIVECONTROL_REPLACETXT, &CM3daDoc::OnDeckModsExecuticeControlReplaceTxt)
+ON_COMMAND(ID_DECKMODS_EXECUTIVECONTROL_REPLACECONFIG, &CM3daDoc::OnDeckModsExecuticeControlReplaceConfig)
+ON_COMMAND(ID_DECKMODS_EXECUTIVECONTROL_SHOWCURRENT, &CM3daDoc::OnDeckModsExecuticeControlShowCurrent)
+ON_COMMAND(ID_DECKMODS_CASECONTROL_ASIS, &CM3daDoc::OnDeckModsCaseControlAsIs)
+ON_COMMAND(ID_DECKMODS_CASECONTROL_REPLACETXT, &CM3daDoc::OnDeckModsCaseControlReplaceTxt)
+ON_COMMAND(ID_DECKMODS_CASECONTROL_REPLACECONFIG, &CM3daDoc::OnDeckModsCaseControlReplaceConfig)
+ON_COMMAND(ID_DECKMODS_CASECONTROL_SHOWCURRENT, &CM3daDoc::OnDeckModsCaseControlShowCurrent)
+ON_COMMAND(ID_DECKMODS_BULKDATA_ASIS, &CM3daDoc::OnDeckModsBulkDataAsIs)
+ON_COMMAND(ID_DECKMODS_BULKDATA_ADDTXT, &CM3daDoc::OnDeckModsBulkDataAddTxt)
+ON_COMMAND(ID_DECKMODS_BULKDATA_ADDCONFIG, &CM3daDoc::OnDeckModsBulkDataAddConfig)
+ON_COMMAND(ID_DECKMODS_BULKDATA_SHOWCURRENT, &CM3daDoc::OnDeckModsBulkDataShowCurrent)
 // momo
 ON_UPDATE_COMMAND_UI(ID_VISABILITY_CURVESON, &CM3daDoc::OnUpdateVisabilityCurveson)
 ON_UPDATE_COMMAND_UI(ID_SURFACES_SURFACESON, &CM3daDoc::OnUpdateSurfacesSurfaceson)
@@ -225,15 +239,14 @@ ON_UPDATE_COMMAND_UI(ID_VISABILITY_WORKPLANE, &CM3daDoc::OnUpdateVisabilityWorkp
 ON_COMMAND(ID_VISABILITY_LABELESOFF, &CM3daDoc::OnVisabilityLabelOff)
 // ON_UPDATE_COMMAND_UI(ID_VISABILITY_LABELESOFF, &CM3daDoc::OnUpdateVisabilityLabelOff)
 ON_COMMAND(ID_VISABILITY_GEOMSON, &CM3daDoc::OnVisabilityGeomOn)
-ON_UPDATE_COMMAND_UI(ID_VISABILITY_GEOMSON, &CM3daDoc::OnUpdateVisabilityGeomOn)
+// ON_UPDATE_COMMAND_UI(ID_VISABILITY_GEOMSON, &CM3daDoc::OnUpdateVisabilityGeomOn)
 ON_COMMAND(ID_VISABILITY_FINITESON, &CM3daDoc::OnVisabilityFiniteOn)
-ON_UPDATE_COMMAND_UI(ID_VISABILITY_FINITESON, &CM3daDoc::OnUpdateVisabilityFiniteOn)
+// ON_UPDATE_COMMAND_UI(ID_VISABILITY_FINITESON, &CM3daDoc::OnUpdateVisabilityFiniteOn)
 ON_UPDATE_COMMAND_UI(ID_QFILTER_NODES, &CM3daDoc::OnUpdateQfilterNodes)
 ON_UPDATE_COMMAND_UI(ID_QFILTER_ELEMENTS, &CM3daDoc::OnUpdateQfilterElements)
 ON_UPDATE_COMMAND_UI(ID_QFILTER_POINTS, &CM3daDoc::OnUpdateQfilterPoints)
 ON_UPDATE_COMMAND_UI(ID_QFILTER_CURVES, &CM3daDoc::OnUpdateQfilterCurves)
 ON_UPDATE_COMMAND_UI(ID_QFILTER_SURFACE, &CM3daDoc::OnUpdateQfilterSurface)
-// ON_UPDATE_COMMAND_UI(ID_QFILTER_ALL, &CM3daDoc::OnUpdateQfilterAll)
 ON_COMMAND(ID_PICKING_FULLBODY, &CM3daDoc::OnSelectFullBody)
 ON_UPDATE_COMMAND_UI(ID_PICKING_FULLBODY, &CM3daDoc::OnUpdateSelectFullBody)
 ON_COMMAND(ID_PICKING_PARTOFBODY, &CM3daDoc::OnSelectPartOfBody)
@@ -2281,7 +2294,6 @@ void CM3daDoc::OnVisabilityAllvisable() {
 	cDBase->ReDraw();
 	// momo on off button and menu
 	outtext1("All Objects Visibility ON");
-	CheckPushedButtons("AllVisible");
 	// momo on off button and menu
 }
 
@@ -3114,24 +3126,96 @@ void CM3daDoc::OnSolverSolve() {
 }
 
 // momo
-void CM3daDoc::OnSolverCreateDesk() {
-	// TODO: Add your command handler code here
-	outtextMSG2("ADDDESK");
-	sLastcmd = "ADDDESK";
+void CM3daDoc::OnSolverNastranMystran() {
+}
+
+void CM3daDoc::OnSolverCreateDeck() {
+	outtextMSG2("ADDDECK");
+	sLastcmd = "ADDDECK";
 	outtext1("There is currently no code for this.");
 }
 
-void CM3daDoc::OnSolverCreateDeskSolve() {
-	// TODO: Add your command handler code here
-	outtextMSG2("ADDDESK_S");
-	sLastcmd = "ADDDESK_S";
+void CM3daDoc::OnSolverCreateDeckSolve() {
+	outtextMSG2("ADDDECK-S");
+	sLastcmd = "ADDDECK-S";
 	outtext1("There is currently no code for this.");
 }
 
-void CM3daDoc::OnSolverCreateDeskSolveReadResults() {
-	// TODO: Add your command handler code here
-	outtextMSG2("ADDDESK_SR");
-	sLastcmd = "ADDDESK_SR";
+void CM3daDoc::OnSolverCreateDeckSolveReadResults() {
+	outtextMSG2("ADDDECK-SR");
+	sLastcmd = "ADDDECK-SR";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsExecuticeControlAsIs() {
+	outtextMSG2("DECKM-ECAI");
+	sLastcmd = "DECKMODS-ECAI";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsExecuticeControlReplaceTxt() {
+	outtextMSG2("DECKM-ECRT");
+	sLastcmd = "DECKM-ECRT";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsExecuticeControlReplaceConfig() {
+	outtextMSG2("DECKM-ECRC");
+	sLastcmd = "DECKM-ECRC";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsExecuticeControlShowCurrent() {
+	outtextMSG2("DECKM-ECSC");
+	sLastcmd = "DECKM-ECSC";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsCaseControlAsIs() {
+	outtextMSG2("DECKM-CCAI");
+	sLastcmd = "DECKM-CCAI";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsCaseControlReplaceTxt() {
+	outtextMSG2("DECKM-CCRT");
+	sLastcmd = "DECKM-CCRT";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsCaseControlReplaceConfig() {
+	outtextMSG2("DECKM-CCRC");
+	sLastcmd = "DECKM-CCRC";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsCaseControlShowCurrent() {
+	outtextMSG2("DECKM-CCSC");
+	sLastcmd = "DECKM-CCSC";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsBulkDataAsIs() {
+	outtextMSG2("DECKM-BDAI");
+	sLastcmd = "DECKM-BDAI";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsBulkDataAddTxt() {
+	outtextMSG2("DECKM-BDAT");
+	sLastcmd = "DECKM-BDAT";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsBulkDataAddConfig() {
+	outtextMSG2("DECKM-BDAC");
+	sLastcmd = "DECKM-BDAC";
+	outtext1("There is currently no code for this.");
+}
+
+void CM3daDoc::OnDeckModsBulkDataShowCurrent() {
+	outtextMSG2("DECKM-BDSC");
+	sLastcmd = "DECKM-BDSC";
 	outtext1("There is currently no code for this.");
 }
 // momo
@@ -5622,60 +5706,60 @@ void CM3daDoc::OnViewTogglecontrolpointvisability() {
 
 // momo on off button and menu
 void CM3daDoc::OnUpdateVisabilityPointson(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_POINTS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_POINTS);
 }
 
 void CM3daDoc::OnUpdateTogglecontrolpointvisability(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_CONTROL_POINTS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_CONTROL_POINTS);
 }
 
 void CM3daDoc::OnUpdateVisabilityCurveson(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_CURVES);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_CURVES);
 }
 
 void CM3daDoc::OnUpdateSurfacesSurfaceson(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_SURFACES);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_SURFACES);
 }
 
 void CM3daDoc::OnUpdateVisabilityCoordson(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_COORD);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_COORD);
 }
 
 void CM3daDoc::OnUpdateVisabilityNodeon(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_NODES);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_NODES);
 }
 
 void CM3daDoc::OnUpdateVisabilityElementon(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_ELEMENTS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS);
 }
 
 void CM3daDoc::OnUpdateVisabilityBoundaryconditions(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_BOUNDARY_CONDITIONS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_BOUNDARY_CONDITIONS);
 }
 
 void CM3daDoc::OnUpdateDisplayshellthickness(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_SHELL_THICKNESS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_SHELL_THICKNESS);
 }
 
 void CM3daDoc::OnUpdateDisplayelementcoordsys(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_ELEMENT_COORD_SYS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENT_COORD_SYS);
 }
 
 void CM3daDoc::OnUpdateSurfacedirectionmarkers(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS);
 }
 
 void CM3daDoc::OnUpdateVisabilityWorkplane(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!DspFlagsMain.DSP_WORK_PLANE);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_WORK_PLANE);
 }
-
-void CM3daDoc::OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!ButtonPush.GeomOn);
-}
-
-void CM3daDoc::OnUpdateVisabilityFiniteOn(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(!ButtonPush.FiniteOn);
-}
+//
+// void CM3daDoc::OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI) {
+//	pCmdUI->SetCheck(ButtonPush.GeomOn);
+//}
+//
+// void CM3daDoc::OnUpdateVisabilityFiniteOn(CCmdUI* pCmdUI) {
+//	pCmdUI->SetCheck(ButtonPush.FiniteOn);
+//}
 
 void CM3daDoc::OnUpdateQfilterNodes(CCmdUI* pCmdUI) {
 	pCmdUI->SetCheck(ButtonPush.QfilterNodesOn);
@@ -5696,10 +5780,6 @@ void CM3daDoc::OnUpdateQfilterCurves(CCmdUI* pCmdUI) {
 void CM3daDoc::OnUpdateQfilterSurface(CCmdUI* pCmdUI) {
 	pCmdUI->SetCheck(ButtonPush.QfilterSurfacesOn);
 }
-
-// void CM3daDoc::OnUpdateQfilterAll(CCmdUI* pCmdUI) {
-//	pCmdUI->SetCheck(!ButtonPush.QfilterNodesOn && !ButtonPush.QfilterElementsOn && !ButtonPush.QfilterPointsOn && !ButtonPush.QfilterCurvesOn && !ButtonPush.QfilterSurfacesOn);
-// }
 
 void CM3daDoc::OnUpdateSelectFullBody(CCmdUI* pCmdUI) {
 	pCmdUI->SetCheck(ButtonPush.FullBody);
@@ -5769,11 +5849,6 @@ void CM3daDoc::OnVisabilityFiniteOn() {
 	CheckPushedButtons("FiniteOn");
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
-}
-
-void CM3daDoc::OnViewDeselectAll() {
-	cDBase->S_Des();
-	outtext1("Deselect All.");
 }
 
 void CM3daDoc::OnSelectFullBody() {
@@ -6164,11 +6239,11 @@ void CM3daDoc::OnViewDeselectCadrOff() {
 }
 
 void CM3daDoc::OnUpdateDeselectCadrOn(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(DeselectCadrMode == true);
+	pCmdUI->SetCheck(DeselectCadrMode);
 }
 
 void CM3daDoc::OnUpdateDeselectCadrOff(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(DeselectCadrMode == false);
+	pCmdUI->SetCheck(!DeselectCadrMode);
 }
 
 void OnViewDeselectCadr() {

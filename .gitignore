@@ -263,3 +263,4 @@ __pycache__/
 
 # Ignore configuration file
 M3da/config.txt
+M3da/config-.txt

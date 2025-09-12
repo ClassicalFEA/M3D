@@ -16,8 +16,10 @@ class CM3daView: public CView {
 		// Operations
 	public:
 		CClientDC* ClientDC;
-		CPoint m_PointOld; // old move point
-		CPoint m_PointNew; // new move point
+		// momo close for LNC
+		// CPoint m_PointOld; // old move point
+		// CPoint m_PointNew; // new move point
+		// momo close for LNC
 		CPoint m_PointDown;
 		int m_iMouseButStat; // mouse button status
 		int m_iWidth; // client width

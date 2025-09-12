@@ -16,6 +16,9 @@ class zMnu {
 		int iNoPos;
 		int nCancel;
 		// MoMo_End
+		// momo close for LNC
+		int iStringCommandPos;
+		// momo close for LNC
 		zMnu* pNext;
 		int iStat;
 		int initCnt;

@@ -26,7 +26,10 @@ double gLM_SIZE = 20;
 double gEL_SIZE = 2;
 double gED_SIZE = 5;
 double gFC_SIZE = 3;
-double gWP_SIZE = 12;
+// momo
+// momo// double gWP_SIZE = 12;
+double gWP_SIZE = 2;
+// momo
 double gBM_SIZE = 2;
 double gTXT_SIZE = 2;
 int gDIM_PREC = 2;
@@ -48636,7 +48639,7 @@ void NSurf::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 		//*********************************************************************************
 
 		// Draw the U marker
-		if (!DspFlagsIn.DSP_SURFACE_DIRECTION_MARKERS) {
+		if (DspFlagsIn.DSP_SURFACE_DIRECTION_MARKERS) {
 			C3dVector p2;
 			C3dVector p3;
 			C3dVector p4;

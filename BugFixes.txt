@@ -107,3 +107,9 @@ In the two newly added commands for adding and using mesh seeds (which are still
 104-Added "Type ID Number" option to the "Help" menu.
 105-Added "Help" option to the "Properties" menu.
 106-Added "Help" option to the "Element Modify" menu.
+107-Minor changes in some toolbar icons.
+108-Added an icon for "Deselect All" in the right-click menu.
+109-Various changes in menus.
+110-Some modifications in the behavior of [Show/Hide] toolbar buttons.
+111-Improved display of the "Information" command report for better readability.
+112-Added "Close Path" option to the "Multiple Continued Line" command (LNC).

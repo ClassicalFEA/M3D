@@ -78,7 +78,7 @@ struct ButtonPushed {
 		int DrawModeOut;
 		bool FiniteOn;
 		bool GeomOn;
-		bool SelectedOn;
+		bool OnlySelectedOn;
 		bool QfilterNodesOn;
 		bool QfilterElementsOn;
 		bool QfilterPointsOn;
@@ -135,6 +135,10 @@ extern DisplayFlags DspFlagsMain;
 extern int FileFormatIndex;
 extern bool MakingNewFile;
 // momo save by old versions
+// momo close for LNC
+extern CPoint m_PointOld; // old move point
+extern CPoint m_PointNew; // new move point
+// momo close for LNC
 extern BOOL gDSP_BACK;
 extern BOOL gORTHO;
 extern DSP_Triad tOrient;

@@ -961,22 +961,7 @@ void CheckCommandEditColor(bool bForceToCheck) {
 // momo change command box color
 // momo on off button and menu
 void CheckPushedButtons(const char* sMode) {
-	if (strcmp(sMode, "AllVisible") == 0) {
-		ButtonPush.FiniteOn = true;
-		DspFlagsMain.DSP_NODES = true;
-		DspFlagsMain.DSP_ELEMENTS = true;
-		DspFlagsMain.DSP_BOUNDARY_CONDITIONS = true;
-		ButtonPush.GeomOn = true;
-		DspFlagsMain.DSP_POINTS = true;
-		DspFlagsMain.DSP_CONTROL_POINTS = false;
-		DspFlagsMain.DSP_CURVES = true;
-		DspFlagsMain.DSP_SURFACES = true;
-		DspFlagsMain.DSP_COORD = true;
-		DspFlagsMain.DSP_WORK_PLANE = true;
-		DspFlagsMain.DSP_SHELL_THICKNESS = true;
-		DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
-		DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = true;
-	} else if (strcmp(sMode, "GeomOn") == 0) {
+	if (strcmp(sMode, "GeomOn") == 0) {
 		DspFlagsMain.DSP_POINTS = ButtonPush.GeomOn;
 		DspFlagsMain.DSP_CONTROL_POINTS = ButtonPush.GeomOn;
 		DspFlagsMain.DSP_CURVES = ButtonPush.GeomOn;
@@ -986,22 +971,23 @@ void CheckPushedButtons(const char* sMode) {
 		DspFlagsMain.DSP_NODES = ButtonPush.FiniteOn;
 		DspFlagsMain.DSP_ELEMENTS = ButtonPush.FiniteOn;
 		DspFlagsMain.DSP_BOUNDARY_CONDITIONS = ButtonPush.FiniteOn;
-	} else if (strcmp(sMode, "Check") == 0) {
-		if (ButtonPush.GeomOn && !DspFlagsMain.DSP_POINTS && !DspFlagsMain.DSP_CURVES && !DspFlagsMain.DSP_SURFACES && !DspFlagsMain.DSP_COORD) {
-			ButtonPush.GeomOn = false;
-			outtext1("All Geom Elements Visibility OFF");
-		} else if (!ButtonPush.GeomOn && DspFlagsMain.DSP_POINTS && DspFlagsMain.DSP_CURVES && DspFlagsMain.DSP_SURFACES && DspFlagsMain.DSP_COORD) {
-			ButtonPush.GeomOn = true;
-			outtext1("All Geom Elements Visibility ON");
-		}
-		if (ButtonPush.FiniteOn && !DspFlagsMain.DSP_NODES && !DspFlagsMain.DSP_ELEMENTS && !DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
-			ButtonPush.FiniteOn = false;
-			outtext1("All Finite Elements Visibility OFF");
-		} else if (!ButtonPush.FiniteOn && DspFlagsMain.DSP_NODES && DspFlagsMain.DSP_ELEMENTS && DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
-			ButtonPush.FiniteOn = true;
-			outtext1("All Finite Elements Visibility ON");
-		}
 	}
+	// else if (strcmp(sMode, "Check") == 0) {
+	//	if (ButtonPush.GeomOn && !DspFlagsMain.DSP_POINTS && !DspFlagsMain.DSP_CURVES && !DspFlagsMain.DSP_SURFACES && !DspFlagsMain.DSP_COORD) {
+	//		ButtonPush.GeomOn = false;
+	//		outtext1("All Geom Elements Visibility OFF");
+	//	} else if (!ButtonPush.GeomOn && DspFlagsMain.DSP_POINTS && DspFlagsMain.DSP_CURVES && DspFlagsMain.DSP_SURFACES && DspFlagsMain.DSP_COORD) {
+	//		ButtonPush.GeomOn = true;
+	//		outtext1("All Geom Elements Visibility ON");
+	//	}
+	//	if (ButtonPush.FiniteOn && !DspFlagsMain.DSP_NODES && !DspFlagsMain.DSP_ELEMENTS && !DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
+	//		ButtonPush.FiniteOn = false;
+	//		outtext1("All Finite Elements Visibility OFF");
+	//	} else if (!ButtonPush.FiniteOn && DspFlagsMain.DSP_NODES && DspFlagsMain.DSP_ELEMENTS && DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
+	//		ButtonPush.FiniteOn = true;
+	//		outtext1("All Finite Elements Visibility ON");
+	//	}
+	// }
 }
 // momo on off button and menu
 

@@ -66,6 +66,17 @@ void zMnu::DoNext(CString* CInMsg, CPoint Pt) {
 			// cDBase->DB_ActiveBuffSet(1);
 		}
 		// MoMo_End
+		// momo close for LNC
+		if (iCKill == 4) {
+			delete pNext;
+			pNext = NULL;
+			iCKill = 0;
+			iStat = iStringCommandPos; // poistion to String Command like "Close" for LNC command
+			*CInMsg = "NULL";
+			cDBase->S_Res();
+			// cDBase->DB_ActiveBuffSet(1);
+		}
+		// momo close for LNC
 	}
 }
 
@@ -2558,7 +2569,7 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 			// momo change command box color
 		}
 		// momo change command box color
-		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase(_T("NEW")) != 0 && CInMsg.CompareNoCase(_T("OPEN")) != 0 && CInMsg.CompareNoCase(_T("SAVE")) != 0 && CInMsg.CompareNoCase(_T("SAVEAS")) != 0 && CInMsg.CompareNoCase(_T("DSPALL")) != 0 && CInMsg.CompareNoCase(_T("DSPSEL")) != 0 && CInMsg.CompareNoCase(_T("SHOWALL")) != 0 && CInMsg.CompareNoCase(_T("DSPGP")) != 0 && CInMsg.CompareNoCase(_T("SOLVE")) != 0 && CInMsg.CompareNoCase(_T("ADDDESK")) != 0 && CInMsg.CompareNoCase(_T("ADDDESK_S")) != 0 && CInMsg.CompareNoCase(_T("ADDDESK_SR")) != 0) {
+		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase(_T("NEW")) != 0 && CInMsg.CompareNoCase(_T("OPEN")) != 0 && CInMsg.CompareNoCase(_T("SAVE")) != 0 && CInMsg.CompareNoCase(_T("SAVEAS")) != 0 && CInMsg.CompareNoCase(_T("DSPALL")) != 0 && CInMsg.CompareNoCase(_T("DSPSEL")) != 0 && CInMsg.CompareNoCase(_T("SHOWALL")) != 0 && CInMsg.CompareNoCase(_T("DSPGP")) != 0 && CInMsg.CompareNoCase(_T("SOLVE")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK_S")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK_SR")) != 0 && CInMsg.CompareNoCase(_T("DES")) != 0) {
 			CommIsActive.NewState = true;
 		} else if (inputInOneCommand == -1 || CInMsg.CompareNoCase(_T("NULL")) != 0) {
 			CommIsActive.NewState = false;
@@ -2908,6 +2919,14 @@ int zEXP05_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 int zPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 	DoNext(&CInMsg, Pt);
 	if (pNext == NULL) {
+		// momo close for LNC
+		if (cDBase->stInsteadPoint.sMode == _T("CloseLoop") && cDBase->stInsteadPoint.createdLines >= 2) {
+			if (CInMsg.CompareNoCase(_T("Close")) == 0) {
+				RetVal = 4;
+				goto MenuEnd;
+			}
+		}
+		// momo close for LNC
 		if ((CInMsg.CompareNoCase(_T("C")) == 0) || (CInMsg.CompareNoCase(_T("D")) == 0)) // Common Options
 		{
 			RetVal = 2;
@@ -2974,6 +2993,17 @@ int zPT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				cDBase->DB_AddPtBuff(p2);
 				cDBase->bPICK = TRUE;
 				iStat = 2;
+				// momo close for LNC
+			} else if (CInMsg.CompareNoCase(_T("COORDINATE")) == 0) {
+				C3dVector OutPt;
+				OutPt.Set(0.0, 0.0, 0.0);
+				cDBase->DB_AddPtBuff(OutPt);
+				iStat = 2;
+			} else if (CInMsg.FindOneOf(_T("0123456789")) == -1) {
+				outtext2("// Invalid input. Please try again:");
+				RetVal = -1;
+				goto MenuEnd;
+				// momo close for LNC
 			} else {
 				C3dVector GetPt;
 				int iPt = ExtractPt(CInMsg, &GetPt);
@@ -4350,12 +4380,20 @@ int zLNC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			cDBase->FILTER.SetFilter(7);
 			cDBase->FILTER.SetFilter(13);
 			bF = TRUE; // First time in we need 2 points
-			outtext2("// PICK FIRST POINT OR TYPE COORDINATE");
+			// momo close for LNC
+			// momo// outtext2("// PICK FIRST POINT OR TYPE COORDINATE");
+			outtext2("// PICK FIRST POINT OR TYPE \"COORDINATE\"");
+			iStringCommandPos = 3;
+			// momo close for LNC
 			iResumePos = 1;
 			iCancelPos = 100;
 			pNext = new zPT_Mnu();
 			pNext->Init(cDBase, -1);
 			DoNext(&CInMsg, Pt);
+			// momo close for LNC
+			cDBase->stInsteadPoint.sMode = _T("CloseLoop");
+			cDBase->stInsteadPoint.createdLines = -1;
+			// momo close for LNC
 		}
 		if (iStat == 1) {
 			cDBase->bIsDrag = TRUE;
@@ -4365,7 +4403,20 @@ int zLNC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			}
 			cDBase->AddDragLN(pLast);
 			cDBase->vLS = pLast;
-			outtext2("// PICK NEXT POINT OR TYPE COORDINATE");
+			// momo close for LNC
+			// momo// outtext2("// PICK NEXT POINT OR TYPE COORDINATE");
+			cDBase->DragUpdate(m_PointOld);
+			cDBase->Draw(tOrient.RetrieveMat(), 3);
+			cDBase->stInsteadPoint.createdLines = cDBase->stInsteadPoint.createdLines + 1;
+			if (cDBase->stInsteadPoint.createdLines >= 2) {
+				outtext2("// PICK NEXT POINT OR TYPE \"COORDINATE\" OR \"CLOSE\"");
+			} else {
+				outtext2("// PICK NEXT POINT OR TYPE \"COORDINATE\"");
+				if (cDBase->stInsteadPoint.createdLines == 0) {
+					cDBase->stInsteadPoint.startPoint = pLast;
+				}
+			}
+			// momo close for LNC
 			iResumePos = 2;
 			iCancelPos = 100;
 			pNext = new zPT_Mnu();
@@ -4385,9 +4436,22 @@ int zLNC_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			outtext1("1 Line Created.");
 			iStat = 1;
 			this->DoMenu(CInMsg, Pt);
+			// momo close for LNC
+		} else if (iStat == 3) {
+			C3dVector p1;
+			C3dVector p2;
+			p2 = cDBase->stInsteadPoint.startPoint;
+			cDBase->AddLNfromDrag(p2);
+			outtext1("Last Line Created.");
+			iStat = 100;
+			// momo close for LNC
 		}
 		// Escape clause
 		if (iStat == 100) {
+			// momo close for LNC
+			cDBase->stInsteadPoint.sMode = _T("");
+			cDBase->stInsteadPoint.createdLines = 0;
+			// momo close for LNC
 			cDBase->FILTER.SetAll();
 			cDBase->bIsDrag = FALSE;
 			cDBase->ReDraw();

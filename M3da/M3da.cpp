@@ -63,6 +63,10 @@ ClickPoint mClickPoint;
 int FileFormatIndex = 1;
 bool MakingNewFile = false;
 // momo save by old versions
+// momo close for LNC
+CPoint m_PointOld; // old move point
+CPoint m_PointNew; // new move point
+// momo close for LNC
 
 // CM3daApp
 
@@ -331,7 +335,7 @@ BOOL CM3daApp::InitInstance() {
 	// such as the name of your company or organization
 	// MoMo_Start
 	// MoMo// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	SetRegistryKey(_T("M3D-DevM-Reg-20"));
+	SetRegistryKey(_T("M3D-DevM-Reg-23"));
 	// MoMo_End
 	// momo
 	SelRowsCurrent[0][0] = -1;
@@ -342,13 +346,13 @@ BOOL CM3daApp::InitInstance() {
 	SeedVals.InputedMeshElementSize = 1.0;
 	SeedVals.InputedSeedNumbers = 0;
 
-	ButtonPush.WireFrame = true;
-	DspFlagsMain.DSP_WIREFRAME = true;
-	ButtonPush.DrawModeCurrent = 1;
+	ButtonPush.WireFrame = false;
+	DspFlagsMain.DSP_WIREFRAME = false;
+	ButtonPush.DrawModeCurrent = 2;
 	ButtonPush.DrawModeOut = 3;
-	ButtonPush.ShadedWithEdges = false;
+	ButtonPush.ShadedWithEdges = true;
+	DspFlagsMain.DSP_SHADED_WITH_EDGES = true;
 	ButtonPush.ShadedWithoutEdges = false;
-	DspFlagsMain.DSP_SHADED_WITH_EDGES = false;
 	ButtonPush.FiniteOn = true;
 	DspFlagsMain.DSP_NODES = true;
 	DspFlagsMain.DSP_ELEMENTS = true;
@@ -359,11 +363,11 @@ BOOL CM3daApp::InitInstance() {
 	DspFlagsMain.DSP_CURVES = true;
 	DspFlagsMain.DSP_SURFACES = true;
 	DspFlagsMain.DSP_COORD = true;
-	ButtonPush.SelectedOn = false;
+	ButtonPush.OnlySelectedOn = false;
 	DspFlagsMain.DSP_WORK_PLANE = true;
-	DspFlagsMain.DSP_SHELL_THICKNESS = true;
+	DspFlagsMain.DSP_SHELL_THICKNESS = false;
 	DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
-	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = true;
+	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = false;
 	DspFlagsMain.DSP_GRADIENT_BACKGROUND = false;
 
 	ButtonPush.QfilterNodesOn = false;
@@ -568,7 +572,7 @@ BOOL InfoDialog::OnInitDialog() {
 	if (formKind == 1) {
 		strCaption = _T("Type ID Numbers");
 		kWidth = 0.3;
-		kHeight = 0.5;
+		kHeight = 0.55;
 		strText = _T("Type ID Numbers\r\n")
 		          _T("\r\n")
 		          _T("OD\r\n")
@@ -596,15 +600,15 @@ BOOL InfoDialog::OnInitDialog() {
 		          _T("Brick = 115");
 	} else if (formKind == 2) {
 		strCaption = _T("Properties Help");
-		kWidth = 0.35;
-		kHeight = 0.4;
+		kWidth = 0.4;
+		kHeight = 0.3;
 		strText = _T("- For Nastran/MYSTRAN, these are the formal properties, which are associated with entries/cards that start with the letter \"P\".\r\n")
 		          _T("\r\n")
 		          _T("- Note that the \"Element Modify\" menu also affects model \"properties\", but those \"properties\" are stored in entries/cards that begin with \"C\". For example, a CBAR entry contains the bar's orientation vector. Offsets may also be present in the CBAR entry. Similarly, the CQUAD4 stores the offsets (offsets are not stored in the \"P\" cards, such as PBAR and PSHELL).\r\n");
 	} else if (formKind == 3) {
 		strCaption = _T("Element Modify Help");
-		kWidth = 0.35;
-		kHeight = 0.4;
+		kWidth = 0.4;
+		kHeight = 0.3;
 		strText = _T("-Some of these menus are modifiers to the elements, but may also be considered informal \"properties\" of the element.\r\n")
 		          _T("\r\n")
 		          _T("-The modifiers affect the Nastran/MYSTRAN entries/cards that begin with a \" C \". For example, a CBAR entry contains the bar's orientation vector. Offsets may also be present in the CBAR entry. Similarly, the CQUAD4 stores the offsets (offsets are not stored in the \"P\" cards, such as PBAR and PSHELL).");
