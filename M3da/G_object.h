@@ -256,7 +256,7 @@ class Lamina;
 //// momo
 //// momo// const int DSP_SHADED_EDGES = 0x00000008;
 //// momo
-// const int DSP_ELEMENTS = 0x00000010;
+// const int DSP_ELEMENTS_ALL = 0x00000010;
 // const int DSP_CURVES = 0x00000020;
 // const int DSP_SURFACES = 0x00000040;
 // const int DSP_THK = 0x00000080;

@@ -1,0 +1,47 @@
+Nastran Input Data Cards Read.
+​GRID
+CQUAD4
+CTRIA3
+CHEXA
+CPENTA
+CTETRA
+CBUSH
+CROD
+CORD2R
+CORD2C
+CORD1R
+CORD1C
+PSHELL
+PBUSH
+CBEAM
+PCOMP
+PCOMPG
+PSOLID
+PROD
+MAT8
+MAT2
+MAT1   
+CELAS1 
+CELAS2 
+PELAS  
+CBAR   
+PBAR   
+PBARL  
+SPCD   
+RBE2
+
+OP2 Data Blocks Read
+Element Forces
+OEF
+Accelerations
+OAG
+Nodal Displacements
+OUG
+Element Stresses
+OES
+Element Strain
+OSTR
+Element Stresses Non Linear
+OESN
+Strain Energy read but not yet available.
+ONRG

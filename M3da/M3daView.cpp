@@ -59,12 +59,14 @@ ON_WM_MBUTTONUP()
 ON_WM_MOUSEWHEEL()
 ON_COMMAND(ID_VIEW_ZOOMALL, &CM3daView::OnViewZoomall)
 ON_WM_MBUTTONDOWN()
-ON_COMMAND(ID_VIEW_TOP, &CM3daView::OnViewTop)
-ON_COMMAND(ID_VIEW_FRONT, &CM3daView::OnViewFront)
-ON_COMMAND(ID_VIEW_LEFTXY, &CM3daView::OnViewLeftxy)
-ON_COMMAND(ID_VIEW_BACK, &CM3daView::OnViewBack)
-ON_COMMAND(ID_VIEW_RIGHT, &CM3daView::OnViewRight)
-ON_COMMAND(ID_VIEW_BOTTOMXZ, &CM3daView::OnViewBottomxz)
+// momo
+// ON_COMMAND(ID_VIEW_TOP, &CM3daView::OnViewTop)
+// ON_COMMAND(ID_VIEW_FRONT, &CM3daView::OnViewFront)
+// ON_COMMAND(ID_VIEW_LEFTXY, &CM3daView::OnViewLeftxy)
+// ON_COMMAND(ID_VIEW_BACK, &CM3daView::OnViewBack)
+// ON_COMMAND(ID_VIEW_RIGHT, &CM3daView::OnViewRight)
+// ON_COMMAND(ID_VIEW_BOTTOMXZ, &CM3daView::OnViewBottomxz)
+// momo
 ON_COMMAND(ID_PROJWP, &CM3daView::OnProjwp)
 ON_COMMAND(ID_PROJ_FRONT, &CM3daView::OnProjFront)
 ON_COMMAND(ID_PROJ_BOTTOMXZ, &CM3daView::OnProjBottomxz)
@@ -747,6 +749,10 @@ void CM3daView::OnViewResetview() {
 	// TODO: Add your command handler code here
 	tOrient.ReSet();
 	// momo gdi to og
+	// momo
+	CM3daDoc* pDoc = GetDocument();
+	pDoc->GetcDBase()->ZoomToBaseScale();
+	// momo
 	// momo// CDC* pDC = this->GetDC();
 	// momo gdi to og
 	GetDocument()->SetView(this);
@@ -893,28 +899,30 @@ void CM3daView::OnMButtonDown(UINT nFlags, CPoint point) {
 	m_iFuncKey = 1;
 }
 
-void CM3daView::OnViewTop() {
-}
-
-void CM3daView::OnViewFront() {
-	// TODO: Add your command handler code here
-}
-
-void CM3daView::OnViewLeftxy() {
-	// TODO: Add your command handler code here
-}
-
-void CM3daView::OnViewBack() {
-	// TODO: Add your command handler code here
-}
-
-void CM3daView::OnViewRight() {
-	// TODO: Add your command handler code here
-}
-
-void CM3daView::OnViewBottomxz() {
-	// TODO: Add your command handler code here
-}
+// momo
+// void CM3daView::OnViewTop() {
+// }
+//
+// void CM3daView::OnViewFront() {
+//	// TODO: Add your command handler code here
+// }
+//
+// void CM3daView::OnViewLeftxy() {
+//	// TODO: Add your command handler code here
+// }
+//
+// void CM3daView::OnViewBack() {
+//	// TODO: Add your command handler code here
+// }
+//
+// void CM3daView::OnViewRight() {
+//	// TODO: Add your command handler code here
+// }
+//
+// void CM3daView::OnViewBottomxz() {
+//	// TODO: Add your command handler code here
+// }
+// momo
 
 void CM3daView::OnProjwp() {
 	// TODO: Add your command handler code here

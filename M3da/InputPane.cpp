@@ -1,4 +1,4 @@
-// InputPane.cpp : implementation file
+﻿// InputPane.cpp : implementation file
 //
 
 #include "stdafx.h"

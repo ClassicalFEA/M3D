@@ -14,6 +14,16 @@ class CMyEdit: public CEdit {
 
 	protected:
 		DECLARE_MESSAGE_MAP()
+		// momo custom right click for edit text
+		afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+		afx_msg void OnEdit3RightClickUndo();
+		afx_msg void OnEdit3RightClickCut();
+		afx_msg void OnEdit3RightClickCopy();
+		afx_msg void OnEdit3RightClickPaste();
+		afx_msg void OnEdit3RightClickDelete();
+		afx_msg void OnEdit3RightClickSelectAll();
+		afx_msg void OnEdit3RightClickClearAll();
+		// momo custom right click for edit text
 		// momo change command box color
 		afx_msg HBRUSH CtlColor(CDC* cDC, UINT nCtlColor);
 

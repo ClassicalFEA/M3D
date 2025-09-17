@@ -2569,7 +2569,10 @@ int zMnu::DoMenu(CString CInMsg, CPoint Pt) {
 			// momo change command box color
 		}
 		// momo change command box color
-		if (inputInOneCommand == 1 && CInMsg != "DEL" && CInMsg != "ELTYPE" && CInMsg.CompareNoCase(_T("NEW")) != 0 && CInMsg.CompareNoCase(_T("OPEN")) != 0 && CInMsg.CompareNoCase(_T("SAVE")) != 0 && CInMsg.CompareNoCase(_T("SAVEAS")) != 0 && CInMsg.CompareNoCase(_T("DSPALL")) != 0 && CInMsg.CompareNoCase(_T("DSPSEL")) != 0 && CInMsg.CompareNoCase(_T("SHOWALL")) != 0 && CInMsg.CompareNoCase(_T("DSPGP")) != 0 && CInMsg.CompareNoCase(_T("SOLVE")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK_S")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK_SR")) != 0 && CInMsg.CompareNoCase(_T("DES")) != 0) {
+		if (inputInOneCommand == 1 && CInMsg.CompareNoCase(_T("DEL")) != 0 && CInMsg.CompareNoCase(_T("ELTYPE")) != 0 && CInMsg.CompareNoCase(_T("NEW")) != 0 && CInMsg.CompareNoCase(_T("OPEN")) != 0 //
+		    && CInMsg.CompareNoCase(_T("SAVE")) != 0 && CInMsg.CompareNoCase(_T("SAVEAS")) != 0 && CInMsg.CompareNoCase(_T("DSPALL")) != 0 && CInMsg.CompareNoCase(_T("DSPSEL")) != 0 //
+		    && CInMsg.CompareNoCase(_T("SHOWALL")) != 0 && CInMsg.CompareNoCase(_T("DSPGP")) != 0 && CInMsg.CompareNoCase(_T("SOLVE")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK")) != 0 //
+		    && CInMsg.CompareNoCase(_T("ADDDECK_S")) != 0 && CInMsg.CompareNoCase(_T("ADDDECK_SR")) != 0 && CInMsg.CompareNoCase(_T("DES")) != 0 && CInMsg.CompareNoCase(_T("WPGLOB")) != 0) {
 			CommIsActive.NewState = true;
 		} else if (inputInOneCommand == -1 || CInMsg.CompareNoCase(_T("NULL")) != 0) {
 			CommIsActive.NewState = false;
@@ -5466,6 +5469,9 @@ int zWPCENT_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			TWP->CentrePt(pO);
 			cDBase->TmpOGL[cDBase->TmpOGLCnt] = TWP;
 			cDBase->TmpOGLCnt++;
+			// momo
+			cDBase->InvalidateOGL();
+			// momo
 			cDBase->ReDraw();
 			RetVal = 1;
 		}
@@ -6612,40 +6618,76 @@ int zELTYPE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 				// 115 //BRICK 8
 				cDBase->iCurElemType = 115;
 				outtext1("BRICK TYPE 115 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_BRICK = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("WEDGE")) == 0) {
 				// iRC = 6; //WEDGE 6
 				cDBase->iCurElemType = 112;
 				outtext1("WEDGE TYPE 112 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_WEDGE = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("TET")) == 0) {
 				cDBase->iCurElemType = 111;
 				outtext1("TET TYPE 111 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_TET = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("QUAD")) == 0) {
 				cDBase->iCurElemType = 94;
 				outtext1("QUAD TYPE 94 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_QUAD = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("TRI")) == 0) {
 				cDBase->iCurElemType = 91;
 				outtext1("TRI TYPE 91 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_TRI = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("SCALAR")) == 0) {
 				cDBase->iCurElemType = 161;
 				outtext1("SCALAR TYPE 161 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_MASS = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("BEAM")) == 0) {
 				cDBase->iCurElemType = 21;
 				outtext1("BEAM TYPE 21 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_BEAM = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("ROD")) == 0) {
 				cDBase->iCurElemType = 11;
 				outtext1("ROD TYPE 11 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_ROD = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("RIGID")) == 0) {
 				cDBase->iCurElemType = 122;
 				outtext1("RIGID TYPE 122 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_RIGID = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("TSPRING")) == 0) {
 				cDBase->iCurElemType = 136;
 				outtext1("TRANSLATION SPRING TYPE 136 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("RSPRING")) == 0) {
 				cDBase->iCurElemType = 137;
 				outtext1("ROTATIONAL SPRING TYPE 137 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("BUSH")) == 0) {
 				cDBase->iCurElemType = 138;
 				outtext1("BUSH SPRING TYPE 138 SET.");
+				// momo
+				DspFlagsMain.DSP_ELEMENTS_BUSH = true;
+				// momo
 			} else if (CInMsg.CompareNoCase(_T("SCELL")) == 0) {
 				cDBase->iCurElemType = 1000;
 				outtext1("STAGGERED CELL TYPE 1000 SET.");
@@ -6654,6 +6696,11 @@ int zELTYPE_Mnu::DoMenu(CString CInMsg, CPoint Pt) {
 			}
 			outtext2("D");
 			RetVal = 1;
+			// momo
+			cDBase->InvalidateOGL();
+			cDBase->ReDraw();
+			CheckPushedButtons("SetOneElements");
+			// momo
 		}
 	}
 	// Escape clause

@@ -225,6 +225,23 @@ ON_COMMAND(ID_DECKMODS_BULKDATA_ASIS, &CM3daDoc::OnDeckModsBulkDataAsIs)
 ON_COMMAND(ID_DECKMODS_BULKDATA_ADDTXT, &CM3daDoc::OnDeckModsBulkDataAddTxt)
 ON_COMMAND(ID_DECKMODS_BULKDATA_ADDCONFIG, &CM3daDoc::OnDeckModsBulkDataAddConfig)
 ON_COMMAND(ID_DECKMODS_BULKDATA_SHOWCURRENT, &CM3daDoc::OnDeckModsBulkDataShowCurrent)
+ON_COMMAND(ID_ELEMENTVISIBILITY_ALL, &CM3daDoc::OnVisabilityElementOn)
+ON_COMMAND(ID_ELEMENTVISIBILITY_0D, &CM3daDoc::OnElementsVisibility0D)
+ON_COMMAND(ID_ELEMENTVISIBILITY_MASS, &CM3daDoc::OnElementsVisibilityMass)
+ON_COMMAND(ID_ELEMENTVISIBILITY_1D, &CM3daDoc::OnElementsVisibility1D)
+ON_COMMAND(ID_ELEMENTVISIBILITY_ROD, &CM3daDoc::OnElementsVisibilityRod)
+ON_COMMAND(ID_ELEMENTVISIBILITY_BEAM, &CM3daDoc::OnElementsVisibilityBeam)
+ON_COMMAND(ID_ELEMENTVISIBILITY_TRANSLATIONALSPRING, &CM3daDoc::OnElementsVisibilityTranslationSpring)
+ON_COMMAND(ID_ELEMENTVISIBILITY_ROTATIONALSPRING, &CM3daDoc::OnElementsVisibilityRotationSpring)
+ON_COMMAND(ID_ELEMENTVISIBILITY_RIGID, &CM3daDoc::OnElementsVisibilityRigid)
+ON_COMMAND(ID_ELEMENTVISIBILITY_BUSH, &CM3daDoc::OnElementsVisibilityBush)
+ON_COMMAND(ID_ELEMENTVISIBILITY_2D, &CM3daDoc::OnElementsVisibility2D)
+ON_COMMAND(ID_ELEMENTVISIBILITY_TRI, &CM3daDoc::OnElementsVisibilityTri)
+ON_COMMAND(ID_ELEMENTVISIBILITY_QUAD, &CM3daDoc::OnElementsVisibilityQuad)
+ON_COMMAND(ID_ELEMENTVISIBILITY_3D, &CM3daDoc::OnElementsVisibility3D)
+ON_COMMAND(ID_ELEMENTVISIBILITY_TET, &CM3daDoc::OnElementsVisibilityTet)
+ON_COMMAND(ID_ELEMENTVISIBILITY_WEDGE, &CM3daDoc::OnElementsVisibilityWedge)
+ON_COMMAND(ID_ELEMENTVISIBILITY_BRICK, &CM3daDoc::OnElementsVisibilityBrick)
 // momo
 ON_UPDATE_COMMAND_UI(ID_VISABILITY_CURVESON, &CM3daDoc::OnUpdateVisabilityCurveson)
 ON_UPDATE_COMMAND_UI(ID_SURFACES_SURFACESON, &CM3daDoc::OnUpdateSurfacesSurfaceson)
@@ -516,6 +533,35 @@ ON_UPDATE_COMMAND_UI(ID_AXIS_ORIGIN_ON, &CM3daDoc::OnUpdateAxisOriginOn)
 ON_UPDATE_COMMAND_UI(ID_AXIS_ORIGIN_OFF, &CM3daDoc::OnUpdateAxisOriginOff)
 ON_UPDATE_COMMAND_UI(ID_AXIS_CORNER_ON, &CM3daDoc::OnUpdateAxisCornerOn)
 ON_UPDATE_COMMAND_UI(ID_AXIS_CORNER_OFF, &CM3daDoc::OnUpdateAxisCornerOff)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_ALL, &CM3daDoc::OnUpdateElementsVisibilityAll)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_0D, &CM3daDoc::OnUpdateElementsVisibility0D)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_MASS, &CM3daDoc::OnUpdateElementsVisibilityMass)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_1D, &CM3daDoc::OnUpdateElementsVisibility1D)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_ROD, &CM3daDoc::OnUpdateElementsVisibilityRod)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_BEAM, &CM3daDoc::OnUpdateElementsVisibilityBeam)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_TRANSLATIONALSPRING, &CM3daDoc::OnUpdateElementsVisibilityTranslationSpring)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_ROTATIONALSPRING, &CM3daDoc::OnUpdateElementsVisibilityRotationSpring)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_RIGID, &CM3daDoc::OnUpdateElementsVisibilityRigid)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_BUSH, &CM3daDoc::OnUpdateElementsVisibilityBush)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_2D, &CM3daDoc::OnUpdateElementsVisibility2D)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_TRI, &CM3daDoc::OnUpdateElementsVisibilityTri)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_QUAD, &CM3daDoc::OnUpdateElementsVisibilityQuad)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_3D, &CM3daDoc::OnUpdateElementsVisibility3D)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_TET, &CM3daDoc::OnUpdateElementsVisibilityTet)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_WEDGE, &CM3daDoc::OnUpdateElementsVisibilityWedge)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTVISIBILITY_BRICK, &CM3daDoc::OnUpdateElementsVisibilityBrick)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_MASS, &CM3daDoc::OnUpdateElementtypeMass)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_ROD, &CM3daDoc::OnUpdateElementtypeRod)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_BEAM, &CM3daDoc::OnUpdateElementtypeBeam)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_TRANSLATIONALSPRING, &CM3daDoc::OnUpdateElementtypeTranslationalspring)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_ROTATIONALSPRING, &CM3daDoc::OnUpdateElementtypeRotationalspring)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_RIGID, &CM3daDoc::OnUpdateElementtypeRigid)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_BUSH, &CM3daDoc::OnUpdateElementtypeBush)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_TRI, &CM3daDoc::OnUpdateElementtypeTri)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_QUAD, &CM3daDoc::OnUpdateElementtypeQuad)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_TET, &CM3daDoc::OnUpdateElementtypeTet)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_WEDGE, &CM3daDoc::OnUpdateElementtypeWedge)
+ON_UPDATE_COMMAND_UI(ID_ELEMENTTYPE_BRICK, &CM3daDoc::OnUpdateElementtypeBrick)
 // MoMo_End
 // Esp_Mod_Experimental_Toolbar_4_10_2025_Start: Added functions for new menu items
 // MoMo_Start
@@ -867,6 +913,12 @@ void CM3daDoc::DspPrev() {
 void CM3daDoc::SetDrawType(int iType, bool bShadedWithEdges) {
 	cDBase->SetDrawType(iType, bShadedWithEdges);
 }
+
+// momo
+DBase* CM3daDoc::GetcDBase() {
+	return (cDBase);
+}
+// momo
 
 int CM3daDoc::GetDrawType() {
 	return (cDBase->GetDrawType());
@@ -1428,6 +1480,204 @@ void CM3daDoc::OnElementtypeRigid() {
 	outtextMSG2("ELTYPE");
 	outtextMSG2("RIGID");
 }
+
+// momo
+void CM3daDoc::OnElementsVisibility0D() {
+	DspFlagsMain.DSP_ELEMENTS_0D = !DspFlagsMain.DSP_ELEMENTS_0D;
+	CheckPushedButtons("SetGroupElements0D");
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_0D) {
+		outtext1("0D Elements Visibility ON");
+	} else {
+		outtext1("0D Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibility1D() {
+	DspFlagsMain.DSP_ELEMENTS_1D = !DspFlagsMain.DSP_ELEMENTS_1D;
+	CheckPushedButtons("SetGroupElements1D");
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_1D) {
+		outtext1("1D Elements Visibility ON");
+	} else {
+		outtext1("1D Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibility2D() {
+	DspFlagsMain.DSP_ELEMENTS_2D = !DspFlagsMain.DSP_ELEMENTS_2D;
+	CheckPushedButtons("SetGroupElements2D");
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_2D) {
+		outtext1("2D Elements Visibility ON");
+	} else {
+		outtext1("2D Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibility3D() {
+	DspFlagsMain.DSP_ELEMENTS_3D = !DspFlagsMain.DSP_ELEMENTS_3D;
+	CheckPushedButtons("SetGroupElements3D");
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_3D) {
+		outtext1("3D Elements Visibility ON");
+	} else {
+		outtext1("3D Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityMass() {
+	DspFlagsMain.DSP_ELEMENTS_MASS = !DspFlagsMain.DSP_ELEMENTS_MASS;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_MASS) {
+		outtext1("Mass Elements Visibility ON");
+	} else {
+		outtext1("Mass Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityRod() {
+	DspFlagsMain.DSP_ELEMENTS_ROD = !DspFlagsMain.DSP_ELEMENTS_ROD;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_ROD) {
+		outtext1("Rod Elements Visibility ON");
+	} else {
+		outtext1("Rod Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityBeam() {
+	DspFlagsMain.DSP_ELEMENTS_BEAM = !DspFlagsMain.DSP_ELEMENTS_BEAM;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_BEAM) {
+		outtext1("Beam Elements Visibility ON");
+	} else {
+		outtext1("Beam Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityTranslationSpring() {
+	DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING = !DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING) {
+		outtext1("TranslationSpring Elements Visibility ON");
+	} else {
+		outtext1("TranslationSpring Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityRotationSpring() {
+	DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING = !DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING) {
+		outtext1("RotationSpring Elements Visibility ON");
+	} else {
+		outtext1("RotationSpring Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityRigid() {
+	DspFlagsMain.DSP_ELEMENTS_RIGID = !DspFlagsMain.DSP_ELEMENTS_RIGID;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_RIGID) {
+		outtext1("Rigid Elements Visibility ON");
+	} else {
+		outtext1("Rigid Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityBush() {
+	DspFlagsMain.DSP_ELEMENTS_BUSH = !DspFlagsMain.DSP_ELEMENTS_BUSH;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_BUSH) {
+		outtext1("Bush Elements Visibility ON");
+	} else {
+		outtext1("Bush Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityTri() {
+	DspFlagsMain.DSP_ELEMENTS_TRI = !DspFlagsMain.DSP_ELEMENTS_TRI;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_TRI) {
+		outtext1("Tri Elements Visibility ON");
+	} else {
+		outtext1("Tri Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityQuad() {
+	DspFlagsMain.DSP_ELEMENTS_QUAD = !DspFlagsMain.DSP_ELEMENTS_QUAD;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_QUAD) {
+		outtext1("Quad Elements Visibility ON");
+	} else {
+		outtext1("Quad Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityTet() {
+	DspFlagsMain.DSP_ELEMENTS_TET = !DspFlagsMain.DSP_ELEMENTS_TET;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_TET) {
+		outtext1("Tet Elements Visibility ON");
+	} else {
+		outtext1("Tet Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityWedge() {
+	DspFlagsMain.DSP_ELEMENTS_WEDGE = !DspFlagsMain.DSP_ELEMENTS_WEDGE;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_WEDGE) {
+		outtext1("Wedge Elements Visibility ON");
+	} else {
+		outtext1("Wedge Elements Visibility OFF");
+	}
+}
+
+void CM3daDoc::OnElementsVisibilityBrick() {
+	DspFlagsMain.DSP_ELEMENTS_BRICK = !DspFlagsMain.DSP_ELEMENTS_BRICK;
+	CheckPushedButtons("SetOneElements");
+	cDBase->InvalidateOGL();
+	cDBase->ReDraw();
+	if (DspFlagsMain.DSP_ELEMENTS_BRICK) {
+		outtext1("Brick Elements Visibility ON");
+	} else {
+		outtext1("Brick Elements Visibility OFF");
+	}
+}
+// momo
 
 void CM3daDoc::OnCreateCopynodes() {
 	// TODO: Add your command handler code here
@@ -2227,16 +2477,18 @@ void CM3daDoc::OnVisabilityNodeon() {
 
 void CM3daDoc::OnVisabilityElementOn() {
 	// TODO: Add your command handler code here
-	DspFlagsMain.DSP_ELEMENTS = !DspFlagsMain.DSP_ELEMENTS;
+	DspFlagsMain.DSP_ELEMENTS_ALL = !DspFlagsMain.DSP_ELEMENTS_ALL;
+	// momo
+	CheckPushedButtons("SetAllElements");
+	// momo
 	cDBase->InvalidateOGL();
 	cDBase->ReDraw();
 	// momo on off button and menu
-	if (DspFlagsMain.DSP_ELEMENTS) {
-		outtext1("Elements Visibility ON");
+	if (DspFlagsMain.DSP_ELEMENTS_ALL) {
+		outtext1("All Elements Visibility ON");
 	} else {
-		outtext1("Elements Visibility OFF");
+		outtext1("All Elements Visibility OFF");
 	}
-	CheckPushedButtons("Check");
 	//  momo on off button and menu
 }
 
@@ -2789,7 +3041,9 @@ void CM3daDoc::OnElementtypeBeam() {
 	SetModifiedFlag();
 	CheckPoint();
 	bFinalChkPt = FALSE;
-	outtext1("BEAM TYPE 21 SET");
+	// momo
+	//  momo// outtext1("BEAM TYPE 21 SET");
+	// momo
 	outtextMSG2("ELTYPE");
 	outtextMSG2("BEAM");
 }
@@ -5730,7 +5984,7 @@ void CM3daDoc::OnUpdateVisabilityNodeon(CCmdUI* pCmdUI) {
 }
 
 void CM3daDoc::OnUpdateVisabilityElementon(CCmdUI* pCmdUI) {
-	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS);
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_ALL);
 }
 
 void CM3daDoc::OnUpdateVisabilityBoundaryconditions(CCmdUI* pCmdUI) {
@@ -5751,6 +6005,122 @@ void CM3daDoc::OnUpdateSurfacedirectionmarkers(CCmdUI* pCmdUI) {
 
 void CM3daDoc::OnUpdateVisabilityWorkplane(CCmdUI* pCmdUI) {
 	pCmdUI->SetCheck(DspFlagsMain.DSP_WORK_PLANE);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityAll(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_ALL);
+}
+
+void CM3daDoc::OnUpdateElementsVisibility0D(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_0D);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityMass(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_MASS);
+}
+
+void CM3daDoc::OnUpdateElementsVisibility1D(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_1D);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityRod(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_ROD);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityBeam(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_BEAM);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityTranslationSpring(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityRotationSpring(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityRigid(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_RIGID);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityBush(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_BUSH);
+}
+
+void CM3daDoc::OnUpdateElementsVisibility2D(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_2D);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityTri(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_TRI);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityQuad(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_QUAD);
+}
+
+void CM3daDoc::OnUpdateElementsVisibility3D(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_3D);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityTet(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_TET);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityWedge(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_WEDGE);
+}
+
+void CM3daDoc::OnUpdateElementsVisibilityBrick(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(DspFlagsMain.DSP_ELEMENTS_BRICK);
+}
+
+void CM3daDoc::OnUpdateElementtypeMass(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 161);
+}
+
+void CM3daDoc::OnUpdateElementtypeRod(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 11);
+}
+
+void CM3daDoc::OnUpdateElementtypeBeam(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 21);
+}
+
+void CM3daDoc::OnUpdateElementtypeTranslationalspring(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 136);
+}
+
+void CM3daDoc::OnUpdateElementtypeRotationalspring(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 137);
+}
+
+void CM3daDoc::OnUpdateElementtypeRigid(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 122);
+}
+
+void CM3daDoc::OnUpdateElementtypeBush(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 138);
+}
+
+void CM3daDoc::OnUpdateElementtypeTri(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 91);
+}
+
+void CM3daDoc::OnUpdateElementtypeQuad(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 94);
+}
+
+void CM3daDoc::OnUpdateElementtypeTet(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 111);
+}
+
+void CM3daDoc::OnUpdateElementtypeWedge(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 112);
+}
+
+void CM3daDoc::OnUpdateElementtypeBrick(CCmdUI* pCmdUI) {
+	pCmdUI->SetCheck(cDBase->iCurElemType == 115);
 }
 //
 // void CM3daDoc::OnUpdateVisabilityGeomOn(CCmdUI* pCmdUI) {
@@ -5844,7 +6214,7 @@ void CM3daDoc::OnVisabilityFiniteOn() {
 		outtext1("Finite Elements Visibility OFF");
 	}
 	DspFlagsMain.DSP_NODES = ButtonPush.FiniteOn;
-	DspFlagsMain.DSP_ELEMENTS = ButtonPush.FiniteOn;
+	DspFlagsMain.DSP_ELEMENTS_ALL = ButtonPush.FiniteOn;
 	DspFlagsMain.DSP_BOUNDARY_CONDITIONS = ButtonPush.FiniteOn;
 	CheckPushedButtons("FiniteOn");
 	cDBase->InvalidateOGL();

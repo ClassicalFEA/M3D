@@ -5566,7 +5566,10 @@ void E_Object38::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_BRICK && iType == 115) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 8; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -5725,7 +5728,10 @@ void E_Object38::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_BRICK && iType == 115) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 8; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -6710,7 +6716,10 @@ void E_Object36::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_WEDGE && iType == 112) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 6; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -6978,7 +6987,10 @@ void E_Object36::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_WEDGE && iType == 112) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 6; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -8025,7 +8037,10 @@ void E_Object34::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_TET && iType == 111) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -8152,7 +8167,10 @@ void E_Object34::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_TET && iType == 111) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -9227,7 +9245,7 @@ void E_Object310::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	if (DspFlagsIn.DSP_ELEMENTS_ALL) {
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 10; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -9396,7 +9414,7 @@ void E_Object310::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	C3dVector v1;
 	C3dVector v2;
 	C3dVector Vn;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	if (DspFlagsIn.DSP_ELEMENTS_ALL) {
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 10; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -11898,7 +11916,9 @@ void E_Object2::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	ME_Object* ME = (ME_Object*) this->pParent;
 	S = ME->dScale;
 	dFS = ME->dResFactor;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if ((DspFlagsIn.DSP_ELEMENTS_TRANSLATIONALSPRING && iType == 136) || (DspFlagsIn.DSP_ELEMENTS_ROTATIONALSPRING && iType == 137) || (DspFlagsIn.DSP_ELEMENTS_BUSH && iType == 138)) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 2; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -12689,7 +12709,10 @@ void E_Object2R::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 		fCols[1] = GetContourCol(*pResV->GetAddress(iVar) * dFS);
 	}
 
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if ((DspFlagsIn.DSP_ELEMENTS_ROD && iType == 11) || (DspFlagsIn.DSP_ELEMENTS_BEAM && iType == 21)) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 2; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -12770,7 +12793,10 @@ void E_Object2R::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if ((DspFlagsIn.DSP_ELEMENTS_ROD && iType == 11) || (DspFlagsIn.DSP_ELEMENTS_BEAM && iType == 21)) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 2; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -14208,7 +14234,10 @@ void E_Object3::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_TRI && iType == 91) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 3; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -14219,7 +14248,10 @@ void E_Object3::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if (DspFlagsIn.DSP_ELEMENTS) {
+		// momo
+		// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+		if (DspFlagsIn.DSP_ELEMENTS_TRI && iType == 91) {
+			// momo
 			if (DspFlagsIn.DSP_WIREFRAME) {
 				// momo
 				//  momo// glColor3fv(cols[iColour]);
@@ -14448,7 +14480,10 @@ void E_Object3::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	Vn = Get_Normal();
 	Vn.Normalize();
 
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_TRI && iType == 91) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 3; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -16590,7 +16625,7 @@ void E_Object1::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 
 	S = ME->dScale;
 	dFS = ME->dResFactor;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	if (DspFlagsIn.DSP_ELEMENTS_ALL) {
 		if (!DspFlagsIn.DSP_RESDEF) {
 			if (pVertex->pResD != NULL) {
 				d = pVertex->pResD->GetVec();
@@ -16946,7 +16981,7 @@ C3dVector E_CellS::Get_Centroid() {
 
 void E_CellS::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	if (DspFlagsIn.DSP_ELEMENTS_ALL) {
 		Selectable = 1;
 		glEnable(GL_LINE_STIPPLE);
 		glLineStipple(1, 0x0101);
@@ -18824,7 +18859,10 @@ void E_Object4::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	dFS = ME->dResFactor;
 	ind = ME->iCVar;
 	glLineWidth(gEL_SIZE);
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_QUAD && iType == 94) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -18835,7 +18873,10 @@ void E_Object4::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 			}
 		}
 		Selectable = 1;
-		if (DspFlagsIn.DSP_ELEMENTS) {
+		// momo
+		// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+		if (DspFlagsIn.DSP_ELEMENTS_QUAD && iType == 94) {
+			// momo
 			if (DspFlagsIn.DSP_WIREFRAME) {
 				// momo
 				//  momo// glColor3fv(cols[iColour]);
@@ -19087,7 +19128,10 @@ void E_Object4::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	vN *= dt;
 	Vn = Get_Normal();
 
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	// momo
+	// momo// if (DspFlagsIn.DSP_ELEMENTS_ALL) {
+	if (DspFlagsIn.DSP_ELEMENTS_QUAD && iType == 94) {
+		// momo
 		if (!DspFlagsIn.DSP_RESDEF) {
 			for (i = 0; i < 4; i++) {
 				if (pVertex[i]->pResD != NULL) {
@@ -20095,7 +20139,7 @@ void E_ObjectR::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 		dFS = ME->dResFactor;
 	}
 
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	if (DspFlagsIn.DSP_ELEMENTS_ALL) {
 		Selectable = 1;
 		C3dVector vCent;
 		// momo
@@ -20563,7 +20607,7 @@ void E_ObjectR2::OglDrawW(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 void E_ObjectR2::OglDraw(DisplayFlags DspFlagsIn, double dS1, double dS2) {
 	CString sLab;
 	C3dVector vCent;
-	if (DspFlagsIn.DSP_ELEMENTS) {
+	if (DspFlagsIn.DSP_ELEMENTS_ALL) {
 		Selectable = 1;
 		glLineWidth(gEL_SIZE);
 		// momo
@@ -20686,7 +20730,10 @@ void WP_Object::Create(double dWPSize) {
 	Drawn = 0;
 	Selectable = 1;
 	Visable = 1;
-	iColour = 50;
+	// momo
+	// momo// iColour = 50;
+	iColour = 140;
+	// momo
 	iObjType = 999;
 	mWPTransform.MakeUnit();
 	// mWPTransform.Rotate(30,0,45);
@@ -52951,8 +52998,6 @@ void CEntEditDialog::Build2(BOOL isPCOMPG) {
 
 void CEntEditDialog::InitOGL() {
 	// MoMo_Start
-	CAppSettings settings;
-	BOOL bUseDoubleBuffer = settings.ReadDoubleBuffer();
 	DWORD dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_TYPE_RGBA; // support window | support OpenGL | RGBA type
 	if (bUseDoubleBuffer) {
 		dwFlags |= PFD_DOUBLEBUFFER; // double buffered
@@ -53650,8 +53695,6 @@ void CPcompEditor::Build() {
 
 void CPcompEditor::InitOGL() {
 	// MoMo_Start
-	CAppSettings settings;
-	BOOL bUseDoubleBuffer = settings.ReadDoubleBuffer();
 	DWORD dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_TYPE_RGBA; // support window | upport OpenGL | RGBA type
 	if (bUseDoubleBuffer) {
 		dwFlags |= PFD_DOUBLEBUFFER; // double buffered

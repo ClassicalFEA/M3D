@@ -799,7 +799,7 @@ void DBase::DisplayAll() {
 	// DspFlagsMain.DSP_SHADED_WITH_EDGES = false;
 	ButtonPush.FiniteOn = true;
 	DspFlagsMain.DSP_NODES = true;
-	DspFlagsMain.DSP_ELEMENTS = true;
+	DspFlagsMain.DSP_ELEMENTS_ALL = true;
 	DspFlagsMain.DSP_BOUNDARY_CONDITIONS = true;
 	ButtonPush.GeomOn = true;
 	DspFlagsMain.DSP_POINTS = true;
@@ -813,6 +813,22 @@ void DBase::DisplayAll() {
 	DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
 	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = false;
 	DspFlagsMain.DSP_GRADIENT_BACKGROUND = false;
+	DspFlagsMain.DSP_ELEMENTS_0D = true;
+	DspFlagsMain.DSP_ELEMENTS_MASS = true;
+	DspFlagsMain.DSP_ELEMENTS_1D = true;
+	DspFlagsMain.DSP_ELEMENTS_ROD = true;
+	DspFlagsMain.DSP_ELEMENTS_BEAM = true;
+	DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING = true;
+	DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING = true;
+	DspFlagsMain.DSP_ELEMENTS_RIGID = true;
+	DspFlagsMain.DSP_ELEMENTS_BUSH = true;
+	DspFlagsMain.DSP_ELEMENTS_2D = true;
+	DspFlagsMain.DSP_ELEMENTS_TRI = true;
+	DspFlagsMain.DSP_ELEMENTS_QUAD = true;
+	DspFlagsMain.DSP_ELEMENTS_3D = true;
+	DspFlagsMain.DSP_ELEMENTS_TET = true;
+	DspFlagsMain.DSP_ELEMENTS_WEDGE = true;
+	DspFlagsMain.DSP_ELEMENTS_BRICK = true;
 
 	DspFlagsMain.DSP_NODES_ASK = true;
 	DspFlagsMain.DSP_OFF = true;
@@ -838,26 +854,8 @@ void DBase::DisplayAll() {
 }
 
 void DBase::ResteFileSettings(bool bMode) {
-	C3dMatrix mT;
-	mT.m_00 = 1.0;
-	mT.m_01 = 0.0;
-	mT.m_02 = 0.0;
-	mT.m_03 = 0.0;
-	mT.m_10 = 0.0;
-	mT.m_11 = 1.0;
-	mT.m_12 = 0.0;
-	mT.m_13 = 0.0;
-	mT.m_20 = 0.0;
-	mT.m_21 = 0.0;
-	mT.m_22 = 1.0;
-	mT.m_23 = 0.0;
-	mT.m_30 = 0.0;
-	mT.m_31 = 0.0;
-	mT.m_32 = 0.0;
-	mT.m_33 = 1.0;
+	ZoomToBaseScale();
 	WPSize = 10.0;
-	tOrient.PushMat(mT);
-	pModelMat = mT;
 	if (!bMode) {
 		gDOUBLEBUFF = true;
 		gBACKGRD_COL = 0;
@@ -893,6 +891,30 @@ void DBase::ResteFileSettings(bool bMode) {
 	}
 }
 // momo change Display Flags Method
+
+// momo
+void DBase::ZoomToBaseScale() {
+	C3dMatrix mT;
+	mT.m_00 = 1.0;
+	mT.m_01 = 0.0;
+	mT.m_02 = 0.0;
+	mT.m_03 = 0.0;
+	mT.m_10 = 0.0;
+	mT.m_11 = 1.0;
+	mT.m_12 = 0.0;
+	mT.m_13 = 0.0;
+	mT.m_20 = 0.0;
+	mT.m_21 = 0.0;
+	mT.m_22 = 1.0;
+	mT.m_23 = 0.0;
+	mT.m_30 = 0.0;
+	mT.m_31 = 0.0;
+	mT.m_32 = 0.0;
+	mT.m_33 = 1.0;
+	tOrient.PushMat(mT);
+	pModelMat = mT;
+}
+// momo
 
 void DBase::SetActStep(int iD) {
 	BOOL bret;
@@ -10593,17 +10615,22 @@ void DBase::OglDrawW(DisplayFlags DspFlagsIn) {
 		glClearColor(255.0f, 255.0f, 255.0f, 1.0f);
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMultMatrixf(mOGLmat.fMat);
+	// momo random color change bug
+	// momo// glMultMatrixf(mOGLmat.fMat);
+	// momo random color change bug
 	//// momo ModernOpenGL_Start
 	////SyncLegacyViewToModern(dW, dH, WPSize, mOGLmat.fMat);
 	////DrawFilledTriangle();
 	////DrawWireTriangle();
 	////RestoreLegacyGraphics();
 	//// momo ModernOpenGL_End
-	glEnable(GL_AUTO_NORMAL);
-	//
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	// glPixelStorei (GL_UNPACK_ALIGNMENT, 2);
+	// momo random color change bug
+	// glEnable(GL_AUTO_NORMAL);
+	////
+	// glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	ChangeLightSettings();
+	//  momo random color change bug
+	//  glPixelStorei (GL_UNPACK_ALIGNMENT, 2);
 
 	if (iOGLList == -1) {
 		// If animation is on generate multiple frames
@@ -10665,12 +10692,50 @@ void DBase::OglDrawW(DisplayFlags DspFlagsIn) {
 		MakeAxisCorner(-0.3f, -0.2f);
 	}
 	// momo axis ======================================================
-
-	glFlush();
-	glFinish();
-	SwapBuffers(wglGetCurrentDC());
+	// momo random color change bug
+	// glFlush();
+	// glFinish();
+	// SwapBuffers(wglGetCurrentDC());
+	ChangeLightSettings();
+	if (bUseDoubleBuffer) {
+		SwapBuffers(wglGetCurrentDC());
+	} else {
+		// glFlush();
+		glFinish();
+	}
+	// momo random color change bug
 }
 
+// momo random color change bug
+void DBase::ChangeLightSettings() {
+	if (DspFlagsMain.DSP_WIREFRAME) {
+		glMultMatrixf(mOGLmat.fMat);
+		glEnable(GL_AUTO_NORMAL);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glDisable(GL_LIGHTING);
+	} else {
+		GLfloat LightPos[] = {0.0f, 0.0f, static_cast<float>(50.0 * WPSize), 1.0f};
+		GLfloat WhiteLight[] = {0.9f, 0.9f, 0.9f};
+		GLfloat light_ambient[] = {0.5f, 0.5f, 0.5f, 0.5f};
+		glLightfv(GL_LIGHT0, GL_POSITION, LightPos);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, WhiteLight);
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_ambient);
+		glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+		GLfloat MAT_S[] = {128.0};
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, MAT_S);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+
+		glEnable(GL_NORMALIZE); // Rescale normal vectors to one
+		glEnable(GL_AUTO_NORMAL);
+		glEnable(GL_POLYGON_OFFSET_FILL);
+		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+		glEnable(GL_COLOR_MATERIAL);
+
+		glMultMatrixf(mOGLmat.fMat);
+	}
+}
+// momo random color change bug
 // momo axis ======================================================
 // momo gdi to og2
 void DBase::DrawCrossMarker2D(int size, float r, float g, float b) {
@@ -10739,7 +10804,7 @@ void DBase::MakeAxisCorner(float dx, float dy) {
 	// Step 1: Setup small viewport and camera aligned with main view
 	MakeAxis_CornerSettings1(smallViewportWidth, smallViewportHeight, perspectiveFovY, perspectiveZNear, perspectiveZFar, cameraEyeZ, dx, dy);
 	// Reset OpenGL settings before rendering axis to prevent conflicts
-	glPushAttrib(GL_ENABLE_BIT); // Save current OpenGL state
+	glPushAttrib(GL_ALL_ATTRIB_BITS); // Save current OpenGL state
 	glDisable(GL_LIGHTING); // Disable lighting to avoid color change issues in wireframe mode
 	// Step 2: Draw X/Y/Z axes with arrowheads
 	MakeAxis_MakeAxisShapes(cylRad, cylHeight, coneRad, coneHeight, sphereRad, colorAxis, colorCore);
@@ -10814,7 +10879,7 @@ void DBase::MakeAxisOrigin(bool bWireframeMode) { // base 2
 	float baseSize = (float) min(dWidth, dHeight);
 	float scaleFix;
 	scaleFix = (800.0f / baseSize) * (1.0f / (float) zoomScale) * 0.8f;
-	glPushAttrib(GL_ENABLE_BIT);
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glDisable(GL_LIGHTING);
 	glPushMatrix();
 	if (!bWireframeMode) {
@@ -11120,25 +11185,28 @@ void DBase::OglDraw(DisplayFlags DspFlagsIn) {
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	GLfloat LightPos[] = {0.0f, 0.0f, static_cast<float>(50.0 * WPSize), 1.0f};
-	GLfloat WhiteLight[] = {0.9f, 0.9f, 0.9f};
-	GLfloat light_ambient[] = {0.5f, 0.5f, 0.5f, 0.5f};
-	glLightfv(GL_LIGHT0, GL_POSITION, LightPos);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, WhiteLight);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_ambient);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	GLfloat MAT_S[] = {128.0};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, MAT_S);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-
-	glEnable(GL_NORMALIZE); // Rescale normal vectors to one
-	glEnable(GL_AUTO_NORMAL);
-	glEnable(GL_POLYGON_OFFSET_FILL);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
-
-	glMultMatrixf(mOGLmat.fMat);
+	// momo random color change bug
+	// GLfloat LightPos[] = {0.0f, 0.0f, static_cast<float>(50.0 * WPSize), 1.0f};
+	// GLfloat WhiteLight[] = {0.9f, 0.9f, 0.9f};
+	// GLfloat light_ambient[] = {0.5f, 0.5f, 0.5f, 0.5f};
+	// glLightfv(GL_LIGHT0, GL_POSITION, LightPos);
+	// glLightfv(GL_LIGHT0, GL_SPECULAR, WhiteLight);
+	// glLightfv(GL_LIGHT0, GL_DIFFUSE, light_ambient);
+	// glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	// GLfloat MAT_S[] = {128.0};
+	// glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, MAT_S);
+	// glEnable(GL_LIGHTING);
+	// glEnable(GL_LIGHT0);
+	//
+	// glEnable(GL_NORMALIZE); // Rescale normal vectors to one
+	// glEnable(GL_AUTO_NORMAL);
+	// glEnable(GL_POLYGON_OFFSET_FILL);
+	// glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	// glEnable(GL_COLOR_MATERIAL);
+	//
+	// glMultMatrixf(mOGLmat.fMat);
+	ChangeLightSettings();
+	// momo random color change bug
 	// momo
 	// momo// if ((iDspFlgs & DSP_SHADED_EDGES) > 0) {
 	if (DspFlagsIn.DSP_SHADED_WITH_EDGES) {
@@ -11211,10 +11279,18 @@ void DBase::OglDraw(DisplayFlags DspFlagsIn) {
 		MakeAxisCorner(-0.3f, -0.2f);
 	}
 	// momo axis ======================================================
-
-	glFlush();
-	glFinish();
-	SwapBuffers(wglGetCurrentDC());
+	// momo random color change bug
+	// glFlush();
+	// glFinish();
+	// SwapBuffers(wglGetCurrentDC());
+	ChangeLightSettings();
+	if (bUseDoubleBuffer) {
+		SwapBuffers(wglGetCurrentDC());
+	} else {
+		// glFlush();
+		glFinish();
+	}
+	// momo random color change bug
 }
 
 //***************************************************
@@ -14336,8 +14412,6 @@ int DBase::GetFastView() {
 
 BOOL DBase::bSetupPixelFormat(bool bDBLEBUFF) {
 	// MoMo_Start
-	CAppSettings settings;
-	BOOL bUseDoubleBuffer = settings.ReadDoubleBuffer();
 	DWORD dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_TYPE_RGBA; // support window | upport OpenGL | RGBA type
 	if (bUseDoubleBuffer) {
 		dwFlags |= PFD_DOUBLEBUFFER; // double buffered

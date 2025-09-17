@@ -80,6 +80,9 @@ class CM3daDoc: public CDocument, public CUndo {
 		// momo// void UpTree();
 		void UpTree(CPoint point);
 		// momo gdi to og
+		// momo
+		DBase* GetcDBase();
+		// momo
 		void Dsp_Group();
 
 	public:
@@ -373,6 +376,24 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnElementmodifiyShelloffset();
 		afx_msg void OnMaterialIsentropic();
 		afx_msg void OnPropertymodifyChangematerial();
+		// momo
+		afx_msg void CM3daDoc::OnElementsVisibility0D();
+		afx_msg void CM3daDoc::OnElementsVisibilityMass();
+		afx_msg void CM3daDoc::OnElementsVisibility1D();
+		afx_msg void CM3daDoc::OnElementsVisibilityRod();
+		afx_msg void CM3daDoc::OnElementsVisibilityBeam();
+		afx_msg void CM3daDoc::OnElementsVisibilityTranslationSpring();
+		afx_msg void CM3daDoc::OnElementsVisibilityRotationSpring();
+		afx_msg void CM3daDoc::OnElementsVisibilityRigid();
+		afx_msg void CM3daDoc::OnElementsVisibilityBush();
+		afx_msg void CM3daDoc::OnElementsVisibility2D();
+		afx_msg void CM3daDoc::OnElementsVisibilityTri();
+		afx_msg void CM3daDoc::OnElementsVisibilityQuad();
+		afx_msg void CM3daDoc::OnElementsVisibility3D();
+		afx_msg void CM3daDoc::OnElementsVisibilityTet();
+		afx_msg void CM3daDoc::OnElementsVisibilityWedge();
+		afx_msg void CM3daDoc::OnElementsVisibilityBrick();
+		// momo
 
 	protected:
 		SHORT API_ExportNAS(LPCTSTR inName);
@@ -689,7 +710,36 @@ class CM3daDoc: public CDocument, public CUndo {
 		afx_msg void OnUpdateAxisOriginOff(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateAxisCornerOn(CCmdUI* pCmdUI);
 		afx_msg void OnUpdateAxisCornerOff(CCmdUI* pCmdUI);
-		// MoMo_Start
+		afx_msg void OnUpdateElementsVisibilityAll(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibility0D(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityMass(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibility1D(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityRod(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityBeam(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityTranslationSpring(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityRotationSpring(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityRigid(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityBush(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibility2D(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityTri(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityQuad(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibility3D(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityTet(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityWedge(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementsVisibilityBrick(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeMass(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeRod(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeBeam(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeTranslationalspring(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeRotationalspring(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeRigid(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeBush(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeTri(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeQuad(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeTet(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeWedge(CCmdUI* pCmdUI);
+		afx_msg void OnUpdateElementtypeBrick(CCmdUI* pCmdUI);
+		// MoMo_End
 		// Esp_Mod_Experimental_Toolbar_4_10_2025_Start: Added experimental menu items
 		afx_msg void OnEXP01();
 		afx_msg void OnEXP02();

@@ -113,3 +113,11 @@ In the two newly added commands for adding and using mesh seeds (which are still
 110-Some modifications in the behavior of [Show/Hide] toolbar buttons.
 111-Improved display of the "Information" command report for better readability.
 112-Added "Close Path" option to the "Multiple Continued Line" command (LNC).
+113-Design of a dedicated menu for each text edit box.
+114-Added Lock/Unlock option for each text edit box.
+115-Fixed the issue where the "Top, Bottom, Left, Right, Front, Back" options in the View menu were not working.
+116-A new toolbar "Elements Visibility" has been added.
+117-Zoom now resets to the initial value when executing the command "[Draw] Reset View".
+118-In the "Element Types" toolbar, a pressed (toggled) state was added for the active element.
+119-In the "Element Types" toolbar, the active element is made visible if it is hidden.
+120-Graphics rendering speed has been slightly improved.

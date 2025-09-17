@@ -525,10 +525,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	    {&t_Create, IDR_CREATE, true, 2},
 	    {&t_Selection, IDR_SELECTION_TOOLBAR, true, 0},
 	    {&t_ShowHide, IDR_SHOWHIDE, true, 0},
-	    {&t_QuickFilter, IDR_QFILTER, true, 0},
+	    {&t_ElementVisibility, IDR_ELVISI, true, 0},
 	    {&t_Projection, IDR_PROJ, true, 0},
 	    {&t_Draw, IDR_DRAW, true, 0},
 	    {&t_Experimental, IDR_EXPERIMENTAL, true, 0},
+	    {&t_QuickFilter, IDR_QFILTER, true, 0},
 	    {&t_File, IDR_FILE, true, 0},
 	    {&t_Dimension, IDR_DIMS, true, 0},
 	    {&t_Groups, IDR_GROUP, true, 0},
@@ -611,11 +612,12 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	DockPaneLeftOf(&t_File, &t_Dimension);
 	// Top Row 3:
 	DockPane(&t_Experimental);
-	DockPaneLeftOf(&t_Draw, &t_Experimental);
+	DockPaneLeftOf(&t_QuickFilter, &t_Experimental);
+	DockPaneLeftOf(&t_Draw, &t_QuickFilter);
 	DockPaneLeftOf(&t_Projection, &t_Draw);
 	// Top Row 4:
-	DockPane(&t_QuickFilter);
-	DockPaneLeftOf(&t_ShowHide, &t_QuickFilter);
+	DockPane(&t_ElementVisibility);
+	DockPaneLeftOf(&t_ShowHide, &t_ElementVisibility);
 	DockPaneLeftOf(&t_Selection, &t_ShowHide);
 	// Center:
 	DockPane(&p_Input);
@@ -969,25 +971,106 @@ void CheckPushedButtons(const char* sMode) {
 		DspFlagsMain.DSP_COORD = ButtonPush.GeomOn;
 	} else if (strcmp(sMode, "FiniteOn") == 0) {
 		DspFlagsMain.DSP_NODES = ButtonPush.FiniteOn;
-		DspFlagsMain.DSP_ELEMENTS = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_ALL = ButtonPush.FiniteOn;
 		DspFlagsMain.DSP_BOUNDARY_CONDITIONS = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_0D = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_1D = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_2D = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_3D = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_MASS = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_ROD = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_BEAM = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_RIGID = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_BUSH = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_TRI = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_QUAD = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_TET = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_WEDGE = ButtonPush.FiniteOn;
+		DspFlagsMain.DSP_ELEMENTS_BRICK = ButtonPush.FiniteOn;
+	} else if (strcmp(sMode, "SetAllElements") == 0) {
+		DspFlagsMain.DSP_ELEMENTS_0D = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_1D = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_2D = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_3D = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_MASS = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_ROD = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_BEAM = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_RIGID = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_BUSH = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_TRI = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_QUAD = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_TET = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_WEDGE = DspFlagsMain.DSP_ELEMENTS_ALL;
+		DspFlagsMain.DSP_ELEMENTS_BRICK = DspFlagsMain.DSP_ELEMENTS_ALL;
+	} else if (strcmp(sMode, "SetOneElements") == 0) {
+		if (DspFlagsMain.DSP_ELEMENTS_MASS) {
+			DspFlagsMain.DSP_ELEMENTS_0D = true;
+		} else {
+			DspFlagsMain.DSP_ELEMENTS_0D = false;
+		}
+		if (!DspFlagsMain.DSP_ELEMENTS_1D && DspFlagsMain.DSP_ELEMENTS_ROD && DspFlagsMain.DSP_ELEMENTS_BEAM && DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING //
+		    && DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING && DspFlagsMain.DSP_ELEMENTS_RIGID && DspFlagsMain.DSP_ELEMENTS_BUSH) {
+			DspFlagsMain.DSP_ELEMENTS_1D = true;
+		} else if (DspFlagsMain.DSP_ELEMENTS_1D && !DspFlagsMain.DSP_ELEMENTS_ROD && !DspFlagsMain.DSP_ELEMENTS_BEAM && !DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING //
+		           && !DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING && !DspFlagsMain.DSP_ELEMENTS_RIGID && !DspFlagsMain.DSP_ELEMENTS_BUSH) {
+			DspFlagsMain.DSP_ELEMENTS_1D = false;
+		}
+		if (!DspFlagsMain.DSP_ELEMENTS_2D && DspFlagsMain.DSP_ELEMENTS_TRI && DspFlagsMain.DSP_ELEMENTS_QUAD) {
+			DspFlagsMain.DSP_ELEMENTS_2D = true;
+		} else if (DspFlagsMain.DSP_ELEMENTS_2D && !DspFlagsMain.DSP_ELEMENTS_TRI && !DspFlagsMain.DSP_ELEMENTS_QUAD) {
+			DspFlagsMain.DSP_ELEMENTS_2D = false;
+		}
+		if (!DspFlagsMain.DSP_ELEMENTS_3D && DspFlagsMain.DSP_ELEMENTS_TET && DspFlagsMain.DSP_ELEMENTS_WEDGE && DspFlagsMain.DSP_ELEMENTS_BRICK) {
+			DspFlagsMain.DSP_ELEMENTS_3D = true;
+		} else if (DspFlagsMain.DSP_ELEMENTS_3D && !DspFlagsMain.DSP_ELEMENTS_TET && !DspFlagsMain.DSP_ELEMENTS_WEDGE && !DspFlagsMain.DSP_ELEMENTS_BRICK) {
+			DspFlagsMain.DSP_ELEMENTS_3D = false;
+		}
+		if (!DspFlagsMain.DSP_ELEMENTS_ALL && DspFlagsMain.DSP_ELEMENTS_0D && DspFlagsMain.DSP_ELEMENTS_1D && DspFlagsMain.DSP_ELEMENTS_2D && DspFlagsMain.DSP_ELEMENTS_3D) {
+			DspFlagsMain.DSP_ELEMENTS_ALL = true;
+		} else if (DspFlagsMain.DSP_ELEMENTS_ALL && !DspFlagsMain.DSP_ELEMENTS_0D && !DspFlagsMain.DSP_ELEMENTS_1D && !DspFlagsMain.DSP_ELEMENTS_2D && !DspFlagsMain.DSP_ELEMENTS_3D) {
+			DspFlagsMain.DSP_ELEMENTS_ALL = false;
+		}
+	} else if (strcmp(sMode, "SetGroupElements0D") == 0) {
+		DspFlagsMain.DSP_ELEMENTS_MASS = DspFlagsMain.DSP_ELEMENTS_0D;
+	} else if (strcmp(sMode, "SetGroupElements1D") == 0) {
+		DspFlagsMain.DSP_ELEMENTS_ROD = DspFlagsMain.DSP_ELEMENTS_1D;
+		DspFlagsMain.DSP_ELEMENTS_BEAM = DspFlagsMain.DSP_ELEMENTS_1D;
+		DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING = DspFlagsMain.DSP_ELEMENTS_1D;
+		DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING = DspFlagsMain.DSP_ELEMENTS_1D;
+		DspFlagsMain.DSP_ELEMENTS_RIGID = DspFlagsMain.DSP_ELEMENTS_1D;
+		DspFlagsMain.DSP_ELEMENTS_BUSH = DspFlagsMain.DSP_ELEMENTS_1D;
+	} else if (strcmp(sMode, "SetGroupElements2D") == 0) {
+		DspFlagsMain.DSP_ELEMENTS_TRI = DspFlagsMain.DSP_ELEMENTS_2D;
+		DspFlagsMain.DSP_ELEMENTS_QUAD = DspFlagsMain.DSP_ELEMENTS_2D;
+	} else if (strcmp(sMode, "SetGroupElements3D") == 0) {
+		DspFlagsMain.DSP_ELEMENTS_TET = DspFlagsMain.DSP_ELEMENTS_3D;
+		DspFlagsMain.DSP_ELEMENTS_WEDGE = DspFlagsMain.DSP_ELEMENTS_3D;
+		DspFlagsMain.DSP_ELEMENTS_BRICK = DspFlagsMain.DSP_ELEMENTS_3D;
+		// if (DspFlagsMain.DSP_ELEMENTS_0D && DspFlagsMain.DSP_ELEMENTS_1D && DspFlagsMain.DSP_ELEMENTS_2D && DspFlagsMain.DSP_ELEMENTS_3D) {
+		//	DspFlagsMain.DSP_ELEMENTS_ALL = true;
+		// } else {
+		//	DspFlagsMain.DSP_ELEMENTS_ALL = false;
+		// }
+		//  else if (strcmp(sMode, "Check") == 0) {
+		//	if (ButtonPush.GeomOn && !DspFlagsMain.DSP_POINTS && !DspFlagsMain.DSP_CURVES && !DspFlagsMain.DSP_SURFACES && !DspFlagsMain.DSP_COORD) {
+		//		ButtonPush.GeomOn = false;
+		//		outtext1("All Geom Elements Visibility OFF");
+		//	} else if (!ButtonPush.GeomOn && DspFlagsMain.DSP_POINTS && DspFlagsMain.DSP_CURVES && DspFlagsMain.DSP_SURFACES && DspFlagsMain.DSP_COORD) {
+		//		ButtonPush.GeomOn = true;
+		//		outtext1("All Geom Elements Visibility ON");
+		//	}
+		//	if (ButtonPush.FiniteOn && !DspFlagsMain.DSP_NODES && !DspFlagsMain.DSP_ELEMENTS_ALL && !DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
+		//		ButtonPush.FiniteOn = false;
+		//		outtext1("All Finite Elements Visibility OFF");
+		//	} else if (!ButtonPush.FiniteOn && DspFlagsMain.DSP_NODES && DspFlagsMain.DSP_ELEMENTS_ALL && DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
+		//		ButtonPush.FiniteOn = true;
+		//		outtext1("All Finite Elements Visibility ON");
+		//	}
 	}
-	// else if (strcmp(sMode, "Check") == 0) {
-	//	if (ButtonPush.GeomOn && !DspFlagsMain.DSP_POINTS && !DspFlagsMain.DSP_CURVES && !DspFlagsMain.DSP_SURFACES && !DspFlagsMain.DSP_COORD) {
-	//		ButtonPush.GeomOn = false;
-	//		outtext1("All Geom Elements Visibility OFF");
-	//	} else if (!ButtonPush.GeomOn && DspFlagsMain.DSP_POINTS && DspFlagsMain.DSP_CURVES && DspFlagsMain.DSP_SURFACES && DspFlagsMain.DSP_COORD) {
-	//		ButtonPush.GeomOn = true;
-	//		outtext1("All Geom Elements Visibility ON");
-	//	}
-	//	if (ButtonPush.FiniteOn && !DspFlagsMain.DSP_NODES && !DspFlagsMain.DSP_ELEMENTS && !DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
-	//		ButtonPush.FiniteOn = false;
-	//		outtext1("All Finite Elements Visibility OFF");
-	//	} else if (!ButtonPush.FiniteOn && DspFlagsMain.DSP_NODES && DspFlagsMain.DSP_ELEMENTS && DspFlagsMain.DSP_BOUNDARY_CONDITIONS) {
-	//		ButtonPush.FiniteOn = true;
-	//		outtext1("All Finite Elements Visibility ON");
-	//	}
-	// }
 }
 // momo on off button and menu
 

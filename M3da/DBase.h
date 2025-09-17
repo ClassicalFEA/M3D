@@ -151,6 +151,9 @@ class DBase: public CCmdTarget {
 		void DisplayAll();
 		void ResteFileSettings(bool bMode);
 		// momo change Display Flags Method
+		// momo
+		void DBase::ZoomToBaseScale();
+		// momo
 
 		//*********************************
 
@@ -569,6 +572,9 @@ class DBase: public CCmdTarget {
 		// momo// void DrawDrag(CDC* pDC, CPoint p1, CPoint p2);
 		// momo// void LineDrag(CDC* pDC, CPoint p1, CPoint p2);
 		// momo gdi to og
+		// momo random color change bug
+		void ChangeLightSettings();
+		// momo random color change bug
 		void DBase::GenAnimationW(DisplayFlags DspFlagsIn, int iNoFrames);
 		void DBase::GenAnimationS(DisplayFlags DspFlagsIn, int iNoFrames);
 		void DBase::GenAnimationFrameW(DisplayFlags DspFlagsIn, int iFrameNo, double dF);

@@ -92,12 +92,14 @@ class CM3daView: public CView {
 		afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 		afx_msg void OnViewZoomall();
 		afx_msg void OnMButtonDown(UINT nFlags, CPoint point);
-		afx_msg void OnViewTop();
-		afx_msg void OnViewFront();
-		afx_msg void OnViewLeftxy();
-		afx_msg void OnViewBack();
-		afx_msg void OnViewRight();
-		afx_msg void OnViewBottomxz();
+		// momo
+		// afx_msg void OnViewTop();
+		// afx_msg void OnViewFront();
+		// afx_msg void OnViewLeftxy();
+		// afx_msg void OnViewBack();
+		// afx_msg void OnViewRight();
+		// afx_msg void OnViewBottomxz();
+		// momo
 		afx_msg void OnProjwp();
 		afx_msg void OnProjFront();
 		afx_msg void OnProjBottomxz();

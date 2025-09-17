@@ -1,0 +1,52 @@
+This is the current M3d v7.5 programming interface as defined in ​M3da.tlb
+Unlock the full potential of your engineering projects with our state-of-the-art programming services powered by the M3da API. Our advanced solutions automate complex tasks, streamline workflows, and enhance productivity. Transform your processes, reduce manual effort, and elevate your projects to new heights with our innovative automated engineering solutions. Please contact us here for our Engineering Services here
+​
+See m3dDrive2.xlsm as an example of how to automate M3d from Excel.
+
+M3d API interface as defined in M3d.tlb
+Library: M3da
+Main application class.
+Objects:
+
+    CM3daDoc (dispinterface IM3da)
+    DBase (dispinterface IDBase)
+    G_Object (dispinterface IObject)
+    ME_Object (dispinterface IME_Object)
+
+Dispinterface: IM3da
+Properties:
+
+    ElLen: DOUBLE, property related to element length. (NOT USED, SUPERCEEDED)
+    IMode: SHORT, property for mode identification. (NOT USED, SUPERCEEDED)
+    NoElementsH: SHORT, number of elements horizontally. (NOT USED, SUPERCEEDED)
+    NoElementsW: SHORT, number of elements vertically. (NOT USED, SUPERCEEDED)
+    ElDeg: DOUBLE, property for element degree. (NOT USED, SUPERCEEDED)
+
+Methods:
+
+    GetNo(): void, gets the number of elements.  (NOT USED, SUPERCEEDED)
+    GetModel(): IDispatch*, gets the model DBase.
+    DeleteSelectedWG(): void, deletes the selected waveguide.  (NOT USED, SUPERCEEDED)
+    DesAll(): void, deselects all.
+    ReDraw(): void, redraws the view.
+    GenMesh(): void, generates the mesh.  (NOT USED, SUPERCEEDED)
+    ImportCat(BSTR FileName): void, imports catalog of FEMS.
+    Tog1d2d(): SHORT, toggles between 1D and 2D.  (NOT USED, SUPERCEEDED)
+    ImportWG(BSTR sFName, BSTR WGName): SHORT, imports waveguide.  (NOT USED, SUPERCEEDED)
+    GetDBNoObjs(): LONG, gets the number of database objects.
+    GetName(LONG Index): BSTR, gets the name by index.
+    ImpSecT(BSTR sFName): void, imports section Table.
+    SelectWG(BSTR inName): void, selects waveguide.
+    InvertSel(): void, inverts the selection.
+    AddPoint(DOUBLE x, DOUBLE y, DOUBLE z, LONG Lab): void, adds a point.
+    AddLine(DOUBLE x1, DOUBLE y1, DOUBLE z1, DOUBLE x2, DOUBLE y2, DOUBLE z2, LONG Lab): void, adds a line.
+    ImportWG2(BSTR sFName, BSTR sName): SHORT, imports second waveguide.
+    BuildAssem(LPCTSTR sModName): SHORT, builds assembly.
+    DisplayAll(): void, displays all.
+    ExportUNV(BSTR sFName): SHORT, exports to UNV file.
+    SelectAllWGs(): void, selects all waveguide.
+    ExportNAS(BSTR inName): SHORT, exports to NAS file.
+    MergeNodes(DOUBLE dTol): void, merges nodes.
+    ExportGroups(BSTR sFName): void, exports groups.
+    SendCommand(BSTR sCmd): void, sends command.
+

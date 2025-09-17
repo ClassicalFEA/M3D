@@ -78,6 +78,7 @@ class CMainFrame: public CFrameWndEx {
 		CMFCToolBar t_QuickFilter;
 		CMFCToolBar t_Selection;
 		CMFCToolBar t_ShowHide;
+		CMFCToolBar t_ElementVisibility;
 		CMFCToolBar t_Utils;
 		// momo
 

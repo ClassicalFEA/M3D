@@ -103,7 +103,7 @@ struct DisplayFlags {
 		bool DSP_WIREFRAME;
 		bool DSP_SHADED_WITH_EDGES;
 		bool DSP_NODES;
-		bool DSP_ELEMENTS;
+		bool DSP_ELEMENTS_ALL;
 		bool DSP_BOUNDARY_CONDITIONS;
 		bool DSP_POINTS;
 		bool DSP_CONTROL_POINTS;
@@ -115,6 +115,22 @@ struct DisplayFlags {
 		bool DSP_ELEMENT_COORD_SYS;
 		bool DSP_SURFACE_DIRECTION_MARKERS;
 		bool DSP_GRADIENT_BACKGROUND;
+		bool DSP_ELEMENTS_0D;
+		bool DSP_ELEMENTS_MASS;
+		bool DSP_ELEMENTS_1D;
+		bool DSP_ELEMENTS_ROD;
+		bool DSP_ELEMENTS_BEAM;
+		bool DSP_ELEMENTS_TRANSLATIONALSPRING;
+		bool DSP_ELEMENTS_ROTATIONALSPRING;
+		bool DSP_ELEMENTS_RIGID;
+		bool DSP_ELEMENTS_BUSH;
+		bool DSP_ELEMENTS_2D;
+		bool DSP_ELEMENTS_TRI;
+		bool DSP_ELEMENTS_QUAD;
+		bool DSP_ELEMENTS_3D;
+		bool DSP_ELEMENTS_TET;
+		bool DSP_ELEMENTS_WEDGE;
+		bool DSP_ELEMENTS_BRICK;
 
 		bool DSP_NODES_ASK;
 		bool DSP_OFF;
@@ -139,6 +155,9 @@ extern bool MakingNewFile;
 extern CPoint m_PointOld; // old move point
 extern CPoint m_PointNew; // new move point
 // momo close for LNC
+// momo random color change bug
+extern bool bUseDoubleBuffer;
+// momo random color change bug
 extern BOOL gDSP_BACK;
 extern BOOL gORTHO;
 extern DSP_Triad tOrient;

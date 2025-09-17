@@ -67,6 +67,9 @@ bool MakingNewFile = false;
 CPoint m_PointOld; // old move point
 CPoint m_PointNew; // new move point
 // momo close for LNC
+// momo random color change bug
+bool bUseDoubleBuffer = false;
+// momo random color change bug
 
 // CM3daApp
 
@@ -335,7 +338,7 @@ BOOL CM3daApp::InitInstance() {
 	// such as the name of your company or organization
 	// MoMo_Start
 	// MoMo// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	SetRegistryKey(_T("M3D-DevM-Reg-23"));
+	SetRegistryKey(_T("M3D-DevM-Reg-25"));
 	// MoMo_End
 	// momo
 	SelRowsCurrent[0][0] = -1;
@@ -355,7 +358,7 @@ BOOL CM3daApp::InitInstance() {
 	ButtonPush.ShadedWithoutEdges = false;
 	ButtonPush.FiniteOn = true;
 	DspFlagsMain.DSP_NODES = true;
-	DspFlagsMain.DSP_ELEMENTS = true;
+	DspFlagsMain.DSP_ELEMENTS_ALL = true;
 	DspFlagsMain.DSP_BOUNDARY_CONDITIONS = true;
 	ButtonPush.GeomOn = true;
 	DspFlagsMain.DSP_POINTS = true;
@@ -369,6 +372,22 @@ BOOL CM3daApp::InitInstance() {
 	DspFlagsMain.DSP_ELEMENT_COORD_SYS = true;
 	DspFlagsMain.DSP_SURFACE_DIRECTION_MARKERS = false;
 	DspFlagsMain.DSP_GRADIENT_BACKGROUND = false;
+	DspFlagsMain.DSP_ELEMENTS_0D = true;
+	DspFlagsMain.DSP_ELEMENTS_MASS = true;
+	DspFlagsMain.DSP_ELEMENTS_1D = true;
+	DspFlagsMain.DSP_ELEMENTS_ROD = true;
+	DspFlagsMain.DSP_ELEMENTS_BEAM = true;
+	DspFlagsMain.DSP_ELEMENTS_TRANSLATIONALSPRING = true;
+	DspFlagsMain.DSP_ELEMENTS_ROTATIONALSPRING = true;
+	DspFlagsMain.DSP_ELEMENTS_RIGID = true;
+	DspFlagsMain.DSP_ELEMENTS_BUSH = true;
+	DspFlagsMain.DSP_ELEMENTS_2D = true;
+	DspFlagsMain.DSP_ELEMENTS_TRI = true;
+	DspFlagsMain.DSP_ELEMENTS_QUAD = true;
+	DspFlagsMain.DSP_ELEMENTS_3D = true;
+	DspFlagsMain.DSP_ELEMENTS_TET = true;
+	DspFlagsMain.DSP_ELEMENTS_WEDGE = true;
+	DspFlagsMain.DSP_ELEMENTS_BRICK = true;
 
 	ButtonPush.QfilterNodesOn = false;
 	ButtonPush.QfilterElementsOn = false;
@@ -407,6 +426,9 @@ BOOL CM3daApp::InitInstance() {
 	SelectMode = settings.ReadSelectMode();
 	settings.ReadAxisMode(AxisOrigin, AxisCorner);
 	// momo
+	// momo random color change bug
+	bUseDoubleBuffer = settings.ReadDoubleBuffer();
+	// momo random color change bug
 
 	LoadStdProfileSettings(4); // Load standard INI file options (including MRU)
 
