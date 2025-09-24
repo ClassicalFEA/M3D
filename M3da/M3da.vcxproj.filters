@@ -42,12 +42,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="3dSupport.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mnu.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="MyEditBasicFnc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,64 +54,73 @@
     <ClCompile Include="Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="3dSupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mnu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="G_object.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="DBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FONT_DEF.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputPane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="M3da.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="M3daDoc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="M3daView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainFrm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyEdit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="3dsupport.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mnu.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EditBasic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EEdit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Undo.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SymTable.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="DBase.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditBasic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EEdit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FONT_DEF.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="GLOBAL_VARS.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputPane.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="M3da.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="M3daDoc.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="M3daView.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyEdit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SymTable.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3dsupport.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AppSettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mnu.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,9 +165,6 @@
     <Image Include="res\Toolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\toolbar1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\Toolbar256.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -174,28 +174,52 @@
     <Image Include="res\bmp00009.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bmp00010.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\bmp00011.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\ToolbarSelection.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarShowHide.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarView.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarQuickFilter.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\toolbar1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarSelection32bit4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\experimental.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar1IconTest3.BMP">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ToolbarSelectionTest.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="M3da.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\M3da.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="M3da.reg" />
     <None Include="ClassDiagram.cd" />
+    <None Include="res\M3da.rc2">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="M3da.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

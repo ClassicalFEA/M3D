@@ -34,7 +34,7 @@ res\M3da.ico
     This is an icon file, which is used as the application's icon.  This
     icon is included by the main resource file M3da.rc.
 
-res\M3da.rc2
+M3da.rc2
     This file contains resources that are not edited by Microsoft
     Visual C++. You should place all resources not editable by
     the resource editor in this file.

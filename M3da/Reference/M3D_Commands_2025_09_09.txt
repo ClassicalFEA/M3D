@@ -1,0 +1,190 @@
+ACR		Create acceleration body loads on elements. Select the elements and then specify the acceleration vector ax,ay,az.
+ALIGN		Align two objects. Select the object to move. Pick 3 point on the movable part to align to 3 points on the static part.
+AMEAS		Measure a angle by picking 3 points.
+ARC3PT		Create an arc through 3 points.
+BET		Used inside other commands to specify that the point being entered is a point midway between two other points.
+BOFF		Defines a beam offset. Pick the beam elements to offset from their centre line and then specify the offset vector.
+BSETCR		Create a boundary condition set.
+BSETDEL		Delete a boundary condition set.
+BSETLIST	List all boundary set to list window.
+BUPVEC		Set beam up vector orientation.
+CHKJAC		Check for inverted elements (negative jacobian).
+CHKSHELLASP	Check shell element aspect ratios.
+CHKTETCOL	Check Tet element colapse quality.
+CIR3PT		Create a circle through 3 points.
+CIRCPT		Create a circle by centre point and point on circumference.
+CIRCR		Create a circle by center point and radius.
+CNODES		Check for coincident nodes.
+COL		Change the colour of entities.
+COLINE		Create coordinate systems a long a line of nodes there must be underlying shell elements.
+COORDCR		Create a coordinate system.
+COPY		Copy entities.
+COPYROT		Copy and rotate entities.
+COPYROT2D	Copy and rotate entities only in the xy plain.
+COPYTO		Copy entities from one location to other locations.
+CORNER		Corner trim between two lines.
+CVCR		Create a splined curve by control points.
+CVFIT		Create a fitted curve to selected points.
+CVMOCTR		Change curve style to centre line.
+CVMODASH	Change curve style to dashed line.
+CVMODOT		Change curve style to dotted line.
+CVMOLWM		Change curve line weight to medium.
+CVMOLWT		Change curve line weight to thin.
+CVMOSOL		TBD
+CVMOW		TBD
+CVONSUR		TBD
+CVPTON		TBD
+DELAY		Specify a delay time in the input command line (seconds). Generally used when scripting.
+DES		Deselect all items from the selection buffer.
+DSPALL		Display all entities in database.
+DSPGP		Display the currently selected group.
+DSPSEL		Display just selected entities.
+ECHO		Echos an input string to the output window. 
+ELAT		N/A
+ELCR		Create finite elements by picking nodes, the type of element created is set by ELTYPE command. When the required number of nodes has been selected for the currently selected element type the element will automatically created. This command repeats until canceled.
+ELMOLAB		Modify the element label of a selected set of elements.
+ELMOLAB2	TBD
+ELMOPID		Modify the PID (property) of selected elements.
+ELREV		Reverse element node connectivity.
+ELSWEEP		Sweep elements - beams to shells, shells to solid elements.
+ELTYPE		Change the element type to create when using ELCR command.
+FCR		Create a force, this we be added to the current load set.
+FEDGE		Check shell element for free edges.
+FFACE		Check free faces of solid elements.
+FIL		Fillet two lines with radius.
+FILCLR		Clear the selection filter.
+FILET		Not used.
+FILSET		Set the selection filter. Only items in the filter can be selected from the screen.
+FINDNODE	Finds and returns the ID of the nearest node to a specified coordinate (X,Y,Z).
+FLUXCR		Create heat flux loading for thermal solve, this will be added to the current load set.
+FMESHT		Create a mapped mesh of tri shell elements on a surface.
+GPADD		Add selected entities to the currently active group.
+GPADDGP		Add another group to the currently active group.
+GPBYCOL		Automatically create groups based on element colour.
+GPBYMID		Automatically create groups based on element material.
+GPBYPID		Automatically create groups based on element property (PID).
+GPBYTYPE	Automatically create groups based on element type.
+GPCR		Create a new group and set as the active group.
+GPDEL		Delete a particular group by specifying its ID.
+GPDSP		Display the currently active group.
+GPLIST		List all the groups to the list window.
+GPNDBYCOL	Automatically create groups based on node colour.
+GPNDBYDSYS	Automatically create groups based on node definition coordinate system.
+GPNDBYOSYS	Automatically create groups based on node output coordinate system.
+GPNEXT		Display the next group in the group database.
+GPPREV		Display the previous group in the group database.
+GPREM		Remove selected entities from the currently active group.
+GPREMGP		Remove another group from the currently active group.
+GPSET		Set the active group by specify the group ID.
+INSCAT		Insert a catalog part FEM mesh, used for bespoke assembly meshing applications.
+INT		Used for point acquisition to determine a point located at the intersection of two entities.
+LAB		Select entities by specifying their type and then entering their iDs. For example enter type 1 for nodes and then the node ID or enter a range say 10 100 which will select all nodes from 10 to 100.
+LABENT		N/A
+LMEAS		Linear measure - the distance between two entities.
+LN		Create a line between two points.
+LNANG		Create a line at a specified point at a angle in the XY plain.
+LNX		Create a construction line in X at point.
+LNY		Create a construction line in Y at point.
+LNZ		Create a construction line in Z at point.
+LSETCR		Create a new loadset and set it as the active set.
+LSETDEL		Delete a specified loadset by its ID.
+LSETLIST	List all loadsets to the list window.
+MATLISTALL	List all materials that exist to the list window.
+MCR		Create a moment, this will be added to the current loadset.
+MERNODES	Check and merge coincident nodes in the model.
+MESHQND		Create quad elements between two sets of selected nodes. Each set of nodes must have the same number of nodes.
+MMAT1		Create a isentropic material.
+MMESHQ		Create a mapped mesh of quad elements on a surface.
+MMESHT		Create a mapped mesh of tri elements on a surface.
+MMESHTET	Generate a tet mesh from a tri shell element boundary.
+MOVE		Move entities by translation vector.
+MOVETO		Move entities from one select point to another.
+MQUADTOTRI	Split selected quad element into tri elements.
+MSHELL		Shell coat selected solid elements.
+NDBET		Create a number of nodes between two selected sets of nodes. Either both set of selected nodes must have the same number or one of the sets can have only one member.
+NDCO		Copy nodes by translation vector.
+NDMOLAB		Modify the node label of a selected set of nodes buy adding an increment.
+NDMOLAB2	Modify the node label of a selected set of nodes buy specifying a new start ID to increment from.
+NDMOOSYS	Modify the output coordinate system of a selected set of nodes.
+NDMORSYS	Modify the definition coordinate system of a selected set of nodes.
+NDMOVE		Move nodes by translation vector.
+NDONCV		Create a number of nodes along a selected curve.
+OFFSET		Offset a line by a specified distance.
+PCR		Create pressure loading on shell elements. To apply pressure loading to solid elements they must have a thin shell element coating.
+PRBBAR		Create the property for a solid rectangular shaped bar beam element.
+PRBBOX		Create the property for a hollow rectangular shaped box beam element.
+PRBROD		Create the property for a solid circular shaped rod beam element.
+PRBTUBE		Create the property for a hollow circular shaped tube beam element.
+PRCMAT		Change the material ID referenced by a particular property.
+PRLIST		List a particular properties to the list window.
+PRLISTALL	List all properties in the database to the list window.
+PRMASS		Create the property for a lumped mass element.
+PROJ		Aquire a point location by projecting a point to another object, this can be used withing all commands requiring points acquisition. For example project a point to a line to locate another point.
+PRROD		Create a rod element property.
+PRSHELL		Create a shell element property.
+PRSOLID		Create a solid element property.
+PRSPGR		Create a rotational spring element property.
+PRSPGT		Create a translational spring element property.
+PTCR		Create a point.
+QANG		N/A
+QSIZE		N/A
+QUAD		N/A
+QWNODES		N/A
+RCR		Create a nodal restraint, this will be added to the active boundary condition set.
+RECT		Create a rectangle in the XY plane.
+REFLECT		Reflect entities about a specified plane.
+REFLECT2D	Reflect entities about a line on the XY plane.
+RELTO		Select entities related to other entities. For example select nodes related to element: select elements related to nodes, select forces related to nodes, select forces related to nodes related to elements. This command has a recursive nature so can be chained together. Generally invoked from the right mouse menu during command operations. THIS IS WELL WORTH UNDERSTANDING AS ITS A CORE FEATURE.
+RESDEF		Select the results set and optionally the component for deformed model results display. If the component is omitted the full vector (x,y,z deformations) will be used to deform the model.
+RESDEL		Delete all the finite element analysis results in the database.
+RESLISTEL	Listed the results values posted to selected elements.
+RESREVCOLBAR	Reverse the results display colour bar colours.
+RESSEL		Select the results set and the component for contour results display. Component is not optional unlike RESDEF.
+RESSETCOLBAR	Set the minimum and maximum colour bar limits.
+RESSETDEFSCL	Set the deformation scaling factor for deformed results display.
+RESSETFULLLIST	Lists the currently selected results set header to the list window.
+RESSETLIST	List all available results sets titles and IDs to the list window.
+ROTABOUT	Rotate an object about a vector by a specified angle.
+ROTANG		Rotate an object about a point by specifying three angles RX,TY,RZ.
+SCALE		Scale an object about a point by specifying a scale factor.
+SELALL		Select all objects of a specified type.
+SELBYCOL	Select all elements of a specified colour.
+SELBYMID	Select all elements of a specified material ID.
+SELBYPID	Select all elements of a specified property ID.
+SELBYTYPE	Select all elements of a specified type.
+SELCURCOL	Select all curves of a specified colour.
+SELINV		Invert the selection. All entities on the screen not selected will be selected and those selected will be deselected.
+SELNODESBYCOL	Select all nodes of a specified colour.
+SELPTSCOL	Select all points of a specified colour.
+SELSURFCOL	Select all surfaces of a specified colour.
+SNORM		Checks and corrects shell element normal consistency. Seeds all shell element normals to face in a consistent direction.
+SOFF		Specify offsets for shell elements. Note shell element offsets are not currently supported by M3d's solver.
+SOLACT		Activate current solution by entering ID.
+SOLCR		Create a solution set to define the type analysis to be performed (Linear Static ot Thermal).
+SOLLIST		List all solution sequences currently in the database to the list window.
+SOLVE		Solve the currently active solution sequence.
+SPGMOSYS	Modify spring element coordinate system.
+STEPACT		Activate current step by entering ID.
+STEPCR		Create a solution sequence sub step.
+SURBOUND	Create a surface by boundary curves. The curves must be co-planer and form an enclosed boundary.
+SURCR		Create a lofted surface between curves. Curves must be of the same order and have the same number of control points.
+SUREX		Surface extrude. Extrude curve along a vector to form surfaces.
+SURFUNTRIM	Untrim a surface. Remove all trimming curve loops from a nurbs surface.
+SURRV		Surface revolve. Revolve curves about a vector to form surfaces.
+SURSWEEP	Surface sweep. Sweep curves along a path curve to form surfaces.
+SURTRIM		Create a internal surface trim loop. This must be a continuous curve loop on the and within the boundary of the surface. This loop will become the external boundary of the surface.
+SURTRIMLOOP	Create a internal surface trim loop. This must be a continuous curve loop on the and within the boundary of the surface. This loop will appear as a hole in the surface.
+TBCR		Create a temperature (fixed temperature) boundary condition for a thermal solve. This will be added to the currently active boundary condition set.
+TCR		Create temperature on an element  for thermal strains contributions in a linear static solve. This will be added to the currently active temperature set.
+TEST		For debugging test routines.
+TRAN		Used for point acquisition to determine a point translated from another specified location. Used with other commands for point acquisition.
+TSETACT		Specifies the currently active temperature set.
+TSETDEL		Delete a temperature set of a specified ID.
+TSETLIST	List the temperature sets in the database to the list window.
+WPALIGN		Align the workplane to three selected points.
+WPCENT		Relocate the workplane centre position.
+WPGLOB		Align the workplane to global -reset to default.
+WPMODE		Toggle the workplane between cartesian and polor coordinate mode.
+WPONCV		Locate the workplane normal to a selected curve.
+WPONSURF	Align the workplane to a selected surface.
+WPSIZE		Change the workplane size.

@@ -1,0 +1,59 @@
+This page documents the new features and work in progress for the M3d Finite Element Modeller
+​
+Release Date Notes
+
+    2.52 13/06/11 Pressure loads added for tri and quad Finite Elements. Work in progress to add local coordinate system for defining loads and restraints.
+    2.53 15/06/11 Local displacement coordinate systems added. Work in progress to add thermal strains
+    2.54 16/06/11 Results can now be output in text file format (comma delimited).
+    2.55 08/07/11 Node/Element modify labels added and some minor improvements to the IGES import.
+    2.56 23/12/11 Graphic enhancements for white background
+    2.57 04/03/13 IGES improvements
+    2.58 14/01/14 Groups import from text file and Nastran export revised
+    2.59 06/06/14 Ideas universal file import fixed (nodes & elements). Tri-element bending formulation bug fixed. New material direction display.
+    3.0018/10/14 Major new release.
+    3.30 28/09/16 Moving forward!
+    3.31 21/10/16 Changed and many improvements to drafting with more to come
+    4.00 Beta releases - changes not specified.
+    4.10 25/09/19 Animation added, General beam element added. Nodal results list added.
+    4.20 02/10/19 Bug fix for 4.1 release - Problems with the op2 reader and Tet mesher in 4.1 fixed (apologies).
+    4.30 19/10/19 New FE entity editor, material editor and property edit from a data table dialog added.
+    4.30 03/11/19 Bug fix to shell element formulation.
+    4.31 06/11/19 Results vectors added to post-processing. Note this is the first pass at adding them so treat with caution.
+    4.32 10/11/2019 New post-processing Icons added to toolbar
+    4.33 09/12/2019 New 2d surface meshing added - currently limited to M3d 2d surface by boundaries. also "Show" and "Hide" objects added. 
+    4.34 12/12/2019 Improvements to IGES import. 
+    5.00 06/01/2020 First 64 Bit Version released.
+    5.10 16/02/2020 Nastran Op2 support added for reading acceleration response data from sol 111. Note this version is not file backward compatible with previous releases.
+    5.2 11/04/2020 Non specific updates.
+    5.3 06/07/2020 Beam mesh on curve feature added. PCOMP no off layers bug fixed.
+    5.4 13/06/2020 Undo and Redo added (4 levels of undo)
+    5.5 19/07/2020 Text graphical object added plus case control written to Nastran deck for sol101. Note GRAV cards are not written to the deck.
+    5.6 23/02/2021
+    5.7 08/08/2021 New I, C, T beam sections added and much more!
+    5.8 22/01/2022 Added support for Nastran sol 111 RMS results data, CORD2R bug fixed,
+    5.9 15/05/2022 Support for response data Sol111 Accel, MPC force and CBUSH force - Mag/Phase and Real/Img now read
+    6.0 28/05/2022 New graph plotting support for Nastran sol111 Menu Item:- "Post-Processing->Graph Response Data".
+    6.1 15/01/2023 Various improvements and added functionality.
+    6.2 Missing
+    6.3 18/06/2023 Support for Nastran Include Files
+    6.4 Missing 
+    6.5 22/09/2023 Minor changes but note file format has changed - so not backward compatible.
+    6.6 Missing
+    6.7 03/11/2023 Major enhancements to 2d drawing tools, NEW windows installer .msi file for deployment.
+    6.8 05/11/2023 Background image added, menu item "File->Import->Load BMP"
+    6.9 06/11/2023 Involute .xlsm added to package for video tutorial (WIP)
+    7.0 11/12/2023 New Dimensioning tools and Quick filter added
+    7.1 08/02/2024 New CTRIA and CQUAD element formulations with improved transverse shear.
+    7.2 26/02/2024 Solver updates:- Bar and Shell element now support offsets. Bar now supports end release. New BUSH element. New PSEUDO RBE2 element.
+    7.3 06/03/2024 Case control support for Nastran SOL 101, Nastran GRAV and TEMPD cards added.
+    7.4 11/03/2024 Bug fixes to angular dimension.
+    7.5 10/02/2025 Extended API functionality see M3dDrive2.xlsm
+    7.6 21/02/2025 Bug fixes
+    7.7 07/03/2025 Mystran GUI update. (Tool Tips added)
+    7.8 17/03/2025 Global variable descriptions added.
+    7.9 18/04/2025 Bug fix to entity editor.
+
+Notes:-
+
+    J fac/tor calculated from empirical equations from internet.​
+    May have some display issues with double buffering - switch to single buffering under view menu and close and reopen the m3d file.
